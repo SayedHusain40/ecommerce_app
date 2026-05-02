@@ -1,0 +1,21 @@
+default_platform(:android)
+
+platform :android do
+  desc "Build Flutter production APK and upload to Firebase App Distribution"
+  lane :firebase_distribution do
+
+    # Build Flutter APK
+    sh "flutter clean"
+    sh "flutter build apk --release --flavor production -t lib/main_production.dart --no-tree-shake-icons"
+
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"],           # From Firebase Android app ID
+      testers: "s.husain_10@hotmail.com, tester2@gmail.com",      
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],  # From Firebase login:ci
+      android_artifact_type: "APK",
+      apk_path: "../build/app/outputs/flutter-apk/app-production-release.apk",
+      release_notes: "First Fastlane upload to Firebase App Distribution"
+    )
+
+  end
+end
