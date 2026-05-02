@@ -37,6 +37,19 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    flavorDimensions += "default"
+    productFlavors {
+        create("development") {
+            dimension = "default"
+            resValue("string", "app_name", "QuickMart Dev")
+            applicationIdSuffix = ".development"
+        }
+        create("production") {
+            dimension = "default"
+            resValue("string", "app_name", "QuickMart")
+        }
+    }
 }
 
 flutter {
