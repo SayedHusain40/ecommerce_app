@@ -5,10 +5,10 @@
 import FlutterMacOS
 import Foundation
 
-import flutter_secure_storage_macos
+import firebase_core
 import network_info_plus
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
-  FlutterSecureStoragePlugin.register(with: registry.registrar(forPlugin: "FlutterSecureStoragePlugin"))
+  FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))
   NetworkInfoPlusPlugin.register(with: registry.registrar(forPlugin: "NetworkInfoPlusPlugin"))
 }
