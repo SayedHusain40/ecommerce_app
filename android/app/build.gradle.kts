@@ -46,7 +46,7 @@ android {
         create("development") {
             dimension = "default"
             resValue("string", "app_name", "QuickMart Dev")
-            applicationIdSuffix = ".development"
+            applicationIdSuffix = ".dev"
         }
         create("production") {
             dimension = "default"
