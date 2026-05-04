@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/routing/app_router.dart';
+import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 class QuickMart extends StatelessWidget {
@@ -10,7 +11,7 @@ class QuickMart extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: appRouter.generateRoute,
-      home: Scaffold(body: Center(child: Text('Hello'))),
+      home: Scaffold(body: OnboardingScreen()),
     );
   }
 }

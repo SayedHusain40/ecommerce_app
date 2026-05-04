@@ -1,3 +1,7 @@
+import 'package:ecommerce_app/core/routing/route_names.dart';
+import 'package:ecommerce_app/features/home/ui/home_screen.dart';
+import 'package:ecommerce_app/features/login/ui/login_screen.dart';
+import 'package:ecommerce_app/features/register/ui/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -5,6 +9,12 @@ class AppRouter {
 
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case RouteNames.homeScreen:
+        return MaterialPageRoute(builder: (context) => HomeScreen());
+      case RouteNames.loginScreen:
+        return MaterialPageRoute(builder: (context) => LoginScreen());
+      case RouteNames.registerScreen:
+        return MaterialPageRoute(builder: (context) => RegisterScreen());
       default:
         return MaterialPageRoute(builder: (context) => UndefinedRouteScreen());
     }
