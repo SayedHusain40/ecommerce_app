@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
+import 'package:ecommerce_app/core/theme/constants/app_fonts.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_color_scheme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_elevated_button_theme.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class AppTheme {
   // ---------------- LIGHT THEME ----------------
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
-    // fontFamily: AppFonts.manrope,
+    fontFamily: AppFonts.plusJakartaSans,
     colorScheme: AppColorScheme.light,
 
     // textTheme: AppTextTheme.light,
@@ -24,7 +25,7 @@ class AppTheme {
   // ---------------- DARK THEME ----------------
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
-    // fontFamily: AppFonts.manrope,
+    fontFamily: AppFonts.plusJakartaSans,
     colorScheme: AppColorScheme.dark,
 
     // textTheme: AppTextTheme.dark,
