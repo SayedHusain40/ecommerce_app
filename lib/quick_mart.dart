@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/storage/storage_keys.dart';
 import 'package:ecommerce_app/core/theme/app_theme.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
+import 'package:ecommerce_app/features/register/ui/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class QuickMart extends StatelessWidget {
@@ -14,14 +15,15 @@ class QuickMart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sharedPreferences = getIt<SharedPreferencesService>();
-    final isFirstTime = sharedPreferences.getBool(key: StorageKeys.isFirstTime) ?? true;
+    final isFirstTime =
+        sharedPreferences.getBool(key: StorageKeys.isFirstTime) ?? true;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: appRouter.generateRoute,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: isFirstTime ? const OnboardingScreen() : const LoginScreen(),
+      home: isFirstTime ? const OnboardingScreen() : const RegisterScreen(),
     );
   }
 }
