@@ -1,5 +1,9 @@
+import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routing/app_router.dart';
+import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
+import 'package:ecommerce_app/core/storage/storage_keys.dart';
 import 'package:ecommerce_app/core/theme/app_theme.dart';
+import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +13,15 @@ class QuickMart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sharedPreferences = getIt<SharedPreferencesService>();
+    final isFirstTime = sharedPreferences.getBool(key: StorageKeys.isFirstTime) ?? true;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: appRouter.generateRoute,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: Scaffold(body: OnboardingScreen()),
+      home: isFirstTime ? const OnboardingScreen() : const LoginScreen(),
     );
   }
 }

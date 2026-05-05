@@ -1,12 +1,14 @@
 import 'package:ecommerce_app/core/constants/app_images.dart';
+import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
+import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
+import 'package:ecommerce_app/core/storage/storage_keys.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/onboarding/data/onboarding_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingItem extends StatelessWidget {
   const OnboardingItem({
@@ -27,6 +29,7 @@ class OnboardingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sharedPreferences = getIt<SharedPreferencesService>();
     final brightness = Theme.of(context).brightness;
     final isDark = brightness == Brightness.dark;
 
@@ -65,7 +68,13 @@ class OnboardingItem extends StatelessWidget {
                             ),
                       if (!_isLastPage)
                         TextButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            await sharedPreferences.saveData(
+                              key: 'isFirstTime',
+                              value: false,
+                            );
+                            if (!context.mounted) return;
+
                             context.pushNamedAndRemoveUntil(
                               RouteNames.homeScreen,
                               predicate: (route) => false,
@@ -119,7 +128,13 @@ class OnboardingItem extends StatelessWidget {
                                 ? AppColors.cyan
                                 : AppColors.black,
                           ),
-                          onPressed: () {
+                          onPressed: () async {
+                            await sharedPreferences.saveData(
+                              key: StorageKeys.isFirstTime,
+                              value: false,
+                            );
+                            if (!context.mounted) return;
+
                             context.pushNamedAndRemoveUntil(
                               RouteNames.loginScreen,
                               predicate: (route) => false,
@@ -131,7 +146,12 @@ class OnboardingItem extends StatelessWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            await sharedPreferences.saveData(
+                              key: 'isFirstTime',
+                              value: false,
+                            );
+                            if (!context.mounted) return;
                             context.pushNamedAndRemoveUntil(
                               RouteNames.registerScreen,
                               predicate: (route) => false,
@@ -160,32 +180,6 @@ class OnboardingItem extends StatelessWidget {
                     child: const Text('Next'),
                   ),
             const SizedBox(height: 24),
-
-            // ---------------- INDICATOR ----------------
-            _isFirstPage
-                ? Text(
-                    'Explore a wide range of products',
-                    style: AppTextStyles.headingH1Bold,
-                    textAlign: TextAlign.center,
-                  )
-                : SmoothPageIndicator(
-                    controller: pageController,
-                    count: pagesLength,
-                    effect: SlideEffect(
-                      spacing: 4.0,
-                      dotWidth: 6.0,
-                      dotHeight: 6.0,
-                      dotColor: AppColors.grey100Light,
-                      activeDotColor: AppColors.green,
-                    ),
-                    onDotClicked: (index) {
-                      pageController.animateToPage(
-                        index,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.linear,
-                      );
-                    },
-                  ),
           ],
         ),
       ),
