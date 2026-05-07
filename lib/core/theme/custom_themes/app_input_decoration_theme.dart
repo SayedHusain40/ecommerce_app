@@ -6,6 +6,7 @@ class AppInputDecorationTheme {
   const AppInputDecorationTheme._();
 
   static final InputDecorationTheme light = InputDecorationTheme(
+    contentPadding: const EdgeInsets.fromLTRB(16, 16, 12, 16),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
       borderSide: const BorderSide(color: AppColors.grey50Light),
@@ -25,17 +26,16 @@ class AppInputDecorationTheme {
     disabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
       borderSide: const BorderSide(
-        color: AppColors.grey100Light,
+        color: AppColors.grey100,
       ), // lighter than enabled
     ),
     fillColor: AppColors.white,
     filled: true,
-    hintStyle: AppTextStyles.body3Regular.copyWith(
-      color: AppColors.grey100Light,
-    ),
+    hintStyle: AppTextStyles.body3Regular.copyWith(color: AppColors.grey100),
   );
 
   static final InputDecorationTheme dark = InputDecorationTheme(
+    contentPadding: const EdgeInsets.fromLTRB(16, 18, 12, 18),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
       borderSide: const BorderSide(color: AppColors.grey150Dark),
@@ -54,14 +54,10 @@ class AppInputDecorationTheme {
     ),
     disabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
-      borderSide: const BorderSide(
-        color: AppColors.grey100Light,
-      ), // lighter than enabled
+      borderSide: const BorderSide(color: AppColors.grey100),
     ),
     fillColor: AppColors.black,
     filled: true,
-    hintStyle: AppTextStyles.body4Regular.copyWith(
-      color: AppColors.grey100Light,
-    ),
+    hintStyle: AppTextStyles.body3Regular.copyWith(color: AppColors.grey100),
   );
 }

@@ -28,7 +28,7 @@ extension Navigation on BuildContext {
 
 // String
 extension StringExtention on String? {
-  bool isNullOrEmpty() => this == null || this == '';
+  bool isNullOrEmpty() => this == null || this!.trim().isEmpty;
 }
 
 // List

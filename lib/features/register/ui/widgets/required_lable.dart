@@ -9,20 +9,19 @@ class RequiredLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return RichText(
       text: TextSpan(
         children: [
           TextSpan(
             text: label,
             style: AppTextStyles.body2Medium.copyWith(
-              color: AppColors.black,
+              color: AppColors.whiteOrBlack(brightness),
             ),
           ),
           TextSpan(
             text: ' *',
-            style: AppTextStyles.body2Medium.copyWith(
-              color: AppColors.red,
-            ),
+            style: AppTextStyles.body2Medium.copyWith(color: AppColors.red),
           ),
         ],
       ),

@@ -54,7 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   spacing: 4.0,
                   dotWidth: 6.0,
                   dotHeight: 6.0,
-                  dotColor: AppColors.grey100Light,
+                  dotColor: AppColors.grey100,
                   activeDotColor: AppColors.green,
                 ),
                 onDotClicked: (index) {
