@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/auth/auth.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routing/app_router.dart';
 import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
@@ -27,10 +28,7 @@ class QuickMart extends StatelessWidget {
       darkTheme: AppTheme.darkTheme,
       home: isFirstTime
           ? const OnboardingScreen()
-          : BlocProvider(
-              create: (context) => getIt<RegisterCubit>(),
-              child: const RegisterScreen(),
-            ),
+          : const Auth(),
     );
   }
 }

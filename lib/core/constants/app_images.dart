@@ -26,8 +26,12 @@ class AppImages {
 
   static const String googleLight = 'assets/svgs/google_light.svg';
 
+  static const String tickCircleLight = 'assets/svgs/tick-circle_light.svg';
+  static const String tickCircleDark = 'assets/svgs/tick-circle_dark.svg';
+  
   static String logo(Brightness b) =>
       b == Brightness.dark ? logoDark : logoLight;
+
   static String arrowLeft(Brightness b) =>
       b == Brightness.dark ? arrowLeftDark : arrowLeftLight;
 
@@ -37,4 +41,6 @@ class AppImages {
   static String eyeOff(Brightness b) =>
       b == Brightness.dark ? eyeOffDark : eyeOffLight;
 
+  static String tickCircle(Brightness b) =>
+      b == Brightness.dark ? tickCircleDark : tickCircleLight;
 }
