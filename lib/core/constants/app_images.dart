@@ -18,9 +18,29 @@ class AppImages {
 
   static const String arrowRightLight = 'assets/svgs/arrow-right_light.svg';
 
+  static const String eyeLight = 'assets/svgs/eye_light.svg';
+  static const String eyeDark = 'assets/svgs/eye_dark.svg';
+
+  static const String eyeOffLight = 'assets/svgs/eye_off_light.svg';
+  static const String eyeOffDark = 'assets/svgs/eye_off_dark.svg';
+
+  static const String googleLight = 'assets/svgs/google_light.svg';
+
+  static const String tickCircleLight = 'assets/svgs/tick-circle_light.svg';
+  static const String tickCircleDark = 'assets/svgs/tick-circle_dark.svg';
+  
   static String logo(Brightness b) =>
       b == Brightness.dark ? logoDark : logoLight;
+
   static String arrowLeft(Brightness b) =>
       b == Brightness.dark ? arrowLeftDark : arrowLeftLight;
 
+  static String eyeOpen(Brightness b) =>
+      b == Brightness.dark ? eyeDark : eyeLight;
+
+  static String eyeOff(Brightness b) =>
+      b == Brightness.dark ? eyeOffDark : eyeOffLight;
+
+  static String tickCircle(Brightness b) =>
+      b == Brightness.dark ? tickCircleDark : tickCircleLight;
 }

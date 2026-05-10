@@ -76,7 +76,7 @@ class OnboardingItem extends StatelessWidget {
                             if (!context.mounted) return;
 
                             context.pushNamedAndRemoveUntil(
-                              RouteNames.homeScreen,
+                              RouteNames.loginScreen,
                               predicate: (route) => false,
                             );
                           },
