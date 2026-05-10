@@ -2,7 +2,7 @@ import 'package:ecommerce_app/core/auth/models/user_credential_model.dart';
 import 'package:ecommerce_app/core/auth/models/user_request_model.dart';
 import 'package:ecommerce_app/core/errors/error_handler.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
-import 'package:ecommerce_app/core/network/api/result.dart';
+import 'package:ecommerce_app/core/result/app_result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterRepo {
@@ -10,7 +10,7 @@ class RegisterRepo {
 
   RegisterRepo(this.firebaseAuth);
 
-  Future<Result<UserCredentialModel>> createUserWithEmailAndPassword(
+  Future<AppResult<UserCredentialModel>> createUserWithEmailAndPassword(
     UserRequestModel userRequestModel,
   ) async {
     try {
@@ -31,10 +31,10 @@ class RegisterRepo {
         email: user.email,
       );
 
-      return Result.success(userCredentialModel);
+      return AppResult.success(userCredentialModel);
     } catch (e) {
       final failure = ErrorHandler.handle(e);
-      return Result.failure(failure);
+      return AppResult.failure(failure);
     }
   }
   

@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/auth/models/user_request_model.dart';
 import 'package:ecommerce_app/core/auth/repos/auth_repo.dart';
-import 'package:ecommerce_app/core/network/api/result.dart';
+import 'package:ecommerce_app/core/result/app_result.dart';
 import 'package:ecommerce_app/features/register/data/repos/register_repo.dart';
 import 'package:ecommerce_app/features/register/logic/register_state.dart';
 import 'package:flutter/material.dart';

@@ -1,15 +1,11 @@
-import 'package:ecommerce_app/core/auth/auth.dart';
+import 'package:ecommerce_app/core/auth/app_auth_state.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routing/app_router.dart';
 import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
 import 'package:ecommerce_app/core/storage/storage_keys.dart';
 import 'package:ecommerce_app/core/theme/app_theme.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
-import 'package:ecommerce_app/features/register/data/repos/register_repo.dart';
-import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
-import 'package:ecommerce_app/features/register/ui/screens/register_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class QuickMart extends StatelessWidget {
   final AppRouter appRouter;
@@ -26,9 +22,7 @@ class QuickMart extends StatelessWidget {
       onGenerateRoute: appRouter.generateRoute,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: isFirstTime
-          ? const OnboardingScreen()
-          : const Auth(),
+      home: isFirstTime ? const OnboardingScreen() : const AppAuthState(),
     );
   }
 }

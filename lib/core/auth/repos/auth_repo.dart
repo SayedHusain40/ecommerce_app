@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/auth/models/user_credential_model.dart';
 import 'package:ecommerce_app/core/errors/error_handler.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
-import 'package:ecommerce_app/core/network/api/result.dart';
+import 'package:ecommerce_app/core/result/app_result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -11,7 +11,7 @@ class AuthRepo {
 
   AuthRepo(this.firebaseAuth, this.googleSignIn);
 
-  Future<Result<UserCredentialModel>> continueWithGoogle() async {
+  Future<AppResult<UserCredentialModel>> continueWithGoogle() async {
     try {
       final googleUser = await googleSignIn.authenticate();
       final googleAuth = googleUser.authentication;
@@ -32,10 +32,10 @@ class AuthRepo {
         email: user.email,
       );
 
-      return Result.success(userCredentialModel);
+      return AppResult.success(userCredentialModel);
     } catch (e) {
       final failure = ErrorHandler.handle(e);
-      return Result.failure(failure);
+      return AppResult.failure(failure);
     }
   }
 }
