@@ -4,6 +4,7 @@ import 'package:ecommerce_app/core/theme/custom_themes/app_color_scheme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_elevated_button_theme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_input_decoration_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppTheme {
   AppTheme._();
@@ -20,7 +21,15 @@ class AppTheme {
     elevatedButtonTheme: AppElevatedButtonTheme.light,
     // bottomSheetTheme: AppBottomSheetTheme.light,
     inputDecorationTheme: AppInputDecorationTheme.light,
+
     // checkboxTheme: AppCheckboxTheme.light,
+    appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: AppColors.white,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light, // iOS only
+      ),
+    ),
   );
 
   // ---------------- DARK THEME ----------------
@@ -35,7 +44,15 @@ class AppTheme {
     elevatedButtonTheme: AppElevatedButtonTheme.dark,
     // bottomSheetTheme: AppBottomSheetTheme.dark,
     inputDecorationTheme: AppInputDecorationTheme.dark,
+
     // checkboxTheme: AppCheckboxTheme.dark,
+    appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: AppColors.black,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark, // iOS only
+      ),
+    ),
   );
 }
 

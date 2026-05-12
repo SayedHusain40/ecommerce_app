@@ -38,4 +38,14 @@ class AuthRepo {
       return AppResult.failure(failure);
     }
   }
+
+  Future<AppResult<void>> logout() async {
+    try {
+      await firebaseAuth.signOut();
+      return AppResult.success(null);
+    } catch (e) {
+      final failure = ErrorHandler.handle(e);
+      return AppResult.failure(failure);
+    }
+  }
 }

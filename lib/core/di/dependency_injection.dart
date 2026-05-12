@@ -7,6 +7,8 @@ import 'package:ecommerce_app/core/network/connection/network_info.dart';
 import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
 import 'package:ecommerce_app/features/register/data/repos/register_repo.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
+import 'package:ecommerce_app/features/verify_email/data/repos/verify_email_repo.dart';
+import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -50,9 +52,13 @@ Future<void> setUpGetIt() async {
   // Repositories
   getIt.registerLazySingleton<RegisterRepo>(() => RegisterRepo(getIt()));
   getIt.registerLazySingleton<AuthRepo>(() => AuthRepo(getIt(), getIt()));
+  getIt.registerLazySingleton<VerifyEmailRepo>(() => VerifyEmailRepo(getIt()));
 
   // Cubits
   getIt.registerLazySingleton<RegisterCubit>(
     () => RegisterCubit(getIt(), getIt()),
+  );
+  getIt.registerLazySingleton<VerifyEmailCubit>(
+    () => VerifyEmailCubit(getIt(), getIt()),
   );
 }
