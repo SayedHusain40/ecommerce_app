@@ -110,6 +110,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (value.isNullOrEmpty()) {
                                   return 'Name is Required';
                                 }
+                                if (!Regex.isAlphaOnly(value!)) {
+                                  return 'Name must contain letters only';
+                                }
+                                if (value.trim().length < 3) {
+                                  return 'Name must be at least 3 characters';
+                                }
+                                if (value.trim().length > 50) {
+                                  return 'Name must be at most 50 characters';
+                                }
+
                                 return null;
                               },
                             ),
@@ -157,8 +167,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                   ),
                                   validator: (value) {
-                                    if (value == null || value.length <= 5) {
-                                      return 'Password should be At least 6 characters';
+                                    if (value.isNullOrEmpty()) {
+                                      return 'Password is Required';
+                                    }
+
+                                    final List<String> errors = [
+                                      if (!Regex.hasMinLength(value!))
+                                        '- Password must be at least 6 characters',
+
+                                      if (!Regex.hasUpperCase(value))
+                                        '- Must contain an uppercase letter',
+                                      if (!Regex.hasLowerCase(value))
+                                        '- Must contain a lowercase letter',
+                                      if (!Regex.hasNumber(value))
+                                        '- Must contain a number',
+                                      if (!Regex.hasSpecialCharacter(value))
+                                        '- Must contain a special character',
+                                    ];
+
+                                    if (errors.isNotEmpty) {
+                                      return errors.join('\n');
                                     }
                                     return null;
                                   },
@@ -177,36 +205,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   : Text('Create Account'),
                             ),
                             SizedBox(height: 16),
-                            Container(
-                              height: 60,
-                              alignment: .center,
-                              padding: .symmetric(horizontal: 10),
-                              child: TextButton(
-                                onPressed: isLoading
-                                    ? null
-                                    : () async {
-                                        await cubit.continueWithGoogle();
-                                      },
-                                child: Row(
-                                  mainAxisAlignment: .center,
-                                  crossAxisAlignment: .center,
-                                  mainAxisSize: .min,
-                                  children: [
-                                    isLoading
-                                        ? CircularProgressIndicator()
-                                        : Text(
-                                            'Signup with Google',
-                                            style: AppTextStyles.button2
-                                                .copyWith(
-                                                  color: AppColors.whiteOrBlack(
-                                                    brightness,
-                                                  ),
-                                                ),
-                                          ),
-                                    SizedBox(width: 8),
-                                    SvgPicture.asset(AppImages.googleLight),
-                                  ],
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.black,
+                                side: BorderSide(
+                                  color: AppColors.grey50(brightness),
                                 ),
+                              ),
+                              onPressed: isLoading
+                                  ? null
+                                  : () async {
+                                      await cubit.continueWithGoogle();
+                                    },
+                              child: Row(
+                                mainAxisAlignment: .center,
+                                crossAxisAlignment: .center,
+                                children: [
+                                  isLoading
+                                      ? CircularProgressIndicator()
+                                      : Text(
+                                          'Signup with Google',
+                                          style: AppTextStyles.button2.copyWith(
+                                            color: AppColors.whiteOrBlack(
+                                              brightness,
+                                            ),
+                                          ),
+                                        ),
+                                  SizedBox(width: 8),
+                                  SvgPicture.asset(AppImages.googleLight),
+                                ],
                               ),
                             ),
                           ],

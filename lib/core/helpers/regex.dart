@@ -17,6 +17,10 @@ class Regex {
     return RegExp(r'^(?:\+973|973)?3\d{7}$').hasMatch(phone.trim());
   }
 
+  static bool isAlphaOnly(String value) {
+    return RegExp(r"^[a-zA-Z\s]+$").hasMatch(value.trim());
+  }
+
   static bool hasLowerCase(String password) =>
       RegExp(r'(?=.*[a-z])').hasMatch(password);
 
@@ -29,5 +33,5 @@ class Regex {
   static bool hasSpecialCharacter(String password) =>
       RegExp(r'(?=.*[#?!@$%^&*-])').hasMatch(password);
 
-  static bool hasMinLength(String password) => password.length >= 8;
+  static bool hasMinLength(String password) => password.length >= 6;
 }
