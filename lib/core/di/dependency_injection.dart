@@ -5,6 +5,8 @@ import 'package:ecommerce_app/core/network/api/api_service.dart';
 import 'package:ecommerce_app/core/network/api/dio_factory.dart';
 import 'package:ecommerce_app/core/network/connection/network_info.dart';
 import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
+import 'package:ecommerce_app/features/login/data/repos/login_repo.dart';
+import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/register/data/repos/register_repo.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/data/repos/verify_email_repo.dart';
@@ -53,12 +55,17 @@ Future<void> setUpGetIt() async {
   getIt.registerLazySingleton<RegisterRepo>(() => RegisterRepo(getIt()));
   getIt.registerLazySingleton<AuthRepo>(() => AuthRepo(getIt(), getIt()));
   getIt.registerLazySingleton<VerifyEmailRepo>(() => VerifyEmailRepo(getIt()));
+  getIt.registerLazySingleton<LoginRepo>(() => LoginRepo(getIt()));
 
   // Cubits
-  getIt.registerLazySingleton<RegisterCubit>(
+  getIt.registerFactory<RegisterCubit>(
     () => RegisterCubit(getIt(), getIt()),
   );
-  getIt.registerLazySingleton<VerifyEmailCubit>(
+  getIt.registerFactory<VerifyEmailCubit>(
     () => VerifyEmailCubit(getIt(), getIt()),
   );
+  getIt.registerFactory<LoginCubit>(
+    () => LoginCubit(getIt(), getIt()),
+  );
 }
+

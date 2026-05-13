@@ -26,7 +26,7 @@ class AppElevatedButtonTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         textStyle: AppTextStyles.button2,
         minimumSize: const Size(double.infinity, 60),
-        fixedSize:  const Size(double.infinity, 60),
+        // fixedSize:  const Size(double.infinity, 60),
       ),
   );
 }

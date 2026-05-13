@@ -1,7 +1,9 @@
+import 'package:ecommerce_app/core/constants/app_images.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   const VerifyEmailScreen({super.key});
@@ -26,8 +28,18 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Verify Email'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('Email Verification'),
+        leading: IconButton(
+          onPressed: () async {
+            await context.read<VerifyEmailCubit>().logout();
+          },
+          icon: SvgPicture.asset(AppImages.arrowLeft(brightness)),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -60,6 +72,12 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         content: Text('Send a verification email successfully'),
                       ),
                     );
+                  },
+                  sendEmailFailure: (appFailure) {
+                    final message = appFailure.message;
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(message)));
                   },
                 );
               },

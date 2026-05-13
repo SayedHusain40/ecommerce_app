@@ -1,69 +1,70 @@
 import 'package:ecommerce_app/core/auth/models/user_request_model.dart';
 import 'package:ecommerce_app/core/auth/repos/auth_repo.dart';
 import 'package:ecommerce_app/core/result/app_result.dart';
-import 'package:ecommerce_app/features/register/data/repos/register_repo.dart';
-import 'package:ecommerce_app/features/register/logic/register_state.dart';
+import 'package:ecommerce_app/features/login/data/repos/login_repo.dart';
+import 'package:ecommerce_app/features/login/logic/login_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegisterCubit extends Cubit<RegisterState> {
-  final RegisterRepo registerRepo;
+class LoginCubit extends Cubit<LoginState> {
+  final LoginRepo loginRepo;
   final AuthRepo authRepo;
 
-  RegisterCubit(this.registerRepo, this.authRepo)
-    : super(RegisterState.initial());
+  LoginCubit(this.loginRepo, this.authRepo) : super(LoginState.initial());
 
   final formKey = GlobalKey<FormState>();
 
-  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   void resetState() {
-    nameController.clear();
     emailController.clear();
     passwordController.clear();
-    emit(RegisterState.initial());
+    emit(LoginState.initial());
   }
 
-  Future<void> register() async {
+  Future<void> login() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    emit(RegisterState.registerLoading());
+    emit(LoginState.loginLoading());
 
     final userRequestModel = UserRequestModel(
-      name: nameController.text,
       email: emailController.text,
       password: passwordController.text,
     );
-    final result = await registerRepo.createUserWithEmailAndPassword(
-      userRequestModel,
-    );
+    final result = await loginRepo.signInWithEmailAndPassword(userRequestModel);
 
     result.when(
       success: (data) {
-        emit(RegisterState.registerSuccess('Register Successfully'));
+        if (isClosed) return;
+        emit(LoginState.loginSuccess('Login Successfully'));
       },
       failure: (appFailure) {
-        emit(RegisterState.registerFailure(appFailure));
+        emit(LoginState.loginFailure(appFailure));
       },
     );
   }
 
   Future<void> continueWithGoogle() async {
-    emit(RegisterState.registerLoading());
+    emit(LoginState.loginLoading());
 
     final result = await authRepo.continueWithGoogle();
 
     result.when(
       success: (data) {
-        emit(RegisterState.registerSuccess('Register Successfully'));
+        emit(LoginState.loginSuccess('Login Successfully'));
       },
       failure: (appFailure) {
-        emit(RegisterState.registerFailure(appFailure));
+        emit(LoginState.loginFailure(appFailure));
       },
     );
   }
 
+  @override
+  Future<void> close() {
+    emailController.dispose();
+    passwordController.dispose();
+    return super.close();
+  }
 }

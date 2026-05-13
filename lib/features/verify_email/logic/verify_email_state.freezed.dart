@@ -131,13 +131,13 @@ return logOutFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  verifyEmailLoading,TResult Function()?  sendEmailVerification,TResult Function()?  sendEmailFailure,TResult Function()?  logOutFailure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  verifyEmailLoading,TResult Function()?  sendEmailVerification,TResult Function( AppFailure appFailure)?  sendEmailFailure,TResult Function()?  logOutFailure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when verifyEmailLoading != null:
 return verifyEmailLoading();case SendEmailVerification() when sendEmailVerification != null:
 return sendEmailVerification();case SendEmailFailure() when sendEmailFailure != null:
-return sendEmailFailure();case LogOutFailure() when logOutFailure != null:
+return sendEmailFailure(_that.appFailure);case LogOutFailure() when logOutFailure != null:
 return logOutFailure();case _:
   return orElse();
 
@@ -156,13 +156,13 @@ return logOutFailure();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  verifyEmailLoading,required TResult Function()  sendEmailVerification,required TResult Function()  sendEmailFailure,required TResult Function()  logOutFailure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  verifyEmailLoading,required TResult Function()  sendEmailVerification,required TResult Function( AppFailure appFailure)  sendEmailFailure,required TResult Function()  logOutFailure,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case Loading():
 return verifyEmailLoading();case SendEmailVerification():
 return sendEmailVerification();case SendEmailFailure():
-return sendEmailFailure();case LogOutFailure():
+return sendEmailFailure(_that.appFailure);case LogOutFailure():
 return logOutFailure();case _:
   throw StateError('Unexpected subclass');
 
@@ -180,13 +180,13 @@ return logOutFailure();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  verifyEmailLoading,TResult? Function()?  sendEmailVerification,TResult? Function()?  sendEmailFailure,TResult? Function()?  logOutFailure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  verifyEmailLoading,TResult? Function()?  sendEmailVerification,TResult? Function( AppFailure appFailure)?  sendEmailFailure,TResult? Function()?  logOutFailure,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case Loading() when verifyEmailLoading != null:
 return verifyEmailLoading();case SendEmailVerification() when sendEmailVerification != null:
 return sendEmailVerification();case SendEmailFailure() when sendEmailFailure != null:
-return sendEmailFailure();case LogOutFailure() when logOutFailure != null:
+return sendEmailFailure(_that.appFailure);case LogOutFailure() when logOutFailure != null:
 return logOutFailure();case _:
   return null;
 
@@ -295,33 +295,67 @@ String toString() {
 
 
 class SendEmailFailure implements VerifyEmailState {
-  const SendEmailFailure();
+  const SendEmailFailure(this.appFailure);
   
 
+ final  AppFailure appFailure;
 
-
+/// Create a copy of VerifyEmailState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SendEmailFailureCopyWith<SendEmailFailure> get copyWith => _$SendEmailFailureCopyWithImpl<SendEmailFailure>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SendEmailFailure);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SendEmailFailure&&(identical(other.appFailure, appFailure) || other.appFailure == appFailure));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,appFailure);
 
 @override
 String toString() {
-  return 'VerifyEmailState.sendEmailFailure()';
+  return 'VerifyEmailState.sendEmailFailure(appFailure: $appFailure)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $SendEmailFailureCopyWith<$Res> implements $VerifyEmailStateCopyWith<$Res> {
+  factory $SendEmailFailureCopyWith(SendEmailFailure value, $Res Function(SendEmailFailure) _then) = _$SendEmailFailureCopyWithImpl;
+@useResult
+$Res call({
+ AppFailure appFailure
+});
 
 
+
+
+}
+/// @nodoc
+class _$SendEmailFailureCopyWithImpl<$Res>
+    implements $SendEmailFailureCopyWith<$Res> {
+  _$SendEmailFailureCopyWithImpl(this._self, this._then);
+
+  final SendEmailFailure _self;
+  final $Res Function(SendEmailFailure) _then;
+
+/// Create a copy of VerifyEmailState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? appFailure = null,}) {
+  return _then(SendEmailFailure(
+null == appFailure ? _self.appFailure : appFailure // ignore: cast_nullable_to_non_nullable
+as AppFailure,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
