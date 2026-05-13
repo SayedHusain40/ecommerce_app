@@ -3,11 +3,13 @@ import 'package:ecommerce_app/core/theme/constants/app_fonts.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_color_scheme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_elevated_button_theme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_input_decoration_theme.dart';
+import 'package:ecommerce_app/core/theme/custom_themes/app_text_button_theme.dart';
+import 'package:ecommerce_app/core/theme/custom_themes/bar_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AppTheme {
-  AppTheme._();
+  const AppTheme._();
 
   // ---------------- LIGHT THEME ----------------
   static final ThemeData lightTheme = ThemeData(
@@ -17,19 +19,13 @@ class AppTheme {
 
     // textTheme: AppTextTheme.light,
     scaffoldBackgroundColor: AppColors.white,
-    // appBarTheme: BarTheme.light,
+    appBarTheme: BarTheme.light,
     elevatedButtonTheme: AppElevatedButtonTheme.light,
-    // bottomSheetTheme: AppBottomSheetTheme.light,
+    textButtonTheme: AppTextButtonTheme.light,
     inputDecorationTheme: AppInputDecorationTheme.light,
 
+    // bottomSheetTheme: AppBottomSheetTheme.light,
     // checkboxTheme: AppCheckboxTheme.light,
-    appBarTheme: const AppBarTheme(
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: AppColors.white,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.light, // iOS only
-      ),
-    ),
   );
 
   // ---------------- DARK THEME ----------------
@@ -40,19 +36,12 @@ class AppTheme {
 
     // textTheme: AppTextTheme.dark,
     scaffoldBackgroundColor: AppColors.black,
-    // appBarTheme: BarTheme.dark,
+    appBarTheme: BarTheme.dark,
     elevatedButtonTheme: AppElevatedButtonTheme.dark,
-    // bottomSheetTheme: AppBottomSheetTheme.dark,
+    textButtonTheme: AppTextButtonTheme.dark,
     inputDecorationTheme: AppInputDecorationTheme.dark,
-
+    // bottomSheetTheme: AppBottomSheetTheme.dark,
     // checkboxTheme: AppCheckboxTheme.dark,
-    appBarTheme: const AppBarTheme(
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: AppColors.black,
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark, // iOS only
-      ),
-    ),
   );
 }
 

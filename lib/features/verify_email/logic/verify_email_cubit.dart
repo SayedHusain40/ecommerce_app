@@ -16,10 +16,12 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
 
     result.when(
       success: (data) {
+        if (isClosed) return;
         emit(VerifyEmailState.sendEmailVerification());
       },
       failure: (appFailure) {
-        emit(VerifyEmailState.sendEmailVerification());
+        if (isClosed) return;
+        emit(VerifyEmailState.sendEmailFailure(appFailure));
       },
     );
   }
@@ -29,9 +31,11 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
 
     result.when(
       success: (data) {
+        if (isClosed) return;
         emit(VerifyEmailState.initial());
       },
       failure: (appFailure) {
+        if (isClosed) return;
         emit(VerifyEmailState.logOutFailure());
       },
     );

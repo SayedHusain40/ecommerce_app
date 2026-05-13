@@ -5,17 +5,17 @@ import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/result/app_result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class RegisterRepo {
+class LoginRepo {
   final FirebaseAuth firebaseAuth;
 
-  RegisterRepo(this.firebaseAuth);
+  LoginRepo(this.firebaseAuth);
 
-  Future<AppResult<UserCredentialModel>> createUserWithEmailAndPassword(
+  Future<AppResult<UserCredentialModel>> signInWithEmailAndPassword(
     UserRequestModel userRequestModel,
   ) async {
     try {
       final UserCredential response = await firebaseAuth
-          .createUserWithEmailAndPassword(
+          .signInWithEmailAndPassword(
             email: userRequestModel.email,
             password: userRequestModel.password,
           );
@@ -31,12 +31,11 @@ class RegisterRepo {
         email: user.email,
       );
 
-      await response.user?.updateDisplayName(userRequestModel.name);
-
       return AppResult.success(userCredentialModel);
     } catch (e) {
       final failure = ErrorHandler.handle(e);
       return AppResult.failure(failure);
     }
   }
+  
 }

@@ -6,7 +6,7 @@ import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/register/logic/register_state.dart';
-import 'package:ecommerce_app/features/register/ui/widgets/required_lable.dart';
+import 'package:ecommerce_app/core/widgets/required_lable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,6 +77,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ScaffoldMessenger.of(
                           context,
                         ).showSnackBar(SnackBar(content: Text(message)));
+                        context.pushNamedAndRemoveUntil(
+                          RouteNames.appAuthState,
+                          predicate: (route) => false,
+                        );
                       },
                       registerFailure: (appFailure) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -205,13 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   : Text('Create Account'),
                             ),
                             SizedBox(height: 16),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.black,
-                                side: BorderSide(
-                                  color: AppColors.grey50(brightness),
-                                ),
-                              ),
+                            TextButton(
                               onPressed: isLoading
                                   ? null
                                   : () async {
@@ -221,18 +219,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 mainAxisAlignment: .center,
                                 crossAxisAlignment: .center,
                                 children: [
-                                  isLoading
-                                      ? CircularProgressIndicator()
-                                      : Text(
-                                          'Signup with Google',
-                                          style: AppTextStyles.button2.copyWith(
-                                            color: AppColors.whiteOrBlack(
-                                              brightness,
-                                            ),
-                                          ),
-                                        ),
-                                  SizedBox(width: 8),
-                                  SvgPicture.asset(AppImages.googleLight),
+                                  if (isLoading)
+                                    CircularProgressIndicator()
+                                  else ...[
+                                    Text(
+                                      'Signup with Google',
+                                      style: AppTextStyles.button2,
+                                    ),
+                                    SizedBox(width: 8),
+                                    SvgPicture.asset(AppImages.googleLight),
+                                  ],
                                 ],
                               ),
                             ),

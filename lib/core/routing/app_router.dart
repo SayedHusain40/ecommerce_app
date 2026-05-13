@@ -1,20 +1,39 @@
+import 'package:ecommerce_app/core/auth/app_auth_state.dart';
+import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
-import 'package:ecommerce_app/features/home/ui/home_screen.dart';
+import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
+import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
+import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/register/ui/screens/register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
   const AppRouter();
 
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case RouteNames.homeScreen:
-        return MaterialPageRoute(builder: (context) => HomeScreen());
+      case RouteNames.appAuthState:
+        return MaterialPageRoute(builder: (context) => AppAuthState());
+      case RouteNames.onBoardingScreen:
+        return MaterialPageRoute(builder: (context) => OnboardingScreen());
+      // case RouteNames.homeScreen:
+      //   return MaterialPageRoute(builder: (context) => HomeScreen());
       case RouteNames.loginScreen:
-        return MaterialPageRoute(builder: (context) => LoginScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<LoginCubit>(),
+            child: LoginScreen(),
+          ),
+        );
       case RouteNames.registerScreen:
-        return MaterialPageRoute(builder: (context) => RegisterScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<RegisterCubit>(),
+            child: RegisterScreen(),
+          ),
+        );
       default:
         return MaterialPageRoute(builder: (context) => UndefinedRouteScreen());
     }

@@ -68,15 +68,23 @@ class OnboardingItem extends StatelessWidget {
                             ),
                       if (!_isLastPage)
                         TextButton(
+                          style: TextButton.styleFrom(
+                            minimumSize: const Size(0, 0),
+                            backgroundColor: Colors.transparent,
+
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              side: BorderSide.none,
+                            ),
+                          ),
                           onPressed: () async {
                             await sharedPreferences.saveData(
                               key: 'isFirstTime',
                               value: false,
                             );
                             if (!context.mounted) return;
-
                             context.pushNamedAndRemoveUntil(
-                              RouteNames.loginScreen,
+                              RouteNames.registerScreen,
                               predicate: (route) => false,
                             );
                           },
