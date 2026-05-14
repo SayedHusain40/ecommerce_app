@@ -23,6 +23,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -47,23 +48,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             // ---------------- INDICATOR ----------------
             Padding(
               padding: const EdgeInsets.only(bottom: 24),
-              child: SmoothPageIndicator(
-                controller: _pageController,
-                count: _pages.length,
-                effect: SlideEffect(
-                  spacing: 4.0,
-                  dotWidth: 6.0,
-                  dotHeight: 6.0,
-                  dotColor: AppColors.grey100,
-                  activeDotColor: AppColors.green,
+              child: Container(
+                padding: .all(5),
+                decoration: BoxDecoration(
+                  borderRadius: .circular(12),
+                  color: AppColors.cyan50(brightness),
                 ),
-                onDotClicked: (index) {
-                  _pageController.animateToPage(
-                    index,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.linear,
-                  );
-                },
+                child: SmoothPageIndicator(
+                  controller: _pageController,
+                  count: _pages.length,
+                  effect: SlideEffect(
+                    spacing: 4.0,
+                    dotWidth: 6.0,
+                    dotHeight: 6.0,
+                    dotColor: AppColors.grey100,
+                    activeDotColor: AppColors.green,
+                  ),
+                  onDotClicked: (index) {
+                    _pageController.animateToPage(
+                      index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.linear,
+                    );
+                  },
+                ),
               ),
             ),
           ],

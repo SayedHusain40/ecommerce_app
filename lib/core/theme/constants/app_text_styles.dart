@@ -1,27 +1,32 @@
 import 'package:ecommerce_app/core/theme/constants/app_font_weights.dart';
+import 'package:ecommerce_app/core/theme/constants/app_fonts.dart';
 import 'package:ecommerce_app/core/theme/constants/app_sizes.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyles {
   const AppTextStyles._();
 
+  // ---------------- BASE (single source of truth for font family) ----------------
+
+  static const _base = TextStyle(fontFamily: AppFonts.plusJakartaSans);
+
   // ---------------- HEADING 1 (32px · height 120% · spacing 0%) ----------------
 
-  static const headingH1Bold = TextStyle(
+  static final headingH1Bold = _base.copyWith(
     fontWeight: AppFontWeights.bold,
     fontSize: AppSizes.fontSizeL,
     height: AppSizes.fontHeightM,
     letterSpacing: 0,
   );
 
-  static const headingH1SemiBold = TextStyle(
+  static final headingH1SemiBold = _base.copyWith(
     fontWeight: AppFontWeights.semiBold,
     fontSize: AppSizes.fontSizeL,
     height: AppSizes.fontHeightM,
     letterSpacing: 0,
   );
 
-  static const headingH1Regular = TextStyle(
+  static final headingH1Regular = _base.copyWith(
     fontWeight: AppFontWeights.regular,
     fontSize: AppSizes.fontSizeL,
     height: AppSizes.fontHeightM,
@@ -30,21 +35,21 @@ class AppTextStyles {
 
   // ---------------- HEADING 2 (24px · height 120% · spacing 0%) ----------------
 
-  static const headingH2Bold = TextStyle(
+  static final headingH2Bold = _base.copyWith(
     fontWeight: AppFontWeights.bold,
     fontSize: AppSizes.fontSizeM,
     height: AppSizes.fontHeightM,
     letterSpacing: 0,
   );
 
-  static const headingH2SemiBold = TextStyle(
+  static final headingH2SemiBold = _base.copyWith(
     fontWeight: AppFontWeights.semiBold,
     fontSize: AppSizes.fontSizeM,
     height: AppSizes.fontHeightM,
     letterSpacing: 0,
   );
 
-  static const headingH2Regular = TextStyle(
+  static final headingH2Regular = _base.copyWith(
     fontWeight: AppFontWeights.regular,
     fontSize: AppSizes.fontSizeM,
     height: AppSizes.fontHeightM,
@@ -54,21 +59,21 @@ class AppTextStyles {
   // ---------------- HEADING 3 (18px · height 120% · spacing 0.25%) ----------------
   // letterSpacing: 0.25% of 18px = 0.045
 
-  static const headingH3Bold = TextStyle(
+  static final headingH3Bold = _base.copyWith(
     fontWeight: AppFontWeights.bold,
     fontSize: AppSizes.fontSizeXS,
     height: AppSizes.fontHeightM,
     letterSpacing: 0.045,
   );
 
-  static const headingH3SemiBold = TextStyle(
+  static final headingH3SemiBold = _base.copyWith(
     fontWeight: AppFontWeights.semiBold,
     fontSize: AppSizes.fontSizeXS,
     height: AppSizes.fontHeightM,
     letterSpacing: 0.045,
   );
 
-  static const headingH3Regular = TextStyle(
+  static final headingH3Regular = _base.copyWith(
     fontWeight: AppFontWeights.regular,
     fontSize: AppSizes.fontSizeXS,
     height: AppSizes.fontHeightM,
@@ -77,7 +82,7 @@ class AppTextStyles {
 
   // ---------------- BUTTON 1 (16px · Semi-Bold · Auto · 0%) ----------------
 
-  static const button1 = TextStyle(
+  static final button1 = _base.copyWith(
     fontWeight: AppFontWeights.semiBold,
     fontSize: AppSizes.fontSizeXXS,
     letterSpacing: 0,
@@ -85,7 +90,7 @@ class AppTextStyles {
 
   // ---------------- BUTTON 2 (14px · Semi-Bold · Auto · 0%) ----------------
 
-  static const button2 = TextStyle(
+  static final button2 = _base.copyWith(
     fontWeight: AppFontWeights.semiBold,
     fontSize: AppSizes.fontSizeTiny,
     letterSpacing: 0,
@@ -94,14 +99,14 @@ class AppTextStyles {
   // ---------------- BODY 1 (16px · height 150% · spacing 0.5%) ----------------
   // letterSpacing: 0.5% of 16px = 0.08
 
-  static const body1Medium = TextStyle(
+  static final body1Medium = _base.copyWith(
     fontWeight: AppFontWeights.medium,
     fontSize: AppSizes.fontSizeXXS,
     height: 1.5,
     letterSpacing: 0.08,
   );
 
-  static const body1Regular = TextStyle(
+  static final body1Regular = _base.copyWith(
     fontWeight: AppFontWeights.regular,
     fontSize: AppSizes.fontSizeXXS,
     height: 1.5,
@@ -111,14 +116,14 @@ class AppTextStyles {
   // ---------------- BODY 2 (14px · height 150% · spacing 0.5%) ----------------
   // letterSpacing: 0.5% of 14px = 0.07
 
-  static const body2Medium = TextStyle(
+  static final body2Medium = _base.copyWith(
     fontWeight: AppFontWeights.medium,
     fontSize: AppSizes.fontSizeTiny,
     height: 1.5,
     letterSpacing: 0.07,
   );
 
-  static const body2Regular = TextStyle(
+  static final body2Regular = _base.copyWith(
     fontWeight: AppFontWeights.regular,
     fontSize: AppSizes.fontSizeTiny,
     height: 1.5,
@@ -128,13 +133,13 @@ class AppTextStyles {
   // ---------------- BODY 3 (12px · Auto · spacing 0.5%) ----------------
   // letterSpacing: 0.5% of 12px = 0.06
 
-  static const body3SemiBold = TextStyle(
+  static final body3SemiBold = _base.copyWith(
     fontWeight: AppFontWeights.semiBold,
     fontSize: AppSizes.fontSizeMicro,
     letterSpacing: 0.06,
   );
 
-  static const body3Regular = TextStyle(
+  static final body3Regular = _base.copyWith(
     fontWeight: AppFontWeights.regular,
     fontSize: AppSizes.fontSizeMicro,
     letterSpacing: 0.06,
@@ -143,13 +148,13 @@ class AppTextStyles {
   // ---------------- BODY 4 (10px · Auto · spacing 1.5%) ----------------
   // letterSpacing: 1.5% of 10px = 0.15
 
-  static const body4SemiBold = TextStyle(
+  static final body4SemiBold = _base.copyWith(
     fontWeight: AppFontWeights.semiBold,
     fontSize: 10.0,
     letterSpacing: 0.15,
   );
 
-  static const body4Regular = TextStyle(
+  static final body4Regular = _base.copyWith(
     fontWeight: AppFontWeights.regular,
     fontSize: 10.0,
     letterSpacing: 0.15,

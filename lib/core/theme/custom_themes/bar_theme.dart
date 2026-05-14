@@ -7,6 +7,7 @@ class BarTheme {
 
   static const AppBarTheme light = AppBarTheme(
     backgroundColor: AppColors.white,
+    
     // elevation: 1,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: AppColors.white,

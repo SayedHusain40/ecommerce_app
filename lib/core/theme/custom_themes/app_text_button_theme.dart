@@ -8,7 +8,7 @@ class AppTextButtonTheme {
   static final TextButtonThemeData light = TextButtonThemeData(
     style: TextButton.styleFrom(
       foregroundColor: AppColors.black,
-      backgroundColor: AppColors.grey50Light,
+      backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(width: 1, color: AppColors.grey50Light),
@@ -21,7 +21,7 @@ class AppTextButtonTheme {
   static final TextButtonThemeData dark = TextButtonThemeData(
     style: TextButton.styleFrom(
       foregroundColor: AppColors.white,
-      backgroundColor: AppColors.grey50Dark,
+      backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(width: 1, color: AppColors.grey50Dark),

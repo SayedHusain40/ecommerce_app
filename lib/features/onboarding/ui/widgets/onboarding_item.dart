@@ -108,7 +108,6 @@ class OnboardingItem extends StatelessWidget {
             ),
             const SizedBox(height: 24),
 
-            // ---------------- TITLE ----------------
             Text(
               page.title,
               style: AppTextStyles.headingH2Bold,
@@ -116,22 +115,21 @@ class OnboardingItem extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // ---------------- DESCRIPTION ----------------
             Text(
               page.description,
-              style: AppTextStyles.body2Regular,
+              style: AppTextStyles.body2Regular.copyWith(
+                color: AppColors.grey150(brightness),
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
 
-            // ---------------- BUTTONS ----------------
             _isLastPage
                 ? Row(
                     children: [
                       Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.cyan50(brightness),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
                             foregroundColor: isDark
                                 ? AppColors.cyan
                                 : AppColors.black,

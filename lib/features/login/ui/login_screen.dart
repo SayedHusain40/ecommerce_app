@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: 'Don’t have an account? ',
                         style: AppTextStyles.body2Regular.copyWith(
                           color: AppColors.grey150(brightness),
-                        ), 
+                        ),
                       ),
                       TextSpan(
                         text: 'Signup',
@@ -159,9 +159,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               alignment: .topRight,
                               child: GestureDetector(
                                 onTap: () {
-                                  context.pushNamedAndRemoveUntil(
-                                    RouteNames.registerScreen,
-                                    predicate: (route) => false,
+                                  context.pushNamed(
+                                    RouteNames.confirmationEmailScreen,
                                   );
                                 },
                                 child: Text(

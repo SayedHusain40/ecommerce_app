@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/auth/app_auth_state.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routing/app_router.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
@@ -22,7 +21,7 @@ class QuickMart extends StatelessWidget {
       onGenerateRoute: appRouter.generateRoute,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: .light,
+      themeMode: .dark,
       initialRoute: isFirstTime
           ? RouteNames.onBoardingScreen
           : RouteNames.appAuthState,
