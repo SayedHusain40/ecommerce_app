@@ -129,9 +129,8 @@ class OnboardingItem extends StatelessWidget {
                 ? Row(
                     children: [
                       Expanded(
-                        child: ElevatedButton(
+                        child: TextButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.cyan50(brightness),
                             foregroundColor: isDark
                                 ? AppColors.cyan
                                 : AppColors.black,

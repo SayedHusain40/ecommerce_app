@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/core/auth/app_auth_state.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
+import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
+import 'package:ecommerce_app/features/forgot_password/ui/screens/confirmation_email_screen.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
@@ -15,7 +17,10 @@ class AppRouter {
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteNames.appAuthState:
-        return MaterialPageRoute(builder: (context) => AppAuthState());
+        final sendEmailOnInit = (settings.arguments as bool?) ?? false;
+        return MaterialPageRoute(
+          builder: (context) => AppAuthState(sendEmailOnInit: sendEmailOnInit),
+        );
       case RouteNames.onBoardingScreen:
         return MaterialPageRoute(builder: (context) => OnboardingScreen());
       // case RouteNames.homeScreen:
@@ -32,6 +37,13 @@ class AppRouter {
           builder: (context) => BlocProvider(
             create: (context) => getIt<RegisterCubit>(),
             child: RegisterScreen(),
+          ),
+        );
+      case RouteNames.confirmationEmailScreenScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<ForgotPasswordCubit>(),
+            child: ConfirmationEmailScreen(),
           ),
         );
       default:

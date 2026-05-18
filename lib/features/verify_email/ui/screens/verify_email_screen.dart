@@ -1,4 +1,6 @@
 import 'package:ecommerce_app/core/constants/app_images.dart';
+import 'package:ecommerce_app/core/helpers/countdown_timer_controller.dart';
+import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_state.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_state.dart';
 import 'package:flutter/material.dart';
@@ -6,24 +8,48 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
-  const VerifyEmailScreen({super.key});
+  final bool sendEmailOnInit;
+
+  const VerifyEmailScreen({super.key, this.sendEmailOnInit = false});
 
   @override
   State<VerifyEmailScreen> createState() => _VerifyEmailScreenState();
 }
 
 class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
+  bool isResendEnabled = false;
+  int remainingSeconds = 0;
+  late final CountdownTimerController _countdown;
+  late final VerifyEmailCubit _cubit;
+
   @override
   void initState() {
     super.initState();
+    _cubit = context.read<VerifyEmailCubit>();
 
-    sendEmailVerification();
+    _countdown = CountdownTimerController(
+      initialSeconds: 60,
+      onTick: (seconds) => setState(() => remainingSeconds = seconds),
+      onFinished: () => setState(() => isResendEnabled = true),
+    );
+
+    if (widget.sendEmailOnInit) {
+      // came from register/login → send email + start countdown
+      sendEmailVerification();
+    } else {
+      // app reopen → just enable resend, no email sent
+      setState(() => isResendEnabled = true);
+    }
   }
 
   void sendEmailVerification() async {
-    final cubit = context.read<VerifyEmailCubit>();
+    await _cubit.senEmailVerification();
+  }
 
-    await cubit.senEmailVerification();
+  @override
+  void dispose() {
+    _countdown.dispose();
+    super.dispose();
   }
 
   @override
@@ -47,49 +73,68 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
           children: [
             const Icon(Icons.mark_email_read_outlined, size: 90),
             const SizedBox(height: 24),
-
             const Text(
               'Verify Your Email',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-
             const SizedBox(height: 16),
-
             const Text(
               'We sent a verification email to your email address.\nPlease check your inbox and verify your account.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16),
             ),
-
             const SizedBox(height: 40),
-
             BlocConsumer<VerifyEmailCubit, VerifyEmailState>(
               listener: (context, state) {
                 state.whenOrNull(
                   sendEmailVerification: () {
+                    _countdown.start();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Send a verification email successfully'),
+                      const SnackBar(
+                        content: Text('Verification email sent successfully'),
                       ),
                     );
                   },
                   sendEmailFailure: (appFailure) {
-                    final message = appFailure.message;
+                    setState(() => isResendEnabled = true);
                     ScaffoldMessenger.of(
                       context,
-                    ).showSnackBar(SnackBar(content: Text(message)));
+                    ).showSnackBar(SnackBar(content: Text(appFailure.message)));
                   },
                 );
               },
               builder: (context, state) {
-                return SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      await context.read<VerifyEmailCubit>().logout();
-                    },
-                    child: const Text('Login'),
-                  ),
+                final isLoading = state is SendPasswordResetEmailLoading;
+
+                return Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: isResendEnabled && !isLoading
+                            ? () async {
+                                setState(() => isResendEnabled = false);
+                                await context
+                                    .read<VerifyEmailCubit>()
+                                    .senEmailVerification();
+                              }
+                            : null,
+                        child: isLoading
+                            ? const SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Text(
+                                isResendEnabled
+                                    ? 'Resend Email'
+                                    : 'Resend in $remainingSeconds s',
+                              ),
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
