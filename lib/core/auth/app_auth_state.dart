@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppAuthState extends StatelessWidget {
-  const AppAuthState({super.key});
+  final bool sendEmailOnInit;
+  
+  const AppAuthState({super.key, this.sendEmailOnInit = false});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class AppAuthState extends StatelessWidget {
         if (!user.emailVerified) {
           return BlocProvider(
             create: (context) => getIt<VerifyEmailCubit>(),
-            child: VerifyEmailScreen(),
+            child: VerifyEmailScreen(sendEmailOnInit: sendEmailOnInit),
           );
         }
 

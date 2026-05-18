@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/constants/app_images.dart';
+import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/helpers/regex.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
@@ -7,6 +8,7 @@ import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/register/logic/register_state.dart';
 import 'package:ecommerce_app/core/widgets/required_lable.dart';
+import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,12 +75,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       current is RegisterSuccess || current is RegisterFailure,
                   listener: (context, state) {
                     state.whenOrNull(
-                      registerSuccess: (message) {
+                      registerSuccess: (message) async {
                         ScaffoldMessenger.of(
                           context,
                         ).showSnackBar(SnackBar(content: Text(message)));
                         context.pushNamedAndRemoveUntil(
                           RouteNames.appAuthState,
+                          arguments: true,
                           predicate: (route) => false,
                         );
                       },

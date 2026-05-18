@@ -12,6 +12,8 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
     : super(VerifyEmailState.initial());
 
   Future<void> senEmailVerification() async {
+    if (authRepo.isEmailVerified) return; // already verified, skip
+
     final result = await verifyEmailRepo.senEmailVerification();
 
     result.when(

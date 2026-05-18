@@ -11,6 +11,9 @@ class AuthRepo {
 
   AuthRepo(this.firebaseAuth, this.googleSignIn);
 
+  bool get isEmailVerified => 
+    firebaseAuth.currentUser?.emailVerified ?? false;
+
   Future<AppResult<UserCredentialModel>> continueWithGoogle() async {
     try {
       final googleUser = await googleSignIn.authenticate();
