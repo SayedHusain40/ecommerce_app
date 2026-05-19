@@ -21,4 +21,17 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
+  Future<void> getProducts() async {
+    emit(HomeState.getProductLoading());
+    final result = await homeRepo.getProducts();
+
+    result.when(
+      success: (data) {
+        emit(HomeState.getProductSuccess(data));
+      },
+      failure: (appFailure) {
+        emit(HomeState.getProductFailure(appFailure));
+      },
+    );
+  }
 }

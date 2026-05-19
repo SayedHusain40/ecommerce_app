@@ -17,4 +17,12 @@ class HomeState with _$HomeState {
   ) = GetCategorySuccess;
   const factory HomeState.getCategoryFailure(AppFailure appFailure) =
       GetCategoryFailure;
+
+  // Product
+  const factory HomeState.getProductLoading() = GetProductLoading;
+  const factory HomeState.getProductSuccess(
+    final List<ProductModel> categoriesList,
+  ) = GetProductSuccess;
+  const factory HomeState.getProductFailure(AppFailure appFailure) =
+      GetProductFailure;
 }
