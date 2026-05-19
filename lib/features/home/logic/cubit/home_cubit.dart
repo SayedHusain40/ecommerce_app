@@ -8,7 +8,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.homeRepo) : super(HomeState.initial());
 
   Future<void> getCategories() async {
-    emit(HomeState.loading());
+    emit(HomeState.getCategoryLoading());
     final result = await homeRepo.getCategories();
 
     result.when(
@@ -20,4 +20,5 @@ class HomeCubit extends Cubit<HomeState> {
       },
     );
   }
+
 }

@@ -55,12 +55,12 @@ extension HomeStatePatterns on HomeState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( GetCategorySuccess value)?  getCategorySuccess,TResult Function( GetCategoryFailure value)?  getCategoryFailure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( GetCategoryLoading value)?  getCategoryLoading,TResult Function( GetCategorySuccess value)?  getCategorySuccess,TResult Function( GetCategoryFailure value)?  getCategoryFailure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case Loading() when loading != null:
-return loading(_that);case GetCategorySuccess() when getCategorySuccess != null:
+return initial(_that);case GetCategoryLoading() when getCategoryLoading != null:
+return getCategoryLoading(_that);case GetCategorySuccess() when getCategorySuccess != null:
 return getCategorySuccess(_that);case GetCategoryFailure() when getCategoryFailure != null:
 return getCategoryFailure(_that);case _:
   return orElse();
@@ -80,12 +80,12 @@ return getCategoryFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( GetCategorySuccess value)  getCategorySuccess,required TResult Function( GetCategoryFailure value)  getCategoryFailure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( GetCategoryLoading value)  getCategoryLoading,required TResult Function( GetCategorySuccess value)  getCategorySuccess,required TResult Function( GetCategoryFailure value)  getCategoryFailure,}){
 final _that = this;
 switch (_that) {
 case _Initial():
-return initial(_that);case Loading():
-return loading(_that);case GetCategorySuccess():
+return initial(_that);case GetCategoryLoading():
+return getCategoryLoading(_that);case GetCategorySuccess():
 return getCategorySuccess(_that);case GetCategoryFailure():
 return getCategoryFailure(_that);case _:
   throw StateError('Unexpected subclass');
@@ -104,12 +104,12 @@ return getCategoryFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( GetCategorySuccess value)?  getCategorySuccess,TResult? Function( GetCategoryFailure value)?  getCategoryFailure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( GetCategoryLoading value)?  getCategoryLoading,TResult? Function( GetCategorySuccess value)?  getCategorySuccess,TResult? Function( GetCategoryFailure value)?  getCategoryFailure,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case Loading() when loading != null:
-return loading(_that);case GetCategorySuccess() when getCategorySuccess != null:
+return initial(_that);case GetCategoryLoading() when getCategoryLoading != null:
+return getCategoryLoading(_that);case GetCategorySuccess() when getCategorySuccess != null:
 return getCategorySuccess(_that);case GetCategoryFailure() when getCategoryFailure != null:
 return getCategoryFailure(_that);case _:
   return null;
@@ -128,11 +128,11 @@ return getCategoryFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<CategoryModel> categoriesList)?  getCategorySuccess,TResult Function( AppFailure appFailure)?  getCategoryFailure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  getCategoryLoading,TResult Function( List<CategoryModel> categoriesList)?  getCategorySuccess,TResult Function( AppFailure appFailure)?  getCategoryFailure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case Loading() when loading != null:
-return loading();case GetCategorySuccess() when getCategorySuccess != null:
+return initial();case GetCategoryLoading() when getCategoryLoading != null:
+return getCategoryLoading();case GetCategorySuccess() when getCategorySuccess != null:
 return getCategorySuccess(_that.categoriesList);case GetCategoryFailure() when getCategoryFailure != null:
 return getCategoryFailure(_that.appFailure);case _:
   return orElse();
@@ -152,11 +152,11 @@ return getCategoryFailure(_that.appFailure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<CategoryModel> categoriesList)  getCategorySuccess,required TResult Function( AppFailure appFailure)  getCategoryFailure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  getCategoryLoading,required TResult Function( List<CategoryModel> categoriesList)  getCategorySuccess,required TResult Function( AppFailure appFailure)  getCategoryFailure,}) {final _that = this;
 switch (_that) {
 case _Initial():
-return initial();case Loading():
-return loading();case GetCategorySuccess():
+return initial();case GetCategoryLoading():
+return getCategoryLoading();case GetCategorySuccess():
 return getCategorySuccess(_that.categoriesList);case GetCategoryFailure():
 return getCategoryFailure(_that.appFailure);case _:
   throw StateError('Unexpected subclass');
@@ -175,11 +175,11 @@ return getCategoryFailure(_that.appFailure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<CategoryModel> categoriesList)?  getCategorySuccess,TResult? Function( AppFailure appFailure)?  getCategoryFailure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  getCategoryLoading,TResult? Function( List<CategoryModel> categoriesList)?  getCategorySuccess,TResult? Function( AppFailure appFailure)?  getCategoryFailure,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case Loading() when loading != null:
-return loading();case GetCategorySuccess() when getCategorySuccess != null:
+return initial();case GetCategoryLoading() when getCategoryLoading != null:
+return getCategoryLoading();case GetCategorySuccess() when getCategorySuccess != null:
 return getCategorySuccess(_that.categoriesList);case GetCategoryFailure() when getCategoryFailure != null:
 return getCategoryFailure(_that.appFailure);case _:
   return null;
@@ -224,8 +224,8 @@ String toString() {
 /// @nodoc
 
 
-class Loading implements HomeState {
-  const Loading();
+class GetCategoryLoading implements HomeState {
+  const GetCategoryLoading();
   
 
 
@@ -235,7 +235,7 @@ class Loading implements HomeState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetCategoryLoading);
 }
 
 
@@ -244,7 +244,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'HomeState.loading()';
+  return 'HomeState.getCategoryLoading()';
 }
 
 

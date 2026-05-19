@@ -129,7 +129,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 12),
             BlocConsumer<HomeCubit, HomeState>(
               listenWhen: (previous, current) =>
-                  current is Loading || current is GetCategoryFailure,
+                  current is GetCategoryLoading || current is GetCategoryFailure,
               listener: (context, state) {
                 state.whenOrNull(
                   getCategoryFailure: (appFailure) {
@@ -140,12 +140,12 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               buildWhen: (previous, current) =>
-                  current is Loading ||
+                  current is GetCategoryLoading ||
                   current is GetCategorySuccess ||
                   current is GetCategoryFailure,
               builder: (context, state) {
                 return state.maybeWhen(
-                  loading: () {
+                  getCategoryLoading: () {
                     return CategoryLoadingShimmer();
                   },
                   getCategorySuccess: (categoriesList) {
