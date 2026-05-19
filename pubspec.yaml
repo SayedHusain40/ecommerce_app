@@ -54,6 +54,7 @@ dependencies:
   firebase_functions: ^0.6.0
   cloud_functions: ^6.2.0
   carousel_slider: ^5.1.2
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

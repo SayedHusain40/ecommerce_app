@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/ui/screens/confirmation_email_screen.dart';
+import 'package:ecommerce_app/features/home/logic/cubit/home_cubit.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
@@ -19,7 +20,10 @@ class AppRouter {
       case RouteNames.appAuthState:
         final sendEmailOnInit = (settings.arguments as bool?) ?? false;
         return MaterialPageRoute(
-          builder: (context) => AppAuthState(sendEmailOnInit: sendEmailOnInit),
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<HomeCubit>()..getCategories(),
+            child: AppAuthState(sendEmailOnInit: sendEmailOnInit),
+          ),
         );
       case RouteNames.onBoardingScreen:
         return MaterialPageRoute(builder: (context) => OnboardingScreen());
