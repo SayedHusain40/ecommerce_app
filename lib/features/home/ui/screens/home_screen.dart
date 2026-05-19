@@ -40,13 +40,13 @@ class HomeScreen extends StatelessWidget {
                         Container(
                           padding: .all(6),
                           decoration: BoxDecoration(
-                            color: AppColors.black,
+                            color: AppColors.whiteInDark(brightness),
                             borderRadius: .circular(8),
                           ),
                           child: Text(
                             '30% OFF',
                             style: AppTextStyles.body4SemiBold.copyWith(
-                              color: AppColors.white,
+                              color: AppColors.blackInDark(brightness),
                             ),
                           ),
                         ),
@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                         Text(
                           'On Headphones',
                           style: AppTextStyles.body3Regular.copyWith(
-                            color: AppColors.white,
+                            color: AppColors.blackInDark(brightness),
                           ),
                         ),
                         Row(
@@ -64,14 +64,14 @@ class HomeScreen extends StatelessWidget {
                             Text(
                               'Exclusive Sales',
                               style: AppTextStyles.headingH2Bold.copyWith(
-                                color: AppColors.white,
+                                color: AppColors.blackInDark(brightness),
                               ),
                             ),
                             Container(
                               padding: .all(5),
                               margin: .only(bottom: 2, right: 16),
                               decoration: BoxDecoration(
-                                color: AppColors.white,
+                                color: AppColors.blackInDark(brightness),
                                 borderRadius: .circular(12),
                               ),
                               child: AnimatedSmoothIndicator(
