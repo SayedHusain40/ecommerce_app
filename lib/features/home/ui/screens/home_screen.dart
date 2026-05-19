@@ -105,25 +105,6 @@ class HomeScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
               ),
             ),
-            // SizedBox(height: 24),
-            // Row(
-            //   mainAxisAlignment: .spaceBetween,
-            //   children: [
-            //     Text('Categories', style: AppTextStyles.headingH3Bold),
-            //     GestureDetector(
-            //       onTap: () {
-                    
-            //       },
-            //       child: Text(
-            //         'SEE ALL',
-            //         style: AppTextStyles.body3SemiBold.copyWith(
-            //           color: AppColors.cyan,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // SizedBox(height: 12),
           ],
         ),
       ),
