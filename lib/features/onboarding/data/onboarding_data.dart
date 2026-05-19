@@ -1,6 +1,6 @@
 // lib/features/onboarding/data/onboarding_data.dart
 
-import 'package:ecommerce_app/core/constants/app_images.dart';
+import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/features/onboarding/data/onboarding_model.dart';
 
 class OnboardingData {

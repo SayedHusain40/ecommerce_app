@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/core/constants/app_images.dart';
+import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
@@ -63,7 +63,7 @@ class OnboardingItem extends StatelessWidget {
                                 );
                               },
                               icon: SvgPicture.asset(
-                                AppImages.arrowLeft(brightness),
+                                AppIcons.arrowLeft(brightness),
                               ),
                             ),
                       if (!_isLastPage)
@@ -170,7 +170,7 @@ class OnboardingItem extends StatelessWidget {
                             children: [
                               const Text('Get Started'),
                               const SizedBox(width: 8),
-                              SvgPicture.asset(AppImages.arrowRightLight),
+                              SvgPicture.asset(AppIcons.arrowRightLight),
                             ],
                           ),
                         ),

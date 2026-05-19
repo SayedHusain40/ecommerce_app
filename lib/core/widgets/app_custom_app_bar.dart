@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/core/constants/app_images.dart';
+import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       leading: IconButton(
         onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
-        icon: SvgPicture.asset(AppImages.arrowLeft(brightness)),
+        icon: SvgPicture.asset(AppIcons.arrowLeft(brightness)),
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/auth/app_auth_state.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routing/app_router.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
