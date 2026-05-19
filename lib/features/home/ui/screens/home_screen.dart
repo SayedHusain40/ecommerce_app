@@ -4,6 +4,7 @@ import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/home/data/banners_data.dart';
 import 'package:ecommerce_app/features/home/logic/cubit/home_cubit.dart';
 import 'package:ecommerce_app/features/home/logic/cubit/home_state.dart';
+import 'package:ecommerce_app/features/home/ui/widgets/category_loading_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -145,7 +146,7 @@ class HomeScreen extends StatelessWidget {
               builder: (context, state) {
                 return state.maybeWhen(
                   loading: () {
-                    return SizedBox();
+                    return CategoryLoadingShimmer();
                   },
                   getCategorySuccess: (categoriesList) {
                     return SizedBox(
