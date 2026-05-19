@@ -16,7 +16,7 @@ class RequiredLabel extends StatelessWidget {
           TextSpan(
             text: label,
             style: AppTextStyles.body2Medium.copyWith(
-              color: AppColors.whiteOrBlack(brightness),
+              color: AppColors.whiteInDark(brightness),
             ),
           ),
           TextSpan(

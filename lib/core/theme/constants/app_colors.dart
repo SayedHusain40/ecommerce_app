@@ -37,9 +37,12 @@ class AppColors {
   static const Color pink = Color(0xFFCE1DEB);
   static const Color green = Color(0xFF08E488);
 
-  // ---------------- THEME-AWARE HELPERS ----------------
-  static Color whiteOrBlack(Brightness b) =>
+  // ---------------- Helpers ----------------
+  static Color whiteInDark(Brightness b) =>
       b == Brightness.dark ? white : black;
+
+  static Color blackInDark(Brightness b) =>
+      b == Brightness.dark ? black : white;
 
   static Color cyan50(Brightness b) =>
       b == Brightness.dark ? cyan50Dark : cyan50Light;

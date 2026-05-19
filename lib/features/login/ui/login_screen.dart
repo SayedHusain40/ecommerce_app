@@ -222,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextSpan(
                         text: 'By login , you agree to our',
                         style: TextStyle(
-                          color: AppColors.whiteOrBlack(brightness),
+                          color: AppColors.whiteInDark(brightness),
                         ),
                       ),
                       TextSpan(
@@ -232,7 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextSpan(
                         text: 'and',
                         style: TextStyle(
-                          color: AppColors.whiteOrBlack(brightness),
+                          color: AppColors.whiteInDark(brightness),
                         ),
                       ),
                       TextSpan(

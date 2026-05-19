@@ -8,7 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class ErrorHandler {
 
-    // ---------------- MAIN HANDLER ----------------
+    // ---------------- Main ----------------
   static AppFailure handle(dynamic e, [StackTrace? stackTrace]) {
     if (kDebugMode) {
       debugPrint("Exception: $e");
@@ -87,7 +87,7 @@ class ErrorHandler {
   }
 
   
-  // ---------------- Firebase Auth Messages ----------------
+  // ---------------- FirebaseAuth ----------------
   static const Map<String, String> _firebaseAuthMessages = {
     // For Login
     'invalid-credential': 'Invalid email or password.', // ✅
