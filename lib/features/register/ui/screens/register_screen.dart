@@ -1,5 +1,4 @@
-import 'package:ecommerce_app/core/constants/app_images.dart';
-import 'package:ecommerce_app/core/di/dependency_injection.dart';
+import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/helpers/regex.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
@@ -8,7 +7,6 @@ import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/register/logic/register_state.dart';
 import 'package:ecommerce_app/core/widgets/required_lable.dart';
-import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -165,8 +163,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           _isPasswordVisible.value = !value,
                                       icon: SvgPicture.asset(
                                         value
-                                            ? AppImages.eyeOpen(brightness)
-                                            : AppImages.eyeOff(brightness),
+                                            ? AppIcons.eyeOpen(brightness)
+                                            : AppIcons.eyeOff(brightness),
                                         width: 24,
                                         height: 24,
                                         fit: BoxFit.contain,
@@ -230,7 +228,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       style: AppTextStyles.button2,
                                     ),
                                     SizedBox(width: 8),
-                                    SvgPicture.asset(AppImages.googleLight),
+                                    SvgPicture.asset(AppIcons.googleLight),
                                   ],
                                 ],
                               ),

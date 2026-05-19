@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
-import 'package:ecommerce_app/features/home/ui/home_screen.dart';
+import 'package:ecommerce_app/features/home/ui/widgets/home_screen.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';

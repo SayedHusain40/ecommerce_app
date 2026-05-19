@@ -13,12 +13,10 @@ class AppSizes {
   static const double fontSizeMicro = 12.0;
   static const double fontSizeNano = 10.0;  
 
-
   // ---------------- FONT HEIGHTS ----------------
   static const double fontHeightXXL = 1.5;
   static const double fontHeightXL = 1.4;
   static const double fontHeightL  = 1.3;
   static const double fontHeightM  = 1.2;
   static const double fontHeightS  = 1.1;
-
 }

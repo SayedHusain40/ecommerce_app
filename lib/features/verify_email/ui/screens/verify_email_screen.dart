@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/core/constants/app_images.dart';
+import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/countdown_timer_controller.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_state.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
@@ -63,7 +63,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
           onPressed: () async {
             await context.read<VerifyEmailCubit>().logout();
           },
-          icon: SvgPicture.asset(AppImages.arrowLeft(brightness)),
+          icon: SvgPicture.asset(AppIcons.arrowLeft(brightness)),
         ),
       ),
       body: Padding(
