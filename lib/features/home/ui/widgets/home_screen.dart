@@ -91,9 +91,8 @@ class HomeScreen extends StatelessWidget {
               options: CarouselOptions(
                 height: 148,
                 // aspectRatio: 16 / 9,
-                viewportFraction:
-                    1.0,
-                enlargeCenterPage: false, 
+                viewportFraction: 1.0,
+                enlargeCenterPage: false,
                 initialPage: 0,
                 enableInfiniteScroll: false,
                 reverse: false,
@@ -106,6 +105,25 @@ class HomeScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
               ),
             ),
+            // SizedBox(height: 24),
+            // Row(
+            //   mainAxisAlignment: .spaceBetween,
+            //   children: [
+            //     Text('Categories', style: AppTextStyles.headingH3Bold),
+            //     GestureDetector(
+            //       onTap: () {
+                    
+            //       },
+            //       child: Text(
+            //         'SEE ALL',
+            //         style: AppTextStyles.body3SemiBold.copyWith(
+            //           color: AppColors.cyan,
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(height: 12),
           ],
         ),
       ),
