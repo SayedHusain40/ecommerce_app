@@ -12,7 +12,7 @@ part of 'api_service.dart';
 
 class _ApiService implements ApiService {
   _ApiService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://dummyjson.com/';
+    baseUrl ??= 'https://dummyjson.com';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _ApiService implements ApiService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'products/categories',
+            '/products/categories',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -51,27 +51,25 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<List<ProductModel>> getProducts() async {
+  Future<ProductResponseModel> getProducts() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<ProductModel>>(
+    final _options = _setStreamType<ProductResponseModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'products/categories',
+            '/products',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<ProductModel> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ProductResponseModel _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) => ProductModel.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = ProductResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

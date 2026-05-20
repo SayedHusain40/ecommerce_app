@@ -11,8 +11,8 @@ abstract class ApiService {
   factory ApiService(Dio dio) = _ApiService;
 
   @GET(ApiEndPoints.categories)
-   Future<List<CategoryModel>> getCategories();
+  Future<List<CategoryModel>> getCategories();
 
-  @GET(ApiEndPoints.categories)
-   Future<List<ProductModel>> getProducts();
-} 
+  @GET(ApiEndPoints.products)
+  Future<ProductResponseModel> getProducts();
+}

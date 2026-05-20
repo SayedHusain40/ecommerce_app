@@ -22,9 +22,12 @@ class HomeRepo {
 
   Future<AppResult<List<ProductModel>>> getProducts() async {
     try {
-      final List<ProductModel> response = await apiService.getProducts();
+      final ProductResponseModel response = await apiService.getProducts();
 
-      return AppResult.success(response);
+      final products =
+          response.products?.whereType<ProductModel>().toList() ?? [];
+
+      return AppResult.success(products);
     } catch (e) {
       final failure = ErrorHandler.handle(e);
       return AppResult.failure(failure);
