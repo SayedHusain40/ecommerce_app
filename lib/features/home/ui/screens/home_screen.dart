@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
+import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
+import 'package:ecommerce_app/features/categories/logic/cubit/category_state.dart';
 import 'package:ecommerce_app/features/home/data/banners_data.dart';
 import 'package:ecommerce_app/features/home/logic/cubit/home_cubit.dart';
 import 'package:ecommerce_app/features/home/logic/cubit/home_state.dart';
@@ -128,7 +130,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 12),
-            BlocConsumer<HomeCubit, HomeState>(
+            BlocConsumer<CategoryCubit, CategoryState>(
               listenWhen: (previous, current) => current is GetCategoryFailure,
               listener: (context, state) {
                 state.whenOrNull(

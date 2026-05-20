@@ -7,20 +7,6 @@ class HomeCubit extends Cubit<HomeState> {
   final HomeRepo homeRepo;
   HomeCubit(this.homeRepo) : super(HomeState.initial());
 
-  Future<void> getCategories() async {
-    emit(HomeState.getCategoryLoading());
-    final result = await homeRepo.getCategories();
-
-    result.when(
-      success: (data) {
-        emit(HomeState.getCategorySuccess(data));
-      },
-      failure: (appFailure) {
-        emit(HomeState.getCategoryFailure(appFailure));
-      },
-    );
-  }
-
   Future<void> getProducts() async {
     emit(HomeState.getProductLoading());
     final result = await homeRepo.getProducts();

@@ -5,6 +5,8 @@ import 'package:ecommerce_app/core/network/api/api_service.dart';
 import 'package:ecommerce_app/core/network/api/dio_factory.dart';
 import 'package:ecommerce_app/core/network/connection/network_info.dart';
 import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
+import 'package:ecommerce_app/features/categories/data/repos/category_repo.dart';
+import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/data/repos/forgot_password_repo.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:ecommerce_app/features/home/data/repos/home_repo.dart';
@@ -64,6 +66,7 @@ Future<void> setUpGetIt() async {
     () => ForgotPasswordRepo(getIt()),
   );
   getIt.registerLazySingleton<HomeRepo>(() => HomeRepo(getIt()));
+  getIt.registerLazySingleton<CategoryRepo>(() => CategoryRepo(getIt()));
 
   // Cubits
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt(), getIt()));
@@ -75,4 +78,5 @@ Future<void> setUpGetIt() async {
     () => ForgotPasswordCubit(getIt()),
   );
   getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
+  getIt.registerFactory<CategoryCubit>(() => CategoryCubit(getIt()));
 }

@@ -1,4 +1,6 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
+import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
+import 'package:ecommerce_app/features/home/logic/cubit/home_cubit.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
@@ -10,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppAuthState extends StatelessWidget {
   final bool sendEmailOnInit;
-  
+
   const AppAuthState({super.key, this.sendEmailOnInit = false});
 
   @override
@@ -42,8 +44,18 @@ class AppAuthState extends StatelessWidget {
           );
         }
 
-        // Logged in and verified
-        return const HomeScreen();
+        // Logged in and verified 
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<CategoryCubit>()..getCategories(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<HomeCubit>()..getProducts(),
+            ),
+          ],
+          child: const HomeScreen(),
+        );
       },
     );
   }
