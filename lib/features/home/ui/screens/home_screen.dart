@@ -5,6 +5,7 @@ import 'package:ecommerce_app/features/home/data/banners_data.dart';
 import 'package:ecommerce_app/features/home/logic/cubit/home_cubit.dart';
 import 'package:ecommerce_app/features/home/logic/cubit/home_state.dart';
 import 'package:ecommerce_app/features/home/ui/widgets/category_loading_shimmer.dart';
+import 'package:ecommerce_app/features/home/ui/widgets/latest_products_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -128,8 +129,7 @@ class HomeScreen extends StatelessWidget {
             ),
             SizedBox(height: 12),
             BlocConsumer<HomeCubit, HomeState>(
-              listenWhen: (previous, current) =>
-                  current is Loading || current is GetCategoryFailure,
+              listenWhen: (previous, current) => current is GetCategoryFailure,
               listener: (context, state) {
                 state.whenOrNull(
                   getCategoryFailure: (appFailure) {
@@ -140,12 +140,12 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               buildWhen: (previous, current) =>
-                  current is Loading ||
+                  current is GetCategoryLoading ||
                   current is GetCategorySuccess ||
                   current is GetCategoryFailure,
               builder: (context, state) {
                 return state.maybeWhen(
-                  loading: () {
+                  getCategoryLoading: () {
                     return CategoryLoadingShimmer();
                   },
                   getCategorySuccess: (categoriesList) {
@@ -175,7 +175,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 SizedBox(height: 2),
                                 Text(
-                                  category.name ?? 'Unknown',
+                                  category.name!,
                                   style: AppTextStyles.body4SemiBold,
                                   textAlign: .center,
                                   overflow: TextOverflow.ellipsis,
@@ -194,6 +194,8 @@ class HomeScreen extends StatelessWidget {
                 );
               },
             ),
+            SizedBox(height: 24),
+            Expanded(child: LatestProductsSection()),
           ],
         ),
       ),

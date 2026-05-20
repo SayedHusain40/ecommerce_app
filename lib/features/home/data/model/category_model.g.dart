@@ -9,7 +9,7 @@ part of 'category_model.dart';
 CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) =>
     CategoryModel(
       slug: json['slug'] as String?,
-      name: json['name'] as String?,
+      name: json['name'] as String? ?? 'Unknown',
       url: json['url'] as String?,
     );
 

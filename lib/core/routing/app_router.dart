@@ -21,7 +21,9 @@ class AppRouter {
         final sendEmailOnInit = (settings.arguments as bool?) ?? false;
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => getIt<HomeCubit>()..getCategories(),
+            create: (context) => getIt<HomeCubit>()
+              ..getCategories()
+              ..getProducts(),
             child: AppAuthState(sendEmailOnInit: sendEmailOnInit),
           ),
         );
