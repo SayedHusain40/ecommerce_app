@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/core/auth/app_auth_state.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
+import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
+import 'package:ecommerce_app/features/categories/ui/screens/category_screen.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/ui/screens/confirmation_email_screen.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
@@ -47,6 +49,16 @@ class AppRouter {
             child: ConfirmationEmailScreen(),
           ),
         );
+      case RouteNames.categoryScreen:
+        // return MaterialPageRoute(builder: (context) => CategoryScreen()); // not works
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: context
+                .read<CategoryCubit>(), // reuse the already-loaded cubit
+            child: CategoryScreen(),
+          ),
+        );
+
       default:
         return MaterialPageRoute(builder: (context) => UndefinedRouteScreen());
     }
