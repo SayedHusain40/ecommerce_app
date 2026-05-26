@@ -7,4 +7,5 @@ class RouteNames {
   static const loginScreen = '/loginScreen';
   static const registerScreen = '/registerScreen';
   static const confirmationEmailScreenScreen = '/confirmationEmailScreenScreen';
+  static const categoryScreen = '/categoryScreen';
 }

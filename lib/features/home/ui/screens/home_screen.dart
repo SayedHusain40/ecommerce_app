@@ -1,12 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommerce_app/core/helpers/extensions.dart';
+import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_state.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/category_card.dart';
 import 'package:ecommerce_app/features/home/data/banners_data.dart';
 import 'package:ecommerce_app/features/home/logic/cubit/home_cubit.dart';
 import 'package:ecommerce_app/features/home/logic/cubit/home_state.dart';
-import 'package:ecommerce_app/features/home/ui/widgets/category_loading_shimmer.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/category_loading_shimmer.dart';
 import 'package:ecommerce_app/features/home/ui/widgets/latest_products_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -119,7 +122,9 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Text('Categories', style: AppTextStyles.headingH3Bold),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    context.pushNamed(RouteNames.categoryScreen);
+                  },
                   child: Text(
                     'SEE ALL',
                     style: AppTextStyles.body3SemiBold.copyWith(
@@ -147,9 +152,8 @@ class HomeScreen extends StatelessWidget {
                   current is GetCategoryFailure,
               builder: (context, state) {
                 return state.maybeWhen(
-                  getCategoryLoading: () {
-                    return CategoryLoadingShimmer();
-                  },
+                  getCategoryLoading: () => CategoryLoadingShimmer(),
+
                   getCategorySuccess: (categoriesList) {
                     return SizedBox(
                       height: 60,
@@ -158,33 +162,12 @@ class HomeScreen extends StatelessWidget {
                         itemCount: categoriesList.length,
                         itemBuilder: (context, index) {
                           final category = categoriesList[index];
-                          return Container(
-                            padding: .symmetric(vertical: 10, horizontal: 8),
+                          return CategoryCard(
+                            name: category.name!,
                             width: 76,
-                            decoration: BoxDecoration(
-                              borderRadius: .circular(12),
-                              border: BoxBorder.all(
-                                color: AppColors.grey50(brightness),
-                              ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: .center,
-                              children: [
-                                Icon(
-                                  Icons.category,
-                                  size: 22,
-                                  color: AppColors.cyan,
-                                ),
-                                SizedBox(height: 2),
-                                Text(
-                                  category.name!,
-                                  style: AppTextStyles.body4SemiBold,
-                                  textAlign: .center,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                              ],
-                            ),
+                            borderRadius: 12,
+                            iconSize: 18,
+                            textStyle: AppTextStyles.body4SemiBold,
                           );
                         },
                         separatorBuilder: (context, index) =>
