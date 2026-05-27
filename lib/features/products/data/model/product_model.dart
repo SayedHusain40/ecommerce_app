@@ -4,9 +4,16 @@ part 'product_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class ProductResponseModel {
-  final List<ProductModel?>? products;
+  @JsonKey(defaultValue: [])
+  final List<ProductModel> products;
+  @JsonKey(defaultValue: 0)
+  final int total;
+  @JsonKey(defaultValue: 0)
+  final int skip;
+  @JsonKey(defaultValue: 0)
+  final int limit;
 
-  ProductResponseModel({this.products});
+  ProductResponseModel({required this.products, required this.total, required this.skip, required this.limit});
 
   factory ProductResponseModel.fromJson(Map<String, dynamic> json) =>
       _$ProductResponseModelFromJson(json);
@@ -16,28 +23,69 @@ class ProductResponseModel {
 
 @JsonSerializable(explicitToJson: true)
 class ProductModel {
-  final int? id;
-  final String? title;
-  final String? description;
-  final String? category;
-  final double? price;
-  final double? discountPercentage;
-  final double? rating;
-  final int? stock;
-  final List<String?>? tags;
-  final String? brand;
-  final String? sku;
-  final int? weight;
+  @JsonKey(defaultValue: 0)
+  final int id;
+
+  @JsonKey(defaultValue: '')
+  final String title;
+
+  @JsonKey(defaultValue: '')
+  final String description;
+
+  @JsonKey(defaultValue: '')
+  final String category;
+
+  @JsonKey(defaultValue: 0.0)
+  final double price;
+
+  @JsonKey(defaultValue: 0.0)
+  final double discountPercentage;
+
+  @JsonKey(defaultValue: 0.0)
+  final double rating;
+
+  @JsonKey(defaultValue: 0)
+  final int stock;
+
+  @JsonKey(defaultValue: [])
+  final List<String> tags;
+
+  @JsonKey(defaultValue: '')
+  final String brand;
+
+  @JsonKey(defaultValue: '')
+  final String sku;
+
+  @JsonKey(defaultValue: 0)
+  final int weight;
+
   final DimensionsModel? dimensions;
-  final String? warrantyInformation;
-  final String? shippingInformation;
-  final String? availabilityStatus;
-  final List<ReviewModel?>? reviews;
-  final String? returnPolicy;
-  final int? minimumOrderQuantity;
+
+  @JsonKey(defaultValue: '')
+  final String warrantyInformation;
+
+  @JsonKey(defaultValue: '')
+  final String shippingInformation;
+
+  @JsonKey(defaultValue: '')
+  final String availabilityStatus;
+
+  @JsonKey(defaultValue: [])
+  final List<ReviewModel> reviews;
+
+  @JsonKey(defaultValue: '')
+  final String returnPolicy;
+
+  @JsonKey(defaultValue: 0)
+  final int minimumOrderQuantity;
+
   final MetaModel? meta;
-  final List<String?>? images;
-  final String? thumbnail;
+
+  @JsonKey(defaultValue: [])
+  final List<String> images;
+
+  @JsonKey(defaultValue: '')
+  final String thumbnail;
 
   ProductModel({
     required this.id,
@@ -72,9 +120,14 @@ class ProductModel {
 
 @JsonSerializable()
 class DimensionsModel {
-  final double? width;
-  final double? height;
-  final double? depth;
+  @JsonKey(defaultValue: 0.0)
+  final double width;
+
+  @JsonKey(defaultValue: 0.0)
+  final double height;
+
+  @JsonKey(defaultValue: 0.0)
+  final double depth;
 
   DimensionsModel({
     required this.width,
@@ -90,11 +143,19 @@ class DimensionsModel {
 
 @JsonSerializable()
 class ReviewModel {
-  final int? rating;
-  final String? comment;
+  @JsonKey(defaultValue: 0)
+  final int rating;
+
+  @JsonKey(defaultValue: '')
+  final String comment;
+
   final DateTime? date;
-  final String? reviewerName;
-  final String? reviewerEmail;
+
+  @JsonKey(defaultValue: '')
+  final String reviewerName;
+
+  @JsonKey(defaultValue: '')
+  final String reviewerEmail;
 
   ReviewModel({
     required this.rating,
@@ -113,9 +174,14 @@ class ReviewModel {
 @JsonSerializable()
 class MetaModel {
   final DateTime? createdAt;
+
   final DateTime? updatedAt;
-  final String? barcode;
-  final String? qrCode;
+
+  @JsonKey(defaultValue: '')
+  final String barcode;
+
+  @JsonKey(defaultValue: '')
+  final String qrCode;
 
   MetaModel({
     required this.createdAt,

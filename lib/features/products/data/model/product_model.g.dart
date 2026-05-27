@@ -9,52 +9,59 @@ part of 'product_model.dart';
 ProductResponseModel _$ProductResponseModelFromJson(
   Map<String, dynamic> json,
 ) => ProductResponseModel(
-  products: (json['products'] as List<dynamic>?)
-      ?.map(
-        (e) =>
-            e == null ? null : ProductModel.fromJson(e as Map<String, dynamic>),
-      )
-      .toList(),
+  products:
+      (json['products'] as List<dynamic>?)
+          ?.map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      [],
+  total: (json['total'] as num?)?.toInt() ?? 0,
+  skip: (json['skip'] as num?)?.toInt() ?? 0,
+  limit: (json['limit'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$ProductResponseModelToJson(
   ProductResponseModel instance,
 ) => <String, dynamic>{
-  'products': instance.products?.map((e) => e?.toJson()).toList(),
+  'products': instance.products.map((e) => e.toJson()).toList(),
+  'total': instance.total,
+  'skip': instance.skip,
+  'limit': instance.limit,
 };
 
 ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
-  id: (json['id'] as num?)?.toInt(),
-  title: json['title'] as String?,
-  description: json['description'] as String?,
-  category: json['category'] as String?,
-  price: (json['price'] as num?)?.toDouble(),
-  discountPercentage: (json['discountPercentage'] as num?)?.toDouble(),
-  rating: (json['rating'] as num?)?.toDouble(),
-  stock: (json['stock'] as num?)?.toInt(),
-  tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String?).toList(),
-  brand: json['brand'] as String?,
-  sku: json['sku'] as String?,
-  weight: (json['weight'] as num?)?.toInt(),
+  id: (json['id'] as num?)?.toInt() ?? 0,
+  title: json['title'] as String? ?? '',
+  description: json['description'] as String? ?? '',
+  category: json['category'] as String? ?? '',
+  price: (json['price'] as num?)?.toDouble() ?? 0.0,
+  discountPercentage: (json['discountPercentage'] as num?)?.toDouble() ?? 0.0,
+  rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
+  stock: (json['stock'] as num?)?.toInt() ?? 0,
+  tags:
+      (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+  brand: json['brand'] as String? ?? '',
+  sku: json['sku'] as String? ?? '',
+  weight: (json['weight'] as num?)?.toInt() ?? 0,
   dimensions: json['dimensions'] == null
       ? null
       : DimensionsModel.fromJson(json['dimensions'] as Map<String, dynamic>),
-  warrantyInformation: json['warrantyInformation'] as String?,
-  shippingInformation: json['shippingInformation'] as String?,
-  availabilityStatus: json['availabilityStatus'] as String?,
-  reviews: (json['reviews'] as List<dynamic>?)
-      ?.map(
-        (e) =>
-            e == null ? null : ReviewModel.fromJson(e as Map<String, dynamic>),
-      )
-      .toList(),
-  returnPolicy: json['returnPolicy'] as String?,
-  minimumOrderQuantity: (json['minimumOrderQuantity'] as num?)?.toInt(),
+  warrantyInformation: json['warrantyInformation'] as String? ?? '',
+  shippingInformation: json['shippingInformation'] as String? ?? '',
+  availabilityStatus: json['availabilityStatus'] as String? ?? '',
+  reviews:
+      (json['reviews'] as List<dynamic>?)
+          ?.map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      [],
+  returnPolicy: json['returnPolicy'] as String? ?? '',
+  minimumOrderQuantity: (json['minimumOrderQuantity'] as num?)?.toInt() ?? 0,
   meta: json['meta'] == null
       ? null
       : MetaModel.fromJson(json['meta'] as Map<String, dynamic>),
-  images: (json['images'] as List<dynamic>?)?.map((e) => e as String?).toList(),
-  thumbnail: json['thumbnail'] as String?,
+  images:
+      (json['images'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      [],
+  thumbnail: json['thumbnail'] as String? ?? '',
 );
 
 Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
@@ -75,7 +82,7 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       'warrantyInformation': instance.warrantyInformation,
       'shippingInformation': instance.shippingInformation,
       'availabilityStatus': instance.availabilityStatus,
-      'reviews': instance.reviews?.map((e) => e?.toJson()).toList(),
+      'reviews': instance.reviews.map((e) => e.toJson()).toList(),
       'returnPolicy': instance.returnPolicy,
       'minimumOrderQuantity': instance.minimumOrderQuantity,
       'meta': instance.meta?.toJson(),
@@ -85,9 +92,9 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
 
 DimensionsModel _$DimensionsModelFromJson(Map<String, dynamic> json) =>
     DimensionsModel(
-      width: (json['width'] as num?)?.toDouble(),
-      height: (json['height'] as num?)?.toDouble(),
-      depth: (json['depth'] as num?)?.toDouble(),
+      width: (json['width'] as num?)?.toDouble() ?? 0.0,
+      height: (json['height'] as num?)?.toDouble() ?? 0.0,
+      depth: (json['depth'] as num?)?.toDouble() ?? 0.0,
     );
 
 Map<String, dynamic> _$DimensionsModelToJson(DimensionsModel instance) =>
@@ -98,11 +105,11 @@ Map<String, dynamic> _$DimensionsModelToJson(DimensionsModel instance) =>
     };
 
 ReviewModel _$ReviewModelFromJson(Map<String, dynamic> json) => ReviewModel(
-  rating: (json['rating'] as num?)?.toInt(),
-  comment: json['comment'] as String?,
+  rating: (json['rating'] as num?)?.toInt() ?? 0,
+  comment: json['comment'] as String? ?? '',
   date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
-  reviewerName: json['reviewerName'] as String?,
-  reviewerEmail: json['reviewerEmail'] as String?,
+  reviewerName: json['reviewerName'] as String? ?? '',
+  reviewerEmail: json['reviewerEmail'] as String? ?? '',
 );
 
 Map<String, dynamic> _$ReviewModelToJson(ReviewModel instance) =>
@@ -121,8 +128,8 @@ MetaModel _$MetaModelFromJson(Map<String, dynamic> json) => MetaModel(
   updatedAt: json['updatedAt'] == null
       ? null
       : DateTime.parse(json['updatedAt'] as String),
-  barcode: json['barcode'] as String?,
-  qrCode: json['qrCode'] as String?,
+  barcode: json['barcode'] as String? ?? '',
+  qrCode: json['qrCode'] as String? ?? '',
 );
 
 Map<String, dynamic> _$MetaModelToJson(MetaModel instance) => <String, dynamic>{

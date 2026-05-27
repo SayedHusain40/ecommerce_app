@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'home_state.dart';
+part of 'product_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'home_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$HomeState {
+mixin _$ProductState {
 
 
 
@@ -20,7 +20,7 @@ mixin _$HomeState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductState);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'HomeState()';
+  return 'ProductState()';
 }
 
 
 }
 
 /// @nodoc
-class $HomeStateCopyWith<$Res>  {
-$HomeStateCopyWith(HomeState _, $Res Function(HomeState) __);
+class $ProductStateCopyWith<$Res>  {
+$ProductStateCopyWith(ProductState _, $Res Function(ProductState) __);
 }
 
 
-/// Adds pattern-matching-related methods to [HomeState].
-extension HomeStatePatterns on HomeState {
+/// Adds pattern-matching-related methods to [ProductState].
+extension ProductStatePatterns on ProductState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -192,7 +192,7 @@ return getProductFailure(_that.appFailure);case _:
 /// @nodoc
 
 
-class _Initial implements HomeState {
+class _Initial implements ProductState {
   const _Initial();
   
 
@@ -212,7 +212,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'HomeState.initial()';
+  return 'ProductState.initial()';
 }
 
 
@@ -224,7 +224,7 @@ String toString() {
 /// @nodoc
 
 
-class GetProductLoading implements HomeState {
+class GetProductLoading implements ProductState {
   const GetProductLoading();
   
 
@@ -244,7 +244,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'HomeState.getProductLoading()';
+  return 'ProductState.getProductLoading()';
 }
 
 
@@ -256,7 +256,7 @@ String toString() {
 /// @nodoc
 
 
-class GetProductSuccess implements HomeState {
+class GetProductSuccess implements ProductState {
   const GetProductSuccess(final  List<ProductModel> categoriesList): _categoriesList = categoriesList;
   
 
@@ -268,7 +268,7 @@ class GetProductSuccess implements HomeState {
 }
 
 
-/// Create a copy of HomeState
+/// Create a copy of ProductState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -287,14 +287,14 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'HomeState.getProductSuccess(categoriesList: $categoriesList)';
+  return 'ProductState.getProductSuccess(categoriesList: $categoriesList)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $GetProductSuccessCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
+abstract mixin class $GetProductSuccessCopyWith<$Res> implements $ProductStateCopyWith<$Res> {
   factory $GetProductSuccessCopyWith(GetProductSuccess value, $Res Function(GetProductSuccess) _then) = _$GetProductSuccessCopyWithImpl;
 @useResult
 $Res call({
@@ -313,7 +313,7 @@ class _$GetProductSuccessCopyWithImpl<$Res>
   final GetProductSuccess _self;
   final $Res Function(GetProductSuccess) _then;
 
-/// Create a copy of HomeState
+/// Create a copy of ProductState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? categoriesList = null,}) {
   return _then(GetProductSuccess(
@@ -328,13 +328,13 @@ as List<ProductModel>,
 /// @nodoc
 
 
-class GetProductFailure implements HomeState {
+class GetProductFailure implements ProductState {
   const GetProductFailure(this.appFailure);
   
 
  final  AppFailure appFailure;
 
-/// Create a copy of HomeState
+/// Create a copy of ProductState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -353,14 +353,14 @@ int get hashCode => Object.hash(runtimeType,appFailure);
 
 @override
 String toString() {
-  return 'HomeState.getProductFailure(appFailure: $appFailure)';
+  return 'ProductState.getProductFailure(appFailure: $appFailure)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $GetProductFailureCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
+abstract mixin class $GetProductFailureCopyWith<$Res> implements $ProductStateCopyWith<$Res> {
   factory $GetProductFailureCopyWith(GetProductFailure value, $Res Function(GetProductFailure) _then) = _$GetProductFailureCopyWithImpl;
 @useResult
 $Res call({
@@ -379,7 +379,7 @@ class _$GetProductFailureCopyWithImpl<$Res>
   final GetProductFailure _self;
   final $Res Function(GetProductFailure) _then;
 
-/// Create a copy of HomeState
+/// Create a copy of ProductState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? appFailure = null,}) {
   return _then(GetProductFailure(

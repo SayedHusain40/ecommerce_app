@@ -9,10 +9,10 @@ import 'package:ecommerce_app/features/categories/data/repos/category_repo.dart'
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/data/repos/forgot_password_repo.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
-import 'package:ecommerce_app/features/home/data/repos/home_repo.dart';
-import 'package:ecommerce_app/features/home/logic/cubit/home_cubit.dart';
+import 'package:ecommerce_app/features/products/data/repos/product_repo.dart';
 import 'package:ecommerce_app/features/login/data/repos/login_repo.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
 import 'package:ecommerce_app/features/register/data/repos/register_repo.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/data/repos/verify_email_repo.dart';
@@ -65,7 +65,7 @@ Future<void> setUpGetIt() async {
   getIt.registerLazySingleton<ForgotPasswordRepo>(
     () => ForgotPasswordRepo(getIt()),
   );
-  getIt.registerLazySingleton<HomeRepo>(() => HomeRepo(getIt()));
+  getIt.registerLazySingleton<ProductRepo>(() => ProductRepo(getIt()));
   getIt.registerLazySingleton<CategoryRepo>(() => CategoryRepo(getIt()));
 
   // Cubits
@@ -77,6 +77,6 @@ Future<void> setUpGetIt() async {
   getIt.registerFactory<ForgotPasswordCubit>(
     () => ForgotPasswordCubit(getIt()),
   );
-  getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
+  getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt()));
   getIt.registerFactory<CategoryCubit>(() => CategoryCubit(getIt()));
 }

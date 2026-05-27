@@ -6,11 +6,10 @@ import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_state.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_card.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/category_view_list_or_gird.dart';
 import 'package:ecommerce_app/features/home/data/banners_data.dart';
-import 'package:ecommerce_app/features/home/logic/cubit/home_cubit.dart';
-import 'package:ecommerce_app/features/home/logic/cubit/home_state.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_loading_shimmer.dart';
-import 'package:ecommerce_app/features/home/ui/widgets/latest_products_section.dart';
+import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -27,6 +26,8 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
+
+            // ---- Banner Section ----
             CarouselSlider(
               items: bannerList.map((e) {
                 return Container(
@@ -117,6 +118,8 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 24),
+
+            // ---- Category Section ----
             Row(
               mainAxisAlignment: .spaceBetween,
               children: [
@@ -135,52 +138,29 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 12),
-            BlocConsumer<CategoryCubit, CategoryState>(
-              listenWhen: (previous, current) => current is GetCategoryFailure,
-              listener: (context, state) {
-                state.whenOrNull(
-                  getCategoryFailure: (appFailure) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Failed to get Category')),
-                    );
-                  },
-                );
-              },
-              buildWhen: (previous, current) =>
-                  current is GetCategoryLoading ||
-                  current is GetCategorySuccess ||
-                  current is GetCategoryFailure,
-              builder: (context, state) {
-                return state.maybeWhen(
-                  getCategoryLoading: () => CategoryLoadingShimmer(),
-
-                  getCategorySuccess: (categoriesList) {
-                    return SizedBox(
-                      height: 60,
-                      child: ListView.separated(
-                        scrollDirection: .horizontal,
-                        itemCount: categoriesList.length,
-                        itemBuilder: (context, index) {
-                          final category = categoriesList[index];
-                          return CategoryCard(
-                            name: category.name!,
-                            width: 76,
-                            borderRadius: 12,
-                            iconSize: 18,
-                            textStyle: AppTextStyles.body4SemiBold,
-                          );
-                        },
-                        separatorBuilder: (context, index) =>
-                            SizedBox(width: 8),
-                      ),
-                    );
-                  },
-                  orElse: () => SizedBox.shrink(),
-                );
-              },
-            ),
+            CategoryViewListOrGird(isGrid: false,),
             SizedBox(height: 24),
-            Expanded(child: LatestProductsSection()),
+
+            // ---- Latest Products Section ----
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Latest Products', style: AppTextStyles.headingH3Bold),
+                GestureDetector(
+                  onTap: () {
+                    context.pushNamed(RouteNames.productScreen);
+                  },
+                  child: Text(
+                    'SEE ALL',
+                    style: AppTextStyles.body3SemiBold.copyWith(
+                      color: AppColors.cyan,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+            Expanded(child: ProductsGridView()),
           ],
         ),
       ),

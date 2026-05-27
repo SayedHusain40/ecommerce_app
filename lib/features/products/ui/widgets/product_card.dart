@@ -1,9 +1,10 @@
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
+import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
-  final dynamic product;
+  final ProductModel product;
 
   const ProductCard({super.key, required this.product});
 
@@ -20,7 +21,7 @@ class ProductCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(product.thumbnail ?? ''),
+                  image: NetworkImage(product.thumbnail),
                 ),
                 borderRadius: BorderRadius.circular(24),
                 color: Color(0xFFF5F6F8),

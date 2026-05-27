@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
 import 'package:ecommerce_app/core/storage/storage_keys.dart';
 import 'package:ecommerce_app/core/theme/app_theme.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,8 +19,11 @@ class QuickMart extends StatelessWidget {
     final isFirstTime =
         sharedPreferences.getBool(key: StorageKeys.isFirstTime) ?? true;
 
-    return BlocProvider(
-      create: (context) => getIt<CategoryCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<CategoryCubit>()),
+        BlocProvider(create: (_) => getIt<ProductCubit>()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: appRouter.generateRoute,

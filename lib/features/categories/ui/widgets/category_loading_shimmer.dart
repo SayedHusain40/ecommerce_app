@@ -1,33 +1,28 @@
 import 'package:ecommerce_app/features/categories/ui/widgets/category_card_shimmer.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/category_grid.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/category_list_view.dart';
 import 'package:flutter/material.dart';
 
 class CategoryLoadingShimmer extends StatelessWidget {
   final bool isGrid;
 
-  const CategoryLoadingShimmer({super.key, this.isGrid = false});
+  const CategoryLoadingShimmer({super.key, required this.isGrid});
 
   @override
   Widget build(BuildContext context) {
     if (isGrid) {
-      return GridView.builder(
+      return CategoryGrid(
         itemCount: 6,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisExtent: 100,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 3,
-        ),
-        itemBuilder: (_, __) => CategoryCardShimmer(borderRadius: 16),
+        itemBuilder: (_, _) {
+          return CategoryCardShimmer(borderRadius: 16);
+        },
       );
     }
 
     return SizedBox(
       height: 60,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: 6,
-        separatorBuilder: (_, __) => const SizedBox(width: 8),
-        itemBuilder: (_, __) => CategoryCardShimmer(width: 76, borderRadius: 8),
+      child: CategoryListView(
+        itemBuilder: (_, _) => CategoryCardShimmer(width: 76, borderRadius: 8),
       ),
     );
   }
