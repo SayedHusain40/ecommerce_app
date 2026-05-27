@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
-import 'package:ecommerce_app/features/categories/ui/widgets/category_view_list_or_gird.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/categories_view.dart';
 import 'package:flutter/material.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -11,7 +11,7 @@ class CategoryScreen extends StatelessWidget {
       appBar: AppCustomAppBar(title: 'Categories'),
       body: Padding(
         padding: .symmetric(vertical: 12, horizontal: 16),
-        child: CategoryViewListOrGird(isGrid: true),
+        child: CategoriesView(isGrid: true),
       ),
     );
   }

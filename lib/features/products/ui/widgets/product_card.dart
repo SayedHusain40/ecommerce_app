@@ -20,9 +20,7 @@ class ProductCard extends StatelessWidget {
               height: 138,
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(product.thumbnail),
-                ),
+                image: DecorationImage(image: NetworkImage(product.thumbnail)),
                 borderRadius: BorderRadius.circular(24),
                 color: Color(0xFFF5F6F8),
               ),
@@ -44,22 +42,21 @@ class ProductCard extends StatelessWidget {
           ],
         ),
         Text(
-          product.title ?? 'Unknown',
+          product.title,
           style: AppTextStyles.body2Medium,
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
         ),
         Text(
-          product.discountPercentage != null
-              ? '\$${product.discountPercentage}'
-              : 'Unknown',
+          '\$${product.discountPercentage}',
           style: AppTextStyles.body3SemiBold,
         ),
         Text(
-          product.price != null ? '\$${product.price}' : 'Unknown',
+          '\$${product.price}',
           style: AppTextStyles.body4Regular.copyWith(
             color: AppColors.grey100,
             decoration: TextDecoration.lineThrough,
+            decorationColor: AppColors.grey100,
           ),
         ),
       ],

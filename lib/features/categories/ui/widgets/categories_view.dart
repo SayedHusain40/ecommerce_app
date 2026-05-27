@@ -2,15 +2,15 @@ import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_state.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_card.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/category_card_shimmer.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_grid.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_list_view.dart';
-import 'package:ecommerce_app/features/categories/ui/widgets/category_loading_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CategoryViewListOrGird extends StatelessWidget {
+class CategoriesView extends StatelessWidget {
   final bool isGrid;
-  const CategoryViewListOrGird({super.key, required this.isGrid});
+  const CategoriesView({super.key, required this.isGrid});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,16 @@ class CategoryViewListOrGird extends StatelessWidget {
           current is GetCategoryFailure,
       builder: (context, state) {
         return state.maybeWhen(
-          getCategoryLoading: () => CategoryLoadingShimmer(isGrid: isGrid,),
+          getCategoryLoading: () => isGrid
+              ? CategoryGrid(
+                  itemCount: 6,
+                  itemBuilder: (_, __) =>
+                      const CategoryCardShimmer(borderRadius: 16),
+                )
+              : CategoryListView(
+                  itemBuilder: (_, __) =>
+                      const CategoryCardShimmer(width: 76, borderRadius: 8),
+                ),
           getCategorySuccess: (categoriesList) {
             if (isGrid) {
               return CategoryGrid(
