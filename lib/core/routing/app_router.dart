@@ -23,8 +23,7 @@ class AppRouter {
       case RouteNames.appAuthState:
         final sendEmailOnInit = (settings.arguments as bool?) ?? false;
         return MaterialPageRoute(
-          builder: (context) =>
-              AppAuthState(sendEmailOnInit: sendEmailOnInit), // ← clean
+          builder: (context) => AppAuthState(sendEmailOnInit: sendEmailOnInit),
         );
       case RouteNames.onBoardingScreen:
         return MaterialPageRoute(builder: (context) => OnboardingScreen());
@@ -61,11 +60,24 @@ class AppRouter {
           ),
         );
       case RouteNames.productScreen:
+        final arg = settings.arguments as String?;
+        if (arg == null) {
+          return MaterialPageRoute(
+            builder: (context) => BlocProvider.value(
+              value: context
+                  .read<
+                    ProductCubit
+                  >(), // reuse the already-loaded cubit (already have products loaded)
+              child: ProductScreen(),
+            ),
+          );
+        }
+        // new cubit
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: context
-                .read<ProductCubit>(), // reuse the already-loaded cubit
-            child: ProductScreen(),
+          builder: (context) => BlocProvider(
+            create: (context) =>
+                getIt<ProductCubit>()..getProductsByCategory(category: arg),
+            child: ProductScreen(category: arg),
           ),
         );
 

@@ -55,14 +55,17 @@ extension ProductStatePatterns on ProductState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( GetProductLoading value)?  getProductLoading,TResult Function( GetProductSuccess value)?  getProductSuccess,TResult Function( GetProductFailure value)?  getProductFailure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( GetProductsLoading value)?  getProductsLoading,TResult Function( GetProductsSuccess value)?  getProductSuccess,TResult Function( GetProductsFailure value)?  getProductsFailure,TResult Function( GetProductsByCategoryLoading value)?  getProductByCategoryLoading,TResult Function( GetProductsByCategorySuccess value)?  getProductsByCategorySuccess,TResult Function( GetProductsByCategoryFailure value)?  getProductsByCategoryFailure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case GetProductLoading() when getProductLoading != null:
-return getProductLoading(_that);case GetProductSuccess() when getProductSuccess != null:
-return getProductSuccess(_that);case GetProductFailure() when getProductFailure != null:
-return getProductFailure(_that);case _:
+return initial(_that);case GetProductsLoading() when getProductsLoading != null:
+return getProductsLoading(_that);case GetProductsSuccess() when getProductSuccess != null:
+return getProductSuccess(_that);case GetProductsFailure() when getProductsFailure != null:
+return getProductsFailure(_that);case GetProductsByCategoryLoading() when getProductByCategoryLoading != null:
+return getProductByCategoryLoading(_that);case GetProductsByCategorySuccess() when getProductsByCategorySuccess != null:
+return getProductsByCategorySuccess(_that);case GetProductsByCategoryFailure() when getProductsByCategoryFailure != null:
+return getProductsByCategoryFailure(_that);case _:
   return orElse();
 
 }
@@ -80,14 +83,17 @@ return getProductFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( GetProductLoading value)  getProductLoading,required TResult Function( GetProductSuccess value)  getProductSuccess,required TResult Function( GetProductFailure value)  getProductFailure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( GetProductsLoading value)  getProductsLoading,required TResult Function( GetProductsSuccess value)  getProductSuccess,required TResult Function( GetProductsFailure value)  getProductsFailure,required TResult Function( GetProductsByCategoryLoading value)  getProductByCategoryLoading,required TResult Function( GetProductsByCategorySuccess value)  getProductsByCategorySuccess,required TResult Function( GetProductsByCategoryFailure value)  getProductsByCategoryFailure,}){
 final _that = this;
 switch (_that) {
 case _Initial():
-return initial(_that);case GetProductLoading():
-return getProductLoading(_that);case GetProductSuccess():
-return getProductSuccess(_that);case GetProductFailure():
-return getProductFailure(_that);case _:
+return initial(_that);case GetProductsLoading():
+return getProductsLoading(_that);case GetProductsSuccess():
+return getProductSuccess(_that);case GetProductsFailure():
+return getProductsFailure(_that);case GetProductsByCategoryLoading():
+return getProductByCategoryLoading(_that);case GetProductsByCategorySuccess():
+return getProductsByCategorySuccess(_that);case GetProductsByCategoryFailure():
+return getProductsByCategoryFailure(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -104,14 +110,17 @@ return getProductFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( GetProductLoading value)?  getProductLoading,TResult? Function( GetProductSuccess value)?  getProductSuccess,TResult? Function( GetProductFailure value)?  getProductFailure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( GetProductsLoading value)?  getProductsLoading,TResult? Function( GetProductsSuccess value)?  getProductSuccess,TResult? Function( GetProductsFailure value)?  getProductsFailure,TResult? Function( GetProductsByCategoryLoading value)?  getProductByCategoryLoading,TResult? Function( GetProductsByCategorySuccess value)?  getProductsByCategorySuccess,TResult? Function( GetProductsByCategoryFailure value)?  getProductsByCategoryFailure,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case GetProductLoading() when getProductLoading != null:
-return getProductLoading(_that);case GetProductSuccess() when getProductSuccess != null:
-return getProductSuccess(_that);case GetProductFailure() when getProductFailure != null:
-return getProductFailure(_that);case _:
+return initial(_that);case GetProductsLoading() when getProductsLoading != null:
+return getProductsLoading(_that);case GetProductsSuccess() when getProductSuccess != null:
+return getProductSuccess(_that);case GetProductsFailure() when getProductsFailure != null:
+return getProductsFailure(_that);case GetProductsByCategoryLoading() when getProductByCategoryLoading != null:
+return getProductByCategoryLoading(_that);case GetProductsByCategorySuccess() when getProductsByCategorySuccess != null:
+return getProductsByCategorySuccess(_that);case GetProductsByCategoryFailure() when getProductsByCategoryFailure != null:
+return getProductsByCategoryFailure(_that);case _:
   return null;
 
 }
@@ -128,13 +137,16 @@ return getProductFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  getProductLoading,TResult Function( List<ProductModel> categoriesList)?  getProductSuccess,TResult Function( AppFailure appFailure)?  getProductFailure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  getProductsLoading,TResult Function( List<ProductModel> categoriesList)?  getProductSuccess,TResult Function( AppFailure appFailure)?  getProductsFailure,TResult Function()?  getProductByCategoryLoading,TResult Function( List<ProductModel> categoriesList)?  getProductsByCategorySuccess,TResult Function( AppFailure appFailure)?  getProductsByCategoryFailure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case GetProductLoading() when getProductLoading != null:
-return getProductLoading();case GetProductSuccess() when getProductSuccess != null:
-return getProductSuccess(_that.categoriesList);case GetProductFailure() when getProductFailure != null:
-return getProductFailure(_that.appFailure);case _:
+return initial();case GetProductsLoading() when getProductsLoading != null:
+return getProductsLoading();case GetProductsSuccess() when getProductSuccess != null:
+return getProductSuccess(_that.categoriesList);case GetProductsFailure() when getProductsFailure != null:
+return getProductsFailure(_that.appFailure);case GetProductsByCategoryLoading() when getProductByCategoryLoading != null:
+return getProductByCategoryLoading();case GetProductsByCategorySuccess() when getProductsByCategorySuccess != null:
+return getProductsByCategorySuccess(_that.categoriesList);case GetProductsByCategoryFailure() when getProductsByCategoryFailure != null:
+return getProductsByCategoryFailure(_that.appFailure);case _:
   return orElse();
 
 }
@@ -152,13 +164,16 @@ return getProductFailure(_that.appFailure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  getProductLoading,required TResult Function( List<ProductModel> categoriesList)  getProductSuccess,required TResult Function( AppFailure appFailure)  getProductFailure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  getProductsLoading,required TResult Function( List<ProductModel> categoriesList)  getProductSuccess,required TResult Function( AppFailure appFailure)  getProductsFailure,required TResult Function()  getProductByCategoryLoading,required TResult Function( List<ProductModel> categoriesList)  getProductsByCategorySuccess,required TResult Function( AppFailure appFailure)  getProductsByCategoryFailure,}) {final _that = this;
 switch (_that) {
 case _Initial():
-return initial();case GetProductLoading():
-return getProductLoading();case GetProductSuccess():
-return getProductSuccess(_that.categoriesList);case GetProductFailure():
-return getProductFailure(_that.appFailure);case _:
+return initial();case GetProductsLoading():
+return getProductsLoading();case GetProductsSuccess():
+return getProductSuccess(_that.categoriesList);case GetProductsFailure():
+return getProductsFailure(_that.appFailure);case GetProductsByCategoryLoading():
+return getProductByCategoryLoading();case GetProductsByCategorySuccess():
+return getProductsByCategorySuccess(_that.categoriesList);case GetProductsByCategoryFailure():
+return getProductsByCategoryFailure(_that.appFailure);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -175,13 +190,16 @@ return getProductFailure(_that.appFailure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  getProductLoading,TResult? Function( List<ProductModel> categoriesList)?  getProductSuccess,TResult? Function( AppFailure appFailure)?  getProductFailure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  getProductsLoading,TResult? Function( List<ProductModel> categoriesList)?  getProductSuccess,TResult? Function( AppFailure appFailure)?  getProductsFailure,TResult? Function()?  getProductByCategoryLoading,TResult? Function( List<ProductModel> categoriesList)?  getProductsByCategorySuccess,TResult? Function( AppFailure appFailure)?  getProductsByCategoryFailure,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case GetProductLoading() when getProductLoading != null:
-return getProductLoading();case GetProductSuccess() when getProductSuccess != null:
-return getProductSuccess(_that.categoriesList);case GetProductFailure() when getProductFailure != null:
-return getProductFailure(_that.appFailure);case _:
+return initial();case GetProductsLoading() when getProductsLoading != null:
+return getProductsLoading();case GetProductsSuccess() when getProductSuccess != null:
+return getProductSuccess(_that.categoriesList);case GetProductsFailure() when getProductsFailure != null:
+return getProductsFailure(_that.appFailure);case GetProductsByCategoryLoading() when getProductByCategoryLoading != null:
+return getProductByCategoryLoading();case GetProductsByCategorySuccess() when getProductsByCategorySuccess != null:
+return getProductsByCategorySuccess(_that.categoriesList);case GetProductsByCategoryFailure() when getProductsByCategoryFailure != null:
+return getProductsByCategoryFailure(_that.appFailure);case _:
   return null;
 
 }
@@ -224,8 +242,8 @@ String toString() {
 /// @nodoc
 
 
-class GetProductLoading implements ProductState {
-  const GetProductLoading();
+class GetProductsLoading implements ProductState {
+  const GetProductsLoading();
   
 
 
@@ -235,7 +253,7 @@ class GetProductLoading implements ProductState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetProductLoading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetProductsLoading);
 }
 
 
@@ -244,7 +262,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ProductState.getProductLoading()';
+  return 'ProductState.getProductsLoading()';
 }
 
 
@@ -256,8 +274,8 @@ String toString() {
 /// @nodoc
 
 
-class GetProductSuccess implements ProductState {
-  const GetProductSuccess(final  List<ProductModel> categoriesList): _categoriesList = categoriesList;
+class GetProductsSuccess implements ProductState {
+  const GetProductsSuccess(final  List<ProductModel> categoriesList): _categoriesList = categoriesList;
   
 
  final  List<ProductModel> _categoriesList;
@@ -272,13 +290,13 @@ class GetProductSuccess implements ProductState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$GetProductSuccessCopyWith<GetProductSuccess> get copyWith => _$GetProductSuccessCopyWithImpl<GetProductSuccess>(this, _$identity);
+$GetProductsSuccessCopyWith<GetProductsSuccess> get copyWith => _$GetProductsSuccessCopyWithImpl<GetProductsSuccess>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetProductSuccess&&const DeepCollectionEquality().equals(other._categoriesList, _categoriesList));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetProductsSuccess&&const DeepCollectionEquality().equals(other._categoriesList, _categoriesList));
 }
 
 
@@ -294,8 +312,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $GetProductSuccessCopyWith<$Res> implements $ProductStateCopyWith<$Res> {
-  factory $GetProductSuccessCopyWith(GetProductSuccess value, $Res Function(GetProductSuccess) _then) = _$GetProductSuccessCopyWithImpl;
+abstract mixin class $GetProductsSuccessCopyWith<$Res> implements $ProductStateCopyWith<$Res> {
+  factory $GetProductsSuccessCopyWith(GetProductsSuccess value, $Res Function(GetProductsSuccess) _then) = _$GetProductsSuccessCopyWithImpl;
 @useResult
 $Res call({
  List<ProductModel> categoriesList
@@ -306,17 +324,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$GetProductSuccessCopyWithImpl<$Res>
-    implements $GetProductSuccessCopyWith<$Res> {
-  _$GetProductSuccessCopyWithImpl(this._self, this._then);
+class _$GetProductsSuccessCopyWithImpl<$Res>
+    implements $GetProductsSuccessCopyWith<$Res> {
+  _$GetProductsSuccessCopyWithImpl(this._self, this._then);
 
-  final GetProductSuccess _self;
-  final $Res Function(GetProductSuccess) _then;
+  final GetProductsSuccess _self;
+  final $Res Function(GetProductsSuccess) _then;
 
 /// Create a copy of ProductState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? categoriesList = null,}) {
-  return _then(GetProductSuccess(
+  return _then(GetProductsSuccess(
 null == categoriesList ? _self._categoriesList : categoriesList // ignore: cast_nullable_to_non_nullable
 as List<ProductModel>,
   ));
@@ -328,8 +346,8 @@ as List<ProductModel>,
 /// @nodoc
 
 
-class GetProductFailure implements ProductState {
-  const GetProductFailure(this.appFailure);
+class GetProductsFailure implements ProductState {
+  const GetProductsFailure(this.appFailure);
   
 
  final  AppFailure appFailure;
@@ -338,13 +356,13 @@ class GetProductFailure implements ProductState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$GetProductFailureCopyWith<GetProductFailure> get copyWith => _$GetProductFailureCopyWithImpl<GetProductFailure>(this, _$identity);
+$GetProductsFailureCopyWith<GetProductsFailure> get copyWith => _$GetProductsFailureCopyWithImpl<GetProductsFailure>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetProductFailure&&(identical(other.appFailure, appFailure) || other.appFailure == appFailure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetProductsFailure&&(identical(other.appFailure, appFailure) || other.appFailure == appFailure));
 }
 
 
@@ -353,15 +371,15 @@ int get hashCode => Object.hash(runtimeType,appFailure);
 
 @override
 String toString() {
-  return 'ProductState.getProductFailure(appFailure: $appFailure)';
+  return 'ProductState.getProductsFailure(appFailure: $appFailure)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $GetProductFailureCopyWith<$Res> implements $ProductStateCopyWith<$Res> {
-  factory $GetProductFailureCopyWith(GetProductFailure value, $Res Function(GetProductFailure) _then) = _$GetProductFailureCopyWithImpl;
+abstract mixin class $GetProductsFailureCopyWith<$Res> implements $ProductStateCopyWith<$Res> {
+  factory $GetProductsFailureCopyWith(GetProductsFailure value, $Res Function(GetProductsFailure) _then) = _$GetProductsFailureCopyWithImpl;
 @useResult
 $Res call({
  AppFailure appFailure
@@ -372,17 +390,187 @@ $Res call({
 
 }
 /// @nodoc
-class _$GetProductFailureCopyWithImpl<$Res>
-    implements $GetProductFailureCopyWith<$Res> {
-  _$GetProductFailureCopyWithImpl(this._self, this._then);
+class _$GetProductsFailureCopyWithImpl<$Res>
+    implements $GetProductsFailureCopyWith<$Res> {
+  _$GetProductsFailureCopyWithImpl(this._self, this._then);
 
-  final GetProductFailure _self;
-  final $Res Function(GetProductFailure) _then;
+  final GetProductsFailure _self;
+  final $Res Function(GetProductsFailure) _then;
 
 /// Create a copy of ProductState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? appFailure = null,}) {
-  return _then(GetProductFailure(
+  return _then(GetProductsFailure(
+null == appFailure ? _self.appFailure : appFailure // ignore: cast_nullable_to_non_nullable
+as AppFailure,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class GetProductsByCategoryLoading implements ProductState {
+  const GetProductsByCategoryLoading();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetProductsByCategoryLoading);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'ProductState.getProductByCategoryLoading()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class GetProductsByCategorySuccess implements ProductState {
+  const GetProductsByCategorySuccess(final  List<ProductModel> categoriesList): _categoriesList = categoriesList;
+  
+
+ final  List<ProductModel> _categoriesList;
+ List<ProductModel> get categoriesList {
+  if (_categoriesList is EqualUnmodifiableListView) return _categoriesList;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_categoriesList);
+}
+
+
+/// Create a copy of ProductState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$GetProductsByCategorySuccessCopyWith<GetProductsByCategorySuccess> get copyWith => _$GetProductsByCategorySuccessCopyWithImpl<GetProductsByCategorySuccess>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetProductsByCategorySuccess&&const DeepCollectionEquality().equals(other._categoriesList, _categoriesList));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_categoriesList));
+
+@override
+String toString() {
+  return 'ProductState.getProductsByCategorySuccess(categoriesList: $categoriesList)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $GetProductsByCategorySuccessCopyWith<$Res> implements $ProductStateCopyWith<$Res> {
+  factory $GetProductsByCategorySuccessCopyWith(GetProductsByCategorySuccess value, $Res Function(GetProductsByCategorySuccess) _then) = _$GetProductsByCategorySuccessCopyWithImpl;
+@useResult
+$Res call({
+ List<ProductModel> categoriesList
+});
+
+
+
+
+}
+/// @nodoc
+class _$GetProductsByCategorySuccessCopyWithImpl<$Res>
+    implements $GetProductsByCategorySuccessCopyWith<$Res> {
+  _$GetProductsByCategorySuccessCopyWithImpl(this._self, this._then);
+
+  final GetProductsByCategorySuccess _self;
+  final $Res Function(GetProductsByCategorySuccess) _then;
+
+/// Create a copy of ProductState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? categoriesList = null,}) {
+  return _then(GetProductsByCategorySuccess(
+null == categoriesList ? _self._categoriesList : categoriesList // ignore: cast_nullable_to_non_nullable
+as List<ProductModel>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class GetProductsByCategoryFailure implements ProductState {
+  const GetProductsByCategoryFailure(this.appFailure);
+  
+
+ final  AppFailure appFailure;
+
+/// Create a copy of ProductState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$GetProductsByCategoryFailureCopyWith<GetProductsByCategoryFailure> get copyWith => _$GetProductsByCategoryFailureCopyWithImpl<GetProductsByCategoryFailure>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetProductsByCategoryFailure&&(identical(other.appFailure, appFailure) || other.appFailure == appFailure));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,appFailure);
+
+@override
+String toString() {
+  return 'ProductState.getProductsByCategoryFailure(appFailure: $appFailure)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $GetProductsByCategoryFailureCopyWith<$Res> implements $ProductStateCopyWith<$Res> {
+  factory $GetProductsByCategoryFailureCopyWith(GetProductsByCategoryFailure value, $Res Function(GetProductsByCategoryFailure) _then) = _$GetProductsByCategoryFailureCopyWithImpl;
+@useResult
+$Res call({
+ AppFailure appFailure
+});
+
+
+
+
+}
+/// @nodoc
+class _$GetProductsByCategoryFailureCopyWithImpl<$Res>
+    implements $GetProductsByCategoryFailureCopyWith<$Res> {
+  _$GetProductsByCategoryFailureCopyWithImpl(this._self, this._then);
+
+  final GetProductsByCategoryFailure _self;
+  final $Res Function(GetProductsByCategoryFailure) _then;
+
+/// Create a copy of ProductState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? appFailure = null,}) {
+  return _then(GetProductsByCategoryFailure(
 null == appFailure ? _self.appFailure : appFailure // ignore: cast_nullable_to_non_nullable
 as AppFailure,
   ));

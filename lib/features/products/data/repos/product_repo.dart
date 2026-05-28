@@ -37,4 +37,20 @@ class ProductRepo {
       return AppResult.failure(failure);
     }
   }
+
+  Future<AppResult<List<ProductModel>>> getProductsByCategory({
+    required String category,
+  }) async {
+    try {
+      final ProductResponseModel response = await apiService
+          .getProductsByCategory(category);
+
+      final List<ProductModel> products = response.products;
+
+      return AppResult.success(products);
+    } catch (e) {
+      final failure = ErrorHandler.handle(e);
+      return AppResult.failure(failure);
+    }
+  }
 }

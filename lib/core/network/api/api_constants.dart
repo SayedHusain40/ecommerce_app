@@ -9,7 +9,7 @@ class ApiEndPoints {
 
   static const categories = '/products/categories';
   static const products = '/products';
-
+  static const productsByCategory = '/products/category/{category}';
 }
 
 

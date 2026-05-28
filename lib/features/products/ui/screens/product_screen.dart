@@ -3,15 +3,18 @@ import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.da
 import 'package:flutter/material.dart';
 
 class ProductScreen extends StatelessWidget {
-  const ProductScreen({super.key});
+  final String? category;
+
+  const ProductScreen({super.key, this.category});
 
   @override
   Widget build(BuildContext context) {
+    final String appBarTitle = category ?? 'Products';
     return Scaffold(
-      appBar: AppCustomAppBar(title: 'Products'),
+      appBar: AppCustomAppBar(title: appBarTitle),
       body: Padding(
         padding: .symmetric(vertical: 12, horizontal: 16),
-        child: ProductsGridView(),
+        child: ProductsGridView(category: category),
       ),
     );
   }

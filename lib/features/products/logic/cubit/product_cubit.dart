@@ -8,7 +8,7 @@ class ProductCubit extends Cubit<ProductState> {
   ProductCubit(this.productRepo) : super(ProductState.initial());
 
   Future<void> getProducts() async {
-    emit(ProductState.getProductLoading());
+    emit(ProductState.getProductsLoading());
     final result = await productRepo.getProducts();
 
     result.when(
@@ -16,7 +16,21 @@ class ProductCubit extends Cubit<ProductState> {
         emit(ProductState.getProductSuccess(data));
       },
       failure: (appFailure) {
-        emit(ProductState.getProductFailure(appFailure));
+        emit(ProductState.getProductsFailure(appFailure));
+      },
+    );
+  }
+
+  Future<void> getProductsByCategory({required String category}) async {
+    emit(ProductState.getProductByCategoryLoading());
+    final result = await productRepo.getProductsByCategory(category: category);
+
+    result.when(
+      success: (data) {
+        emit(ProductState.getProductsByCategorySuccess(data));
+      },
+      failure: (appFailure) {
+        emit(ProductState.getProductsByCategoryFailure(appFailure));
       },
     );
   }

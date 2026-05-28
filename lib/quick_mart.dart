@@ -19,6 +19,7 @@ class QuickMart extends StatelessWidget {
     final isFirstTime =
         sharedPreferences.getBool(key: StorageKeys.isFirstTime) ?? true;
 
+    // i add providers here because ...
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => getIt<CategoryCubit>()),

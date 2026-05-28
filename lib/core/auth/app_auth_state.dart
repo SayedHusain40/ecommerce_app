@@ -45,7 +45,6 @@ class AppAuthState extends StatelessWidget {
         }
 
         // Logged in and verified
-
         context.read<CategoryCubit>().getCategories();
         context.read<ProductCubit>().getProducts();
         return const HomeScreen();

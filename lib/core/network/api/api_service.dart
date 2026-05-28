@@ -15,4 +15,9 @@ abstract class ApiService {
 
   @GET(ApiEndPoints.products)
   Future<ProductResponseModel> getProducts();
+
+  @GET(ApiEndPoints.productsByCategory)
+  Future<ProductResponseModel> getProductsByCategory(
+    @Path('category') String category, // ← matches {category} in the endpoint
+  );
 }
