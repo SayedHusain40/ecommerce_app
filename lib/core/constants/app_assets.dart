@@ -13,12 +13,10 @@ class AppImages {
   static const String onboarding2 = 'assets/images/onboardings/onboarding2.png';
   static const String onboarding3 = 'assets/images/onboardings/onboarding3.png';
 
-
   // Banners
   static const String banner1 = 'assets/images/banners/banner1.png';
 
-
-
+  // Helpers 
   static String logo(Brightness b) =>
       b == Brightness.dark ? logoDark : logoLight;
 }
@@ -49,6 +47,17 @@ class AppIcons {
   static const String tickCircleLight = 'assets/svgs/tick-circle_light.svg';
   static const String tickCircleDark = 'assets/svgs/tick-circle_dark.svg';
 
+  static const String minusLight = 'assets/svgs/minus_light.svg';
+  static const String minusDark = 'assets/svgs/minus_dark.svg';
+  static const String minusDisabled = 'assets/svgs/minus_disabled.svg';
+
+  static const String addLight = 'assets/svgs/add_light.svg';
+  static const String addDark = 'assets/svgs/add_dark.svg';
+
+  static const String shoppingCart = 'assets/svgs/shopping-cart.svg';
+
+
+  // Helpers
   static String arrowLeft(Brightness b) =>
       b == Brightness.dark ? arrowLeftDark : arrowLeftLight;
 
@@ -60,4 +69,9 @@ class AppIcons {
 
   static String tickCircle(Brightness b) =>
       b == Brightness.dark ? tickCircleDark : tickCircleLight;
+
+  static String add(Brightness b) => b == Brightness.dark ? addDark : addLight;
+
+  static String minus(Brightness b) =>
+      b == Brightness.dark ? minusDark : minusLight;
 }

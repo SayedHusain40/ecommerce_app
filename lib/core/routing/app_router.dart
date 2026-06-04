@@ -8,8 +8,10 @@ import 'package:ecommerce_app/features/forgot_password/ui/screens/confirmation_e
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
+import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
+import 'package:ecommerce_app/features/products/ui/widgets/product_detail_screen.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/register/ui/screens/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -60,8 +62,8 @@ class AppRouter {
           ),
         );
       case RouteNames.productScreen:
-        final arg = settings.arguments as String?;
-        if (arg == null) {
+        final category = settings.arguments as String?;
+        if (category == null) {
           return MaterialPageRoute(
             builder: (context) => BlocProvider.value(
               value: context
@@ -76,11 +78,15 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) =>
-                getIt<ProductCubit>()..getProductsByCategory(category: arg),
-            child: ProductScreen(category: arg),
+                getIt<ProductCubit>()..getProductsByCategory(category: category),
+            child: ProductScreen(category: category),
           ),
         );
-
+      case RouteNames.productDetailScreen:
+        final productModel = settings.arguments as ProductModel;
+        return MaterialPageRoute(
+          builder: (context) => ProductDetailScreen(productModel: productModel),
+        );
       default:
         return MaterialPageRoute(builder: (context) => UndefinedRouteScreen());
     }

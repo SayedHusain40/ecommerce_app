@@ -16,7 +16,7 @@ class AppTheme {
     brightness: Brightness.light,
     fontFamily: AppFonts.plusJakartaSans,
     colorScheme: AppColorScheme.light,
-
+  
     // textTheme: AppTextTheme.light,
     scaffoldBackgroundColor: AppColors.white,
     appBarTheme: BarTheme.light,
@@ -40,6 +40,7 @@ class AppTheme {
     elevatedButtonTheme: AppElevatedButtonTheme.dark,
     textButtonTheme: AppTextButtonTheme.dark,
     inputDecorationTheme: AppInputDecorationTheme.dark,
+    
     // bottomSheetTheme: AppBottomSheetTheme.dark,
     // checkboxTheme: AppCheckboxTheme.dark,
   );

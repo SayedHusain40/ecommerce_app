@@ -61,7 +61,7 @@ class _ProductsGridViewState extends State<ProductsGridView> {
             getProductSuccess: (productsList) => ProductGrid(
               itemCount: productsList.length,
               itemBuilder: (_, index) =>
-                  ProductCard(product: productsList[index]),
+                  ProductCard(productModel: productsList[index]),
             ),
             orElse: () => const SizedBox.shrink(),
           );
@@ -75,7 +75,7 @@ class _ProductsGridViewState extends State<ProductsGridView> {
           getProductsByCategorySuccess: (productsList) => ProductGrid(
             itemCount: productsList.length,
             itemBuilder: (_, index) =>
-                ProductCard(product: productsList[index]),
+                ProductCard(productModel: productsList[index]),
           ),
           orElse: () => const SizedBox.shrink(),
         );

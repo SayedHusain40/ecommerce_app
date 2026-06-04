@@ -1,7 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 
 part 'product_model.g.dart';
 
+// TODO : explicitToJson
 @JsonSerializable(explicitToJson: true)
 class ProductResponseModel {
   @JsonKey(defaultValue: [])
@@ -13,7 +15,12 @@ class ProductResponseModel {
   @JsonKey(defaultValue: 0)
   final int limit;
 
-  ProductResponseModel({required this.products, required this.total, required this.skip, required this.limit});
+  ProductResponseModel({
+    required this.products,
+    required this.total,
+    required this.skip,
+    required this.limit,
+  });
 
   factory ProductResponseModel.fromJson(Map<String, dynamic> json) =>
       _$ProductResponseModelFromJson(json);
@@ -157,6 +164,8 @@ class ReviewModel {
   @JsonKey(defaultValue: '')
   final String reviewerEmail;
 
+  final formatter = DateFormat.yMd();
+
   ReviewModel({
     required this.rating,
     required this.comment,
@@ -169,6 +178,13 @@ class ReviewModel {
       _$ReviewModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReviewModelToJson(this);
+
+  String? formattedDate() {
+    if (date == null) {
+      return null;
+    }
+    return formatter.format(date!);
+  }
 }
 
 @JsonSerializable()

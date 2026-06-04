@@ -9,4 +9,5 @@ class RouteNames {
   static const confirmationEmailScreenScreen = '/confirmationEmailScreenScreen';
   static const categoryScreen = '/categoryScreen';
   static const productScreen = '/productScreen';
+  static const productDetailScreen = '/productDetailScreen';
 }

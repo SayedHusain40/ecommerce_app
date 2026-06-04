@@ -20,6 +20,7 @@ class QuickMart extends StatelessWidget {
         sharedPreferences.getBool(key: StorageKeys.isFirstTime) ?? true;
 
     // i add providers here because ...
+    // so i can reused CategoryCubit/ProductCubit => data without need called api again
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => getIt<CategoryCubit>()),
