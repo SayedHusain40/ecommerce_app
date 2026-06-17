@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/widgets/search_icon_button.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_banner.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_categories_section.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_products_section.dart';
@@ -9,7 +10,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
+      appBar: AppBar(
+        title: Text('Home'),
+        actions: [SearchIconButton(), SizedBox(width: 15)],
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(

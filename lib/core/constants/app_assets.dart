@@ -16,7 +16,7 @@ class AppImages {
   // Banners
   static const String banner1 = 'assets/images/banners/banner1.png';
 
-  // Helpers 
+  // Helpers
   static String logo(Brightness b) =>
       b == Brightness.dark ? logoDark : logoLight;
 }
@@ -56,6 +56,15 @@ class AppIcons {
 
   static const String shoppingCart = 'assets/svgs/shopping-cart.svg';
 
+  static const String searchLight = 'assets/svgs/search_light.svg';
+  static const String searchDark = 'assets/svgs/search_dark.svg';
+  static const String searchGray = 'assets/svgs/search_gray.svg';
+
+  static const String settingLight = 'assets/svgs/setting_light.svg';
+  static const String settingDark = 'assets/svgs/setting_dark.svg';
+
+  static const String cancelLight = 'assets/svgs/cancel_light.svg';
+  static const String cancelDark = 'assets/svgs/cancel_dark.svg';
 
   // Helpers
   static String arrowLeft(Brightness b) =>
@@ -74,4 +83,13 @@ class AppIcons {
 
   static String minus(Brightness b) =>
       b == Brightness.dark ? minusDark : minusLight;
+
+  static String search(Brightness b) =>
+      b == Brightness.dark ? searchDark : searchLight;
+
+  static String setting(Brightness b) =>
+      b == Brightness.dark ? settingDark : settingLight;
+
+  static String cancel(Brightness b) =>
+      b == Brightness.dark ? cancelDark : cancelLight;
 }

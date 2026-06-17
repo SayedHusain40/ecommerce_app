@@ -53,4 +53,20 @@ class ProductRepo {
       return AppResult.failure(failure);
     }
   }
+
+  Future<AppResult<List<ProductModel>>> getProductsBySearchQuery({
+    required String searchQuery,
+  }) async {
+    try {
+      final ProductResponseModel response = await apiService
+          .getProductsBySearchQuery(searchQuery);
+
+      final List<ProductModel> products = response.products;
+
+      return AppResult.success(products);
+    } catch (e) {
+      final failure = ErrorHandler.handle(e);
+      return AppResult.failure(failure);
+    }
+  }
 }

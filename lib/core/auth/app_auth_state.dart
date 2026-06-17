@@ -45,9 +45,15 @@ class AppAuthState extends StatelessWidget {
         }
 
         // Logged in and verified
-        context.read<CategoryCubit>().getCategories();
-        context.read<ProductCubit>().getProducts();
-        return const HomeScreen();
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => getIt<CategoryCubit>()..getCategories(),
+            ),
+            BlocProvider(create: (_) => getIt<ProductCubit>()..getProducts()),
+          ],
+          child: const HomeScreen(),
+        );
       },
     );
   }

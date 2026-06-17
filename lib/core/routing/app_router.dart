@@ -53,32 +53,25 @@ class AppRouter {
           ),
         );
       case RouteNames.categoryScreen:
-        // return MaterialPageRoute(builder: (context) => CategoryScreen()); // not works
         return MaterialPageRoute(
           builder: (context) => BlocProvider.value(
             value: context
-                .read<CategoryCubit>(), // reuse the already-loaded cubit
+                .read<CategoryCubit>(), 
             child: CategoryScreen(),
           ),
         );
+
       case RouteNames.productScreen:
         final category = settings.arguments as String?;
-        if (category == null) {
-          return MaterialPageRoute(
-            builder: (context) => BlocProvider.value(
-              value: context
-                  .read<
-                    ProductCubit
-                  >(), // reuse the already-loaded cubit (already have products loaded)
-              child: ProductScreen(),
-            ),
-          );
-        }
-        // new cubit
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) =>
-                getIt<ProductCubit>()..getProductsByCategory(category: category),
+            create: (context) {
+              if (category != null) {
+                return getIt<ProductCubit>()
+                  ..getProductsByCategory(category: category);
+              }
+              return getIt<ProductCubit>()..getProducts();
+            },
             child: ProductScreen(category: category),
           ),
         );

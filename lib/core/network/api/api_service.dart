@@ -18,6 +18,11 @@ abstract class ApiService {
 
   @GET(ApiEndPoints.productsByCategory)
   Future<ProductResponseModel> getProductsByCategory(
-    @Path('category') String category, // ← matches {category} in the endpoint
+    @Path('category') String category,
+  );
+
+  @GET(ApiEndPoints.searchProducts)
+  Future<ProductResponseModel> getProductsBySearchQuery(
+    @Query('q') String query,
   );
 }
