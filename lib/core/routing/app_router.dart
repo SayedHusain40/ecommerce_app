@@ -8,6 +8,10 @@ import 'package:ecommerce_app/features/forgot_password/ui/screens/confirmation_e
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
+import 'package:ecommerce_app/features/products/data/model/product_model.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
+import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
+import 'package:ecommerce_app/features/products/ui/widgets/product_detail_screen.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/register/ui/screens/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +25,7 @@ class AppRouter {
       case RouteNames.appAuthState:
         final sendEmailOnInit = (settings.arguments as bool?) ?? false;
         return MaterialPageRoute(
-          builder: (context) =>
-              AppAuthState(sendEmailOnInit: sendEmailOnInit), // ← clean
+          builder: (context) => AppAuthState(sendEmailOnInit: sendEmailOnInit),
         );
       case RouteNames.onBoardingScreen:
         return MaterialPageRoute(builder: (context) => OnboardingScreen());
@@ -50,15 +53,33 @@ class AppRouter {
           ),
         );
       case RouteNames.categoryScreen:
-        // return MaterialPageRoute(builder: (context) => CategoryScreen()); // not works
         return MaterialPageRoute(
           builder: (context) => BlocProvider.value(
             value: context
-                .read<CategoryCubit>(), // reuse the already-loaded cubit
+                .read<CategoryCubit>(), 
             child: CategoryScreen(),
           ),
         );
 
+      case RouteNames.productScreen:
+        final category = settings.arguments as String?;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) {
+              if (category != null) {
+                return getIt<ProductCubit>()
+                  ..getProductsByCategory(category: category);
+              }
+              return getIt<ProductCubit>()..getProducts();
+            },
+            child: ProductScreen(category: category),
+          ),
+        );
+      case RouteNames.productDetailScreen:
+        final productModel = settings.arguments as ProductModel;
+        return MaterialPageRoute(
+          builder: (context) => ProductDetailScreen(productModel: productModel),
+        );
       default:
         return MaterialPageRoute(builder: (context) => UndefinedRouteScreen());
     }

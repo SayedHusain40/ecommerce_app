@@ -9,12 +9,12 @@ class CategoryCubit extends Cubit<CategoryState> {
 
   Future<void> getCategories() async {
     // Guard: skip if already loaded or loading
-    final isAlreadyLoaded = state.maybeWhen(
-      getCategorySuccess: (_) => true,
-      getCategoryLoading: () => true,
-      orElse: () => false,
-    );
-    if (isAlreadyLoaded) return;
+    // final isAlreadyLoaded = state.maybeWhen(
+    //   getCategorySuccess: (_) => true,
+    //   getCategoryLoading: () => true,
+    //   orElse: () => false,
+    // );
+    // if (isAlreadyLoaded) return;
 
     emit(CategoryState.getCategoryLoading());
     final result = await categoryRepo.getCategories();

@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_fonts.dart';
+import 'package:ecommerce_app/core/theme/custom_themes/app_bottom_sheet_theme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_color_scheme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_elevated_button_theme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_input_decoration_theme.dart';
@@ -16,7 +17,7 @@ class AppTheme {
     brightness: Brightness.light,
     fontFamily: AppFonts.plusJakartaSans,
     colorScheme: AppColorScheme.light,
-
+  
     // textTheme: AppTextTheme.light,
     scaffoldBackgroundColor: AppColors.white,
     appBarTheme: BarTheme.light,
@@ -24,7 +25,7 @@ class AppTheme {
     textButtonTheme: AppTextButtonTheme.light,
     inputDecorationTheme: AppInputDecorationTheme.light,
 
-    // bottomSheetTheme: AppBottomSheetTheme.light,
+    bottomSheetTheme: AppBottomSheetTheme.light,
     // checkboxTheme: AppCheckboxTheme.light,
   );
 
@@ -40,7 +41,8 @@ class AppTheme {
     elevatedButtonTheme: AppElevatedButtonTheme.dark,
     textButtonTheme: AppTextButtonTheme.dark,
     inputDecorationTheme: AppInputDecorationTheme.dark,
-    // bottomSheetTheme: AppBottomSheetTheme.dark,
+    
+    bottomSheetTheme: AppBottomSheetTheme.dark,
     // checkboxTheme: AppCheckboxTheme.dark,
   );
 }

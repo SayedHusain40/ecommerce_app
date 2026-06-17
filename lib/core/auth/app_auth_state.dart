@@ -1,10 +1,9 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
-import 'package:ecommerce_app/features/categories/logic/cubit/category_state.dart';
-import 'package:ecommerce_app/features/home/logic/cubit/home_cubit.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/ui/screens/verify_email_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,12 +45,13 @@ class AppAuthState extends StatelessWidget {
         }
 
         // Logged in and verified
-
-        // Only fetch if not already loaded
-        context.read<CategoryCubit>().getCategories;
-
-        return BlocProvider(
-          create: (context) => getIt<HomeCubit>()..getProducts(),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => getIt<CategoryCubit>()..getCategories(),
+            ),
+            BlocProvider(create: (_) => getIt<ProductCubit>()..getProducts()),
+          ],
           child: const HomeScreen(),
         );
       },

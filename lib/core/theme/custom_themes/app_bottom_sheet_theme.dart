@@ -1,22 +1,24 @@
-// import 'package:flutter/material.dart';
-// import 'package:theme/mytheme/app_colors.dart';
+import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
+import 'package:flutter/material.dart';
 
-// class AppBottomSheetTheme {
-//   const AppBottomSheetTheme._();
+class AppBottomSheetTheme {
+  const AppBottomSheetTheme._();
 
-//   static const BottomSheetThemeData light =  BottomSheetThemeData(
-//     showDragHandle: true,
-//     backgroundColor: AppColors.grey0,
-//     shape: RoundedRectangleBorder(
-//       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-//     ),
-//   );
+  static const BottomSheetThemeData light = BottomSheetThemeData(
+    showDragHandle: true,
 
-//   static const BottomSheetThemeData dark =  BottomSheetThemeData(
-//     showDragHandle: true,
-//     backgroundColor: AppColors.grey900,
-//     shape: RoundedRectangleBorder(
-//       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-//     ),
-//   );
-// }
+    constraints: BoxConstraints.expand(),
+    backgroundColor: AppColors.white,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+    dragHandleSize: Size(100, 6),
+  );
+
+  static const BottomSheetThemeData dark = BottomSheetThemeData(
+    showDragHandle: true,
+    constraints: BoxConstraints.expand(),
+
+    backgroundColor: AppColors.black,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+    dragHandleSize: Size(100, 6),
+  );
+}
