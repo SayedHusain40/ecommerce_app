@@ -79,4 +79,10 @@ Future<void> setUpGetIt() async {
   );
   getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt()));
   getIt.registerFactory<CategoryCubit>(() => CategoryCubit(getIt()));
+  getIt.registerFactory<LatestProductsCubit>(
+    () => LatestProductsCubit(getIt()),
+  );
+  getIt.registerFactory<CategoryProductsCubit>(
+    () => CategoryProductsCubit(getIt()),
+  );
 }

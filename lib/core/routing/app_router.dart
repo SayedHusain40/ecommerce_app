@@ -67,10 +67,10 @@ class AppRouter {
           builder: (context) => BlocProvider(
             create: (context) {
               if (category != null) {
-                return getIt<ProductCubit>()
+                return getIt<CategoryProductsCubit>()
                   ..getProductsByCategory(category: category);
               }
-              return getIt<ProductCubit>()..getProducts();
+              return getIt<CategoryProductsCubit>()..getProducts();
             },
             child: ProductScreen(category: category),
           ),

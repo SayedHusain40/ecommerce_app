@@ -1,28 +1,25 @@
 import 'package:ecommerce_app/features/products/ui/widgets/product_card.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card_shimmer.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_grid.dart';
-import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProductsGridView extends StatefulWidget {
-  final String? category;
+// was <T extends ProductCubit> :: for extend only
+class ProductsGridView<T extends Cubit<ProductState>> extends StatelessWidget {
+  final bool isSilver;
+  const ProductsGridView({super.key, this.isSilver = false});
 
-  const ProductsGridView({super.key, this.category});
-
-  @override
-  State<ProductsGridView> createState() => _ProductsGridViewState();
-}
-
-class _ProductsGridViewState extends State<ProductsGridView> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProductCubit, ProductState>(
-      listenWhen: (previous, current) => current is GetProductsFailure,
+    Widget sliverSafe(Widget child) =>
+        isSilver ? SliverToBoxAdapter(child: child) : child;
+
+    return BlocConsumer<T, ProductState>(
+      listenWhen: (previous, current) => current is ProductsFailure,
       listener: (context, state) {
         state.whenOrNull(
-          getProductsFailure: (_) => ScaffoldMessenger.of(context).showSnackBar(
+          failure: (_) => ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Failed to get Products')),
           ),
         );
@@ -30,22 +27,22 @@ class _ProductsGridViewState extends State<ProductsGridView> {
       builder: (context, state) {
         return state.maybeWhen(
           initial: () =>
-              const Center(child: Text('Type to search for products...')),
-          // For Loading
-          getProductsLoading: () => ProductGrid(
+              sliverSafe(Center(child: Text('Type to search for products...'))),
+          loading: () => ProductGrid(
+            isSilver: isSilver,
             itemCount: 8,
-            itemBuilder: (_, __) => const ProductCardShimmer(),
+            itemBuilder: (_, _) => const ProductCardShimmer(),
           ),
-          // For Loading Get Data
-          getProductSuccess: (productsList) => productsList.isEmpty
-              ? Center(child: Text('No Products Found'))
+          success: (productsList) => productsList.isEmpty
+              ? sliverSafe(Center(child: Text('No Products Found')))
               : ProductGrid(
+                  isSilver: isSilver,
                   itemCount: productsList.length,
                   itemBuilder: (_, index) =>
                       ProductCard(productModel: productsList[index]),
                 ),
-          // For Else (ex: error, ect.)
-          orElse: () => Center(child: Text('Something Went Wrong!')),
+          orElse: () =>
+              sliverSafe(Center(child: Text('Something Went Wrong!'))),
         );
       },
     );

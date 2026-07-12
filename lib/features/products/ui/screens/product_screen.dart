@@ -1,7 +1,7 @@
 
 import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
-import 'package:ecommerce_app/core/widgets/search_icon_button.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,7 +25,7 @@ class _ProductScreenState extends State<ProductScreen> {
       appBar: AppCustomAppBar(
         title: appBarTitle,
         actions: [
-          SearchIconButton(),
+          // SearchIconButton(),
           SizedBox(width: 12),
           GestureDetector(
             onTap: () {},
@@ -36,7 +36,7 @@ class _ProductScreenState extends State<ProductScreen> {
       ),
       body: Padding(
         padding: .symmetric(vertical: 12, horizontal: 16),
-        child: ProductsGridView(category: widget.category),
+        child: ProductsGridView<CategoryProductsCubit>(),
       ),
     );
   }

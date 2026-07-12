@@ -50,7 +50,17 @@ class AppAuthState extends StatelessWidget {
             BlocProvider(
               create: (_) => getIt<CategoryCubit>()..getCategories(),
             ),
-            BlocProvider(create: (_) => getIt<ProductCubit>()..getProducts()),
+
+
+            // Here i used "getProducts" becuase i want defulat is dispaly "All" then user can select category
+            BlocProvider(
+              create: (_) => getIt<CategoryProductsCubit>()..getProducts(limit: 4),
+            ),
+            // for dispaly latest products
+            BlocProvider(
+              create: (_) => getIt<LatestProductsCubit>()..getProducts(limit: 4),
+            ),
+
           ],
           child: const HomeScreen(),
         );

@@ -8,28 +8,11 @@ class ProductRepo {
 
   ProductRepo(this.apiService);
 
-  Future<AppResult<List<ProductModel>>> getProducts() async {
+  Future<AppResult<List<ProductModel>>> getProducts({int? limit}) async {
     try {
-      final ProductResponseModel response = await apiService.getProducts();
+      final ProductResponseModel response = await apiService.getProducts(limit);
 
-      // option 1
-
-      // if products is null → use empty list []
-      // keeps nullable items inside list
       final List<ProductModel> products = response.products;
-
-      // option 2
-      // Result type: List<ProductModel>
-      // Converts list to non-nullable type.
-      // BUT ⚠️ : If any item is actually null, app crashes at runtime.
-      // final products = response.products?.cast<ProductModel>() ?? [];
-
-      // option 3
-      // Result type: List<ProductModel>
-      // removes all null values
-      // keeps only valid ProductModel
-      // Example:  [product1, null, product2] => becomes: [product1, product2]
-      // final products = response.products?.whereType<ProductModel>().toList() ?? [];
 
       return AppResult.success(products);
     } catch (e) {
@@ -40,10 +23,11 @@ class ProductRepo {
 
   Future<AppResult<List<ProductModel>>> getProductsByCategory({
     required String category,
+    int? limit,
   }) async {
     try {
       final ProductResponseModel response = await apiService
-          .getProductsByCategory(category);
+          .getProductsByCategory(category, limit);
 
       final List<ProductModel> products = response.products;
 

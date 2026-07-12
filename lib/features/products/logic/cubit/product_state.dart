@@ -7,12 +7,8 @@ part 'product_state.freezed.dart';
 @freezed
 class ProductState with _$ProductState {
   const factory ProductState.initial() = _Initial;
-
-  // for get all products
-  const factory ProductState.getProductsLoading() = GetProductsLoading;
-  const factory ProductState.getProductSuccess(
-    final List<ProductModel> categoriesList,
-  ) = GetProductsSuccess;
-  const factory ProductState.getProductsFailure(AppFailure appFailure) =
-      GetProductsFailure;
+  const factory ProductState.loading() = ProductsLoading;
+  const factory ProductState.success(List<ProductModel> products) =
+      ProductsSuccess;
+  const factory ProductState.failure(AppFailure appFailure) = ProductsFailure;
 }
