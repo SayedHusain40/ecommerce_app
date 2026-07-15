@@ -2,8 +2,9 @@ import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
-import 'package:ecommerce_app/features/categories/ui/widgets/categories_view.dart';
-import 'package:ecommerce_app/features/home/ui/screens/home_banner.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/category_browse_list.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/category_filter_chips.dart';
+import 'package:ecommerce_app/features/home/ui/widgets/home_banner.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: CustomScrollView(
           slivers: [
-            CategoriesView(isGrid: false, isSliver: true, isNormal: true),
+            CategoryBrowseList(isSliver: true),
             SliverToBoxAdapter(
               child: Column(
                 children: [
@@ -78,8 +79,11 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            CategoriesView(isGrid: false, isSliver: true),
+
+            CategoryFilterChips(isSliver: true, productsLimit: 4),
+
             ProductsGridView<CategoryProductsCubit>(isSilver: true),
+            
             SliverToBoxAdapter(
               child: Column(
                 children: [

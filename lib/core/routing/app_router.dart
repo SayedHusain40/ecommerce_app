@@ -55,24 +55,37 @@ class AppRouter {
       case RouteNames.categoryScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider.value(
-            value: context
-                .read<CategoryCubit>(), 
+            value: context.read<CategoryCubit>(),
             child: CategoryScreen(),
           ),
         );
 
       case RouteNames.productScreen:
-        final category = settings.arguments as String?;
+        final data = settings.arguments as Map<String, dynamic>;
+        final category = data['categoryName'];
+        final selectedIndex = data['selectedIndex'];
+
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) {
-              if (category != null) {
-                return getIt<CategoryProductsCubit>()
-                  ..getProductsByCategory(category: category);
-              }
-              return getIt<CategoryProductsCubit>()..getProducts();
-            },
-            child: ProductScreen(category: category),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) {
+                  if (category != null) {
+                    return getIt<CategoryProductsCubit>()
+                      ..getProductsByCategory(category: category);
+                  }
+                  return getIt<CategoryProductsCubit>()..getProducts();
+                },
+              ),
+
+              BlocProvider(
+                create: (_) => getIt<CategoryCubit>()..getCategories(),
+              ),
+            ],
+            child: ProductScreen(
+              category: category,
+              selectedIndex: selectedIndex,
+            ),
           ),
         );
       case RouteNames.productDetailScreen:
