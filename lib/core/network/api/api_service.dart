@@ -14,13 +14,16 @@ abstract class ApiService {
   Future<List<CategoryModel>> getCategories();
 
   @GET(ApiEndPoints.products)
-  Future<ProductResponseModel> getProducts();
+  Future<ProductResponseModel> getProducts(@Query('limit') int? limit);
 
+  //
   @GET(ApiEndPoints.productsByCategory)
   Future<ProductResponseModel> getProductsByCategory(
     @Path('category') String category,
+    @Query('limit') int? limit,
   );
 
+  //
   @GET(ApiEndPoints.searchProducts)
   Future<ProductResponseModel> getProductsBySearchQuery(
     @Query('q') String query,

@@ -44,7 +44,7 @@ class _ConfirmationEmailScreenState extends State<ConfirmationEmailScreen> {
     final brightness = Theme.of(context).brightness;
 
     return Scaffold(
-      appBar: AppCustomAppBar(title: 'Forgot Password'),
+      appBar: const AppCustomAppBar(title: 'Forgot Password'),
       body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
         listener: (context, state) {
           state.whenOrNull(
@@ -89,7 +89,7 @@ class _ConfirmationEmailScreenState extends State<ConfirmationEmailScreen> {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  RequiredLabel('Email'),
+                  const RequiredLabel('Email'),
                   const SizedBox(height: 8),
                   TextFormField(
                     controller: cubit.emailController,

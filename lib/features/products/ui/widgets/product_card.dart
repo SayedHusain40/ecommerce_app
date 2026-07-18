@@ -27,13 +27,13 @@ class ProductCard extends StatelessWidget {
             children: [
               Container(
                 height: 138,
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(productModel.thumbnail),
                   ),
                   borderRadius: BorderRadius.circular(24),
-                  color: Color(0xFFF5F6F8),
+                  color: const Color(0xFFF5F6F8),
                 ),
               ),
               Positioned(
@@ -46,7 +46,7 @@ class ProductCard extends StatelessWidget {
                   child: IconButton(
                     padding: EdgeInsets.zero,
                     onPressed: () {},
-                    icon: Icon(Icons.favorite_border_outlined, size: 12),
+                    icon: const Icon(Icons.favorite_border_outlined, size: 12),
                   ),
                 ),
               ),
@@ -55,12 +55,12 @@ class ProductCard extends StatelessWidget {
                   bottom: 6,
                   left: 6,
                   child: Container(
-                    padding: .symmetric(vertical: 1, horizontal: 10),
+                    padding: const .symmetric(vertical: 1, horizontal: 10),
                     decoration: BoxDecoration(
                       borderRadius: .circular(12),
                       color: AppColors.red,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Sold Out',
                       style: TextStyle(color: AppColors.black),
                     ),

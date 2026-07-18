@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
@@ -24,7 +23,7 @@ class ProductDetailScreen extends StatelessWidget {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
-        statusBarColor: Color(0xFFD6D8E5),
+        statusBarColor: const Color(0xFFD6D8E5),
         statusBarIconBrightness: brightness == Brightness.dark
             ? Brightness.light
             : Brightness.dark,
@@ -99,7 +98,7 @@ class ProductDetailScreen extends StatelessWidget {
                                 "\$ ${productModel.discountPercentage}",
                                 style: AppTextStyles.headingH3Bold,
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
                                 "\$ ${productModel.price}",
                                 style: AppTextStyles.body2Regular.copyWith(
@@ -129,15 +128,15 @@ class ProductDetailScreen extends StatelessWidget {
                             '(${productModel.reviews.length} reviews)',
                             style: AppTextStyles.body4SemiBold,
                           ),
-                          Spacer(),
+                          const Spacer(),
                           if (productModel.stock < 1)
                             Container(
-                              padding: .symmetric(vertical: 1, horizontal: 10),
+                              padding: const .symmetric(vertical: 1, horizontal: 10),
                               decoration: BoxDecoration(
                                 borderRadius: .circular(12),
                                 color: AppColors.red,
                               ),
-                              child: Text(
+                              child: const Text(
                                 'Sold Out',
                                 style: TextStyle(color: AppColors.black),
                               ),
@@ -145,7 +144,7 @@ class ProductDetailScreen extends StatelessWidget {
                         ],
                       ),
 
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
 
                       // Product: description
                       ExpandableDescription(text: productModel.description),
@@ -154,10 +153,10 @@ class ProductDetailScreen extends StatelessWidget {
 
                       // QuantitySelector
                       Text('Quantity', style: AppTextStyles.body3SemiBold),
-                      SizedBox(height: 12),
-                      QuantitySelector(),
+                      const SizedBox(height: 12),
+                      const QuantitySelector(),
 
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
 
                       // Reviews Expansion Tile
                       ReviewsExpansionTile(

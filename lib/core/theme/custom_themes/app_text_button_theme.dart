@@ -11,7 +11,7 @@ class AppTextButtonTheme {
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(width: 1, color: AppColors.grey50Light),
+        side: const BorderSide(width: 1, color: AppColors.grey50Light),
       ),
       textStyle: AppTextStyles.button2,
       minimumSize: const Size(double.infinity, 60),
@@ -24,7 +24,7 @@ class AppTextButtonTheme {
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(width: 1, color: AppColors.grey50Dark),
+        side: const BorderSide(width: 1, color: AppColors.grey50Dark),
       ),
       textStyle: AppTextStyles.button2,
       minimumSize: const Size(double.infinity, 60),

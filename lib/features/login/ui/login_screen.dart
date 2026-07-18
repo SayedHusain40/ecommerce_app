@@ -40,9 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: .start,
               children: [
                 SvgPicture.asset(AppImages.logo(brightness)),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Text('Login', style: AppTextStyles.headingH2Bold),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 RichText(
                   text: TextSpan(
                     children: [
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 BlocConsumer<LoginCubit, LoginState>(
                   listenWhen: (previous, current) =>
                       current is LoginSuccess || current is LoginFailure,
@@ -103,12 +103,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           crossAxisAlignment: .start,
                           children: [
-                            SizedBox(height: 16),
-                            RequiredLabel('Email'),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 16),
+                            const RequiredLabel('Email'),
+                            const SizedBox(height: 8),
                             TextFormField(
                               controller: cubit.emailController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: 'Enter your email',
                               ),
@@ -122,9 +122,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 return null;
                               },
                             ),
-                            SizedBox(height: 16),
-                            RequiredLabel('Password'),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 16),
+                            const RequiredLabel('Password'),
+                            const SizedBox(height: 8),
                             ValueListenableBuilder(
                               valueListenable: _isPasswordVisible,
                               builder: (context, value, child) {
@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                               },
                             ),
-                            SizedBox(height: 24),
+                            const SizedBox(height: 24),
                             Align(
                               alignment: .topRight,
                               child: GestureDetector(
@@ -172,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 24),
+                            const SizedBox(height: 24),
                             ElevatedButton(
                               onPressed: isLoading
                                   ? null
@@ -180,10 +180,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       cubit.login();
                                     },
                               child: isLoading
-                                  ? CircularProgressIndicator()
-                                  : Text('Login'),
+                                  ? const CircularProgressIndicator()
+                                  : const Text('Login'),
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             TextButton(
                               onPressed: isLoading
                                   ? null
@@ -195,13 +195,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 crossAxisAlignment: .center,
                                 children: [
                                   if (isLoading)
-                                    CircularProgressIndicator()
+                                    const CircularProgressIndicator()
                                   else ...[
                                     Text(
                                       'Login with Google',
                                       style: AppTextStyles.button2,
                                     ),
-                                    SizedBox(width: 8),
+                                    const SizedBox(width: 8),
                                     SvgPicture.asset(AppIcons.googleLight),
                                   ],
                                 ],
@@ -213,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   },
                 ),
-                SizedBox(height: 131),
+                const SizedBox(height: 131),
                 RichText(
                   textAlign: .center,
                   text: TextSpan(
@@ -225,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: AppColors.whiteInDark(brightness),
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: ' Privacy Policy ',
                         style: TextStyle(color: AppColors.blue),
                       ),
@@ -235,14 +235,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: AppColors.whiteInDark(brightness),
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: ' Terms & Conditions. ',
                         style: TextStyle(color: AppColors.blue),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
               ],
             ),
           ),

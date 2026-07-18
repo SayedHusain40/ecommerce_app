@@ -1,5 +1,3 @@
-import 'package:ecommerce_app/core/helpers/extensions.dart';
-import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +7,7 @@ class CategoryCard extends StatelessWidget {
   final double borderRadius;
   final double iconSize;
   final TextStyle textStyle;
+  final Function()? onTap;
 
   const CategoryCard({
     super.key,
@@ -17,15 +16,14 @@ class CategoryCard extends StatelessWidget {
     required this.borderRadius,
     required this.iconSize,
     required this.textStyle,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     return GestureDetector(
-      onTap: () {
-        context.pushNamed(RouteNames.productScreen, arguments: name);
-      },
+      onTap: onTap,
       child: Container(
         width: width,
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),

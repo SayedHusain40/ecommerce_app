@@ -10,7 +10,7 @@ class LoginCubit extends Cubit<LoginState> {
   final LoginRepo loginRepo;
   final AuthRepo authRepo;
 
-  LoginCubit(this.loginRepo, this.authRepo) : super(LoginState.initial());
+  LoginCubit(this.loginRepo, this.authRepo) : super(const LoginState.initial());
 
   final formKey = GlobalKey<FormState>();
 
@@ -20,14 +20,14 @@ class LoginCubit extends Cubit<LoginState> {
   void resetState() {
     emailController.clear();
     passwordController.clear();
-    emit(LoginState.initial());
+    emit(const LoginState.initial());
   }
 
   Future<void> login() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    emit(LoginState.loginLoading());
+    emit(const LoginState.loginLoading());
 
     final userRequestModel = UserRequestModel(
       email: emailController.text,
@@ -38,7 +38,7 @@ class LoginCubit extends Cubit<LoginState> {
     result.when(
       success: (data) {
         if (isClosed) return;
-        emit(LoginState.loginSuccess('Login Successfully'));
+        emit(const LoginState.loginSuccess('Login Successfully'));
       },
       failure: (appFailure) {
         emit(LoginState.loginFailure(appFailure));
@@ -47,13 +47,13 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> continueWithGoogle() async {
-    emit(LoginState.loginLoading());
+    emit(const LoginState.loginLoading());
 
     final result = await authRepo.continueWithGoogle();
 
     result.when(
       success: (data) {
-        emit(LoginState.loginSuccess('Login Successfully'));
+        emit(const LoginState.loginSuccess('Login Successfully'));
       },
       failure: (appFailure) {
         emit(LoginState.loginFailure(appFailure));

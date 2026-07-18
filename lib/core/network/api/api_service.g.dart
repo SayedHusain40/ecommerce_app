@@ -51,9 +51,10 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<ProductResponseModel> getProducts() async {
+  Future<ProductResponseModel> getProducts(int? limit) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'limit': limit};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ProductResponseModel>(
@@ -78,9 +79,13 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<ProductResponseModel> getProductsByCategory(String category) async {
+  Future<ProductResponseModel> getProductsByCategory(
+    String category,
+    int? limit,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'limit': limit};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ProductResponseModel>(

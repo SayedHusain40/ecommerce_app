@@ -11,7 +11,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   final AuthRepo authRepo;
 
   RegisterCubit(this.registerRepo, this.authRepo)
-    : super(RegisterState.initial());
+    : super(const RegisterState.initial());
 
   final formKey = GlobalKey<FormState>();
 
@@ -23,14 +23,14 @@ class RegisterCubit extends Cubit<RegisterState> {
     nameController.clear();
     emailController.clear();
     passwordController.clear();
-    emit(RegisterState.initial());
+    emit(const RegisterState.initial());
   }
 
   Future<void> register() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    emit(RegisterState.registerLoading());
+    emit(const RegisterState.registerLoading());
 
     final userRequestModel = UserRequestModel(
       name: nameController.text,
@@ -43,7 +43,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
     result.when(
       success: (data) {
-        emit(RegisterState.registerSuccess('Register Successfully'));
+        emit(const RegisterState.registerSuccess('Register Successfully'));
       },
       failure: (appFailure) {
         emit(RegisterState.registerFailure(appFailure));
@@ -52,13 +52,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   Future<void> continueWithGoogle() async {
-    emit(RegisterState.registerLoading());
+    emit(const RegisterState.registerLoading());
 
     final result = await authRepo.continueWithGoogle();
 
     result.when(
       success: (data) {
-        emit(RegisterState.registerSuccess('Register Successfully'));
+        emit(const RegisterState.registerSuccess('Register Successfully'));
       },
       failure: (appFailure) {
         emit(RegisterState.registerFailure(appFailure));
