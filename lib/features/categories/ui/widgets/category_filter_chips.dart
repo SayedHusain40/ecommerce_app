@@ -10,13 +10,11 @@ class CategoryFilterChips extends StatefulWidget {
   final bool isSliver;
   final int? productsLimit;
   final int selectedIndex;
-  final bool autoScrollToSelected;
   const CategoryFilterChips({
     super.key,
     this.isSliver = false,
     this.productsLimit,
     this.selectedIndex = 0,
-    this.autoScrollToSelected = false,
   });
 
   @override
@@ -25,8 +23,7 @@ class CategoryFilterChips extends StatefulWidget {
 
 class _CategoryFilterChipsState extends State<CategoryFilterChips> {
   late int selectedCategoryIndex = widget.selectedIndex;
-
-  bool isNeedScroll = true;
+  bool _isFirstLoad = true;
 
   final Map<int, GlobalKey> _chipKeyMap = {};
 
@@ -39,19 +36,15 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
       _chipKeyMap.putIfAbsent(index, () => GlobalKey());
 
   void _scrollToSelectedIfNeeded() {
-    if (isNeedScroll == false) return;
-
     final key = _chipKeyMap[selectedCategoryIndex];
     final ctx = key?.currentContext;
     if (ctx == null) return;
-
-    isNeedScroll = false;
 
     Scrollable.ensureVisible(
       ctx,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
-      alignment: 0.5, // center it in the viewport
+      alignment: 0.5,
     );
   }
 
@@ -67,11 +60,12 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
             const CategoryCardShimmer(width: 76, borderRadius: 8),
       ),
       onSuccess: (context, categories) {
-        if (widget.autoScrollToSelected) {
+        if (_isFirstLoad && selectedCategoryIndex != 0) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             _scrollToSelectedIfNeeded();
           });
         }
+        _isFirstLoad = false;
 
         return HorizontalListView(
           isSliver: widget.isSliver,
@@ -90,6 +84,11 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
                 child: ChoiceChip(
                   onSelected: (_) {
                     setState(() => selectedCategoryIndex = index);
+
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      _scrollToSelectedIfNeeded();
+                    });
+
                     if (isAllSection) {
                       categoryProductsCubit.getProducts(
                         limit: widget.productsLimit,

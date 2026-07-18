@@ -39,10 +39,7 @@ class _ProductScreenState extends State<ProductScreen> {
         child: Column(
           crossAxisAlignment: .start,
           children: [
-            CategoryFilterChips(
-              selectedIndex: widget.selectedIndex,
-              autoScrollToSelected: true,
-            ),
+            CategoryFilterChips(selectedIndex: widget.selectedIndex),
 
             const SizedBox(height: 5),
             Text('Products', style: AppTextStyles.headingH3Regular),
