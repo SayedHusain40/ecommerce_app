@@ -9,7 +9,7 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
   final AuthRepo authRepo;
 
   VerifyEmailCubit(this.verifyEmailRepo, this.authRepo)
-    : super(VerifyEmailState.initial());
+    : super(const VerifyEmailState.initial());
 
   Future<void> senEmailVerification() async {
     if (authRepo.isEmailVerified) return; // already verified, skip
@@ -19,7 +19,7 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
     result.when(
       success: (data) {
         if (isClosed) return;
-        emit(VerifyEmailState.sendEmailVerification());
+        emit(const VerifyEmailState.sendEmailVerification());
       },
       failure: (appFailure) {
         if (isClosed) return;
@@ -34,11 +34,11 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
     result.when(
       success: (data) {
         if (isClosed) return;
-        emit(VerifyEmailState.initial());
+        emit(const VerifyEmailState.initial());
       },
       failure: (appFailure) {
         if (isClosed) return;
-        emit(VerifyEmailState.logOutFailure());
+        emit(const VerifyEmailState.logOutFailure());
       },
     );
   }

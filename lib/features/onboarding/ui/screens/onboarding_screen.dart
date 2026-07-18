@@ -50,7 +50,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: SmoothPageIndicator(
                 controller: _pageController,
                 count: _pages.length,
-                effect: SlideEffect(
+                effect: const SlideEffect(
                   spacing: 4.0,
                   dotWidth: 6.0,
                   dotHeight: 6.0,

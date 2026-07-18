@@ -37,7 +37,7 @@ class ProductCardShimmer extends StatelessWidget {
                 alignment: .center,
                 child: _shimmerBox(width: 100, hight: 100),
               ),
-              Positioned(
+              const Positioned(
                 right: 6,
                 top: 6,
                 child: CircleAvatar(backgroundColor: Colors.white, radius: 12),

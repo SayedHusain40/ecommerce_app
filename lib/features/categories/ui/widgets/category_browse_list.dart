@@ -6,7 +6,7 @@ import 'package:ecommerce_app/features/categories/ui/widgets/category_card.dart'
 import 'package:ecommerce_app/features/categories/ui/widgets/category_card_shimmer.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_consumer.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_grid.dart';
-import 'package:ecommerce_app/features/categories/ui/widgets/category_list_view.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/horizontal_list_view.dart';
 import 'package:flutter/material.dart';
 
 class CategoryBrowseList extends StatelessWidget {
@@ -23,12 +23,13 @@ class CategoryBrowseList extends StatelessWidget {
   Widget build(BuildContext context) {
     return CategoryConsumer(
       onLoading: (context) => isGrid
+          // on gird i don't used sliver
           ? CategoryGrid(
               itemCount: 6,
               itemBuilder: (_, _) =>
                   const CategoryCardShimmer(borderRadius: 16),
             )
-          : CategoryListView(
+          : HorizontalListView(
               isSliver: isSliver,
               itemBuilder: (_, _) =>
                   const CategoryCardShimmer(width: 76, borderRadius: 8),
@@ -57,7 +58,7 @@ class CategoryBrowseList extends StatelessWidget {
             itemBuilder: (context, index) => cardFor(categories[index], index),
           );
         }
-        return CategoryListView(
+        return HorizontalListView(
           isSliver: isSliver,
           itemCount: categories.length,
           space: 8,

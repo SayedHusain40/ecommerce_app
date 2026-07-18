@@ -5,7 +5,6 @@ import 'package:ecommerce_app/features/products/logic/cubit/product_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// was <T extends ProductCubit> :: for extend only
 class ProductsGridView<T extends Cubit<ProductState>> extends StatelessWidget {
   final bool isSilver;
   const ProductsGridView({super.key, this.isSilver = false});
@@ -27,14 +26,14 @@ class ProductsGridView<T extends Cubit<ProductState>> extends StatelessWidget {
       builder: (context, state) {
         return state.maybeWhen(
           initial: () =>
-              sliverSafe(Center(child: Text('Type to search for products...'))),
+              sliverSafe(const Center(child: Text('Type to search for products...'))),
           loading: () => ProductGrid(
             isSilver: isSilver,
             itemCount: 8,
             itemBuilder: (_, _) => const ProductCardShimmer(),
           ),
           success: (productsList) => productsList.isEmpty
-              ? sliverSafe(Center(child: Text('No Products Found')))
+              ? sliverSafe(const Center(child: Text('No Products Found')))
               : ProductGrid(
                   isSilver: isSilver,
                   itemCount: productsList.length,
@@ -42,7 +41,7 @@ class ProductsGridView<T extends Cubit<ProductState>> extends StatelessWidget {
                       ProductCard(productModel: productsList[index]),
                 ),
           orElse: () =>
-              sliverSafe(Center(child: Text('Something Went Wrong!'))),
+              sliverSafe(const Center(child: Text('Something Went Wrong!'))),
         );
       },
     );

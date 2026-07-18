@@ -7,7 +7,7 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       appBar: AppCustomAppBar(title: 'Categories'),
       body: Padding(
         padding: .symmetric(vertical: 12, horizontal: 16),

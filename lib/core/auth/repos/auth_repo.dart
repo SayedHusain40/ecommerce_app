@@ -45,7 +45,7 @@ class AuthRepo {
   Future<AppResult<void>> logout() async {
     try {
       await firebaseAuth.signOut();
-      return AppResult.success(null);
+      return const AppResult.success(null);
     } catch (e) {
       final failure = ErrorHandler.handle(e);
       return AppResult.failure(failure);

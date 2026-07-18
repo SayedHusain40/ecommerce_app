@@ -40,9 +40,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: .start,
               children: [
                 SvgPicture.asset(AppImages.logo(brightness)),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Text('Signup', style: AppTextStyles.headingH2Bold),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 RichText(
                   text: TextSpan(
                     children: [
@@ -67,7 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 BlocConsumer<RegisterCubit, RegisterState>(
                   listenWhen: (previous, current) =>
                       current is RegisterSuccess || current is RegisterFailure,
@@ -103,11 +103,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Column(
                           crossAxisAlignment: .start,
                           children: [
-                            RequiredLabel('Full Name'),
-                            SizedBox(height: 8),
+                            const RequiredLabel('Full Name'),
+                            const SizedBox(height: 8),
                             TextFormField(
                               controller: cubit.nameController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: 'Enter your name',
                               ),
@@ -128,12 +128,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 return null;
                               },
                             ),
-                            SizedBox(height: 16),
-                            RequiredLabel('Email'),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 16),
+                            const RequiredLabel('Email'),
+                            const SizedBox(height: 8),
                             TextFormField(
                               controller: cubit.emailController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: 'Enter your email',
                               ),
@@ -147,9 +147,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 return null;
                               },
                             ),
-                            SizedBox(height: 16),
-                            RequiredLabel('Password'),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 16),
+                            const RequiredLabel('Password'),
+                            const SizedBox(height: 8),
                             ValueListenableBuilder(
                               valueListenable: _isPasswordVisible,
                               builder: (context, value, child) {
@@ -198,7 +198,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 );
                               },
                             ),
-                            SizedBox(height: 24),
+                            const SizedBox(height: 24),
                             ElevatedButton(
                               onPressed: isLoading
                                   ? null
@@ -206,10 +206,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       cubit.register();
                                     },
                               child: isLoading
-                                  ? CircularProgressIndicator()
-                                  : Text('Create Account'),
+                                  ? const CircularProgressIndicator()
+                                  : const Text('Create Account'),
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             TextButton(
                               onPressed: isLoading
                                   ? null
@@ -221,13 +221,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 crossAxisAlignment: .center,
                                 children: [
                                   if (isLoading)
-                                    CircularProgressIndicator()
+                                    const CircularProgressIndicator()
                                   else ...[
                                     Text(
                                       'Signup with Google',
                                       style: AppTextStyles.button2,
                                     ),
-                                    SizedBox(width: 8),
+                                    const SizedBox(width: 8),
                                     SvgPicture.asset(AppIcons.googleLight),
                                   ],
                                 ],

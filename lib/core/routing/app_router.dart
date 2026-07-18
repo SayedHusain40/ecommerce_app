@@ -9,7 +9,7 @@ import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
-import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_detail_screen.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
@@ -28,35 +28,35 @@ class AppRouter {
           builder: (context) => AppAuthState(sendEmailOnInit: sendEmailOnInit),
         );
       case RouteNames.onBoardingScreen:
-        return MaterialPageRoute(builder: (context) => OnboardingScreen());
+        return MaterialPageRoute(builder: (context) => const OnboardingScreen());
       // case RouteNames.homeScreen:
       //   return MaterialPageRoute(builder: (context) => HomeScreen());
       case RouteNames.loginScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => getIt<LoginCubit>(),
-            child: LoginScreen(),
+            child: const LoginScreen(),
           ),
         );
       case RouteNames.registerScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => getIt<RegisterCubit>(),
-            child: RegisterScreen(),
+            child: const RegisterScreen(),
           ),
         );
       case RouteNames.confirmationEmailScreenScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => getIt<ForgotPasswordCubit>(),
-            child: ConfirmationEmailScreen(),
+            child: const ConfirmationEmailScreen(),
           ),
         );
       case RouteNames.categoryScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: context.read<CategoryCubit>(),
-            child: CategoryScreen(),
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<CategoryCubit>()..getCategories(),
+            child: const CategoryScreen(),
           ),
         );
 
@@ -94,7 +94,7 @@ class AppRouter {
           builder: (context) => ProductDetailScreen(productModel: productModel),
         );
       default:
-        return MaterialPageRoute(builder: (context) => UndefinedRouteScreen());
+        return MaterialPageRoute(builder: (context) => const UndefinedRouteScreen());
     }
   }
 }
@@ -104,14 +104,14 @@ class UndefinedRouteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Something went wrong', style: TextStyle(fontSize: 18)),
+            Text('Something went wrong', style: TextStyle(fontSize: 18)),
 
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
 
             // ElevatedButton(
             //   onPressed: () {

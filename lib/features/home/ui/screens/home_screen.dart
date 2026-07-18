@@ -4,8 +4,11 @@ import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_browse_list.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_filter_chips.dart';
+import 'package:ecommerce_app/features/home/ui/widgets/custom_title.dart';
 import 'package:ecommerce_app/features/home/ui/widgets/home_banner.dart';
-import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
+import 'package:ecommerce_app/features/home/ui/widgets/see_all_button.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +19,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
         // actions: [SearchIconButton(), SizedBox(width: 15)],
       ),
 
@@ -24,8 +27,38 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: CustomScrollView(
           slivers: [
-            CategoryBrowseList(isSliver: true),
+            // Browse categories
             SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: .spaceBetween,
+                    children: [
+                      Text(
+                        'Browse Categories',
+                        style: AppTextStyles.body3SemiBold,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          context.pushNamed(RouteNames.categoryScreen);
+                        },
+                        child: Text(
+                          'SEE ALL',
+                          style: AppTextStyles.body3SemiBold.copyWith(
+                            color: AppColors.cyan,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 5),
+                ],
+              ),
+            ),
+            const CategoryBrowseList(isSliver: true),
+
+            // Banner
+            const SliverToBoxAdapter(
               child: Column(
                 children: [
                   SizedBox(height: 20),
@@ -34,7 +67,9 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SliverToBoxAdapter(
+
+            // Latest Products title
+            const SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: .start,
                 children: [
@@ -44,70 +79,35 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
-            ProductsGridView<LatestProductsCubit>(isSilver: true),
+            // Latest products grid
+            const ProductsGridView<LatestProductsCubit>(isSilver: true),
 
+            // See All + Categories title
             SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10),
-                  Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        context.pushNamed(RouteNames.categoryScreen);
-                      },
-                      child: Row(
-                        mainAxisAlignment: .center,
-                        children: [
-                          Text(
-                            'See All',
-                            style: TextStyle(color: AppColors.grey150Light),
-                          ),
-                          SizedBox(width: 5),
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 15,
-                            color: AppColors.grey150Light,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                  CustomTitle(label: 'Categories'),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 10),
+                  SeeAllButton(onTap: () {}),
+                  const SizedBox(height: 24),
+                  const CustomTitle(label: 'Categories'),
+                  const SizedBox(height: 12),
                 ],
               ),
             ),
 
-            CategoryFilterChips(isSliver: true, productsLimit: 4),
+            // Category filter chips
+            const CategoryFilterChips(isSliver: true, productsLimit: 4),
 
-            ProductsGridView<CategoryProductsCubit>(isSilver: true),
-            
+            // Filtered products grid
+            const ProductsGridView<CategoryProductsCubit>(isSilver: true),
+
+            // See All (bottom)
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  Center(
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Row(
-                        mainAxisAlignment: .center,
-                        children: [
-                          Text(
-                            'See All',
-                            style: TextStyle(color: AppColors.grey150Light),
-                          ),
-                          SizedBox(width: 5),
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 15,
-                            color: AppColors.grey150Light,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 24),
+                  SeeAllButton(onTap: () {}),
+                  const SizedBox(height: 24),
                 ],
               ),
             ),
@@ -116,38 +116,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class CustomTitle extends StatelessWidget {
-  final String label;
-  const CustomTitle({super.key, required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Divider(
-            thickness: 1,
-            color: Colors.grey,
-            indent: 20,
-            endIndent: 10,
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          child: Text(label, style: AppTextStyles.headingH3Bold),
-        ),
-        Expanded(
-          child: Divider(
-            thickness: 1,
-            color: Colors.grey,
-            indent: 10,
-            endIndent: 20,
-          ),
-        ),
-      ],//*
-    );
-    
-     }
 }

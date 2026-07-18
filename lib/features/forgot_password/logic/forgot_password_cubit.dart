@@ -8,7 +8,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   final ForgotPasswordRepo forgotPasswordRepo;
 
   ForgotPasswordCubit(this.forgotPasswordRepo)
-    : super(ForgotPasswordState.initial());
+    : super(const ForgotPasswordState.initial());
 
   final emailFormKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -16,7 +16,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   Future<void> sendPasswordResetEmail() async {
     if (!emailFormKey.currentState!.validate()) return;
 
-    emit(ForgotPasswordState.sendPasswordResetEmailLoading());
+    emit(const ForgotPasswordState.sendPasswordResetEmailLoading());
 
     final result = await forgotPasswordRepo.sendPasswordResetEmail(
       email: emailController.text,

@@ -36,12 +36,12 @@ class ProductImageGallery extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         borderRadius: .circular(12),
                         color: AppColors.grey50(brightness),
                       ),
-                      margin: .only(bottom: 40),
+                      margin: const .only(bottom: 40),
                       child: AnimatedSmoothIndicator(
                         onDotClicked: (dotIndex) {
                           pageController.animateToPage(
@@ -52,7 +52,7 @@ class ProductImageGallery extends StatelessWidget {
                         },
                         activeIndex: index,
                         count: productModel.images.length,
-                        effect: WormEffect(
+                        effect: const WormEffect(
                           spacing: 4.0,
                           dotWidth: 6.0,
                           dotHeight: 6.0,
@@ -66,7 +66,7 @@ class ProductImageGallery extends StatelessWidget {
               },
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

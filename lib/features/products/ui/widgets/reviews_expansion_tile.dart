@@ -19,17 +19,17 @@ class ReviewsExpansionTile extends StatelessWidget {
     final brightness = Theme.of(context).brightness;
     return ExpansionTile(
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.grey),
+        side: const BorderSide(color: Colors.grey),
         borderRadius: BorderRadius.circular(12),
       ),
       collapsedShape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.grey),
+        side: const BorderSide(color: Colors.grey),
         borderRadius: BorderRadius.circular(12),
       ),
 
       backgroundColor: AppColors.grey50(brightness),
       collapsedBackgroundColor: AppColors.grey50(brightness),
-      childrenPadding: .symmetric(vertical: 5),
+      childrenPadding: const .symmetric(vertical: 5),
 
       title: Row(
         children: [
@@ -45,7 +45,7 @@ class ReviewsExpansionTile extends StatelessWidget {
         ...reviews.take(3).map((item) {
           return Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            margin: .symmetric(vertical: 5, horizontal: 12),
+            margin: const .symmetric(vertical: 5, horizontal: 12),
             decoration: BoxDecoration(
               color: AppColors.grey50(brightness),
               borderRadius: BorderRadius.circular(12),
@@ -65,12 +65,12 @@ class ReviewsExpansionTile extends StatelessWidget {
                           item.reviewerName,
                           style: AppTextStyles.body1Regular,
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(item.comment),
                       ],
                     ),
                   ),
-                  SizedBox(width: 3),
+                  const SizedBox(width: 3),
                   Column(
                     crossAxisAlignment: .end,
                     mainAxisAlignment: .spaceBetween,

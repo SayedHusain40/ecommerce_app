@@ -12,6 +12,8 @@ import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cub
 import 'package:ecommerce_app/features/products/data/repos/product_repo.dart';
 import 'package:ecommerce_app/features/login/data/repos/login_repo.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
 import 'package:ecommerce_app/features/register/data/repos/register_repo.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';

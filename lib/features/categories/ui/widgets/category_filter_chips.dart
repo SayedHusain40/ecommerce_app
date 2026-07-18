@@ -1,8 +1,8 @@
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_card_shimmer.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_consumer.dart';
-import 'package:ecommerce_app/features/categories/ui/widgets/category_list_view.dart';
-import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/horizontal_list_view.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -61,7 +61,7 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
     final categoryProductsCubit = context.read<CategoryProductsCubit>();
 
     return CategoryConsumer(
-      onLoading: (context) => CategoryListView(
+      onLoading: (context) => HorizontalListView(
         isSliver: widget.isSliver,
         itemBuilder: (_, _) =>
             const CategoryCardShimmer(width: 76, borderRadius: 8),
@@ -73,7 +73,7 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
           });
         }
 
-        return CategoryListView(
+        return HorizontalListView(
           isSliver: widget.isSliver,
           itemCount: categories.length + 1,
           itemBuilder: (context, index) {

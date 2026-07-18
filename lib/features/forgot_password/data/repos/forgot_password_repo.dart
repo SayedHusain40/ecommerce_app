@@ -13,7 +13,7 @@ class ForgotPasswordRepo {
     try {
       await firebaseAuth.sendPasswordResetEmail(email: email);
 
-      return AppResult.success(null);
+      return const AppResult.success(null);
     } catch (e) {
       final failure = ErrorHandler.handle(e);
       return AppResult.failure(failure);

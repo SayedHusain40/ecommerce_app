@@ -16,11 +16,11 @@ class VerifyEmailRepo {
       }
 
       if (user.emailVerified) {
-        return AppResult.success(null);
+        return const AppResult.success(null);
       }
 
       await firebaseAuth.currentUser!.sendEmailVerification();
-      return AppResult.success(null);
+      return const AppResult.success(null);
     } catch (e) {
       final failure = ErrorHandler.handle(e);
       return AppResult.failure(failure);

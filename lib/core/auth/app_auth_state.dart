@@ -3,7 +3,8 @@ import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dar
 import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
-import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/ui/screens/verify_email_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,7 +33,7 @@ class AppAuthState extends StatelessWidget {
         if (user == null) {
           return BlocProvider(
             create: (context) => getIt<LoginCubit>(),
-            child: LoginScreen(),
+            child: const LoginScreen(),
           );
         }
 
@@ -52,11 +53,11 @@ class AppAuthState extends StatelessWidget {
             ),
 
 
-            // Here i used "getProducts" becuase i want defulat is dispaly "All" then user can select category
+            // Here i used "getProducts" because i want default is display "All" then user can select category
             BlocProvider(
               create: (_) => getIt<CategoryProductsCubit>()..getProducts(limit: 4),
             ),
-            // for dispaly latest products
+            // for display latest products
             BlocProvider(
               create: (_) => getIt<LatestProductsCubit>()..getProducts(limit: 4),
             ),

@@ -25,7 +25,7 @@ class HomeBanner extends StatelessWidget {
               mainAxisAlignment: .end,
               children: [
                 Container(
-                  padding: .all(6),
+                  padding: const .all(6),
                   decoration: BoxDecoration(
                     color: AppColors.whiteInDark(brightness),
                     borderRadius: .circular(8),
@@ -37,7 +37,7 @@ class HomeBanner extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 Text(
                   'On Headphones',
                   style: AppTextStyles.body3Regular.copyWith(
@@ -55,8 +55,8 @@ class HomeBanner extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: .all(5),
-                      margin: .only(bottom: 2, right: 16),
+                      padding: const .all(5),
+                      margin: const .only(bottom: 2, right: 16),
                       decoration: BoxDecoration(
                         color: AppColors.blackInDark(brightness),
                         borderRadius: .circular(12),
@@ -64,7 +64,7 @@ class HomeBanner extends StatelessWidget {
                       child: AnimatedSmoothIndicator(
                         activeIndex: e.indexOf(e),
                         count: 5,
-                        effect: WormEffect(
+                        effect: const WormEffect(
                           dotHeight: 6,
                           dotWidth: 6,
                           spacing: 4,
@@ -89,8 +89,8 @@ class HomeBanner extends StatelessWidget {
         enableInfiniteScroll: false,
         reverse: false,
         autoPlay: true,
-        autoPlayInterval: Duration(seconds: 3),
-        autoPlayAnimationDuration: Duration(milliseconds: 800),
+        autoPlayInterval: const Duration(seconds: 3),
+        autoPlayAnimationDuration: const Duration(milliseconds: 800),
         autoPlayCurve: Curves.fastOutSlowIn,
         // enlargeFactor: 0.3,
         // onPageChanged: callbackFunction,

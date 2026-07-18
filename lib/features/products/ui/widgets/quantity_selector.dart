@@ -14,7 +14,7 @@ class QuantitySelector extends StatelessWidget {
     return Container(
       width: 96,
       height: 32,
-      padding: EdgeInsets.all(4),
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         borderRadius: .circular(8),
         border: BoxBorder.all(width: 1, color: AppColors.grey50(brightness)),

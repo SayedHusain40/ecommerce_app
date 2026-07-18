@@ -10,5 +10,5 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setUpGetIt();
 
-  runApp(QuickMart(appRouter: AppRouter()));
+  runApp(const QuickMart(appRouter: AppRouter()));
 }
