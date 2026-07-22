@@ -3,15 +3,16 @@ import 'package:ecommerce_app/features/categories/ui/widgets/category_browse_lis
 import 'package:flutter/material.dart';
 
 class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key});
+  final Function(int newSelectedCategoryIndex, String? categoryName) onSelectCategory;
+  const CategoryScreen({super.key, required this.onSelectCategory});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: AppCustomAppBar(title: 'Categories'),
+    return  Scaffold(
+      appBar: const AppCustomAppBar(title: 'Categories'),
       body: Padding(
-        padding: .symmetric(vertical: 12, horizontal: 16),
-        child: CategoryBrowseList(isGrid: true),
+        padding: const .symmetric(vertical: 12, horizontal: 16),
+        child: CategoryBrowseList(isGrid: true, onSelectCategory: onSelectCategory),
       ),
     );
   }

@@ -7,8 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class ErrorHandler {
-
-    // ---------------- Main ----------------
+  // ---------------- Main ----------------
   static AppFailure handle(dynamic e, [StackTrace? stackTrace]) {
     if (kDebugMode) {
       debugPrint("Exception: $e");
@@ -29,8 +28,7 @@ class ErrorHandler {
       }
       return AppFailure(
         message:
-            _firebaseAuthMessages[e.code] ??
-            'Authentication error occurred.',
+            _firebaseAuthMessages[e.code] ?? 'Authentication error occurred.',
         code: e.code,
       );
     }
@@ -42,9 +40,7 @@ class ErrorHandler {
         debugPrint("Message: ${e.message}");
       }
       return AppFailure(
-        message:
-            _firebaseMessages[e.code] ??
-            'Firebase error occurred.',
+        message: _firebaseMessages[e.code] ?? 'Firebase error occurred.',
         code: e.code,
       );
     }
@@ -86,7 +82,6 @@ class ErrorHandler {
     return const AppFailure(message: "Something went wrong.");
   }
 
-  
   // ---------------- FirebaseAuth ----------------
   static const Map<String, String> _firebaseAuthMessages = {
     // For Login
@@ -96,15 +91,12 @@ class ErrorHandler {
     'user-disabled': 'This account has been disabled.', // ✅
     'too-many-requests':
         'Too many attempts. Please try again later.', // ✅ for invalid-credential i test it
-
     // For SignUp
     'weak-password': 'The password provided is too weak.', // ✅
     'email-already-in-use': 'The account already exists for that email.', // ✅
-
     // For Both Login and SignUp
     'invalid-email': 'The email address is not valid.', // ✅
     'network-request-failed': 'No internet connection', // ✅
-
     // Others
     'operation-not-allowed': 'This sign-in method is not allowed.',
     'requires-recent-login': 'Please re-login to verify your email.',
@@ -168,16 +160,13 @@ class ErrorHandler {
         'An unknown error occurred during google sign-in.',
   };
 
-
-
   // ---------------- CacheException ----------------
   static AppFailure _handleCache(CacheException e) {
     if (kDebugMode) {
       debugPrint("CacheException: ${e.message}");
     }
     return const AppFailure(
-      message:
-          "No internet connection and no cached data available.",
+      message: "No internet connection and no cached data available.",
     );
   }
 
@@ -195,24 +184,19 @@ class ErrorHandler {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
+      case DioExceptionType.transformTimeout:
         return const AppFailure(
           message: "Connection timed out. Please try again.",
         );
 
       case DioExceptionType.connectionError:
-        return const AppFailure(
-          message: "No internet connection.",
-        );
+        return const AppFailure(message: "No internet connection.");
 
       case DioExceptionType.cancel:
-        return const AppFailure(
-          message: "Request was cancelled.",
-        );
+        return const AppFailure(message: "Request was cancelled.");
 
       case DioExceptionType.badCertificate:
-        return const AppFailure(
-          message: "Secure connection failed.",
-        );
+        return const AppFailure(message: "Secure connection failed.");
 
       case DioExceptionType.badResponse:
         final data = e.response?.data;
@@ -221,27 +205,20 @@ class ErrorHandler {
           try {
             final apiErrorModel = ApiErrorModel.fromJson(data);
             return AppFailure(
-              message:
-                  apiErrorModel.message ??
-                  "An unexpected error occurred.",
+              message: apiErrorModel.message ?? "An unexpected error occurred.",
               statusCode: e.response?.statusCode,
             );
           } catch (parseError) {
             if (kDebugMode) {
-              debugPrint(
-                  "Failed to parse error response: $parseError");
+              debugPrint("Failed to parse error response: $parseError");
             }
           }
         }
 
-        return const AppFailure(
-          message: "Server error. Please try again.",
-        );
+        return const AppFailure(message: "Server error. Please try again.");
 
       case DioExceptionType.unknown:
-        return const AppFailure(
-          message: "Something went wrong.",
-        );
+        return const AppFailure(message: "Something went wrong.");
     }
   }
 }

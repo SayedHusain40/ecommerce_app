@@ -18,6 +18,7 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.systemOverlayStyle,
     this.flexibleSpace,
     this.preferredHeight,
+    this.showBackButton = true,
   });
 
   final String? title;
@@ -30,13 +31,13 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final SystemUiOverlayStyle? systemOverlayStyle;
   final Widget? flexibleSpace;
   final double? preferredHeight;
+  final bool showBackButton;
 
   @override
   Size get preferredSize => Size.fromHeight(
-    preferredHeight ??
-        kToolbarHeight + (bottom?.preferredSize.height ?? 0), // 👈
+    preferredHeight ?? kToolbarHeight + (bottom?.preferredSize.height ?? 0),
   );
-  
+
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
@@ -49,19 +50,24 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? Text(title!, style: AppTextStyles.body2Medium)
           : null,
       centerTitle: centerTitle,
-      titleSpacing: 0,
+      titleSpacing: showBackButton
+          ? 0
+          : NavigationToolbar.kMiddleSpacing,
       actions: actions,
       backgroundColor: backgroundColor,
+      automaticallyImplyLeading: showBackButton,
       bottom: addLine
           ? PreferredSize(
               preferredSize: const Size.fromHeight(1),
               child: Divider(height: 1, color: AppColors.grey50(brightness)),
             )
           : null,
-      leading: IconButton(
-        onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
-        icon: SvgPicture.asset(AppIcons.arrowLeft(brightness)),
-      ),
+      leading: showBackButton
+          ? IconButton(
+              onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
+              icon: SvgPicture.asset(AppIcons.arrowLeft(brightness)),
+            )
+          : null,
     );
   }
 }

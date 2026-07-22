@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
+import 'package:ecommerce_app/core/widgets/search_icon_button.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_browse_list.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_filter_chips.dart';
 import 'package:ecommerce_app/features/home/ui/widgets/custom_title.dart';
@@ -13,14 +14,16 @@ import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.da
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final Function(int newSelectedCategoryIndex, String? categoryName)
+  onSelectCategory;
+  const HomeScreen({super.key, required this.onSelectCategory});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-        // actions: [SearchIconButton(), SizedBox(width: 15)],
+        actions: const [SearchIconButton(), SizedBox(width: 15)],
       ),
 
       body: Padding(
@@ -40,7 +43,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          context.pushNamed(RouteNames.categoryScreen);
+                          context.pushNamed(
+                            RouteNames.categoryScreen,
+                            arguments: onSelectCategory,
+                          );
                         },
                         child: Text(
                           'SEE ALL',
@@ -55,7 +61,10 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const CategoryBrowseList(isSliver: true),
+            CategoryBrowseList(
+              isSliver: true,
+              onSelectCategory: onSelectCategory,
+            ),
 
             // Banner
             const SliverToBoxAdapter(
