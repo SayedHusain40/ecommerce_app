@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/core/helpers/extensions.dart';
+import 'package:ecommerce_app/core/result/app_result.dart';
 import 'package:ecommerce_app/features/products/data/repos/product_repo.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,17 +8,25 @@ class ProductCubit extends Cubit<ProductState> {
   final ProductRepo productRepo;
   ProductCubit(this.productRepo) : super(const ProductState.initial());
 
-  // Future<void> getProducts({int? limit}) async {
-  //   emit(ProductState.loading());
-  //   final result = await productRepo.getProducts(limit: limit);
+  Future<void> getProductsBySearch({required String searchQuery}) async {
+    if (searchQuery.isNullOrEmpty()) {
+      emit(const ProductState.initial());
+      return;
+    }
 
-  //   result.when(
-  //     success: (data) {
-  //       emit(ProductState.success(data));
-  //     },
-  //     failure: (appFailure) {
-  //       emit(ProductState.failure(appFailure));
-  //     },
-  //   );
-  // }
+    emit(const ProductState.loading());
+
+    final result = await productRepo.getProductsBySearchQuery(
+      searchQuery: searchQuery,
+    );
+
+    result.when(
+      success: (data) {
+        emit(ProductState.success(data));
+      },
+      failure: (appFailure) {
+        emit(ProductState.failure(appFailure));
+      },
+    );
+  }
 }

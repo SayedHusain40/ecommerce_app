@@ -1,5 +1,3 @@
-import 'package:ecommerce_app/core/helpers/extensions.dart';
-import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/categories/data/model/category_model.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_card.dart';
@@ -12,11 +10,13 @@ import 'package:flutter/material.dart';
 class CategoryBrowseList extends StatelessWidget {
   final bool isGrid;
   final bool isSliver;
-
+  final Function(int newSelectedCategoryIndex, String? categoryName)
+  onSelectCategory;
   const CategoryBrowseList({
     super.key,
     this.isGrid = false,
     this.isSliver = false,
+    required this.onSelectCategory,
   });
 
   @override
@@ -43,13 +43,12 @@ class CategoryBrowseList extends StatelessWidget {
           textStyle: isGrid
               ? AppTextStyles.body3SemiBold
               : AppTextStyles.body4SemiBold,
-          onTap: () => context.pushNamed(
-            RouteNames.productScreen,
-            arguments: {
-              'categoryName': category.name,
-              'selectedIndex': index + 1,
-            },
-          ),
+          onTap: () {
+            onSelectCategory(index + 1, category.name);
+            if (Navigator.of(context).canPop()) {
+              Navigator.pop(context);
+            }
+          },
         );
 
         if (isGrid) {

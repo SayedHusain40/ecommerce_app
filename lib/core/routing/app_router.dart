@@ -9,8 +9,6 @@ import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
-import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
-import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_detail_screen.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/register/ui/screens/register_screen.dart';
@@ -28,9 +26,9 @@ class AppRouter {
           builder: (context) => AppAuthState(sendEmailOnInit: sendEmailOnInit),
         );
       case RouteNames.onBoardingScreen:
-        return MaterialPageRoute(builder: (context) => const OnboardingScreen());
-      // case RouteNames.homeScreen:
-      //   return MaterialPageRoute(builder: (context) => HomeScreen());
+        return MaterialPageRoute(
+          builder: (context) => const OnboardingScreen(),
+        );
       case RouteNames.loginScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
@@ -53,39 +51,12 @@ class AppRouter {
           ),
         );
       case RouteNames.categoryScreen:
+        final Function(int newSelectedCategoryIndex, String? categoryName) onSelectCategory =
+            settings.arguments as Function(int, String?);
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => getIt<CategoryCubit>()..getCategories(),
-            child: const CategoryScreen(),
-          ),
-        );
-
-      case RouteNames.productScreen:
-        final data = settings.arguments as Map<String, dynamic>;
-        final category = data['categoryName'];
-        final selectedIndex = data['selectedIndex'];
-
-        return MaterialPageRoute(
-          builder: (context) => MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) {
-                  if (category != null) {
-                    return getIt<CategoryProductsCubit>()
-                      ..getProductsByCategory(category: category);
-                  }
-                  return getIt<CategoryProductsCubit>()..getProducts();
-                },
-              ),
-
-              BlocProvider(
-                create: (_) => getIt<CategoryCubit>()..getCategories(),
-              ),
-            ],
-            child: ProductScreen(
-              category: category,
-              selectedIndex: selectedIndex,
-            ),
+            child: CategoryScreen(onSelectCategory: onSelectCategory),
           ),
         );
       case RouteNames.productDetailScreen:
@@ -94,7 +65,9 @@ class AppRouter {
           builder: (context) => ProductDetailScreen(productModel: productModel),
         );
       default:
-        return MaterialPageRoute(builder: (context) => const UndefinedRouteScreen());
+        return MaterialPageRoute(
+          builder: (context) => const UndefinedRouteScreen(),
+        );
     }
   }
 }

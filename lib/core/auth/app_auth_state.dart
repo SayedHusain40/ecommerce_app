@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
+import 'package:ecommerce_app/core/navigation/main_nav_screen.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
-import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
@@ -51,19 +51,16 @@ class AppAuthState extends StatelessWidget {
             BlocProvider(
               create: (_) => getIt<CategoryCubit>()..getCategories(),
             ),
-
-
-            // Here i used "getProducts" because i want default is display "All" then user can select category
             BlocProvider(
-              create: (_) => getIt<CategoryProductsCubit>()..getProducts(limit: 4),
+              create: (_) =>
+                  getIt<LatestProductsCubit>()..getProducts(limit: 4),
             ),
-            // for display latest products
             BlocProvider(
-              create: (_) => getIt<LatestProductsCubit>()..getProducts(limit: 4),
+              create: (_) =>
+                  getIt<CategoryProductsCubit>()..getProducts(limit: 4),
             ),
-
           ],
-          child: const HomeScreen(),
+          child: const MainNavScreen(),
         );
       },
     );
