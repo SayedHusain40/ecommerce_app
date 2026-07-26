@@ -10,11 +10,13 @@ class CategoryFilterChips extends StatefulWidget {
   final bool isSliver;
   final int? productsLimit;
   final int selectedIndex;
+  final bool isHomeStyleChip;
   const CategoryFilterChips({
     super.key,
     this.isSliver = false,
     this.productsLimit,
     this.selectedIndex = 0,
+    this.isHomeStyleChip = true,
   });
 
   @override
@@ -95,7 +97,7 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
                       );
                     } else {
                       categoryProductsCubit.getProductsByCategory(
-                        category: category!.name!,
+                        categoryName: category!.name!,
                         limit: widget.productsLimit,
                       );
                     }
@@ -104,12 +106,14 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
                   selectedColor: AppColors.blackInDark(brightness),
                   shape: isAllSection
                       ? const CircleBorder()
-                      : true
+                      : widget.isHomeStyleChip
                       ? const StadiumBorder(side: BorderSide())
                       : RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                  side: isActive ? const BorderSide() : BorderSide.none,
+                  side: isActive || !widget.isHomeStyleChip
+                      ? const BorderSide()
+                      : BorderSide.none,
                   showCheckmark: false,
                   // avatar: !isAllSection && widget.style.withImage ? const Icon(Icons.category) : null,
                   elevation: 0,

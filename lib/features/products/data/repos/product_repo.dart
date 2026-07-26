@@ -8,9 +8,17 @@ class ProductRepo {
 
   ProductRepo(this.apiService);
 
-  Future<AppResult<List<ProductModel>>> getProducts({int? limit}) async {
+  Future<AppResult<List<ProductModel>>> getProducts({
+    int? limit,
+    String? sortBy,
+    String? order,
+  }) async {
     try {
-      final ProductResponseModel response = await apiService.getProducts(limit);
+      final ProductResponseModel response = await apiService.getProducts(
+        limit,
+        sortBy,
+        order,
+      );
 
       final List<ProductModel> products = response.products;
 
@@ -22,12 +30,14 @@ class ProductRepo {
   }
 
   Future<AppResult<List<ProductModel>>> getProductsByCategory({
-    required String category,
+    required String categoryName,
     int? limit,
+    String? sortBy,
+    String? order,
   }) async {
     try {
       final ProductResponseModel response = await apiService
-          .getProductsByCategory(category, limit);
+          .getProductsByCategory(categoryName, limit, sortBy, order);
 
       final List<ProductModel> products = response.products;
 
