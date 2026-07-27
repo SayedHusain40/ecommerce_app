@@ -8,7 +8,7 @@ part of 'api_service.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main,avoid_redundant_argument_values
 
 class _ApiService implements ApiService {
   _ApiService(this._dio, {this.baseUrl, this.errorLogger}) {
@@ -51,9 +51,17 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<ProductResponseModel> getProducts(int? limit) async {
+  Future<ProductResponseModel> getProducts(
+    int? limit,
+    String? sortBy,
+    String? order,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'limit': limit};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'sortBy': sortBy,
+      r'order': order,
+    };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
@@ -82,9 +90,15 @@ class _ApiService implements ApiService {
   Future<ProductResponseModel> getProductsByCategory(
     String category,
     int? limit,
+    String? sortBy,
+    String? order,
   ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'limit': limit};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'sortBy': sortBy,
+      r'order': order,
+    };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;

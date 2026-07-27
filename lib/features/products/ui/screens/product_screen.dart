@@ -4,6 +4,7 @@ import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/search_icon_button.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_filter_chips.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
+import 'package:ecommerce_app/features/products/ui/widgets/filter_content_bottom_sheet.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,10 +30,32 @@ class _ProductScreenState extends State<ProductScreen> {
     final categoryProductsCubit = context.read<CategoryProductsCubit>();
 
     if (widget.category != null) {
-      categoryProductsCubit.getProductsByCategory(category: widget.category!);
+      categoryProductsCubit.getProductsByCategory(
+        categoryName: widget.category!,
+      );
     }
     categoryProductsCubit.getProducts();
     super.initState();
+  }
+
+  void onSelectFilter() {
+    final categoryProductsCubit = context.read<CategoryProductsCubit>();
+    
+    showModalBottomSheet(
+      enableDrag: true,
+      showDragHandle: true,
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+      ),
+      context: context,
+      builder: (context) {
+        return BlocProvider.value(
+          value: categoryProductsCubit,
+          child: const FilterContentBottomSheet(),
+        );
+      },
+    );
   }
 
   @override
@@ -46,7 +69,7 @@ class _ProductScreenState extends State<ProductScreen> {
           const SearchIconButton(),
           const SizedBox(width: 12),
           GestureDetector(
-            onTap: () {},
+            onTap: onSelectFilter,
             child: SvgPicture.asset(AppIcons.setting(brightness)),
           ),
           const SizedBox(width: 16),
@@ -57,8 +80,10 @@ class _ProductScreenState extends State<ProductScreen> {
         child: Column(
           crossAxisAlignment: .start,
           children: [
-            CategoryFilterChips(selectedIndex: widget.selectedCategoryIndex),
-
+            CategoryFilterChips(
+              selectedIndex: widget.selectedCategoryIndex,
+              isHomeStyleChip: false,
+            ),
             const SizedBox(height: 5),
             Text('Products', style: AppTextStyles.headingH3Regular),
             const SizedBox(height: 10),
