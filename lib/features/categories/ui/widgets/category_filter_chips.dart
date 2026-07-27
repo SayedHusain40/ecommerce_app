@@ -1,7 +1,8 @@
-import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_card_shimmer.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_consumer.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/home_style_category_chip.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/horizontal_list_view.dart';
+import 'package:ecommerce_app/features/categories/ui/widgets/product_style_category_chip.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +53,6 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
     final categoryProductsCubit = context.read<CategoryProductsCubit>();
 
     return CategoryConsumer(
@@ -72,56 +72,45 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
         return HorizontalListView(
           isSliver: widget.isSliver,
           itemCount: categories.length + 1,
+          space: widget.isHomeStyleChip ? 3 : 10,
+          // height: widget.isHomeStyleChip? 60 : 90,
           itemBuilder: (context, index) {
             final isAllSection = index == 0;
             final category = isAllSection ? null : categories[index - 1];
             final isActive = selectedCategoryIndex == index;
+            final label = isAllSection ? 'All' : category!.name!;
+
+            void handleSelect(bool _) {
+              setState(() => selectedCategoryIndex = index);
+
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _scrollToSelectedIfNeeded();
+              });
+
+              if (isAllSection) {
+                categoryProductsCubit.getProducts(limit: widget.productsLimit);
+              } else {
+                categoryProductsCubit.getProductsByCategory(
+                  categoryName: category!.name!,
+                  limit: widget.productsLimit,
+                );
+              }
+            }
 
             return Container(
               key: _storeKey(index),
-              child: Theme(
-                data: Theme.of(
-                  context,
-                ).copyWith(splashFactory: NoSplash.splashFactory),
-                child: ChoiceChip(
-                  onSelected: (_) {
-                    setState(() => selectedCategoryIndex = index);
-
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      _scrollToSelectedIfNeeded();
-                    });
-
-                    if (isAllSection) {
-                      categoryProductsCubit.getProducts(
-                        limit: widget.productsLimit,
-                      );
-                    } else {
-                      categoryProductsCubit.getProductsByCategory(
-                        categoryName: category!.name!,
-                        limit: widget.productsLimit,
-                      );
-                    }
-                  },
-                  backgroundColor: AppColors.blackInDark(brightness),
-                  selectedColor: AppColors.blackInDark(brightness),
-                  shape: isAllSection
-                      ? const CircleBorder()
-                      : widget.isHomeStyleChip
-                      ? const StadiumBorder(side: BorderSide())
-                      : RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                  side: isActive || !widget.isHomeStyleChip
-                      ? const BorderSide()
-                      : BorderSide.none,
-                  showCheckmark: false,
-                  // avatar: !isAllSection && widget.style.withImage ? const Icon(Icons.category) : null,
-                  elevation: 0,
-                  pressElevation: 0,
-                  label: Text(isAllSection ? 'All' : category!.name!),
-                  selected: isActive,
-                ),
-              ),
+              child: widget.isHomeStyleChip
+                  ? HomeStyleCategoryChip(
+                      label: label,
+                      isActive: isActive,
+                      isAllSection: isAllSection,
+                      onSelected: handleSelect,
+                    )
+                  : ProductStyleCategoryChip(
+                      label: label,
+                      isActive: isActive,
+                      onSelected: handleSelect,
+                    ),
             );
           },
         );

@@ -40,7 +40,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   void onSelectFilter() {
     final categoryProductsCubit = context.read<CategoryProductsCubit>();
-
+    
     showModalBottomSheet(
       enableDrag: true,
       showDragHandle: true,
@@ -80,7 +80,10 @@ class _ProductScreenState extends State<ProductScreen> {
         child: Column(
           crossAxisAlignment: .start,
           children: [
-            CategoryFilterChips(selectedIndex: widget.selectedCategoryIndex),
+            CategoryFilterChips(
+              selectedIndex: widget.selectedCategoryIndex,
+              isHomeStyleChip: false,
+            ),
             const SizedBox(height: 5),
             Text('Products', style: AppTextStyles.headingH3Regular),
             const SizedBox(height: 10),

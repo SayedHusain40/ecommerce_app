@@ -79,11 +79,11 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
                           Text(e.displayName, style: AppTextStyles.body2Medium),
                           FlutterCheckbox(
                             value: isSelected,
-                            style: const CheckboxStyle(
+                            style: CheckboxStyle(
                               size: 32,
                               activeColor: AppColors.blue,
                               borderRadius: 6,
-                              borderColor: AppColors.black,
+                              borderColor: AppColors.grey150(brightness),
                               borderWidth: 2,
                             ),
                             onChanged: (value) {

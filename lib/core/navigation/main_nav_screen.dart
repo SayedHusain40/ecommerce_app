@@ -46,7 +46,7 @@ class _MainNavScreenState extends State<MainNavScreen> {
           selectedCategoryIndex: _categoryIndex,
           category: _categoryName,
         ),
-      ),  
+      ),
       const _PlaceholderScreen(title: 'My Cart'),
       const _PlaceholderScreen(title: 'Wishlist'),
       const _PlaceholderScreen(title: 'Profile'),
