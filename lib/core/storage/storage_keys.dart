@@ -3,4 +3,5 @@ class StorageKeys {
 
   static const isFirstTime = 'isFirstTime';
   static const searchHistory = 'search_history';
+  static const wishList = 'wish_list';
 }
