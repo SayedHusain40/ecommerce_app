@@ -67,7 +67,7 @@ Future<void> setUpGetIt() async {
   getIt.registerLazySingleton<ForgotPasswordRepo>(
     () => ForgotPasswordRepo(getIt()),
   );
-  getIt.registerLazySingleton<ProductRepo>(() => ProductRepo(getIt()));
+  getIt.registerLazySingleton<ProductRepo>(() => ProductRepo(getIt(), getIt()));
   getIt.registerLazySingleton<CategoryRepo>(() => CategoryRepo(getIt()));
 
   // Cubits

@@ -13,6 +13,9 @@ abstract class ApiService {
   @GET(ApiEndPoints.categories)
   Future<List<CategoryModel>> getCategories();
 
+  @GET(ApiEndPoints.product)
+  Future<ProductModel> getSpecificProduct(@Path('id') int id);
+
   @GET(ApiEndPoints.products)
   Future<ProductResponseModel> getProducts(
     @Query('limit') int? limit,
