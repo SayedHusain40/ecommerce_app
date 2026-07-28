@@ -25,10 +25,10 @@ class ProductCard extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            context.read<ProductCubit>().saveSearchQuery(
-              productModel: productModel,
-            );
             if (saveSearch) {
+              context.read<ProductCubit>().saveSearchQuery(
+                productModel: productModel,
+              );
               context.pushReplacementNamed(
                 RouteNames.productDetailScreen,
                 arguments: productModel,

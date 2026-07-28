@@ -21,7 +21,7 @@ class QuickMart extends StatelessWidget {
       onGenerateRoute: appRouter.generateRoute,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       initialRoute: isFirstTime
           ? RouteNames.onBoardingScreen
           : RouteNames.appAuthState,
