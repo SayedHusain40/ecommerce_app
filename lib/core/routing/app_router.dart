@@ -51,8 +51,8 @@ class AppRouter {
           ),
         );
       case RouteNames.categoryScreen:
-        final Function(int newSelectedCategoryIndex, String? categoryName) onSelectCategory =
-            settings.arguments as Function(int, String?);
+        final Function(int newSelectedCategoryIndex, String? categoryName)
+        onSelectCategory = settings.arguments as Function(int, String?);
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => getIt<CategoryCubit>()..getCategories(),

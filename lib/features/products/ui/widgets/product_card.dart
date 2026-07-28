@@ -3,12 +3,19 @@ import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
+import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel productModel;
+  final bool saveSearch;
 
-  const ProductCard({super.key, required this.productModel});
+  const ProductCard({
+    super.key,
+    required this.productModel,
+    this.saveSearch = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +25,29 @@ class ProductCard extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            context.pushNamed(
-              RouteNames.productDetailScreen,
-              arguments: productModel,
-            );
+            if (saveSearch) {
+              context.read<ProductCubit>().saveSearchQuery(
+                productModel: productModel,
+              );
+              context.pushReplacementNamed(
+                RouteNames.productDetailScreen,
+                arguments: productModel,
+              );
+            } else {
+              context.pushNamed(
+                RouteNames.productDetailScreen,
+                arguments: productModel,
+              );
+            }
           },
           child: Stack(
             children: [
               Container(
                 height: 138,
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 8,
+                ),
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(productModel.thumbnail),

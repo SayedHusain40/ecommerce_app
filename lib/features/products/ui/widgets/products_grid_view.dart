@@ -7,7 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductsGridView<T extends Cubit<ProductState>> extends StatelessWidget {
   final bool isSilver;
-  const ProductsGridView({super.key, this.isSilver = false});
+  final bool saveSearch;
+  const ProductsGridView({
+    super.key,
+    this.isSilver = false,
+    this.saveSearch = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +30,9 @@ class ProductsGridView<T extends Cubit<ProductState>> extends StatelessWidget {
       },
       builder: (context, state) {
         return state.maybeWhen(
-          initial: () =>
-              sliverSafe(const Center(child: Text('Type to search for products...'))),
+          initial: () => sliverSafe(
+            const Center(child: Text('Type to search for products...')),
+          ),
           loading: () => ProductGrid(
             isSilver: isSilver,
             itemCount: 8,
@@ -37,8 +43,10 @@ class ProductsGridView<T extends Cubit<ProductState>> extends StatelessWidget {
               : ProductGrid(
                   isSilver: isSilver,
                   itemCount: productsList.length,
-                  itemBuilder: (_, index) =>
-                      ProductCard(productModel: productsList[index]),
+                  itemBuilder: (_, index) => ProductCard(
+                    productModel: productsList[index],
+                    saveSearch: saveSearch,
+                  ),
                 ),
           orElse: () =>
               sliverSafe(const Center(child: Text('Something Went Wrong!'))),

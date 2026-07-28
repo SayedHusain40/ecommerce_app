@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/result/app_result.dart';
+import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/data/repos/product_repo.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,5 +29,17 @@ class ProductCubit extends Cubit<ProductState> {
         emit(ProductState.failure(appFailure));
       },
     );
+  }
+
+  Future<void> saveSearchQuery({required ProductModel productModel}) async {
+    await productRepo.saveSearchProduct(productModel);
+  }
+
+  List<ProductModel> getSearchHistory() {
+    return productRepo.getSearchHistory();
+  }
+
+  Future<void> deleteSearchProduct({required int id}) async {
+    await productRepo.deleteSearchProduct(id: id);
   }
 }

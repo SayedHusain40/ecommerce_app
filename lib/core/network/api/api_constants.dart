@@ -8,6 +8,7 @@ class ApiEndPoints {
   const ApiEndPoints._();
 
   static const categories = '/products/categories';
+  static const product = '/products/{id}';
   static const products = '/products';
   static const productsByCategory = '/products/category/{category}';
   static const searchProducts = '/products/search';
