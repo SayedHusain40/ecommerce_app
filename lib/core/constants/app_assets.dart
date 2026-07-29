@@ -16,6 +16,9 @@ class AppImages {
   // Banners
   static const String banner1 = 'assets/images/banners/banner1.png';
 
+  // empty
+  static const String emptyWishlist = 'assets/images/empty-wishlist.png';
+
   // Helpers
   static String logo(Brightness b) =>
       b == Brightness.dark ? logoDark : logoLight;
@@ -65,6 +68,8 @@ class AppIcons {
 
   static const String cancelLight = 'assets/svgs/cancel_light.svg';
   static const String cancelDark = 'assets/svgs/cancel_dark.svg';
+
+  static const String trash = 'assets/svgs/trash.svg';
 
   // Helpers
   static String arrowLeft(Brightness b) =>

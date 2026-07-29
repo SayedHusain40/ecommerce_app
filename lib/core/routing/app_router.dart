@@ -12,6 +12,7 @@ import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_detail_screen.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/register/ui/screens/register_screen.dart';
+import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,6 +51,9 @@ class AppRouter {
             child: const ConfirmationEmailScreen(),
           ),
         );
+
+      // we add new cubit here we actually we can reused cubit
+      // and then we can get loaded category that in home screen
       case RouteNames.categoryScreen:
         final Function(int newSelectedCategoryIndex, String? categoryName)
         onSelectCategory = settings.arguments as Function(int, String?);
@@ -59,10 +63,14 @@ class AppRouter {
             child: CategoryScreen(onSelectCategory: onSelectCategory),
           ),
         );
+
       case RouteNames.productDetailScreen:
         final productModel = settings.arguments as ProductModel;
         return MaterialPageRoute(
-          builder: (context) => ProductDetailScreen(productModel: productModel),
+          builder: (context) => BlocProvider.value(
+            value: getIt<WishlistCubit>(),
+            child: ProductDetailScreen(productModel: productModel),
+          ),
         );
       default:
         return MaterialPageRoute(

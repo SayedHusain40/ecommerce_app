@@ -46,4 +46,15 @@ class WishlistRepo {
     );
     await sharedPreferencesService.saveData(key: key, value: jsonString);
   }
+
+  bool isFavorite({required int productId}) {
+    final cachedWishList = getCachedWishList();
+    return cachedWishList.any((e) => e.id == productId);
+  }
+
+  int countFavorites() {
+    return getCachedWishList().length;
+  }
+
+  Future<bool> clearAllFavorite() =>sharedPreferencesService.removeData(key: key);
 }
