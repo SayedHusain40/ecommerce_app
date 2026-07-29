@@ -34,8 +34,10 @@ class CategoryProductsCubit extends Cubit<ProductState> {
       sortBy: selectedSortOptions?.sortBy,
       order: selectedSortOptions?.order,
     );
+    if (isClosed) return;
     result.when(
       success: (data) => emit(ProductState.success(data)),
+
       failure: (f) => emit(ProductState.failure(f)),
     );
   }

@@ -19,6 +19,8 @@ import 'package:ecommerce_app/features/register/data/repos/register_repo.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/data/repos/verify_email_repo.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
+import 'package:ecommerce_app/features/wishlist/data/repos/wishlist_repo.dart';
+import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -69,6 +71,7 @@ Future<void> setUpGetIt() async {
   );
   getIt.registerLazySingleton<ProductRepo>(() => ProductRepo(getIt(), getIt()));
   getIt.registerLazySingleton<CategoryRepo>(() => CategoryRepo(getIt()));
+  getIt.registerLazySingleton<WishlistRepo>(() => WishlistRepo(getIt()));
 
   // Cubits
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt(), getIt()));
@@ -87,4 +90,6 @@ Future<void> setUpGetIt() async {
   getIt.registerFactory<CategoryProductsCubit>(
     () => CategoryProductsCubit(getIt()),
   );
+
+  getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit(getIt()));
 }

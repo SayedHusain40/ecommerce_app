@@ -7,6 +7,7 @@ import 'package:ecommerce_app/features/products/logic/cubit/category_products_cu
 import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/ui/screens/verify_email_screen.dart';
+import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +49,7 @@ class AppAuthState extends StatelessWidget {
         // Logged in and verified
         return MultiBlocProvider(
           providers: [
+            // these 3 cubits for home screen
             BlocProvider(
               create: (_) => getIt<CategoryCubit>()..getCategories(),
             ),
@@ -59,6 +61,9 @@ class AppAuthState extends StatelessWidget {
               create: (_) =>
                   getIt<CategoryProductsCubit>()..getProducts(limit: 4),
             ),
+
+            // this cubit for favorite product
+            BlocProvider.value(value: getIt<WishlistCubit>()),
           ],
           child: const MainNavScreen(),
         );

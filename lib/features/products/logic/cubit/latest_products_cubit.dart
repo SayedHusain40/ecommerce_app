@@ -10,6 +10,7 @@ class LatestProductsCubit extends Cubit<ProductState> {
   Future<void> getProducts({int? limit}) async {
     emit(const ProductState.loading());
     final result = await productRepo.getProducts(limit: limit);
+    if (isClosed) return;
     result.when(
       success: (data) => emit(ProductState.success(data)),
       failure: (f) => emit(ProductState.failure(f)),
