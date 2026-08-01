@@ -56,6 +56,7 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
     final categoryProductsCubit = context.read<CategoryProductsCubit>();
 
     return CategoryConsumer(
+      isSliver: widget.isSliver,
       onLoading: (context) => HorizontalListView(
         isSliver: widget.isSliver,
         itemBuilder: (_, _) =>

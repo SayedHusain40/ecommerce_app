@@ -71,6 +71,10 @@ class AppIcons {
 
   static const String trash = 'assets/svgs/trash.svg';
 
+  static const String logout = 'assets/svgs/logout.svg';
+
+  static const String arrowRightSmall = 'assets/svgs/arrow-right-small.svg';
+
   // Helpers
   static String arrowLeft(Brightness b) =>
       b == Brightness.dark ? arrowLeftDark : arrowLeftLight;

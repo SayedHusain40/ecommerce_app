@@ -50,10 +50,9 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? Text(title!, style: AppTextStyles.body2Medium)
           : null,
       centerTitle: centerTitle,
-      titleSpacing: showBackButton
-          ? 0
-          : NavigationToolbar.kMiddleSpacing,
+      titleSpacing: showBackButton ? 0 : NavigationToolbar.kMiddleSpacing,
       actions: actions,
+      actionsPadding: const EdgeInsets.only(right: 16),
       backgroundColor: backgroundColor,
       automaticallyImplyLeading: showBackButton,
       bottom: addLine

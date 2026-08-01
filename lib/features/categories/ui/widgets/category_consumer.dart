@@ -6,12 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoryConsumer extends StatelessWidget {
   final Widget Function(BuildContext context) onLoading;
-  final Widget Function(BuildContext context, List<CategoryModel> categories) onSuccess;
+  final Widget Function(BuildContext context, List<CategoryModel> categories)
+  onSuccess;
+  final bool isSliver;
 
   const CategoryConsumer({
     super.key,
     required this.onLoading,
     required this.onSuccess,
+    this.isSliver = false,
   });
 
   @override
@@ -35,7 +38,9 @@ class CategoryConsumer extends StatelessWidget {
         return state.maybeWhen(
           getCategoryLoading: () => onLoading(context),
           getCategorySuccess: (categories) => onSuccess(context, categories),
-          orElse: () => const SizedBox.shrink(),
+          orElse: () => isSliver
+              ? const SliverToBoxAdapter(child: SizedBox.shrink())
+              : const SizedBox.shrink(),
         );
       },
     );

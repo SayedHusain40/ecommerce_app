@@ -48,10 +48,14 @@ class HomeBanner extends StatelessWidget {
                   mainAxisAlignment: .spaceBetween,
                   crossAxisAlignment: .end,
                   children: [
-                    Text(
-                      'Exclusive Sales',
-                      style: AppTextStyles.headingH2Bold.copyWith(
-                        color: AppColors.blackInDark(brightness),
+                    Expanded(
+                      child: Text(
+                        'Exclusive Sales',
+                        style: AppTextStyles.headingH2Bold.copyWith(
+                          color: AppColors.blackInDark(brightness),
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Container(

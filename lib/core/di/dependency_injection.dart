@@ -15,6 +15,8 @@ import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
+import 'package:ecommerce_app/features/profile/data/repos/profile_repo.dart';
+import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:ecommerce_app/features/register/data/repos/register_repo.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/data/repos/verify_email_repo.dart';
@@ -72,6 +74,7 @@ Future<void> setUpGetIt() async {
   getIt.registerLazySingleton<ProductRepo>(() => ProductRepo(getIt(), getIt()));
   getIt.registerLazySingleton<CategoryRepo>(() => CategoryRepo(getIt()));
   getIt.registerLazySingleton<WishlistRepo>(() => WishlistRepo(getIt()));
+  getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
 
   // Cubits
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt(), getIt()));
@@ -92,4 +95,6 @@ Future<void> setUpGetIt() async {
   );
 
   getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit(getIt()));
+
+  getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt(), getIt()));
 }

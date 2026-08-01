@@ -13,7 +13,8 @@ class HorizontalListView extends StatelessWidget {
     this.itemCount = 6,
     required this.itemBuilder,
     this.isSliver = false,
-    this.space = 3,  this.height = 60,
+    this.space = 3,
+    this.height = 60,
   });
 
   @override
@@ -23,7 +24,7 @@ class HorizontalListView extends StatelessWidget {
       height: height,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        scrollCacheExtent: const ScrollCacheExtent.pixels(5000), 
+        scrollCacheExtent: const ScrollCacheExtent.pixels(5000),
         itemCount: itemCount,
         separatorBuilder: (_, _) => SizedBox(width: space),
         itemBuilder: itemBuilder,

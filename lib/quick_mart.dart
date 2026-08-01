@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
 import 'package:ecommerce_app/core/storage/storage_keys.dart';
 import 'package:ecommerce_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class QuickMart extends StatelessWidget {
   final AppRouter appRouter;
@@ -16,15 +17,22 @@ class QuickMart extends StatelessWidget {
     final isFirstTime =
         sharedPreferences.getBool(key: StorageKeys.isFirstTime) ?? true;
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: appRouter.generateRoute,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.light,
-      initialRoute: isFirstTime
-          ? RouteNames.onBoardingScreen
-          : RouteNames.appAuthState,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark, // Android icons
+        statusBarBrightness: Brightness.light, // iOS
+      ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: appRouter.generateRoute,
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: ThemeMode.light,
+        initialRoute: isFirstTime
+            ? RouteNames.onBoardingScreen
+            : RouteNames.appAuthState,
+      ),
     );
   }
 }

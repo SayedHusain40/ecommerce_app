@@ -5,6 +5,7 @@ import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
+import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/ui/screens/verify_email_screen.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
@@ -64,6 +65,8 @@ class AppAuthState extends StatelessWidget {
 
             // this cubit for favorite product
             BlocProvider.value(value: getIt<WishlistCubit>()),
+
+            BlocProvider(create: (context) => getIt<ProfileCubit>()),
           ],
           child: const MainNavScreen(),
         );

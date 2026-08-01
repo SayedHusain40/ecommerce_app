@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screen/profile_screen.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_state.dart';
 import 'package:ecommerce_app/features/wishlist/ui/screen/wish_list_screen.dart';
@@ -54,7 +55,7 @@ class _MainNavScreenState extends State<MainNavScreen> {
 
       const WishListScreen(),
       const _PlaceholderScreen(title: 'My Cart'),
-      const _PlaceholderScreen(title: 'Profile'),
+      const ProfileScreen(),
     ];
   }
 

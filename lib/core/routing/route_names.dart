@@ -10,4 +10,9 @@ class RouteNames {
   static const categoryScreen = '/categoryScreen';
   static const productScreen = '/productScreen';
   static const productDetailScreen = '/productDetailScreen';
+  static const privacyPolicyScreen = '/privacyPolicyScreen';
+  static const termsAndConditionsScreen = '/termsAndConditionsScreen';
+  static const faqsScreen = '/faqsScreen';
+  static const verifyOldPasswordScreen = '/verifyOldPasswordScreen';
+  static const changePasswordNewScreen = '/changePasswordNewScreen';
 }

@@ -115,29 +115,31 @@ class _EmptyWishlist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset(AppImages.emptyWishlist, width: 240, height: 240),
-        const SizedBox(height: 16),
-        Text('Your wishlist is empty', style: AppTextStyles.headingH2Bold),
-        const SizedBox(height: 16),
-        Text(
-          'Tap heart button to start saving your favorite items.',
-          style: AppTextStyles.body2Regular,
-        ),
-        const SizedBox(height: 24),
-        ElevatedButton(
-          onPressed: () {
-            context.pushNamedAndRemoveUntil(
-              RouteNames.appAuthState,
-              predicate: (route) => false,
-            );
-          },
-          child: const Text('Explore Categories'),
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(AppImages.emptyWishlist, width: 240, height: 240),
+          const SizedBox(height: 16),
+          Text('Your wishlist is empty', style: AppTextStyles.headingH2Bold),
+          const SizedBox(height: 16),
+          Text(
+            'Tap heart button to start saving your favorite items.',
+            style: AppTextStyles.body2Regular,
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: () {
+              context.pushNamedAndRemoveUntil(
+                RouteNames.appAuthState,
+                predicate: (route) => false,
+              );
+            },
+            child: const Text('Explore Categories'),
+          ),
+        ],
+      ),
     );
   }
 }
