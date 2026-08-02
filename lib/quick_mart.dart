@@ -4,8 +4,10 @@ import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
 import 'package:ecommerce_app/core/storage/storage_keys.dart';
 import 'package:ecommerce_app/core/theme/app_theme.dart';
+import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class QuickMart extends StatelessWidget {
   final AppRouter appRouter;
@@ -23,15 +25,33 @@ class QuickMart extends StatelessWidget {
         statusBarIconBrightness: Brightness.dark, // Android icons
         statusBarBrightness: Brightness.light, // iOS
       ),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: appRouter.generateRoute,
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        themeMode: ThemeMode.light,
-        initialRoute: isFirstTime
-            ? RouteNames.onBoardingScreen
-            : RouteNames.appAuthState,
+      child: BlocProvider.value(
+        value: getIt<ThemeCubit>(),
+        child: BlocBuilder<ThemeCubit, ThemeMode>(
+          builder: (context, themeMode) {
+            final currentTheme = themeMode == ThemeMode.dark
+                ? AppTheme.darkTheme
+                : AppTheme.lightTheme;
+
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              onGenerateRoute: appRouter.generateRoute,
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+              themeMode: themeMode,
+              initialRoute: false
+                  ? RouteNames.onBoardingScreen
+                  : RouteNames.appAuthState,
+              builder: (context, child) {
+                return AnimatedTheme(
+                  data: currentTheme,
+                  duration: const Duration(seconds: 1),
+                  child: child!,
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

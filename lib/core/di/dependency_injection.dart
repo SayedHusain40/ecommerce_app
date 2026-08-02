@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/network/api/api_service.dart';
 import 'package:ecommerce_app/core/network/api/dio_factory.dart';
 import 'package:ecommerce_app/core/network/connection/network_info.dart';
 import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
+import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
 import 'package:ecommerce_app/features/categories/data/repos/category_repo.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/data/repos/forgot_password_repo.dart';
@@ -93,8 +94,8 @@ Future<void> setUpGetIt() async {
   getIt.registerFactory<CategoryProductsCubit>(
     () => CategoryProductsCubit(getIt()),
   );
-
-  getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit(getIt()));
-
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt(), getIt()));
+  // for lazy cubits
+  getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit(getIt()));
+  getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit(getIt()));
 }

@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
+import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,10 +18,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool _isDarkTheme = false;
-
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: AppColors.cyan,
@@ -32,8 +33,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              _buildHeader(),
-              Expanded(child: _buildContent()),
+              _buildHeader(brightness),
+              Expanded(child: _buildContent(context)),
             ],
           ),
         ),
@@ -42,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   // ---------------- HEADER ----------------
-  Widget _buildHeader() {
+  Widget _buildHeader(Brightness brightness) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 21),
       child: Row(
@@ -50,13 +51,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Container(
             height: 40,
             width: 40,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              image: DecorationImage(
-                image: NetworkImage('https://i.pravatar.cc/150?img=12'),
-                fit: BoxFit.contain,
-              ),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              color: AppColors.grey50(brightness),
             ),
+            child: const Icon(Icons.person),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -87,13 +86,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   // ---------------- WHITE CONTENT CARD ----------------
-  Widget _buildContent() {
-    return Container(
+  Widget _buildContent(BuildContext context) {
+    final themeMode = context.watch<ThemeCubit>().state;
+    final isDark = themeMode == ThemeMode.dark;
+
+    return AnimatedContainer(
+      duration: const Duration(seconds: 1),
+      curve: Curves.linear, // match AnimatedTheme's default curve
       width: double.infinity,
       clipBehavior: Clip.antiAlias,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.black : AppColors.white,
+
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(24),
           topRight: Radius.circular(24),
         ),
@@ -149,11 +154,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _SettingsTile(
             icon: Icons.dark_mode_outlined,
             title: 'Dark Theme',
-            trailing: Switch(
-              value: _isDarkTheme,
-              activeThumbColor: AppColors.cyan,
-              onChanged: (value) {
-                setState(() => _isDarkTheme = value);
+            trailing: BlocBuilder<ThemeCubit, ThemeMode>(
+              builder: (context, themeMode) {
+                return Switch(
+                  value: themeMode == ThemeMode.dark,
+                  activeThumbColor: AppColors.cyan,
+                  onChanged: (value) {
+                    context.read<ThemeCubit>().toggleTheme();
+                  },
+                );
               },
             ),
           ),
@@ -227,7 +236,7 @@ class _SettingsTile extends StatelessWidget {
             ),
           ),
         ),
-        const Divider(height: 1, thickness: 1, color: AppColors.grey50Light),
+        Divider(height: 1, thickness: 1, color: AppColors.grey50(brightness)),
       ],
     );
   }

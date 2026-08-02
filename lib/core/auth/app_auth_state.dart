@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/navigation/main_nav_screen.dart';
+import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
@@ -13,39 +14,47 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AppAuthState extends StatelessWidget {
+class AppAuthState extends StatefulWidget {
   final bool sendEmailOnInit;
 
   const AppAuthState({super.key, this.sendEmailOnInit = false});
 
   @override
+  State<AppAuthState> createState() => _AppAuthStateState();
+}
+
+class _AppAuthStateState extends State<AppAuthState> {
+  late final Stream<User?> _authStream = FirebaseAuth.instance
+      .authStateChanges();
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
+      stream: _authStream,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
+        // if (snapshot.connectionState == ConnectionState.waiting) {
+        //   return const Scaffold(
+        //     body: Center(child: CircularProgressIndicator()),
+        //   );
+        // }
 
-        final user = snapshot.data;
+        // final user = snapshot.data;
 
-        // Not logged in
-        if (user == null) {
-          return BlocProvider(
-            create: (context) => getIt<LoginCubit>(),
-            child: const LoginScreen(),
-          );
-        }
+        // // Not logged in
+        // if (user == null) {
+        //   return BlocProvider(
+        //     create: (context) => getIt<LoginCubit>(),
+        //     child: const LoginScreen(),
+        //   );
+        // }
 
-        // Logged in but not verified
-        if (!user.emailVerified) {
-          return BlocProvider(
-            create: (context) => getIt<VerifyEmailCubit>(),
-            child: VerifyEmailScreen(sendEmailOnInit: sendEmailOnInit),
-          );
-        }
+        // // Logged in but not verified
+        // if (!user.emailVerified) {
+        //   return BlocProvider(
+        //     create: (context) => getIt<VerifyEmailCubit>(),
+        //     child: VerifyEmailScreen(sendEmailOnInit: widget.sendEmailOnInit),
+        //   );
+        // }
 
         // Logged in and verified
         return MultiBlocProvider(
@@ -63,7 +72,7 @@ class AppAuthState extends StatelessWidget {
                   getIt<CategoryProductsCubit>()..getProducts(limit: 4),
             ),
 
-            // this cubit for favorite product
+            // this cubit for favorite products
             BlocProvider.value(value: getIt<WishlistCubit>()),
 
             BlocProvider(create: (context) => getIt<ProfileCubit>()),
