@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/navigation/main_nav_screen.dart';
-import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/login_screen.dart';
@@ -32,29 +31,29 @@ class _AppAuthStateState extends State<AppAuthState> {
     return StreamBuilder<User?>(
       stream: _authStream,
       builder: (context, snapshot) {
-        // if (snapshot.connectionState == ConnectionState.waiting) {
-        //   return const Scaffold(
-        //     body: Center(child: CircularProgressIndicator()),
-        //   );
-        // }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
 
-        // final user = snapshot.data;
+        final user = snapshot.data;
 
-        // // Not logged in
-        // if (user == null) {
-        //   return BlocProvider(
-        //     create: (context) => getIt<LoginCubit>(),
-        //     child: const LoginScreen(),
-        //   );
-        // }
+        // Not logged in
+        if (user == null) {
+          return BlocProvider(
+            create: (context) => getIt<LoginCubit>(),
+            child: const LoginScreen(),
+          );
+        }
 
-        // // Logged in but not verified
-        // if (!user.emailVerified) {
-        //   return BlocProvider(
-        //     create: (context) => getIt<VerifyEmailCubit>(),
-        //     child: VerifyEmailScreen(sendEmailOnInit: widget.sendEmailOnInit),
-        //   );
-        // }
+        // Logged in but not verified
+        if (!user.emailVerified) {
+          return BlocProvider(
+            create: (context) => getIt<VerifyEmailCubit>(),
+            child: VerifyEmailScreen(sendEmailOnInit: widget.sendEmailOnInit),
+          );
+        }
 
         // Logged in and verified
         return MultiBlocProvider(

@@ -19,6 +19,11 @@ class AppImages {
   // empty
   static const String emptyWishlist = 'assets/images/empty-wishlist.png';
 
+  // flags
+  static const String usFlag = 'assets/images/flags/us.png';
+  static const String saFlag = 'assets/images/flags/sa.png';
+
+
   // Helpers
   static String logo(Brightness b) =>
       b == Brightness.dark ? logoDark : logoLight;
@@ -74,6 +79,7 @@ class AppIcons {
   static const String logout = 'assets/svgs/logout.svg';
 
   static const String arrowRightSmall = 'assets/svgs/arrow-right-small.svg';
+
 
   // Helpers
   static String arrowLeft(Brightness b) =>

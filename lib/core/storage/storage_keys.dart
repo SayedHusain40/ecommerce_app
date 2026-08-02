@@ -5,4 +5,5 @@ class StorageKeys {
   static const searchHistory = 'searchHistory';
   static const wishList = 'wishList';
   static const isDarkMode = 'isDarkMode';
+  static const languageCode = 'languageCode';
 }
