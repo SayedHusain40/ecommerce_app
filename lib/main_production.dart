@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/config/firebase_config.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routing/app_router.dart';
 import 'package:ecommerce_app/firebase_options_porudction.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await setUpGetIt();
+  await setUpGetIt(ProductionFirebaseConfig());
 
   runApp(const QuickMart(appRouter: AppRouter()));
 }
