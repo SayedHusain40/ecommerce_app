@@ -61,12 +61,10 @@ class AppRouter {
       // we add new cubit here we actually we can reused cubit
       // and then we can get loaded category that in home screen
       case RouteNames.categoryScreen:
-        final Function(int newSelectedCategoryIndex, String? categoryName)
-        onSelectCategory = settings.arguments as Function(int, String?);
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => getIt<CategoryCubit>()..getCategories(),
-            child: CategoryScreen(onSelectCategory: onSelectCategory),
+            child: const CategoryScreen(),
           ),
         );
 

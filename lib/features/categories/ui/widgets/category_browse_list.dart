@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/categories/data/model/category_model.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_card.dart';
@@ -6,17 +7,16 @@ import 'package:ecommerce_app/features/categories/ui/widgets/category_consumer.d
 import 'package:ecommerce_app/features/categories/ui/widgets/category_grid.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/horizontal_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoryBrowseList extends StatelessWidget {
   final bool isGrid;
   final bool isSliver;
-  final Function(int newSelectedCategoryIndex, String? categoryName)
-  onSelectCategory;
+
   const CategoryBrowseList({
     super.key,
     this.isGrid = false,
     this.isSliver = false,
-    required this.onSelectCategory,
   });
 
   @override
@@ -44,7 +44,10 @@ class CategoryBrowseList extends StatelessWidget {
               ? AppTextStyles.body3SemiBold
               : AppTextStyles.body4SemiBold,
           onTap: () {
-            onSelectCategory(index + 1, category.name);
+            context.read<NavCubit>().selectCategory(
+              categoryIndex: index + 1,
+              categoryName: category.name,
+            );
             if (Navigator.of(context).canPop()) {
               Navigator.pop(context);
             }

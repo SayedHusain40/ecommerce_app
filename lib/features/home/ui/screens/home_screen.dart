@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/helpers/extensions.dart';
+import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
@@ -12,11 +13,33 @@ import 'package:ecommerce_app/features/products/logic/cubit/category_products_cu
 import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
-  final Function(int newSelectedCategoryIndex, String? categoryName)
-  onSelectCategory;
-  const HomeScreen({super.key, required this.onSelectCategory});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late final NavCubit navCubit;
+
+  // this for help get category index for help do "See All"
+  int _categoryIndex = 0;
+  String? _categoryName;
+
+  void onSelectedCategory({required int index, String? name}) {
+    _categoryIndex = index;
+    _categoryName = name;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    navCubit = context.read<NavCubit>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +66,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          context.pushNamed(
-                            RouteNames.categoryScreen,
-                            arguments: onSelectCategory,
-                          );
+                          context.pushNamed(RouteNames.categoryScreen);
                         },
                         child: Text(
                           'SEE ALL',
@@ -61,10 +81,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            CategoryBrowseList(
-              isSliver: true,
-              onSelectCategory: onSelectCategory,
-            ),
+            const CategoryBrowseList(isSliver: true),
 
             // Banner
             const SliverToBoxAdapter(
@@ -97,7 +114,14 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10),
-                  SeeAllButton(onTap: () {}),
+                  SeeAllButton(
+                    onTap: () {
+                      navCubit.selectCategory(
+                        categoryIndex: 0,
+                        categoryName: null,
+                      );
+                    },
+                  ),
                   const SizedBox(height: 24),
                   const CustomTitle(label: 'Categories'),
                   const SizedBox(height: 12),
@@ -106,7 +130,11 @@ class HomeScreen extends StatelessWidget {
             ),
 
             // Category filter chips
-            const CategoryFilterChips(isSliver: true, productsLimit: 4),
+            CategoryFilterChips(
+              isSliver: true,
+              productsLimit: 4,
+              onSelectedCategory: onSelectedCategory,
+            ),
 
             // Filtered products grid
             const ProductsGridView<CategoryProductsCubit>(isSilver: true),
@@ -115,7 +143,14 @@ class HomeScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  SeeAllButton(onTap: () {}),
+                  SeeAllButton(
+                    onTap: () {
+                      navCubit.selectCategory(
+                        categoryIndex: _categoryIndex,
+                        categoryName: _categoryName,
+                      );
+                    },
+                  ),
                   const SizedBox(height: 24),
                 ],
               ),

@@ -12,12 +12,14 @@ class CategoryFilterChips extends StatefulWidget {
   final int? productsLimit;
   final int selectedIndex;
   final bool isHomeStyleChip;
+  final void Function({required int index, String? name})? onSelectedCategory;
   const CategoryFilterChips({
     super.key,
     this.isSliver = false,
     this.productsLimit,
     this.selectedIndex = 0,
     this.isHomeStyleChip = true,
+    this.onSelectedCategory,
   });
 
   @override
@@ -82,6 +84,10 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
             final label = isAllSection ? 'All' : category!.name!;
 
             void handleSelect(bool _) {
+              widget.onSelectedCategory?.call(
+                index: index,
+                name: category?.name,
+              );
               setState(() => selectedCategoryIndex = index);
 
               WidgetsBinding.instance.addPostFrameCallback((_) {
