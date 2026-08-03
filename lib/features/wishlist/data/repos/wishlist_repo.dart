@@ -10,23 +10,29 @@ class WishlistRepo {
 
   final key = StorageKeys.wishList;
 
-  Future<void> toggleFavoriteProduct({
+  /// Returns `true` if it was added, `false` if it was removed.
+  Future<bool> toggleFavoriteProduct({
     required ProductModel productModel,
   }) async {
     final List<ProductModel> cachedWishList = getCachedWishList();
 
     final exists = cachedWishList.any((e) => e.id == productModel.id);
+    final bool wasAdded;
 
     if (exists) {
       cachedWishList.removeWhere((e) => e.id == productModel.id);
+      wasAdded = false;
     } else {
       cachedWishList.add(productModel);
+      wasAdded = true;
     }
 
     final jsonString = json.encode(
       cachedWishList.map((e) => e.toJson()).toList(),
     );
     await sharedPreferencesService.saveData(key: key, value: jsonString);
+
+    return wasAdded;
   }
 
   List<ProductModel> getCachedWishList() {
@@ -47,14 +53,6 @@ class WishlistRepo {
     await sharedPreferencesService.saveData(key: key, value: jsonString);
   }
 
-  bool isFavorite({required int productId}) {
-    final cachedWishList = getCachedWishList();
-    return cachedWishList.any((e) => e.id == productId);
-  }
-
-  int countFavorites() {
-    return getCachedWishList().length;
-  }
-
-  Future<bool> clearAllFavorite() =>sharedPreferencesService.removeData(key: key);
+  Future<bool> clearAllFavorite() =>
+      sharedPreferencesService.removeData(key: key);
 }

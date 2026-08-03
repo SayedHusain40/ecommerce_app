@@ -4,7 +4,6 @@ import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/widgets/custom_curved_edges.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
-import 'package:ecommerce_app/features/wishlist/logic/wishlist_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -86,8 +85,8 @@ class ProductImageGallery extends StatelessWidget {
                     backgroundColor: AppColors.whiteInDark(brightness),
                     foregroundColor: AppColors.blackInDark(brightness),
                     radius: 16,
-                    child: BlocBuilder<WishlistCubit, WishlistState>(
-                      builder: (context, state) {
+                    child: BlocBuilder<WishlistCubit, List<ProductModel>>(
+                      builder: (context, _) {
                         final isFavorite = context
                             .read<WishlistCubit>()
                             .isFavorite(productId: productModel.id);

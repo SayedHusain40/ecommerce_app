@@ -1,40 +1,43 @@
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/wishlist/data/repos/wishlist_repo.dart';
-import 'package:ecommerce_app/features/wishlist/logic/wishlist_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class WishlistCubit extends Cubit<WishlistState> {
+class WishlistCubit extends Cubit<List<ProductModel>> {
   final WishlistRepo wishlistRepo;
-  WishlistCubit(this.wishlistRepo) : super(const WishlistState.initial());
+  WishlistCubit(this.wishlistRepo) : super(<ProductModel>[]) {
+    loadWishlist(); // load immediately when the Cubit is created
+  }
 
   void loadWishlist() {
-    emit(const WishlistState.loading());
     final list = wishlistRepo.getCachedWishList();
-    emit(WishlistState.success(list));
+    emit(list);
   }
 
   Future<void> toggleFavoriteProduct({
     required ProductModel productModel,
   }) async {
-    await wishlistRepo.toggleFavoriteProduct(productModel: productModel);
-    loadWishlist(); // re-fetch + emit updated list
+    final wasAdded = await wishlistRepo.toggleFavoriteProduct(
+      productModel: productModel,
+    );
+
+    if (wasAdded) {
+      emit([...state, productModel]);
+    } else {
+      emit(state.where((e) => e.id != productModel.id).toList());
+    }
   }
 
   Future<void> removeFromWishlist({required int productId}) async {
     await wishlistRepo.removeFromWishlist(productId: productId);
-    loadWishlist();
+    emit(state.where((e) => e.id != productId).toList());
   }
 
   bool isFavorite({required int productId}) {
-    return wishlistRepo.isFavorite(productId: productId);
+    return state.any((e) => e.id == productId);
   }
 
   Future<void> clearWishList() async {
-    wishlistRepo.clearAllFavorite();
-    loadWishlist();
-  }
-
-  int countFavorites() {
-    return wishlistRepo.countFavorites();
+    await wishlistRepo.clearAllFavorite();
+    emit(const []);
   }
 }

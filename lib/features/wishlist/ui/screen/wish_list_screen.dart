@@ -3,10 +3,10 @@ import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
+import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_grid.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
-import 'package:ecommerce_app/features/wishlist/logic/wishlist_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,7 +24,6 @@ class _WishListScreenState extends State<WishListScreen> {
   void initState() {
     super.initState();
     wishlistCubit = context.read<WishlistCubit>();
-    wishlistCubit.loadWishlist();
   }
 
   void onDeleteProduct(int productID) {
@@ -84,25 +83,20 @@ class _WishListScreenState extends State<WishListScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: BlocBuilder<WishlistCubit, WishlistState>(
-          builder: (context, state) {
-            return state.maybeWhen(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              success: (wishList) => wishList.isEmpty
-                  ? const _EmptyWishlist()
-                  : ProductGrid(
-                      itemCount: wishList.length,
-                      itemBuilder: (context, index) {
-                        final productModel = wishList[index];
-                        return ProductCard(
-                          productModel: productModel,
-                          onDeleteProduct: () =>
-                              onDeleteProduct(productModel.id),
-                        );
-                      },
-                    ),
-              orElse: () => const SizedBox.shrink(),
-            );
+        child: BlocBuilder<WishlistCubit, List<ProductModel>>(
+          builder: (context, wishList) {
+            return wishList.isEmpty
+                ? const _EmptyWishlist()
+                : ProductGrid(
+                    itemCount: wishList.length,
+                    itemBuilder: (context, index) {
+                      final productModel = wishList[index];
+                      return ProductCard(
+                        productModel: productModel,
+                        onDeleteProduct: () => onDeleteProduct(productModel.id),
+                      );
+                    },
+                  );
           },
         ),
       ),
