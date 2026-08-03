@@ -1,10 +1,10 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
+import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
 import 'package:ecommerce_app/features/profile/ui/screen/profile_screen.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
-import 'package:ecommerce_app/features/wishlist/logic/wishlist_state.dart';
 import 'package:ecommerce_app/features/wishlist/ui/screen/wish_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -106,9 +106,9 @@ class AppBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WishlistCubit, WishlistState>(
-      builder: (BuildContext context, WishlistState state) {
-        final int counts = context.read<WishlistCubit>().countFavorites();
+    return BlocBuilder<WishlistCubit, List<ProductModel>>(
+      builder: (context, state) {
+        final int counts = state.length;
         return Badge(
           label: Text(counts.toString()),
           backgroundColor: Colors.red,
