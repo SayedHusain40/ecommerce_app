@@ -1,6 +1,7 @@
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/auth/repos/auth_repo.dart';
+import 'package:ecommerce_app/core/config/firebase_config.dart';
 import 'package:ecommerce_app/core/localization/logic/locale_cubit.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/network/api/api_service.dart';
@@ -33,7 +34,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
 
-Future<void> setUpGetIt() async {
+Future<void> setUpGetIt(FirebaseConfig config) async {
   // Shared Preferences (non-sensitive data)
   final sharedPreferences = await SharedPreferences.getInstance();
   getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
@@ -60,10 +61,8 @@ Future<void> setUpGetIt() async {
 
   // googleSignIn
   final googleSignIn = GoogleSignIn.instance;
-  await googleSignIn.initialize(
-    serverClientId:
-        '613394897708-qib5j3c8h1279vfp4sk8ip6s9gd2qg7e.apps.googleusercontent.com',
-  );
+  await googleSignIn.initialize(serverClientId: config.serverClientId);
+
   getIt.registerLazySingleton<GoogleSignIn>(() => googleSignIn);
 
   // Repositories
