@@ -1,0 +1,12 @@
+{
+  "@@locale": "ar",
+  "language": "اللغة",
+  "darkTheme": "الوضع الداكن",
+  "changePassword": "تغيير كلمة المرور",
+  "shippingAddress": "عنوان الشحن",
+  "paymentMethod": "طريقة الدفع",
+  "orderHistory": "سجل الطلبات",
+  "privacyPolicy": "سياسة الخصوصية",
+  "termsAndConditions": "الشروط والأحكام",
+  "faqs": "الأسئلة الشائعة"
+}

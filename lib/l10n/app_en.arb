@@ -1,0 +1,12 @@
+{
+  "@@locale": "en",
+  "language": "Language",
+  "darkTheme": "Dark Theme",
+  "changePassword": "Change Password",
+  "shippingAddress": "Shipping Address",
+  "paymentMethod": "Payment Method",
+  "orderHistory": "Order History",
+  "privacyPolicy": "Privacy Policy",
+  "termsAndConditions": "Terms & Conditions",
+  "faqs": "FAQs"
+}

@@ -10,6 +10,12 @@ import 'package:ecommerce_app/features/login/ui/login_screen.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_detail_screen.dart';
+import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
+import 'package:ecommerce_app/features/profile/ui/screen/change_password_new_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screen/faqs_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screen/privacy_policy_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screen/terms_and_conditions_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screen/verify_old_password_screen.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/register/ui/screens/register_screen.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
@@ -70,6 +76,30 @@ class AppRouter {
           builder: (context) => BlocProvider.value(
             value: getIt<WishlistCubit>(),
             child: ProductDetailScreen(productModel: productModel),
+          ),
+        );
+      case RouteNames.privacyPolicyScreen:
+        return MaterialPageRoute(
+          builder: (context) => const PrivacyPolicyScreen(),
+        );
+      case RouteNames.termsAndConditionsScreen:
+        return MaterialPageRoute(
+          builder: (context) => const TermsAndConditionsScreen(),
+        );
+      case RouteNames.faqsScreen:
+        return MaterialPageRoute(builder: (context) => const FaqsScreen());
+      case RouteNames.verifyOldPasswordScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<ProfileCubit>(),
+            child: const VerifyOldPasswordScreen(),
+          ),
+        );
+      case RouteNames.changePasswordNewScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<ProfileCubit>(),
+            child: const ChangePasswordNewScreen(),
           ),
         );
       default:

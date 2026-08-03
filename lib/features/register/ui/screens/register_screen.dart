@@ -179,7 +179,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     final List<String> errors = [
                                       if (!Regex.hasMinLength(value!))
                                         '- Password must be at least 6 characters',
-
                                       if (!Regex.hasUpperCase(value))
                                         '- Must contain an uppercase letter',
                                       if (!Regex.hasLowerCase(value))
