@@ -1,6 +1,8 @@
+import 'package:ecommerce_app/core/auth/models/user_credential_model.dart';
 import 'package:ecommerce_app/core/errors/error_handler.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/result/app_result.dart';
+import 'package:ecommerce_app/features/profile/data/model/user_profile_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfileRepo {
@@ -46,5 +48,18 @@ class ProfileRepo {
       final failure = ErrorHandler.handle(e);
       return AppResult.failure(failure);
     }
+  }
+
+  UserProfileModel getUserInfo() {
+    final User? user = firebaseAuth.currentUser;
+
+    if (user == null) {
+      return const UserProfileModel();
+    }
+    return UserProfileModel(
+      name: user.displayName!,
+      email: user.email!,
+      photoUrl: user.photoURL,
+    );
   }
 }

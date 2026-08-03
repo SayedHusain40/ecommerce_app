@@ -75,7 +75,7 @@ class _AppAuthStateState extends State<AppAuthState> {
             // this cubit for favorite products
             BlocProvider.value(value: getIt<WishlistCubit>()),
             
-            BlocProvider.value(value: getIt<NavCubit>()),
+            BlocProvider(create: (context) => getIt<NavCubit>()),
 
             BlocProvider(create: (context) => getIt<ProfileCubit>()),
             

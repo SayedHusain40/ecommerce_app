@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/auth/repos/auth_repo.dart';
 import 'package:ecommerce_app/core/result/app_result.dart';
+import 'package:ecommerce_app/features/profile/data/model/user_profile_model.dart';
 import 'package:ecommerce_app/features/profile/data/repos/profile_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,9 @@ class ProfileCubit extends Cubit<ProfileState> {
       failure: (appFailure) => emit(ProfileState.logoutFailure(appFailure)),
     );
   }
+
+  UserProfileModel get userInfo => profileRepo.getUserInfo();
+
 
   Future<void> checkCurrentPassword() async {
     if (!formKey.currentState!.validate()) return;
