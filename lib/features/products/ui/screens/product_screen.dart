@@ -29,18 +29,17 @@ class _ProductScreenState extends State<ProductScreen> {
   void initState() {
     final categoryProductsCubit = context.read<CategoryProductsCubit>();
 
-    if (widget.category != null) {
-      categoryProductsCubit.getProductsByCategory(
-        categoryName: widget.category!,
-      );
-    }
-    categoryProductsCubit.getProducts();
+if (widget.category != null) {
+  categoryProductsCubit.getProductsByCategory(categoryName: widget.category!);
+} else {
+  categoryProductsCubit.getProducts();
+}
     super.initState();
   }
 
   void onSelectFilter() {
     final categoryProductsCubit = context.read<CategoryProductsCubit>();
-    
+
     showModalBottomSheet(
       enableDrag: true,
       showDragHandle: true,

@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
+import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/navigation/main_nav_screen.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
@@ -75,6 +76,8 @@ class _AppAuthStateState extends State<AppAuthState> {
             BlocProvider.value(value: getIt<WishlistCubit>()),
 
             BlocProvider(create: (context) => getIt<ProfileCubit>()),
+            
+            BlocProvider(create: (context) => getIt<NavCubit>()),
           ],
           child: const MainNavScreen(),
         );

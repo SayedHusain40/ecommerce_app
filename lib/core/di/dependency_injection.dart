@@ -2,6 +2,7 @@ import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/auth/repos/auth_repo.dart';
 import 'package:ecommerce_app/core/localization/logic/locale_cubit.dart';
+import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/network/api/api_service.dart';
 import 'package:ecommerce_app/core/network/api/dio_factory.dart';
 import 'package:ecommerce_app/core/network/connection/network_info.dart';
@@ -100,4 +101,5 @@ Future<void> setUpGetIt() async {
   getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit(getIt()));
   getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit(getIt()));
   getIt.registerLazySingleton<LocaleCubit>(() => LocaleCubit(getIt()));
+  getIt.registerLazySingleton<NavCubit>(() => NavCubit());
 }
