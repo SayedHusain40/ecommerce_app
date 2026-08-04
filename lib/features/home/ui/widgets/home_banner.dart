@@ -19,7 +19,7 @@ class HomeBanner extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
-            image: DecorationImage(image: AssetImage(e), fit: BoxFit.cover),
+            image: DecorationImage(image: AssetImage(e) , fit: BoxFit.cover),
           ),
           child: Padding(
             padding: const EdgeInsets.only(left: 12, right: 12, bottom: 10),

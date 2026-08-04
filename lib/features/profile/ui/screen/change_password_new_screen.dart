@@ -48,6 +48,7 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
             '02',
             style: AppTextStyles.body2Medium.copyWith(color: AppColors.grey100),
           ),
+          const SizedBox(width: 16),
         ],
       ),
       body: Padding(

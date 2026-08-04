@@ -628,4 +628,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get verificationEmailSentSuccess => 'تم إرسال رسالة التحقق بنجاح';
+
+  @override
+  String get incorrectPassword => 'كلمة المرور غير صحيحة';
 }
