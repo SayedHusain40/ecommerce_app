@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
@@ -10,6 +11,7 @@ import 'package:ecommerce_app/features/wishlist/ui/screen/wish_list_screen.dart'
 import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MainNavScreen extends StatefulWidget {
   const MainNavScreen({super.key});
@@ -57,6 +59,7 @@ class _MainNavScreenState extends State<MainNavScreen> {
   Widget build(BuildContext context) {
     final navCubit = context.read<NavCubit>();
     final l10n = AppLocalizations.of(context)!;
+    final brightness = Theme.of(context).brightness;
 
     return BlocBuilder<NavCubit, NavModel>(
       buildWhen: (previous, current) =>
@@ -71,28 +74,68 @@ class _MainNavScreenState extends State<MainNavScreen> {
             },
             destinations: [
               NavigationDestination(
-                icon: const Icon(Icons.home_outlined),
-                selectedIcon: const Icon(Icons.home),
+                icon: SvgPicture.asset(
+                  AppIcons.inactiveHome(brightness),
+                  width: 24,
+                  height: 24,
+                ),
+                selectedIcon: SvgPicture.asset(
+                  AppIcons.activeHome,
+                  width: 24,
+                  height: 24,
+                ),
                 label: l10n.home,
               ),
               NavigationDestination(
-                icon: const Icon(Icons.grid_view_outlined),
-                selectedIcon: const Icon(Icons.grid_view),
+                icon: SvgPicture.asset(
+                  AppIcons.inactiveCategory(brightness),
+                  width: 24,
+                  height: 24,
+                ),
+                selectedIcon: SvgPicture.asset(
+                  AppIcons.activeCategory,
+                  width: 24,
+                  height: 24,
+                ),
                 label: l10n.products,
               ),
               NavigationDestination(
-                icon: const AppBadge(Icon(Icons.favorite_outline_rounded)),
-                selectedIcon: const AppBadge(Icon(Icons.favorite_rounded)),
+                icon: AppBadge(
+                  SvgPicture.asset(
+                    AppIcons.inactiveHeart(brightness),
+                    width: 24,
+                    height: 24,
+                  ),
+                ),
+                selectedIcon: AppBadge(
+                  SvgPicture.asset(AppIcons.activeHeart, width: 24, height: 24),
+                ),
                 label: l10n.wishlist,
               ),
               NavigationDestination(
-                icon: const Icon(Icons.shopping_cart_outlined),
-                selectedIcon: const Icon(Icons.shopping_cart),
+                icon: SvgPicture.asset(
+                  AppIcons.inactiveShoppingCart(brightness),
+                  width: 24,
+                  height: 24,
+                ),
+                selectedIcon: SvgPicture.asset(
+                  AppIcons.activeShoppingCart,
+                  width: 24,
+                  height: 24,
+                ),
                 label: l10n.cart,
               ),
               NavigationDestination(
-                icon: const Icon(Icons.person_outline),
-                selectedIcon: const Icon(Icons.person),
+                icon: SvgPicture.asset(
+                  AppIcons.inactiveProfile(brightness),
+                  width: 24,
+                  height: 24,
+                ),
+                selectedIcon: SvgPicture.asset(
+                  AppIcons.activeProfile,
+                  width: 24,
+                  height: 24,
+                ),
                 label: l10n.profile,
               ),
             ],
