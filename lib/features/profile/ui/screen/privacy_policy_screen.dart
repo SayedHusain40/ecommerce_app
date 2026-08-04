@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/features/profile/ui/widgets/legal_section.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
@@ -10,158 +11,88 @@ class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: const AppCustomAppBar(title: 'Privacy Policy'),
+      appBar: AppCustomAppBar(title: l10n.privacyPolicyTitle),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         children: [
-          Text('Our Policy', style: AppTextStyles.headingH2Bold),
+          Text(l10n.privacyOurPolicy, style: AppTextStyles.headingH2Bold),
           const SizedBox(height: 6),
           Text(
-            'At QuickMart, we are committed to protecting the privacy and '
-            'security of our users\' personal information. This Privacy '
-            'Policy outlines how we collect, use, disclose, and safeguard '
-            'the information obtained through our e-commerce app. By using '
-            'QuickMart, you consent to the practices described in this policy.',
+            l10n.privacyIntro,
             style: AppTextStyles.body2Medium.copyWith(
-              color: AppColors.grey150(brightness)
+              color: AppColors.grey150(brightness),
             ),
           ),
           const SizedBox(height: 24),
 
-          const LegalSection(
+          LegalSection(
             number: '1',
-            title: 'Information Collection',
+            title: l10n.privacySection1Title,
             points: [
-              LegalPoint(
-                point:
-                    'We may collect personal information such as name, address, '
-                    'email, and phone number when you create an account, make a '
-                    'purchase, or interact with our services.',
-              ),
-              LegalPoint(
-                point:
-                    'We collect information related to your purchases, including '
-                    'order history, payment method, and shipping details.',
-              ),
-              LegalPoint(
-                point:
-                    'We may collect data on how you interact with our app, such '
-                    'as browsing activity, search queries, and preferences.',
-              ),
+              LegalPoint(point: l10n.privacySection1Point1),
+              LegalPoint(point: l10n.privacySection1Point2),
+              LegalPoint(point: l10n.privacySection1Point3),
             ],
           ),
 
-          const LegalSection(
+          LegalSection(
             number: '2',
-            title: 'Information Use',
+            title: l10n.privacySection2Title,
             points: [
-              LegalPoint(
-                point:
-                    'We use the collected information to process orders, deliver '
-                    'products, and provide customer support.',
-              ),
-              LegalPoint(
-                point:
-                    'We may use your information to personalize your shopping '
-                    'experience, recommend products, and display targeted '
-                    'advertisements.',
-              ),
-              LegalPoint(
-                point:
-                    'We may use your contact information to send important '
-                    'updates, promotional offers, and newsletters. You can '
-                    'opt-out of these communications at any time.',
-              ),
+              LegalPoint(point: l10n.privacySection2Point1),
+              LegalPoint(point: l10n.privacySection2Point2),
+              LegalPoint(point: l10n.privacySection2Point3),
             ],
           ),
 
-          const LegalSection(
+          LegalSection(
             number: '3',
-            title: 'Information Sharing',
+            title: l10n.privacySection3Title,
             points: [
-              LegalPoint(
-                point:
-                    'We may share your information with trusted third-party '
-                    'service providers who assist us in operating our app, '
-                    'fulfilling orders, and improving our services.',
-              ),
-              LegalPoint(
-                point:
-                    'We may disclose personal information if required by law or '
-                    'in response to a valid legal request from authorities.',
-              ),
+              LegalPoint(point: l10n.privacySection3Point1),
+              LegalPoint(point: l10n.privacySection3Point2),
             ],
           ),
 
-          const LegalSection(
+          LegalSection(
             number: '4',
-            title: 'Data Security',
+            title: l10n.privacySection4Title,
             points: [
-              LegalPoint(
-                point:
-                    'We implement appropriate security measures to protect your '
-                    'information from unauthorized access, alteration, '
-                    'disclosure, or destruction.',
-              ),
-              LegalPoint(
-                point:
-                    'However, please note that no data transmission over the '
-                    'internet or electronic storage is 100% secure. We cannot '
-                    'guarantee absolute security of your information.',
-              ),
+              LegalPoint(point: l10n.privacySection4Point1),
+              LegalPoint(point: l10n.privacySection4Point2),
             ],
           ),
 
-          const LegalSection(
+          LegalSection(
             number: '5',
-            title: 'User Rights',
+            title: l10n.privacySection5Title,
             points: [
-              LegalPoint(
-                point:
-                    'You have the right to access, correct, or update your '
-                    'personal information stored in our app.',
-              ),
-              LegalPoint(
-                point:
-                    'We retain your personal information as long as necessary '
-                    'to provide our services and comply with legal obligations.',
-              ),
+              LegalPoint(point: l10n.privacySection5Point1),
+              LegalPoint(point: l10n.privacySection5Point2),
             ],
           ),
 
-          const LegalSection(
+          LegalSection(
             number: '6',
-            title: 'Children\'s Privacy',
+            title: l10n.privacySection6Title,
             points: [
-              LegalPoint(
-                point:
-                    'QuickMart is not intended for children under the age of 13. '
-                    'We do not knowingly collect or solicit personal information '
-                    'from children.',
-              ),
+              LegalPoint(point: l10n.privacySection6Point1),
             ],
           ),
 
-          const LegalSection(
+          LegalSection(
             number: '7',
-            title: 'Updates to the Privacy Policy',
+            title: l10n.privacySection7Title,
             points: [
-              LegalPoint(
-                point:
-                    'We reserve the right to update this Privacy Policy from '
-                    'time to time. Any changes will be posted on our app, and '
-                    'the revised policy will be effective upon posting.',
-              ),
+              LegalPoint(point: l10n.privacySection7Point1),
             ],
           ),
 
           Text(
-            'If you have any questions or concerns about our Privacy Policy, '
-            'please contact our customer support. By using QuickMart, you '
-            'acknowledge that you have read and understood this Privacy '
-            'Policy and agree to its terms and conditions.',
+            l10n.privacyOutro,
             style: AppTextStyles.body2Medium.copyWith(
               color: AppColors.grey150(brightness),
             ),

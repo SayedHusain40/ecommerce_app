@@ -8,6 +8,7 @@ import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/required_lable.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_state.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,10 +34,11 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     final cubit = context.read<ProfileCubit>();
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppCustomAppBar(
-        title: 'Change Password',
+        title: l10n.changePassword,
         actions: [
           Text('01/', style: AppTextStyles.body2Medium),
           Text(
@@ -51,10 +53,10 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Old Password', style: AppTextStyles.headingH2Bold),
+              Text(l10n.oldPassword, style: AppTextStyles.headingH2Bold),
               const SizedBox(height: 8),
               Text(
-                'Enter old password to change the password.',
+                l10n.oldPasswordSubtitle,
                 style: AppTextStyles.body2Regular.copyWith(
                   color: AppColors.grey150(brightness),
                 ),
@@ -93,7 +95,7 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const RequiredLabel('Password'),
+                        RequiredLabel(l10n.password),
                         const SizedBox(height: 8),
                         ValueListenableBuilder(
                           valueListenable: _isPasswordVisible,
@@ -102,7 +104,7 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
                               controller: cubit.currentPasswordController,
                               obscureText: !value,
                               decoration: InputDecoration(
-                                hintText: 'Enter your password',
+                                hintText: l10n.enterYourPassword,
                                 suffixIcon: IconButton(
                                   onPressed: () =>
                                       _isPasswordVisible.value = !value,
@@ -121,7 +123,7 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
                               },
                               validator: (value) {
                                 if (value.isNullOrEmpty()) {
-                                  return 'Password is Required';
+                                  return l10n.passwordRequired;
                                 }
                                 return null;
                               },
@@ -135,7 +137,7 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
                               : cubit.checkCurrentPassword,
                           child: isLoading
                               ? const CircularProgressIndicator()
-                              : const Text('Continue'),
+                              : Text(l10n.continueButton),
                         ),
                         const SizedBox(height: 16),
                       ],

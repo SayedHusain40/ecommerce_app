@@ -104,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return AnimatedContainer(
       duration: const Duration(seconds: 1),
-      curve: Curves.linear, // match AnimatedTheme's default curve
+      curve: Curves.linear,
       width: double.infinity,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
@@ -116,45 +116,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       child: ListView(
         children: [
-          const _SectionTitle('Personal Information'),
+          _SectionTitle(l10n.personalInformation),
           _SettingsTile(
             icon: Icons.local_shipping_outlined,
-            title: 'Shipping Address',
+            title: l10n.shippingAddress,
             onTap: () {},
           ),
           _SettingsTile(
             icon: Icons.credit_card_outlined,
-            title: 'Payment Method',
+            title: l10n.paymentMethod,
             onTap: () {},
           ),
           _SettingsTile(
             icon: Icons.receipt_long_outlined,
-            title: 'Order History',
+            title: l10n.orderHistory,
             onTap: () {},
           ),
-          const _SectionTitle('Support & Information'),
+          _SectionTitle(l10n.supportAndInformation),
           _SettingsTile(
             icon: Icons.verified_user_outlined,
-            title: 'Privacy Policy',
+            title: l10n.privacyPolicy,
             onTap: () {
               context.pushNamed(RouteNames.privacyPolicyScreen);
             },
           ),
           _SettingsTile(
             icon: Icons.description_outlined,
-            title: 'Terms & Conditions',
+            title: l10n.termsAndConditions,
             onTap: () {
               context.pushNamed(RouteNames.termsAndConditionsScreen);
             },
           ),
           _SettingsTile(
             icon: Icons.help_outline_rounded,
-            title: 'FAQs',
+            title: l10n.faqs,
             onTap: () {
               context.pushNamed(RouteNames.faqsScreen);
             },
           ),
-          const _SectionTitle('Account Management'),
+          _SectionTitle(l10n.accountManagement),
           _SettingsTile(
             icon: Icons.lock_outline_rounded,
             title: l10n.changePassword,
@@ -164,18 +164,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           const LanguageTile(),
           Divider(height: 1, thickness: 1, color: AppColors.grey50(brightness)),
-
           _SettingsTile(
             icon: Icons.dark_mode_outlined,
             title: l10n.darkTheme,
             trailing: BlocBuilder<ThemeCubit, ThemeMode>(
               builder: (context, themeMode) {
-                return Switch(
-                  value: themeMode == ThemeMode.dark,
-                  activeThumbColor: AppColors.cyan,
-                  onChanged: (value) {
-                    context.read<ThemeCubit>().toggleTheme();
-                  },
+                return Transform.scale(
+                  scale: 0.7,
+                  child: Switch(
+                    value: themeMode == ThemeMode.dark,
+                    materialTapTargetSize: MaterialTapTargetSize
+                        .shrinkWrap, // removes extra padding
+
+                    onChanged: (value) {
+                      context.read<ThemeCubit>().toggleTheme();
+                    },
+                  ),
                 );
               },
             ),
@@ -290,7 +294,7 @@ class _LanguageTileState extends State<LanguageTile> {
         leading: const Icon(Icons.translate, color: AppColors.grey150Light),
 
         title: Text(
-          'data',
+          AppLocalizations.of(context)!.language,
           style: AppTextStyles.body2Medium.copyWith(
             color: AppColors.grey150(brightness),
           ),
@@ -303,7 +307,7 @@ class _LanguageTileState extends State<LanguageTile> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(isEnglishSelected ? 'English' : 'ألعربية'),
+            Text(isEnglishSelected ? 'English' : 'العربية'),
             const SizedBox(width: 10),
 
             AnimatedRotation(

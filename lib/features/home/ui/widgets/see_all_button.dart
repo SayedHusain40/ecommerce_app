@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class SeeAllButton extends StatelessWidget {
@@ -8,15 +9,24 @@ class SeeAllButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Center(
       child: GestureDetector(
         onTap: onTap,
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('See All', style: TextStyle(color: AppColors.grey150Light)),
-            SizedBox(width: 5),
-            Icon(Icons.arrow_forward, size: 15, color: AppColors.grey150Light),
+            Text(
+              l10n.seeAllLabel,
+              style: const TextStyle(color: AppColors.grey150Light),
+            ),
+            const SizedBox(width: 5),
+            const Icon(
+              Icons.arrow_forward,
+              size: 15,
+              color: AppColors.grey150Light,
+            ),
           ],
         ),
       ),

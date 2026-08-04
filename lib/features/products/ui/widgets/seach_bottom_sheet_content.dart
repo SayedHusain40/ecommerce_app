@@ -7,6 +7,7 @@ import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -46,6 +47,8 @@ class _SearchBottomSheetContentState extends State<SearchBottomSheetContent> {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final l10n = AppLocalizations.of(context)!;
+
     return Builder(
       builder: (innerContext) {
         return GestureDetector(
@@ -83,7 +86,7 @@ class _SearchBottomSheetContentState extends State<SearchBottomSheetContent> {
                       minHeight: 24,
                     ),
                     hint: Text(
-                      'Search for products...',
+                      l10n.searchForProducts,
                       style: AppTextStyles.body3Regular,
                     ),
                   ),
@@ -98,7 +101,7 @@ class _SearchBottomSheetContentState extends State<SearchBottomSheetContent> {
                 ),
                 const SizedBox(height: 10),
                 if (_searchHistory.isNotEmpty)
-                  Text('Search Result:', style: AppTextStyles.headingH3Bold),
+                  Text(l10n.searchResult, style: AppTextStyles.headingH3Bold),
                 const SizedBox(height: 5),
                 Wrap(
                   spacing: 5, // horizontal gap between chips

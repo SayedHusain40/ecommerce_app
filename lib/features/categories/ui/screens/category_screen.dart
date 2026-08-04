@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_browse_list.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -7,10 +8,12 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: AppCustomAppBar(title: 'Categories'),
-      body: Padding(
-        padding:  .symmetric(vertical: 12, horizontal: 16),
+    final l10n = AppLocalizations.of(context)!;
+
+    return Scaffold(
+      appBar: AppCustomAppBar(title: l10n.categories),
+      body: const Padding(
+        padding: .symmetric(vertical: 12, horizontal: 16),
         child: CategoryBrowseList(isGrid: true),
       ),
     );

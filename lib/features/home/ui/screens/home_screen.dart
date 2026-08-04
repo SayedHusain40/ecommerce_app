@@ -12,6 +12,7 @@ import 'package:ecommerce_app/features/home/ui/widgets/see_all_button.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,9 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: Text(l10n.home),
         actions: const [SearchIconButton(), SizedBox(width: 15)],
       ),
 
@@ -61,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: .spaceBetween,
                     children: [
                       Text(
-                        'Browse Categories',
+                        l10n.browseCategories,
                         style: AppTextStyles.body3SemiBold,
                       ),
                       GestureDetector(
@@ -69,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           context.pushNamed(RouteNames.categoryScreen);
                         },
                         child: Text(
-                          'SEE ALL',
+                          l10n.seeAll,
                           style: AppTextStyles.body3SemiBold.copyWith(
                             color: AppColors.cyan,
                           ),
@@ -95,12 +98,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             // Latest Products title
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: .start,
                 children: [
-                  CustomTitle(label: 'Latest Products'),
-                  SizedBox(height: 12),
+                  CustomTitle(label: l10n.latestProducts),
+                  const SizedBox(height: 12),
                 ],
               ),
             ),
@@ -123,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                   const SizedBox(height: 24),
-                  const CustomTitle(label: 'Categories'),
+                  CustomTitle(label: l10n.categories),
                   const SizedBox(height: 12),
                 ],
               ),

@@ -7,6 +7,7 @@ import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
 import 'package:ecommerce_app/features/profile/ui/screen/profile_screen.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
 import 'package:ecommerce_app/features/wishlist/ui/screen/wish_list_screen.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -55,6 +56,7 @@ class _MainNavScreenState extends State<MainNavScreen> {
   @override
   Widget build(BuildContext context) {
     final navCubit = context.read<NavCubit>();
+    final l10n = AppLocalizations.of(context)!;
 
     return BlocBuilder<NavCubit, NavModel>(
       buildWhen: (previous, current) =>
@@ -67,31 +69,31 @@ class _MainNavScreenState extends State<MainNavScreen> {
             onDestinationSelected: (index) {
               navCubit.changeNav(selectedNav: index);
             },
-            destinations: const [
+            destinations: [
               NavigationDestination(
-                icon: Icon(Icons.home_outlined),
-                selectedIcon: Icon(Icons.home),
-                label: 'Home',
+                icon: const Icon(Icons.home_outlined),
+                selectedIcon: const Icon(Icons.home),
+                label: l10n.home,
               ),
               NavigationDestination(
-                icon: Icon(Icons.grid_view_outlined),
-                selectedIcon: Icon(Icons.grid_view),
-                label: 'Products',
+                icon: const Icon(Icons.grid_view_outlined),
+                selectedIcon: const Icon(Icons.grid_view),
+                label: l10n.products,
               ),
               NavigationDestination(
-                icon: AppBadge(Icon(Icons.favorite_outline_rounded)),
-                selectedIcon: AppBadge(Icon(Icons.favorite_rounded)),
-                label: 'Wishlist',
+                icon: const AppBadge(Icon(Icons.favorite_outline_rounded)),
+                selectedIcon: const AppBadge(Icon(Icons.favorite_rounded)),
+                label: l10n.wishlist,
               ),
               NavigationDestination(
-                icon: Icon(Icons.shopping_cart_outlined),
-                selectedIcon: Icon(Icons.shopping_cart),
-                label: 'Cart',
+                icon: const Icon(Icons.shopping_cart_outlined),
+                selectedIcon: const Icon(Icons.shopping_cart),
+                label: l10n.cart,
               ),
               NavigationDestination(
-                icon: Icon(Icons.person_outline),
-                selectedIcon: Icon(Icons.person),
-                label: 'Profile',
+                icon: const Icon(Icons.person_outline),
+                selectedIcon: const Icon(Icons.person),
+                label: l10n.profile,
               ),
             ],
           ),

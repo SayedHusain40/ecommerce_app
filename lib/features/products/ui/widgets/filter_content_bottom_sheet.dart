@@ -4,6 +4,7 @@ import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/expandable_list.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_checkbox/flutter_checkbox.dart';
@@ -31,6 +32,8 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final l10n = AppLocalizations.of(context)!;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -40,7 +43,7 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Filter', style: AppTextStyles.body1Medium),
+              Text(l10n.filter, style: AppTextStyles.body1Medium),
               GestureDetector(
                 onTap: () => context.pop(),
                 child: SvgPicture.asset(AppIcons.cancel(brightness)),
@@ -58,7 +61,7 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
               children: [
                 const SizedBox(height: 15),
                 Text(
-                  'Sort By',
+                  l10n.sortBy,
                   style: AppTextStyles.body2Medium.copyWith(
                     decoration: TextDecoration.underline,
                     decorationColor: Colors.black,
@@ -76,7 +79,10 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(e.displayName, style: AppTextStyles.body2Medium),
+                          Text(
+                            e.displayName(l10n),
+                            style: AppTextStyles.body2Medium,
+                          ),
                           FlutterCheckbox(
                             value: isSelected,
                             style: CheckboxStyle(
@@ -123,7 +129,7 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
                   }
                   context.pop();
                 },
-                child: const Text('Apply'),
+                child: Text(l10n.apply),
               ),
             ),
           ),

@@ -1,4 +1,6 @@
 import 'package:ecommerce_app/core/auth/repos/auth_repo.dart';
+import 'package:ecommerce_app/core/di/dependency_injection.dart';
+import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/result/app_result.dart';
 import 'package:ecommerce_app/features/profile/data/model/user_profile_model.dart';
 import 'package:ecommerce_app/features/profile/data/repos/profile_repo.dart';
@@ -25,13 +27,15 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(const ProfileState.logoutLoading());
     final result = await authRepo.logout();
     result.when(
-      success: (_) => emit(const ProfileState.logoutSuccess()),
+      success: (_) {
+        getIt<NavCubit>().reset();
+        emit(const ProfileState.logoutSuccess());
+      },
       failure: (appFailure) => emit(ProfileState.logoutFailure(appFailure)),
     );
   }
 
   UserProfileModel get userInfo => profileRepo.getUserInfo();
-
 
   Future<void> checkCurrentPassword() async {
     if (!formKey.currentState!.validate()) return;

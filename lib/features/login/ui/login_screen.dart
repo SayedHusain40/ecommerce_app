@@ -7,6 +7,7 @@ import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/required_lable.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/logic/login_state.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -41,19 +44,19 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 SvgPicture.asset(AppImages.logo(brightness)),
                 const SizedBox(height: 24),
-                Text('Login', style: AppTextStyles.headingH2Bold),
+                Text(l10n.login, style: AppTextStyles.headingH2Bold),
                 const SizedBox(height: 8),
                 RichText(
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Don’t have an account? ',
+                        text: l10n.dontHaveAccount,
                         style: AppTextStyles.body2Regular.copyWith(
                           color: AppColors.grey150(brightness),
                         ),
                       ),
                       TextSpan(
-                        text: 'Signup',
+                        text: l10n.signup,
                         style: AppTextStyles.body2Medium.copyWith(
                           color: AppColors.cyan,
                         ),
@@ -104,26 +107,26 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: .start,
                           children: [
                             const SizedBox(height: 16),
-                            const RequiredLabel('Email'),
+                            RequiredLabel(l10n.email),
                             const SizedBox(height: 8),
                             TextFormField(
                               controller: cubit.emailController,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Enter your email',
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: l10n.enterYourEmail,
                               ),
                               validator: (value) {
                                 if (value.isNullOrEmpty()) {
-                                  return 'Email is Required';
+                                  return l10n.emailRequired;
                                 }
                                 if (!Regex.isEmailValid(value!)) {
-                                  return 'Email is InValid';
+                                  return l10n.emailInvalid;
                                 }
                                 return null;
                               },
                             ),
                             const SizedBox(height: 16),
-                            const RequiredLabel('Password'),
+                            RequiredLabel(l10n.password),
                             const SizedBox(height: 8),
                             ValueListenableBuilder(
                               valueListenable: _isPasswordVisible,
@@ -132,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   controller: cubit.passwordController,
                                   obscureText: !value,
                                   decoration: InputDecoration(
-                                    hintText: 'Enter your password',
+                                    hintText: l10n.enterYourPassword,
                                     suffixIcon: IconButton(
                                       onPressed: () =>
                                           _isPasswordVisible.value = !value,
@@ -148,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   validator: (value) {
                                     if (value.isNullOrEmpty()) {
-                                      return 'Password is Required';
+                                      return l10n.passwordRequired;
                                     }
                                     return null;
                                   },
@@ -165,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   );
                                 },
                                 child: Text(
-                                  'Forgot password?',
+                                  l10n.forgotPassword,
                                   style: AppTextStyles.body2Medium.copyWith(
                                     color: AppColors.cyan,
                                   ),
@@ -181,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     },
                               child: isLoading
                                   ? const CircularProgressIndicator()
-                                  : const Text('Login'),
+                                  : Text(l10n.login),
                             ),
                             const SizedBox(height: 16),
                             TextButton(
@@ -198,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     const CircularProgressIndicator()
                                   else ...[
                                     Text(
-                                      'Login with Google',
+                                      l10n.loginWithGoogle,
                                       style: AppTextStyles.button2,
                                     ),
                                     const SizedBox(width: 8),
@@ -220,24 +223,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: AppTextStyles.body3SemiBold,
                     children: [
                       TextSpan(
-                        text: 'By login , you agree to our',
+                        text: l10n.byLoginAgreeTo,
                         style: TextStyle(
                           color: AppColors.whiteInDark(brightness),
                         ),
-                      ),
-                      const TextSpan(
-                        text: ' Privacy Policy ',
-                        style: TextStyle(color: AppColors.blue),
                       ),
                       TextSpan(
-                        text: 'and',
+                        text: ' ${l10n.privacyPolicy} ',
+                        style: const TextStyle(color: AppColors.blue),
+                      ),
+                      TextSpan(
+                        text: l10n.andWord,
                         style: TextStyle(
                           color: AppColors.whiteInDark(brightness),
                         ),
                       ),
-                      const TextSpan(
-                        text: ' Terms & Conditions. ',
-                        style: TextStyle(color: AppColors.blue),
+                      TextSpan(
+                        text: ' ${l10n.termsAndConditions}. ',
+                        style: const TextStyle(color: AppColors.blue),
                       ),
                     ],
                   ),
