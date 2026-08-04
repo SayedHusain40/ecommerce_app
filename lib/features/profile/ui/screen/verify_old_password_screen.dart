@@ -85,6 +85,7 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
                   );
                 },
                 buildWhen: (previous, current) =>
+                    current is Initial ||
                     current is CheckPasswordLoading ||
                     current is CheckPasswordSuccess ||
                     current is CheckPasswordFailure,
@@ -93,7 +94,6 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
 
                   return Form(
                     key: cubit.formKey,
-                    // autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -1,7 +1,9 @@
 import 'package:ecommerce_app/core/constants/app_assets.dart';
+import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/localization/logic/locale_cubit.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
+import 'package:ecommerce_app/core/storage/storage_keys.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -276,12 +279,22 @@ class LanguageTile extends StatefulWidget {
 
 class _LanguageTileState extends State<LanguageTile> {
   bool isExpanded = false;
-  bool isEnglishSelected = true;
+  late bool isEnglishSelected;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final languageCode =
+        getIt<SharedPreferences>().getString(StorageKeys.languageCode) ?? 'en';
+    isEnglishSelected = languageCode == 'en';
+  }
 
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final l10n = AppLocalizations.of(context)!;
 
     return Theme(
       data: Theme.of(context).copyWith(
@@ -315,7 +328,7 @@ class _LanguageTileState extends State<LanguageTile> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(isEnglishSelected ? 'English' : 'العربية'),
+            Text(l10n.languageName),
             const SizedBox(width: 10),
 
             AnimatedRotation(

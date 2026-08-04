@@ -1,6 +1,7 @@
 {
   "@@locale": "en",
 
+  "languageName": "English",
   "language": "Language",
   "darkTheme": "Dark Theme",
   "cart": "Cart",

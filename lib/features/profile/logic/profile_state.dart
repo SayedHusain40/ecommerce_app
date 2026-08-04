@@ -5,7 +5,7 @@ part 'profile_state.freezed.dart';
 
 @freezed
 class ProfileState with _$ProfileState {
-  const factory ProfileState.initial() = _Initial;
+  const factory ProfileState.initial() = Initial;
 
   // Logout
   const factory ProfileState.logoutLoading() = _ProfileLogoutLoading;

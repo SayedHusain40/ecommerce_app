@@ -54,7 +54,6 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
