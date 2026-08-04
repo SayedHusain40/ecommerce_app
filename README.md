@@ -1,17 +1,76 @@
-# ecommerce_app
+# QuickMart – E-commerce App 🛍️
 
-A new Flutter project.
+A modern Flutter e-commerce app built with **Clean Architecture** and **BLoC/Cubit** state management.
 
-## Getting Started
+## ✨ Features
 
-This project is a starting point for a Flutter application.
+- 🔐 Authentication (Email/Password, Email Verification, Forgot Password, Google Sign-In) via **Firebase**
+- 🛒 Product browsing & filtering using the **DummyJSON API**
+- 🔍 Search with chip-style search history (saved locally)
+- ❤️ Wishlist
+- 👤 Profile management (edit profile, change password, FAQs, privacy policy, terms)
+- 🌍 Full localization (English & Arabic)
+- 🎨 Onboarding flow
+- 🌗 Light/dark theme
 
-A few resources to get you started if this is your first Flutter project:
+## 🏗️ Tech Stack
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- **Architecture:** Clean Architecture (data / logic / ui layers per feature)
+- **State Management:** BLoC / Cubit
+- **Networking:** Dio + Retrofit
+- **API:** [DummyJSON](https://dummyjson.com/)
+- **Auth:** Firebase Authentication
+- **Local Storage:** SharedPreferences
+- **Dependency Injection:** GetIt
+- **Models/States:** Freezed
+- **CI/CD:** Automated build pipeline
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🎨 UI Design
+
+UI based on the **QuickMart – Ecommerce App UI Kit (Modern Online Shopping Experience – Next-Gen eCommerce UI)** Figma Community kit.
+
+## 📸 Screenshots
+
+### Onboarding & Splash
+<p align="center">
+  <img src="assets/images/screenshots/splash-screen.png" width="180" />
+  <img src="assets/images/screenshots/onboarding1.png" width="180" />
+  <img src="assets/images/screenshots/onboarding2.png" width="180" />
+  <img src="assets/images/screenshots/onboarding3.png" width="180" />
+</p>
+
+### Authentication
+<p align="center">
+  <img src="assets/images/screenshots/login.png" width="180" />
+  <img src="assets/images/screenshots/signup.png" width="180" />
+  <img src="assets/images/screenshots/signup-error.png" width="180" />
+  <img src="assets/images/screenshots/signup-error2.png" width="180" />
+  <img src="assets/images/screenshots/email-verifivation.png" width="180" />
+</p>
+
+### Password Management
+<p align="center">
+  <img src="assets/images/screenshots/change-password.png" width="180" />
+  <img src="assets/images/screenshots/old-password.png" width="180" />
+  <img src="assets/images/screenshots/new-password.png" width="180" />
+</p>
+
+### Home & Products
+<p align="center">
+  <img src="assets/images/screenshots/home1.png" width="180" />
+  <img src="assets/images/screenshots/home2.png" width="180" />
+  <img src="assets/images/screenshots/products.png" width="180" />
+  <img src="assets/images/screenshots/search.png" width="180" />
+</p>
+
+### Wishlist & Profile
+<p align="center">
+  <img src="assets/images/screenshots/wishlist.png" width="180" />
+  <img src="assets/images/screenshots/profile.png" width="180" />
+</p>
+
+### Theming & Localization
+<p align="center">
+  <img src="assets/images/screenshots/dark.png" width="180" />
+  <img src="assets/images/screenshots/arabic.png" width="180" />
+</p>
