@@ -126,10 +126,7 @@ class _EmptyWishlist extends StatelessWidget {
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () {
-              context.pushNamedAndRemoveUntil(
-                RouteNames.appAuthState,
-                predicate: (route) => false,
-              );
+              context.read<NavCubit>().changeNav(selectedNav: 1);
             },
             child: Text(l10n.exploreCategories),
           ),
