@@ -23,7 +23,6 @@ class AppImages {
   static const String usFlag = 'assets/images/flags/us.png';
   static const String saFlag = 'assets/images/flags/sa.png';
 
-
   // Helpers
   static String logo(Brightness b) =>
       b == Brightness.dark ? logoDark : logoLight;
@@ -80,6 +79,39 @@ class AppIcons {
 
   static const String arrowRightSmall = 'assets/svgs/arrow-right-small.svg';
 
+  // NAVIGATION - ACTIVE (same icon for both themes)
+  static const String activeHome = 'assets/svgs/nav/active-home.svg';
+  static const String activeCategory = 'assets/svgs/nav/active-category.svg';
+  static const String activeHeart = 'assets/svgs/nav/active-heart.svg';
+  static const String activeShoppingCart =
+      'assets/svgs/nav/active-shopping-cart.svg';
+  static const String activeProfile = 'assets/svgs/nav/active-profile.svg';
+
+  // NAVIGATION 
+  static const String inactiveHomeWhite =
+      'assets/svgs/nav/inactive-home-white.svg';
+  static const String inactiveHomeDark =
+      'assets/svgs/nav/inactive-home-dark.svg';
+
+  static const String inactiveCategoryWhite =
+      'assets/svgs/nav/inactive-category-white.svg';
+  static const String inactiveCategoryDark =
+      'assets/svgs/nav/inactive-category-dark.svg';
+
+  static const String inactiveHeartWhite =
+      'assets/svgs/nav/inactive-heart-white.svg';
+  static const String inactiveHeartDark =
+      'assets/svgs/nav/inactive-heart-dark.svg';
+
+  static const String inactiveShoppingCartWhite =
+      'assets/svgs/nav/inactive-shopping-cart-white.svg';
+  static const String inactiveShoppingCartDark =
+      'assets/svgs/nav/inactive-shopping-cart-dark.svg';
+
+  static const String inactiveProfileWhite =
+      'assets/svgs/nav/inactive-profile-white.svg';
+  static const String inactiveProfileDark =
+      'assets/svgs/nav/inactive-profile-dark.svg';
 
   // Helpers
   static String arrowLeft(Brightness b) =>
@@ -107,4 +139,20 @@ class AppIcons {
 
   static String cancel(Brightness b) =>
       b == Brightness.dark ? cancelDark : cancelLight;
+
+  static String inactiveHome(Brightness b) =>
+      b == Brightness.dark ? inactiveHomeDark : inactiveHomeWhite;
+
+  static String inactiveCategory(Brightness b) =>
+      b == Brightness.dark ? inactiveCategoryDark : inactiveCategoryWhite;
+
+  static String inactiveHeart(Brightness b) =>
+      b == Brightness.dark ? inactiveHeartDark : inactiveHeartWhite;
+
+  static String inactiveShoppingCart(Brightness b) => b == Brightness.dark
+      ? inactiveShoppingCartDark
+      : inactiveShoppingCartWhite;
+
+  static String inactiveProfile(Brightness b) =>
+      b == Brightness.dark ? inactiveProfileDark : inactiveProfileWhite;
 }
