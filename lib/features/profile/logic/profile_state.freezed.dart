@@ -55,10 +55,10 @@ extension ProfileStatePatterns on ProfileState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _ProfileLogoutLoading value)?  logoutLoading,TResult Function( _ProfileLogoutSuccess value)?  logoutSuccess,TResult Function( _ProfileLogoutFailure value)?  logoutFailure,TResult Function( CheckPasswordLoading value)?  checkPasswordLoading,TResult Function( CheckPasswordSuccess value)?  checkPasswordSuccess,TResult Function( CheckPasswordFailure value)?  checkPasswordFailure,TResult Function( ChangePasswordLoading value)?  changePasswordLoading,TResult Function( ChangePasswordSuccess value)?  changePasswordSuccess,TResult Function( ChangePasswordFailure value)?  changePasswordFailure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( _ProfileLogoutLoading value)?  logoutLoading,TResult Function( _ProfileLogoutSuccess value)?  logoutSuccess,TResult Function( _ProfileLogoutFailure value)?  logoutFailure,TResult Function( CheckPasswordLoading value)?  checkPasswordLoading,TResult Function( CheckPasswordSuccess value)?  checkPasswordSuccess,TResult Function( CheckPasswordFailure value)?  checkPasswordFailure,TResult Function( ChangePasswordLoading value)?  changePasswordLoading,TResult Function( ChangePasswordSuccess value)?  changePasswordSuccess,TResult Function( ChangePasswordFailure value)?  changePasswordFailure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
+case Initial() when initial != null:
 return initial(_that);case _ProfileLogoutLoading() when logoutLoading != null:
 return logoutLoading(_that);case _ProfileLogoutSuccess() when logoutSuccess != null:
 return logoutSuccess(_that);case _ProfileLogoutFailure() when logoutFailure != null:
@@ -86,10 +86,10 @@ return changePasswordFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _ProfileLogoutLoading value)  logoutLoading,required TResult Function( _ProfileLogoutSuccess value)  logoutSuccess,required TResult Function( _ProfileLogoutFailure value)  logoutFailure,required TResult Function( CheckPasswordLoading value)  checkPasswordLoading,required TResult Function( CheckPasswordSuccess value)  checkPasswordSuccess,required TResult Function( CheckPasswordFailure value)  checkPasswordFailure,required TResult Function( ChangePasswordLoading value)  changePasswordLoading,required TResult Function( ChangePasswordSuccess value)  changePasswordSuccess,required TResult Function( ChangePasswordFailure value)  changePasswordFailure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( _ProfileLogoutLoading value)  logoutLoading,required TResult Function( _ProfileLogoutSuccess value)  logoutSuccess,required TResult Function( _ProfileLogoutFailure value)  logoutFailure,required TResult Function( CheckPasswordLoading value)  checkPasswordLoading,required TResult Function( CheckPasswordSuccess value)  checkPasswordSuccess,required TResult Function( CheckPasswordFailure value)  checkPasswordFailure,required TResult Function( ChangePasswordLoading value)  changePasswordLoading,required TResult Function( ChangePasswordSuccess value)  changePasswordSuccess,required TResult Function( ChangePasswordFailure value)  changePasswordFailure,}){
 final _that = this;
 switch (_that) {
-case _Initial():
+case Initial():
 return initial(_that);case _ProfileLogoutLoading():
 return logoutLoading(_that);case _ProfileLogoutSuccess():
 return logoutSuccess(_that);case _ProfileLogoutFailure():
@@ -116,10 +116,10 @@ return changePasswordFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _ProfileLogoutLoading value)?  logoutLoading,TResult? Function( _ProfileLogoutSuccess value)?  logoutSuccess,TResult? Function( _ProfileLogoutFailure value)?  logoutFailure,TResult? Function( CheckPasswordLoading value)?  checkPasswordLoading,TResult? Function( CheckPasswordSuccess value)?  checkPasswordSuccess,TResult? Function( CheckPasswordFailure value)?  checkPasswordFailure,TResult? Function( ChangePasswordLoading value)?  changePasswordLoading,TResult? Function( ChangePasswordSuccess value)?  changePasswordSuccess,TResult? Function( ChangePasswordFailure value)?  changePasswordFailure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( _ProfileLogoutLoading value)?  logoutLoading,TResult? Function( _ProfileLogoutSuccess value)?  logoutSuccess,TResult? Function( _ProfileLogoutFailure value)?  logoutFailure,TResult? Function( CheckPasswordLoading value)?  checkPasswordLoading,TResult? Function( CheckPasswordSuccess value)?  checkPasswordSuccess,TResult? Function( CheckPasswordFailure value)?  checkPasswordFailure,TResult? Function( ChangePasswordLoading value)?  changePasswordLoading,TResult? Function( ChangePasswordSuccess value)?  changePasswordSuccess,TResult? Function( ChangePasswordFailure value)?  changePasswordFailure,}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
+case Initial() when initial != null:
 return initial(_that);case _ProfileLogoutLoading() when logoutLoading != null:
 return logoutLoading(_that);case _ProfileLogoutSuccess() when logoutSuccess != null:
 return logoutSuccess(_that);case _ProfileLogoutFailure() when logoutFailure != null:
@@ -148,7 +148,7 @@ return changePasswordFailure(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  logoutLoading,TResult Function()?  logoutSuccess,TResult Function( AppFailure appFailure)?  logoutFailure,TResult Function()?  checkPasswordLoading,TResult Function()?  checkPasswordSuccess,TResult Function( AppFailure appFailure)?  checkPasswordFailure,TResult Function()?  changePasswordLoading,TResult Function()?  changePasswordSuccess,TResult Function( AppFailure appFailure)?  changePasswordFailure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
+case Initial() when initial != null:
 return initial();case _ProfileLogoutLoading() when logoutLoading != null:
 return logoutLoading();case _ProfileLogoutSuccess() when logoutSuccess != null:
 return logoutSuccess();case _ProfileLogoutFailure() when logoutFailure != null:
@@ -178,7 +178,7 @@ return changePasswordFailure(_that.appFailure);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  logoutLoading,required TResult Function()  logoutSuccess,required TResult Function( AppFailure appFailure)  logoutFailure,required TResult Function()  checkPasswordLoading,required TResult Function()  checkPasswordSuccess,required TResult Function( AppFailure appFailure)  checkPasswordFailure,required TResult Function()  changePasswordLoading,required TResult Function()  changePasswordSuccess,required TResult Function( AppFailure appFailure)  changePasswordFailure,}) {final _that = this;
 switch (_that) {
-case _Initial():
+case Initial():
 return initial();case _ProfileLogoutLoading():
 return logoutLoading();case _ProfileLogoutSuccess():
 return logoutSuccess();case _ProfileLogoutFailure():
@@ -207,7 +207,7 @@ return changePasswordFailure(_that.appFailure);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  logoutLoading,TResult? Function()?  logoutSuccess,TResult? Function( AppFailure appFailure)?  logoutFailure,TResult? Function()?  checkPasswordLoading,TResult? Function()?  checkPasswordSuccess,TResult? Function( AppFailure appFailure)?  checkPasswordFailure,TResult? Function()?  changePasswordLoading,TResult? Function()?  changePasswordSuccess,TResult? Function( AppFailure appFailure)?  changePasswordFailure,}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
+case Initial() when initial != null:
 return initial();case _ProfileLogoutLoading() when logoutLoading != null:
 return logoutLoading();case _ProfileLogoutSuccess() when logoutSuccess != null:
 return logoutSuccess();case _ProfileLogoutFailure() when logoutFailure != null:
@@ -228,8 +228,8 @@ return changePasswordFailure(_that.appFailure);case _:
 /// @nodoc
 
 
-class _Initial implements ProfileState {
-  const _Initial();
+class Initial implements ProfileState {
+  const Initial();
   
 
 
@@ -239,7 +239,7 @@ class _Initial implements ProfileState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial);
 }
 
 
