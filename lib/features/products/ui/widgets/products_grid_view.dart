@@ -2,6 +2,7 @@ import 'package:ecommerce_app/features/products/ui/widgets/product_card.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card_shimmer.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_grid.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_state.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,27 +20,28 @@ class ProductsGridView<T extends Cubit<ProductState>> extends StatelessWidget {
     Widget sliverSafe(Widget child) =>
         isSilver ? SliverToBoxAdapter(child: child) : child;
 
+    final l10n = AppLocalizations.of(context)!;
+
     return BlocConsumer<T, ProductState>(
       listenWhen: (previous, current) => current is ProductsFailure,
       listener: (context, state) {
         state.whenOrNull(
-          failure: (_) => ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Failed to get Products')),
-          ),
+          failure: (_) => ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(l10n.failedToGetProducts))),
         );
       },
       builder: (context, state) {
         return state.maybeWhen(
-          initial: () => sliverSafe(
-            const Center(child: Text('Type to search for products...')),
-          ),
+          initial: () =>
+              sliverSafe(Center(child: Text(l10n.typeToSearchProducts))),
           loading: () => ProductGrid(
             isSilver: isSilver,
             itemCount: 8,
             itemBuilder: (_, _) => const ProductCardShimmer(),
           ),
           success: (productsList) => productsList.isEmpty
-              ? sliverSafe(const Center(child: Text('No Products Found')))
+              ? sliverSafe(Center(child: Text(l10n.noProductsFound)))
               : ProductGrid(
                   isSilver: isSilver,
                   itemCount: productsList.length,
@@ -49,7 +51,7 @@ class ProductsGridView<T extends Cubit<ProductState>> extends StatelessWidget {
                   ),
                 ),
           orElse: () =>
-              sliverSafe(const Center(child: Text('Something Went Wrong!'))),
+              sliverSafe(Center(child: Text(l10n.somethingWentWrong))),
         );
       },
     );

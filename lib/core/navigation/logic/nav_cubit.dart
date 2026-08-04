@@ -27,6 +27,12 @@ class NavCubit extends Cubit<NavModel> {
       ),
     );
   }
+
+  /// Reset back to the Home tab with no category selected.
+  /// Call this on logout so the next login always starts on Home.
+  void reset() {
+    emit(NavModel(screenIndex: 0, categoryIndex: 0));
+  }
 }
 
 class NavModel {

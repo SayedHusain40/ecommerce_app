@@ -9,6 +9,7 @@ import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/required_lable.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_state.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -36,10 +37,11 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
     final cubit = context.read<ProfileCubit>();
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppCustomAppBar(
-        title: 'Change Password',
+        title: l10n.changePassword,
         actions: [
           Text('02/', style: AppTextStyles.body2Medium),
           Text(
@@ -54,10 +56,10 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('New Password', style: AppTextStyles.headingH2Bold),
+              Text(l10n.newPassword, style: AppTextStyles.headingH2Bold),
               const SizedBox(height: 8),
               Text(
-                'Enter your new password and remember it.',
+                l10n.newPasswordSubtitle,
                 style: AppTextStyles.body2Regular.copyWith(
                   color: AppColors.grey150(brightness),
                 ),
@@ -71,9 +73,7 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
                   state.whenOrNull(
                     changePasswordSuccess: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Your Password Changed Successfully'),
-                        ),
+                        SnackBar(content: Text(l10n.passwordChangedSuccess)),
                       );
                       cubit.logout();
                       context.pushNamedAndRemoveUntil(
@@ -104,7 +104,7 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const RequiredLabel('Password'),
+                        RequiredLabel(l10n.password),
                         const SizedBox(height: 8),
                         ValueListenableBuilder(
                           valueListenable: _isNewPasswordVisible,
@@ -113,7 +113,7 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
                               controller: cubit.newPasswordController,
                               obscureText: !value,
                               decoration: InputDecoration(
-                                hintText: 'Enter your password',
+                                hintText: l10n.enterYourPassword,
                                 suffixIcon: IconButton(
                                   onPressed: () =>
                                       _isNewPasswordVisible.value = !value,
@@ -130,20 +130,19 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
                               onChanged: (_) {},
                               validator: (value) {
                                 if (value.isNullOrEmpty()) {
-                                  return 'Password is Required';
+                                  return l10n.passwordRequired;
                                 }
                                 final List<String> errors = [
                                   if (!Regex.hasMinLength(value!))
-                                    '- Password must be at least 6 characters',
-
+                                    l10n.passwordMinLength,
                                   if (!Regex.hasUpperCase(value))
-                                    '- Must contain an uppercase letter',
+                                    l10n.passwordUppercase,
                                   if (!Regex.hasLowerCase(value))
-                                    '- Must contain a lowercase letter',
+                                    l10n.passwordLowercase,
                                   if (!Regex.hasNumber(value))
-                                    '- Must contain a number',
+                                    l10n.passwordNumber,
                                   if (!Regex.hasSpecialCharacter(value))
-                                    '- Must contain a special character',
+                                    l10n.passwordSpecialChar,
                                 ];
 
                                 if (errors.isNotEmpty) {
@@ -155,7 +154,7 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
                           },
                         ),
                         const SizedBox(height: 16),
-                        const RequiredLabel('Confirm Password'),
+                        RequiredLabel(l10n.confirmPassword),
                         const SizedBox(height: 8),
                         ValueListenableBuilder(
                           valueListenable: _isConformPasswordVisible,
@@ -164,7 +163,7 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
                               controller: cubit.conformPasswordController,
                               obscureText: !value,
                               decoration: InputDecoration(
-                                hintText: 'Enter your password',
+                                hintText: l10n.enterYourPassword,
                                 suffixIcon: IconButton(
                                   onPressed: () =>
                                       _isConformPasswordVisible.value = !value,
@@ -181,11 +180,11 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
                               onChanged: (_) {},
                               validator: (value) {
                                 if (value.isNullOrEmpty()) {
-                                  return 'Conform Password is Required';
+                                  return l10n.confirmPasswordRequired;
                                 }
                                 if (cubit.newPasswordController.text !=
                                     cubit.conformPasswordController.text) {
-                                  return 'Passwords not Match';
+                                  return l10n.passwordsNotMatch;
                                 }
                                 return null;
                               },
@@ -197,7 +196,7 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
                           onPressed: isLoading ? null : cubit.changePassword,
                           child: isLoading
                               ? const CircularProgressIndicator()
-                              : const Text('Save'),
+                              : Text(l10n.save),
                         ),
                         const SizedBox(height: 16),
                       ],

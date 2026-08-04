@@ -100,5 +100,5 @@ Future<void> setUpGetIt(FirebaseConfig config) async {
   getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit(getIt()));
   getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit(getIt()));
   getIt.registerLazySingleton<LocaleCubit>(() => LocaleCubit(getIt()));
-  getIt.registerFactory<NavCubit>(() => NavCubit());
+  getIt.registerLazySingleton<NavCubit>(() => NavCubit());
 }

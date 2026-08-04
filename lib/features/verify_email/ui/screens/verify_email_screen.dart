@@ -1,11 +1,11 @@
-import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/countdown_timer_controller.dart';
+import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_state.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_state.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   final bool sendEmailOnInit;
@@ -55,16 +55,14 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Email Verification'),
-        leading: IconButton(
-          onPressed: () async {
-            await context.read<VerifyEmailCubit>().logout();
-          },
-          icon: SvgPicture.asset(AppIcons.arrowLeft(brightness)),
-        ),
+      appBar: AppCustomAppBar(
+        title: l10n.emailVerificationTitle,
+        onBackPressed: () async {
+          await context.read<VerifyEmailCubit>().logout();
+        },
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -73,15 +71,15 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
           children: [
             const Icon(Icons.mark_email_read_outlined, size: 90),
             const SizedBox(height: 24),
-            const Text(
-              'Verify Your Email',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            Text(
+              l10n.verifyYourEmail,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'We sent a verification email to your email address.\nPlease check your inbox and verify your account.',
+            Text(
+              l10n.verifyEmailSubtitle,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 40),
             BlocConsumer<VerifyEmailCubit, VerifyEmailState>(
@@ -90,8 +88,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                   sendEmailVerification: () {
                     _countdown.start();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Verification email sent successfully'),
+                      SnackBar(
+                        content: Text(l10n.verificationEmailSentSuccess),
                       ),
                     );
                   },
@@ -129,8 +127,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                               )
                             : Text(
                                 isResendEnabled
-                                    ? 'Resend Email'
-                                    : 'Resend in $remainingSeconds s',
+                                    ? l10n.resendEmail
+                                    : l10n.resendInSeconds(remainingSeconds),
                               ),
                       ),
                     ),

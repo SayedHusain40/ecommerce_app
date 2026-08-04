@@ -8,6 +8,7 @@ import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_grid.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,6 +29,7 @@ class _WishListScreenState extends State<WishListScreen> {
   }
 
   void onDeleteProduct(int productID) {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -40,19 +42,19 @@ class _WishListScreenState extends State<WishListScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('Delete product from wishlist'),
+              Text(l10n.deleteProductFromWishlistConfirm),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
                   wishlistCubit.removeFromWishlist(productId: productID);
                   context.pop();
                 },
-                child: const Text('Delete a product'),
+                child: Text(l10n.deleteAProduct),
               ),
               const SizedBox(height: 12),
               TextButton(
                 onPressed: () => context.pop(),
-                child: const Text('Cancel'),
+                child: Text(l10n.cancel),
               ),
             ],
           ),
@@ -63,9 +65,11 @@ class _WishListScreenState extends State<WishListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppCustomAppBar(
-        title: 'Wishlist',
+        title: l10n.wishlist,
         centerTitle: true,
         onBackPressed: () {
           context.read<NavCubit>().changeNav(selectedNav: 0);
@@ -107,6 +111,8 @@ class _EmptyWishlist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -114,12 +120,9 @@ class _EmptyWishlist extends StatelessWidget {
         children: [
           Image.asset(AppImages.emptyWishlist, width: 240, height: 240),
           const SizedBox(height: 16),
-          Text('Your wishlist is empty', style: AppTextStyles.headingH2Bold),
+          Text(l10n.wishlistEmptyTitle, style: AppTextStyles.headingH2Bold),
           const SizedBox(height: 16),
-          Text(
-            'Tap heart button to start saving your favorite items.',
-            style: AppTextStyles.body2Regular,
-          ),
+          Text(l10n.wishlistEmptySubtitle, style: AppTextStyles.body2Regular),
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () {
@@ -128,7 +131,7 @@ class _EmptyWishlist extends StatelessWidget {
                 predicate: (route) => false,
               );
             },
-            child: const Text('Explore Categories'),
+            child: Text(l10n.exploreCategories),
           ),
         ],
       ),

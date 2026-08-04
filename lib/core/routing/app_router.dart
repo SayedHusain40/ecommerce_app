@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/auth/app_auth_state.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
+import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/categories/ui/screens/category_screen.dart';
@@ -62,8 +63,13 @@ class AppRouter {
       // and then we can get loaded category that in home screen
       case RouteNames.categoryScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => getIt<CategoryCubit>()..getCategories(),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<CategoryCubit>()..getCategories(),
+              ),
+              BlocProvider.value(value: getIt<NavCubit>()),
+            ],
             child: const CategoryScreen(),
           ),
         );

@@ -7,6 +7,7 @@ import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/required_lable.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_state.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,9 +43,10 @@ class _ConfirmationEmailScreenState extends State<ConfirmationEmailScreen> {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: const AppCustomAppBar(title: 'Forgot Password'),
+      appBar: AppCustomAppBar(title: l10n.forgotPasswordTitle),
       body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
         listener: (context, state) {
           state.whenOrNull(
@@ -78,31 +80,29 @@ class _ConfirmationEmailScreenState extends State<ConfirmationEmailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Confirmation Email',
+                    l10n.confirmationEmailTitle,
                     style: AppTextStyles.headingH2Bold,
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Enter your email address for verification.',
+                    l10n.confirmationEmailSubtitle,
                     style: AppTextStyles.body2Regular.copyWith(
                       color: AppColors.grey150(brightness),
                     ),
                   ),
                   const SizedBox(height: 24),
-                  const RequiredLabel('Email'),
+                  RequiredLabel(l10n.email),
                   const SizedBox(height: 8),
                   TextFormField(
                     controller: cubit.emailController,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your email',
-                    ),
+                    decoration: InputDecoration(hintText: l10n.enterYourEmail),
                     validator: (value) {
                       if (value.isNullOrEmpty()) {
-                        return 'Email is required';
+                        return l10n.emailRequiredLower;
                       }
                       if (!Regex.isEmailValid(value!)) {
-                        return 'Enter a valid email';
+                        return l10n.enterValidEmail;
                       }
                       return null;
                     },
@@ -122,8 +122,8 @@ class _ConfirmationEmailScreenState extends State<ConfirmationEmailScreen> {
                           )
                         : Text(
                             isResendEnabled
-                                ? 'Resend Email'
-                                : 'Resend in $remainingSeconds s',
+                                ? l10n.resendEmail
+                                : l10n.resendInSeconds(remainingSeconds),
                             style: AppTextStyles.button1,
                           ),
                   ),

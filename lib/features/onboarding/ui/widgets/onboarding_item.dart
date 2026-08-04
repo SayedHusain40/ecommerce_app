@@ -7,6 +7,7 @@ import 'package:ecommerce_app/core/storage/storage_keys.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/onboarding/data/onboarding_model.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -32,6 +33,7 @@ class OnboardingItem extends StatelessWidget {
     final sharedPreferences = getIt<SharedPreferencesService>();
     final brightness = Theme.of(context).brightness;
     final isDark = brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -89,7 +91,7 @@ class OnboardingItem extends StatelessWidget {
                             );
                           },
                           child: Text(
-                            'Skip for now',
+                            l10n.skipForNow,
                             style: AppTextStyles.body2Medium.copyWith(
                               color: AppColors.cyan,
                             ),
@@ -147,7 +149,7 @@ class OnboardingItem extends StatelessWidget {
                               predicate: (route) => false,
                             );
                           },
-                          child: const Text('Login'),
+                          child: Text(l10n.login),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -168,7 +170,7 @@ class OnboardingItem extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text('Get Started'),
+                              Text(l10n.getStarted),
                               const SizedBox(width: 8),
                               SvgPicture.asset(AppIcons.arrowRightLight),
                             ],
@@ -184,7 +186,7 @@ class OnboardingItem extends StatelessWidget {
                         curve: Curves.linear,
                       );
                     },
-                    child: const Text('Next'),
+                    child: Text(l10n.next),
                   ),
             const SizedBox(height: 24),
           ],

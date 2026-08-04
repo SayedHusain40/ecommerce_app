@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/home/data/banners_data.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -11,6 +12,8 @@ class HomeBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final l10n = AppLocalizations.of(context)!;
+
     return CarouselSlider(
       items: bannerList.map((e) {
         return Container(
@@ -19,7 +22,7 @@ class HomeBanner extends StatelessWidget {
             image: DecorationImage(image: AssetImage(e), fit: BoxFit.cover),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(left: 12, bottom: 10),
+            padding: const EdgeInsets.only(left: 12, right: 12, bottom: 10),
             child: Column(
               crossAxisAlignment: .start,
               mainAxisAlignment: .end,
@@ -31,7 +34,7 @@ class HomeBanner extends StatelessWidget {
                     borderRadius: .circular(8),
                   ),
                   child: Text(
-                    '30% OFF',
+                    l10n.bannerDiscount,
                     style: AppTextStyles.body4SemiBold.copyWith(
                       color: AppColors.blackInDark(brightness),
                     ),
@@ -39,7 +42,7 @@ class HomeBanner extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'On Headphones',
+                  l10n.bannerOnHeadphones,
                   style: AppTextStyles.body3Regular.copyWith(
                     color: AppColors.blackInDark(brightness),
                   ),
@@ -50,7 +53,7 @@ class HomeBanner extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        'Exclusive Sales',
+                        l10n.bannerExclusiveSales,
                         style: AppTextStyles.headingH2Bold.copyWith(
                           color: AppColors.blackInDark(brightness),
                         ),
@@ -60,7 +63,7 @@ class HomeBanner extends StatelessWidget {
                     ),
                     Container(
                       padding: const .all(5),
-                      margin: const .only(bottom: 2, right: 16),
+                      margin: const .only(bottom: 2),
                       decoration: BoxDecoration(
                         color: AppColors.blackInDark(brightness),
                         borderRadius: .circular(12),

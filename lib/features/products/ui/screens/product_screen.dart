@@ -6,6 +6,7 @@ import 'package:ecommerce_app/features/categories/ui/widgets/category_filter_chi
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/filter_content_bottom_sheet.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -29,11 +30,13 @@ class _ProductScreenState extends State<ProductScreen> {
   void initState() {
     final categoryProductsCubit = context.read<CategoryProductsCubit>();
 
-if (widget.category != null) {
-  categoryProductsCubit.getProductsByCategory(categoryName: widget.category!);
-} else {
-  categoryProductsCubit.getProducts();
-}
+    if (widget.category != null) {
+      categoryProductsCubit.getProductsByCategory(
+        categoryName: widget.category!,
+      );
+    } else {
+      categoryProductsCubit.getProducts();
+    }
     super.initState();
   }
 
@@ -60,9 +63,11 @@ if (widget.category != null) {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppCustomAppBar(
-        title: 'Products',
+        title: l10n.products,
         showBackButton: false,
         actions: [
           const SearchIconButton(),
@@ -84,7 +89,7 @@ if (widget.category != null) {
               isHomeStyleChip: false,
             ),
             const SizedBox(height: 5),
-            Text('Products', style: AppTextStyles.headingH3Regular),
+            Text(l10n.products, style: AppTextStyles.headingH3Regular),
             const SizedBox(height: 10),
             const Expanded(child: ProductsGridView<CategoryProductsCubit>()),
           ],

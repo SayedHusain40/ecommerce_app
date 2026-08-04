@@ -1,23 +1,46 @@
 import 'package:ecommerce_app/core/result/app_result.dart';
 import 'package:ecommerce_app/features/products/data/repos/product_repo.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_state.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum SortOptions {
-  alphabeticalAZ("Alphabetical (A-Z)", "title", "asc"),
-  alphabeticalZA("Alphabetical (Z-A)", "title", "desc"),
-  priceHighToLow("Price (High to Low)", "price", "desc"),
-  priceLowToHigh("Price (Low to High)", "price", "asc"),
-  ratingHighToLow("Rating (High to Low)", "rating", "desc"),
-  ratingLowToHigh("Rating (Low to High)", "rating", "asc"),
-  discountHighToLow("Discount (High to Low)", "discountPercentage", "desc"),
-  discountLowToHigh("Discount (Low to High)", "discountPercentage", "asc"),
-  stockHighToLow("Stock (High to Low)", "stock", "desc");
+  alphabeticalAZ("title", "asc"),
+  alphabeticalZA("title", "desc"),
+  priceHighToLow("price", "desc"),
+  priceLowToHigh("price", "asc"),
+  ratingHighToLow("rating", "desc"),
+  ratingLowToHigh("rating", "asc"),
+  discountHighToLow("discountPercentage", "desc"),
+  discountLowToHigh("discountPercentage", "asc"),
+  stockHighToLow("stock", "desc");
 
-  final String displayName;
   final String sortBy;
   final String order;
-  const SortOptions(this.displayName, this.sortBy, this.order);
+  const SortOptions(this.sortBy, this.order);
+
+  String displayName(AppLocalizations l10n) {
+    switch (this) {
+      case SortOptions.alphabeticalAZ:
+        return l10n.sortAlphabeticalAZ;
+      case SortOptions.alphabeticalZA:
+        return l10n.sortAlphabeticalZA;
+      case SortOptions.priceHighToLow:
+        return l10n.sortPriceHighToLow;
+      case SortOptions.priceLowToHigh:
+        return l10n.sortPriceLowToHigh;
+      case SortOptions.ratingHighToLow:
+        return l10n.sortRatingHighToLow;
+      case SortOptions.ratingLowToHigh:
+        return l10n.sortRatingLowToHigh;
+      case SortOptions.discountHighToLow:
+        return l10n.sortDiscountHighToLow;
+      case SortOptions.discountLowToHigh:
+        return l10n.sortDiscountLowToHigh;
+      case SortOptions.stockHighToLow:
+        return l10n.sortStockHighToLow;
+    }
+  }
 }
 
 class CategoryProductsCubit extends Cubit<ProductState> {

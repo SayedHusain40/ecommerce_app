@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/core/auth/models/user_credential_model.dart';
 import 'package:ecommerce_app/core/errors/error_handler.dart';
 import 'package:ecommerce_app/core/errors/exceptions.dart';
 import 'package:ecommerce_app/core/result/app_result.dart';

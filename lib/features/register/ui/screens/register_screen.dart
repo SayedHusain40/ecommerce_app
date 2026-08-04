@@ -7,6 +7,7 @@ import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/register/logic/register_state.dart';
 import 'package:ecommerce_app/core/widgets/required_lable.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +32,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -41,19 +44,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 SvgPicture.asset(AppImages.logo(brightness)),
                 const SizedBox(height: 24),
-                Text('Signup', style: AppTextStyles.headingH2Bold),
+                Text(l10n.signup, style: AppTextStyles.headingH2Bold),
                 const SizedBox(height: 8),
                 RichText(
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Already have an account? ',
+                        text: l10n.alreadyHaveAccount,
                         style: AppTextStyles.body2Regular.copyWith(
                           color: AppColors.grey150(brightness),
                         ),
                       ),
                       TextSpan(
-                        text: 'Login',
+                        text: l10n.login,
                         style: AppTextStyles.body2Medium.copyWith(
                           color: AppColors.cyan,
                         ),
@@ -103,52 +106,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Column(
                           crossAxisAlignment: .start,
                           children: [
-                            const RequiredLabel('Full Name'),
+                            RequiredLabel(l10n.fullName),
                             const SizedBox(height: 8),
                             TextFormField(
                               controller: cubit.nameController,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Enter your name',
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: l10n.enterYourName,
                               ),
                               validator: (value) {
                                 if (value.isNullOrEmpty()) {
-                                  return 'Name is Required';
+                                  return l10n.nameRequired;
                                 }
                                 if (!Regex.isAlphaOnly(value!)) {
-                                  return 'Name must contain letters only';
+                                  return l10n.nameAlphaOnly;
                                 }
                                 if (value.trim().length < 3) {
-                                  return 'Name must be at least 3 characters';
+                                  return l10n.nameMinLength;
                                 }
                                 if (value.trim().length > 50) {
-                                  return 'Name must be at most 50 characters';
+                                  return l10n.nameMaxLength;
                                 }
 
                                 return null;
                               },
                             ),
                             const SizedBox(height: 16),
-                            const RequiredLabel('Email'),
+                            RequiredLabel(l10n.email),
                             const SizedBox(height: 8),
                             TextFormField(
                               controller: cubit.emailController,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Enter your email',
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                hintText: l10n.enterYourEmail,
                               ),
                               validator: (value) {
                                 if (value.isNullOrEmpty()) {
-                                  return 'Email is Required';
+                                  return l10n.emailRequired;
                                 }
                                 if (!Regex.isEmailValid(value!)) {
-                                  return 'Email is InValid';
+                                  return l10n.emailInvalid;
                                 }
                                 return null;
                               },
                             ),
                             const SizedBox(height: 16),
-                            const RequiredLabel('Password'),
+                            RequiredLabel(l10n.password),
                             const SizedBox(height: 8),
                             ValueListenableBuilder(
                               valueListenable: _isPasswordVisible,
@@ -157,7 +160,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   controller: cubit.passwordController,
                                   obscureText: !value,
                                   decoration: InputDecoration(
-                                    hintText: 'Enter your password',
+                                    hintText: l10n.enterYourPassword,
                                     suffixIcon: IconButton(
                                       onPressed: () =>
                                           _isPasswordVisible.value = !value,
@@ -173,20 +176,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   validator: (value) {
                                     if (value.isNullOrEmpty()) {
-                                      return 'Password is Required';
+                                      return l10n.passwordRequired;
                                     }
 
                                     final List<String> errors = [
                                       if (!Regex.hasMinLength(value!))
-                                        '- Password must be at least 6 characters',
+                                        l10n.passwordMinLength,
                                       if (!Regex.hasUpperCase(value))
-                                        '- Must contain an uppercase letter',
+                                        l10n.passwordUppercase,
                                       if (!Regex.hasLowerCase(value))
-                                        '- Must contain a lowercase letter',
+                                        l10n.passwordLowercase,
                                       if (!Regex.hasNumber(value))
-                                        '- Must contain a number',
+                                        l10n.passwordNumber,
                                       if (!Regex.hasSpecialCharacter(value))
-                                        '- Must contain a special character',
+                                        l10n.passwordSpecialChar,
                                     ];
 
                                     if (errors.isNotEmpty) {
@@ -206,7 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     },
                               child: isLoading
                                   ? const CircularProgressIndicator()
-                                  : const Text('Create Account'),
+                                  : Text(l10n.createAccount),
                             ),
                             const SizedBox(height: 16),
                             TextButton(
@@ -223,7 +226,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     const CircularProgressIndicator()
                                   else ...[
                                     Text(
-                                      'Signup with Google',
+                                      l10n.signupWithGoogle,
                                       style: AppTextStyles.button2,
                                     ),
                                     const SizedBox(width: 8),

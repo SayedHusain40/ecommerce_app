@@ -41,6 +41,7 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return AppBar(
       scrolledUnderElevation: 0,
@@ -64,7 +65,10 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: showBackButton
           ? IconButton(
               onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
-              icon: SvgPicture.asset(AppIcons.arrowLeft(brightness)),
+              icon: Transform.flip(
+                flipX: isRtl,
+                child: SvgPicture.asset(AppIcons.arrowLeft(brightness)),
+              ),
             )
           : null,
     );
