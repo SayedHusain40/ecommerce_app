@@ -209,5 +209,7 @@
   "emailVerificationTitle": "Email Verification",
   "verifyYourEmail": "Verify Your Email",
   "verifyEmailSubtitle": "We sent a verification email to your email address.\nPlease check your inbox and verify your account.",
-  "verificationEmailSentSuccess": "Verification email sent successfully"
+  "verificationEmailSentSuccess": "Verification email sent successfully",
+
+  "incorrectPassword": "Incorrect password"
 }

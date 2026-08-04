@@ -45,6 +45,7 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
             '02',
             style: AppTextStyles.body2Medium.copyWith(color: AppColors.grey100),
           ),
+          const SizedBox(width: 16),
         ],
       ),
       body: Padding(
@@ -65,6 +66,7 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
               BlocConsumer<ProfileCubit, ProfileState>(
                 listenWhen: (previous, current) =>
                     current is CheckPasswordSuccess ||
+                    current is CheckPasswordLoading ||
                     current is CheckPasswordFailure,
                 listener: (context, state) {
                   state.whenOrNull(
@@ -76,9 +78,9 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
                       //   SnackBar(content: Text(appFailure.message)),
                       // );
 
-                      // Force the form to re-run the validator now that
-                      // cubit.state reflects the failure.
-                      cubit.formKey.currentState?.validate();
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        cubit.formKey.currentState?.validate();
+                      });
                     },
                   );
                 },
@@ -124,6 +126,9 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
                               validator: (value) {
                                 if (value.isNullOrEmpty()) {
                                   return l10n.passwordRequired;
+                                }
+                                if (state is CheckPasswordFailure) {
+                                  return l10n.incorrectPassword;
                                 }
                                 return null;
                               },

@@ -202,5 +202,7 @@
   "emailVerificationTitle": "التحقق من البريد الإلكتروني",
   "verifyYourEmail": "تحقق من بريدك الإلكتروني",
   "verifyEmailSubtitle": "لقد أرسلنا رسالة تحقق إلى عنوان بريدك الإلكتروني.\nيُرجى مراجعة صندوق الوارد والتحقق من حسابك.",
-  "verificationEmailSentSuccess": "تم إرسال رسالة التحقق بنجاح"
+  "verificationEmailSentSuccess": "تم إرسال رسالة التحقق بنجاح",
+
+  "incorrectPassword": "كلمة المرور غير صحيحة"
 }

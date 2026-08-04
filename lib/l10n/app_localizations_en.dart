@@ -631,4 +631,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get verificationEmailSentSuccess =>
       'Verification email sent successfully';
+
+  @override
+  String get incorrectPassword => 'Incorrect password';
 }

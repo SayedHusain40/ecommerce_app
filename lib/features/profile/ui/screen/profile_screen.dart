@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
+import 'package:ecommerce_app/core/widgets/settings_arrow_icon.dart';
 import 'package:ecommerce_app/features/profile/data/model/user_profile_model.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:ecommerce_app/l10n/app_localizations.dart';
@@ -32,6 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
@@ -44,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              _buildHeader(brightness),
+              _buildHeader(brightness, isRtl),
               Expanded(child: _buildContent(context, brightness)),
             ],
           ),
@@ -54,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   // ---------------- HEADER ----------------
-  Widget _buildHeader(Brightness brightness) {
+  Widget _buildHeader(Brightness brightness, bool isRtl) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 21),
       child: Row(
@@ -89,7 +91,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: () {
               context.read<ProfileCubit>().logout();
             },
-            icon: SvgPicture.asset(AppIcons.logout, width: 32, height: 32),
+            icon: Transform.flip(
+              flipX: isRtl,
+              child: SvgPicture.asset(AppIcons.logout, width: 32, height: 32),
+            ),
           ),
         ],
       ),
@@ -169,16 +174,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             title: l10n.darkTheme,
             trailing: BlocBuilder<ThemeCubit, ThemeMode>(
               builder: (context, themeMode) {
-                return Transform.scale(
-                  scale: 0.7,
-                  child: Switch(
-                    value: themeMode == ThemeMode.dark,
-                    materialTapTargetSize: MaterialTapTargetSize
-                        .shrinkWrap, // removes extra padding
-
-                    onChanged: (value) {
-                      context.read<ThemeCubit>().toggleTheme();
-                    },
+                return SizedBox(
+                  width: 30,
+                  child: FittedBox(
+                    child: Switch(
+                      value: themeMode == ThemeMode.dark,
+                      materialTapTargetSize: MaterialTapTargetSize
+                          .shrinkWrap, // removes extra padding
+                      padding: EdgeInsets.zero,
+                      onChanged: (value) {
+                        context.read<ThemeCubit>().toggleTheme();
+                      },
+                    ),
                   ),
                 );
               },
@@ -248,7 +255,7 @@ class _SettingsTile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  trailing ?? SvgPicture.asset(AppIcons.arrowRightSmall),
+                  trailing ?? const SettingsArrowIcon(),
                 ],
               ),
             ),
@@ -274,6 +281,7 @@ class _LanguageTileState extends State<LanguageTile> {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return Theme(
       data: Theme.of(context).copyWith(
@@ -311,9 +319,13 @@ class _LanguageTileState extends State<LanguageTile> {
             const SizedBox(width: 10),
 
             AnimatedRotation(
-              turns: isExpanded ? 0.25 : 0,
+              turns: isExpanded
+                  ? isRtl
+                        ? -0.25
+                        : 0.25
+                  : 0,
               duration: const Duration(milliseconds: 200),
-              child: SvgPicture.asset(AppIcons.arrowRightSmall),
+              child: const SettingsArrowIcon(),
             ),
           ],
         ),
