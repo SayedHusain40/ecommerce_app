@@ -26,6 +26,7 @@ class AppDrawer extends StatelessWidget {
 
     return SafeArea(
       child: Drawer(
+        backgroundColor: AppColors.blackInDark(brightness),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(isRtl ? 24 : 0),
