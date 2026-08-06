@@ -59,8 +59,10 @@ UI based on the **QuickMart – Ecommerce App UI Kit (Modern Online Shopping Exp
 <p align="center">
   <img src="assets/images/screenshots/home1.png" width="180" />
   <img src="assets/images/screenshots/home2.png" width="180" />
+  <img src="assets/images/screenshots/side-bar.png" width="180" />
   <img src="assets/images/screenshots/products.png" width="180" />
   <img src="assets/images/screenshots/search.png" width="180" />
+  <img src="assets/images/screenshots/product-details.png" width="180" />
 </p>
 
 ### Wishlist & Profile
@@ -73,4 +75,7 @@ UI based on the **QuickMart – Ecommerce App UI Kit (Modern Online Shopping Exp
 <p align="center">
   <img src="assets/images/screenshots/dark.png" width="180" />
   <img src="assets/images/screenshots/arabic.png" width="180" />
+  <img src="assets/images/screenshots/home1-dark.png" width="180" />
+  <img src="assets/images/screenshots/products-dark.png" width="180" />
+  <img src="assets/images/screenshots/product-details-dark.png" width="180" />
 </p>
