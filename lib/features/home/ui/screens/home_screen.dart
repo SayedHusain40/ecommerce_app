@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
+import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/app_drawer.dart';
 import 'package:ecommerce_app/core/widgets/search_icon_button.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_browse_list.dart';
@@ -48,12 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      drawer: const AppDrawer(),
-      appBar: AppBar(
-        title: Text(l10n.home),
-        actions: const [SearchIconButton(), SizedBox(width: 15)],
+      appBar: const AppCustomAppBar(
+        logo: true,
+        centerTitle: true,
+        showBackButton: false,
+        actions: [SearchIconButton()],
       ),
-
+      drawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: CustomScrollView(
@@ -62,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: Column(
                 children: [
+                  SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: .spaceBetween,
                     children: [
