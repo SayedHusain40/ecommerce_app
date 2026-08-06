@@ -51,6 +51,7 @@ class _WishListScreenState extends State<WishListScreen> {
                 child: Text(l10n.deleteAProduct),
               ),
               const SizedBox(height: 12),
+
               TextButton(
                 onPressed: () => context.pop(),
                 child: Text(l10n.cancel),
@@ -74,11 +75,11 @@ class _WishListScreenState extends State<WishListScreen> {
           context.read<NavCubit>().changeNav(selectedNav: 0);
         },
         actions: [
-          IconButton(
-            onPressed: () {
+          GestureDetector(
+            onTap: () {
               context.read<WishlistCubit>().clearWishList();
             },
-            icon: SvgPicture.asset(AppIcons.trash, width: 24, height: 24),
+            child: SvgPicture.asset(AppIcons.trash, width: 24, height: 24),
           ),
         ],
       ),

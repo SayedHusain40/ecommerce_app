@@ -19,6 +19,7 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.flexibleSpace,
     this.preferredHeight,
     this.showBackButton = true,
+    this.logo = false,
   });
 
   final String? title;
@@ -32,6 +33,7 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? flexibleSpace;
   final double? preferredHeight;
   final bool showBackButton;
+  final bool logo;
 
   @override
   Size get preferredSize => Size.fromHeight(
@@ -49,13 +51,15 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       systemOverlayStyle: systemOverlayStyle,
       title: title != null
           ? Text(title!, style: AppTextStyles.body2Medium)
+          : logo
+          ? SvgPicture.asset(AppImages.logo(brightness))
           : null,
       centerTitle: centerTitle,
       titleSpacing: showBackButton ? 0 : NavigationToolbar.kMiddleSpacing,
       actions: actions,
       actionsPadding: const EdgeInsets.only(right: 16),
       backgroundColor: backgroundColor,
-      automaticallyImplyLeading: showBackButton,
+      automaticallyImplyLeading: true,
       bottom: addLine
           ? PreferredSize(
               preferredSize: const Size.fromHeight(1),

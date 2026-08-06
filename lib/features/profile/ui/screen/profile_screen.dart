@@ -1,21 +1,20 @@
 import 'package:ecommerce_app/core/constants/app_assets.dart';
-import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
-import 'package:ecommerce_app/core/localization/logic/locale_cubit.dart';
+import 'package:ecommerce_app/core/helpers/whatsapp_helper.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
-import 'package:ecommerce_app/core/storage/storage_keys.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
-import 'package:ecommerce_app/core/widgets/settings_arrow_icon.dart';
+import 'package:ecommerce_app/core/widgets/language_tile.dart';
 import 'package:ecommerce_app/features/profile/data/model/user_profile_model.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
+import 'package:ecommerce_app/features/profile/ui/widgets/section_title.dart';
+import 'package:ecommerce_app/features/profile/ui/widgets/settings_tile.dart';
 import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -104,10 +103,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  // ---------------- WHITE CONTENT CARD ----------------
+  // ---------------- CONTENT ----------------
   Widget _buildContent(BuildContext context, Brightness brightness) {
-    final themeMode = context.watch<ThemeCubit>().state;
-    final isDark = themeMode == ThemeMode.dark;
     final l10n = AppLocalizations.of(context)!;
 
     return AnimatedContainer(
@@ -116,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       width: double.infinity,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: isDark ? AppColors.black : AppColors.white,
+        color: AppColors.blackInDark(brightness),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(24),
           topRight: Radius.circular(24),
@@ -124,55 +121,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       child: ListView(
         children: [
-          _SectionTitle(l10n.personalInformation),
-          _SettingsTile(
+          SectionTitle(l10n.personalInformation),
+          SettingsTile(
             icon: Icons.local_shipping_outlined,
             title: l10n.shippingAddress,
             onTap: () {},
           ),
-          _SettingsTile(
+          SettingsTile(
             icon: Icons.credit_card_outlined,
             title: l10n.paymentMethod,
             onTap: () {},
           ),
-          _SettingsTile(
+          SettingsTile(
             icon: Icons.receipt_long_outlined,
             title: l10n.orderHistory,
             onTap: () {},
           ),
-          _SectionTitle(l10n.supportAndInformation),
-          _SettingsTile(
+          SectionTitle(l10n.supportAndInformation),
+          SettingsTile(
             icon: Icons.verified_user_outlined,
             title: l10n.privacyPolicy,
             onTap: () {
               context.pushNamed(RouteNames.privacyPolicyScreen);
             },
           ),
-          _SettingsTile(
+          SettingsTile(
             icon: Icons.description_outlined,
             title: l10n.termsAndConditions,
             onTap: () {
               context.pushNamed(RouteNames.termsAndConditionsScreen);
             },
           ),
-          _SettingsTile(
+          SettingsTile(
             icon: Icons.help_outline_rounded,
             title: l10n.faqs,
             onTap: () {
               context.pushNamed(RouteNames.faqsScreen);
             },
           ),
-          _SectionTitle(l10n.accountManagement),
-          _SettingsTile(
+          SettingsTile(
+            icon: Icons.chat_outlined,
+            title: l10n.contactUs,
+            onTap: () {
+              openWhatsApp(
+                phoneNumber: '97337355013',
+                message: l10n.whatsappHelpMessage,
+              );
+            },
+          ),
+          SectionTitle(l10n.accountManagement),
+          SettingsTile(
             icon: Icons.lock_outline_rounded,
             title: l10n.changePassword,
             onTap: () {
               context.pushNamed(RouteNames.verifyOldPasswordScreen);
             },
           ),
-          const LanguageTile(),
+          LanguageTile(
+            leadingColorIcon: AppColors.grey150Light,
+            titleStyle: AppTextStyles.body2Medium.copyWith(
+              color: AppColors.grey150(brightness),
+            ),
+          ),
           Divider(height: 1, thickness: 1, color: AppColors.grey50(brightness)),
-          _SettingsTile(
+          SettingsTile(
             icon: Icons.dark_mode_outlined,
             title: l10n.darkTheme,
             trailing: BlocBuilder<ThemeCubit, ThemeMode>(
@@ -195,267 +207,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-// ---------------- REUSABLE WIDGETS ----------------
-class _SectionTitle extends StatelessWidget {
-  final String title;
-  const _SectionTitle(this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
-      child: Text(
-        title,
-        style: AppTextStyles.body3SemiBold.copyWith(
-          color: AppColors.whiteInDark(brightness),
-        ),
-      ),
-    );
-  }
-}
-
-class _SettingsTile extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final VoidCallback? onTap;
-  final Widget? trailing;
-
-  const _SettingsTile({
-    required this.icon,
-    required this.title,
-    this.onTap,
-    this.trailing,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-
-    return Column(
-      children: [
-        InkWell(
-          onTap: onTap,
-          child: SizedBox(
-            height: 48,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(icon, weight: 24, color: AppColors.grey150Light),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      title,
-                      style: AppTextStyles.body2Medium.copyWith(
-                        color: AppColors.grey150(brightness),
-                      ),
-                    ),
-                  ),
-                  trailing ?? const SettingsArrowIcon(),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Divider(height: 1, thickness: 1, color: AppColors.grey50(brightness)),
-      ],
-    );
-  }
-}
-
-class LanguageTile extends StatefulWidget {
-  const LanguageTile({super.key});
-
-  @override
-  State<LanguageTile> createState() => _LanguageTileState();
-}
-
-class _LanguageTileState extends State<LanguageTile> {
-  bool isExpanded = false;
-  late bool isEnglishSelected;
-
-  @override
-  void initState() {
-    super.initState();
-
-    final languageCode =
-        getIt<SharedPreferences>().getString(StorageKeys.languageCode) ?? 'en';
-    isEnglishSelected = languageCode == 'en';
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
-    final l10n = AppLocalizations.of(context)!;
-
-    return Theme(
-      data: Theme.of(context).copyWith(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        hoverColor: Colors.transparent,
-      ),
-      child: ExpansionTile(
-        minTileHeight: 48,
-        splashColor: Colors.transparent,
-
-        backgroundColor: Colors.transparent,
-        collapsedBackgroundColor: Colors.transparent,
-
-        shape: const Border(),
-        collapsedShape: const Border(),
-
-        leading: const Icon(Icons.translate, color: AppColors.grey150Light),
-
-        title: Text(
-          AppLocalizations.of(context)!.language,
-          style: AppTextStyles.body2Medium.copyWith(
-            color: AppColors.grey150(brightness),
-          ),
-        ),
-
-        tilePadding: const EdgeInsets.symmetric(horizontal: 16),
-
-        childrenPadding: const EdgeInsets.symmetric(vertical: 16),
-
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(l10n.languageName),
-            const SizedBox(width: 10),
-
-            AnimatedRotation(
-              turns: isExpanded
-                  ? isRtl
-                        ? -0.25
-                        : 0.25
-                  : 0,
-              duration: const Duration(milliseconds: 200),
-              child: const SettingsArrowIcon(),
-            ),
-          ],
-        ),
-
-        onExpansionChanged: (value) {
-          setState(() {
-            isExpanded = value;
-          });
-        },
-
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                LanguageOption(
-                  language: 'English',
-                  flag: AppImages.usFlag,
-                  isSelected: isEnglishSelected,
-                  onTap: () {
-                    isEnglishSelected = true;
-                    context.read<LocaleCubit>().changeLocale(
-                      const Locale('en'),
-                    );
-                  },
-                ),
-
-                const SizedBox(height: 10),
-
-                LanguageOption(
-                  language: 'العربية',
-                  flag: AppImages.saFlag,
-                  isSelected: isEnglishSelected == false,
-                  onTap: () {
-                    isEnglishSelected = false;
-                    context.read<LocaleCubit>().changeLocale(
-                      const Locale('ar'),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class LanguageOption extends StatelessWidget {
-  final String language;
-  final String flag;
-  final bool isSelected;
-  final VoidCallback? onTap;
-
-  const LanguageOption({
-    super.key,
-    required this.language,
-    required this.flag,
-    required this.isSelected,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: isSelected
-            ? isDark
-                  ? const Color(0xFF1B2829)
-                  : const Color(0xFFEDF7EE)
-            : isDark
-            ? const Color(0xFF1D2533)
-            : const Color(0xFFFAFAFA),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.grey50(brightness)),
-      ),
-      child: ListTile(
-        onTap: onTap,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-        minTileHeight: 50,
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: SizedBox(
-            width: 50,
-            height: 30,
-            child: Image.asset(flag, fit: BoxFit.cover),
-          ),
-        ),
-        title: Text(
-          language,
-          style: AppTextStyles.body1Medium.copyWith(
-            color: AppColors.whiteInDark(brightness),
-          ),
-        ),
-
-        trailing: Container(
-          width: 20,
-          height: 20,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: isSelected ? Colors.green : AppColors.grey150(brightness),
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Icon(
-            Icons.check,
-            size: 18,
-            color: isSelected
-                ? Colors.green
-                : AppColors.whiteInDark(brightness),
-          ),
-        ),
       ),
     );
   }

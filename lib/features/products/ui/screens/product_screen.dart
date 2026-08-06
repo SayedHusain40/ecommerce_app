@@ -76,7 +76,6 @@ class _ProductScreenState extends State<ProductScreen> {
             onTap: onSelectFilter,
             child: SvgPicture.asset(AppIcons.setting(brightness)),
           ),
-          const SizedBox(width: 16),
         ],
       ),
       body: Padding(

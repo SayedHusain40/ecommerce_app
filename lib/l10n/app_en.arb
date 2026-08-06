@@ -212,5 +212,9 @@
   "verifyEmailSubtitle": "We sent a verification email to your email address.\nPlease check your inbox and verify your account.",
   "verificationEmailSentSuccess": "Verification email sent successfully",
 
-  "incorrectPassword": "Incorrect password"
+  "incorrectPassword": "Incorrect password",
+  "settings": "Settings",
+  "orders": "Orders",
+  "contactUs": "Contact Us",
+  "whatsappHelpMessage": "Hello, I need help..."
 }

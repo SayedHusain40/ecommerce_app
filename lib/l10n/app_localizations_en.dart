@@ -637,4 +637,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get incorrectPassword => 'Incorrect password';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get orders => 'Orders';
+
+  @override
+  String get contactUs => 'Contact Us';
+
+  @override
+  String get whatsappHelpMessage => 'Hello, I need help...';
 }

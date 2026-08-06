@@ -205,5 +205,9 @@
   "verifyEmailSubtitle": "لقد أرسلنا رسالة تحقق إلى عنوان بريدك الإلكتروني.\nيُرجى مراجعة صندوق الوارد والتحقق من حسابك.",
   "verificationEmailSentSuccess": "تم إرسال رسالة التحقق بنجاح",
 
-  "incorrectPassword": "كلمة المرور غير صحيحة"
+  "incorrectPassword": "كلمة المرور غير صحيحة",
+  "settings": "الإعدادات",
+  "orders": "الطلبات",
+  "contactUs": "تواصل معنا",
+  "whatsappHelpMessage": "مرحبًا، أحتاج إلى مساعدة..."
 }
