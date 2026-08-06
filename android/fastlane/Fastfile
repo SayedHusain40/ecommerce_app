@@ -5,12 +5,13 @@ platform :android do
   lane :firebase_distribution do
     branch = ENV["GITHUB_REF_NAME"] || "development"
     flavor = branch == "main" ? "production" : "development"
+    firebase_app_id = branch == "main" ? ENV["FIREBASE_APP_ID"] : ENV["FIREBASE_APP_ID_DEV"]
 
     sh "flutter clean"
     sh "flutter build apk --release --flavor #{flavor} -t lib/main_#{flavor}.dart --no-tree-shake-icons"
 
     firebase_app_distribution(
-      app: ENV["FIREBASE_APP_ID"],
+      app: firebase_app_id,
       testers: "s.husain_10@hotmail.com, tester2@gmail.com",
       firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
       android_artifact_type: "APK",
