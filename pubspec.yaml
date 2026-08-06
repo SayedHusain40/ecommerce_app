@@ -59,6 +59,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:
@@ -94,6 +95,7 @@ flutter:
     - assets/images/native_splashes/
     - assets/images/banners/
     - assets/images/flags/
+    - assets/images/empty/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

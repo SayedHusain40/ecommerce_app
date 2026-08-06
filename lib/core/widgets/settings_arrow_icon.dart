@@ -7,7 +7,12 @@ class SettingsArrowIcon extends StatelessWidget {
   final double? height;
   final Color? color;
 
-  const SettingsArrowIcon({super.key, this.width, this.height, this.color});
+  const SettingsArrowIcon({
+    super.key,
+    this.width = 15,
+    this.height = 15,
+    this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +24,7 @@ class SettingsArrowIcon extends StatelessWidget {
         AppIcons.arrowRightSmall,
         width: width,
         height: height,
+        fit: BoxFit.contain,
         colorFilter: color != null
             ? ColorFilter.mode(color!, BlendMode.srcIn)
             : null,

@@ -634,4 +634,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get incorrectPassword => 'كلمة المرور غير صحيحة';
+
+  @override
+  String get settings => 'الإعدادات';
+
+  @override
+  String get orders => 'الطلبات';
+
+  @override
+  String get contactUs => 'تواصل معنا';
+
+  @override
+  String get whatsappHelpMessage => 'مرحبًا، أحتاج إلى مساعدة...';
 }

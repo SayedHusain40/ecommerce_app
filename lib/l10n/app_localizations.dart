@@ -1231,6 +1231,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Incorrect password'**
   String get incorrectPassword;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @orders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get orders;
+
+  /// No description provided for @contactUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get contactUs;
+
+  /// No description provided for @whatsappHelpMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, I need help...'**
+  String get whatsappHelpMessage;
 }
 
 class _AppLocalizationsDelegate

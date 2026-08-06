@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
+import 'package:ecommerce_app/core/widgets/app_drawer.dart';
 import 'package:ecommerce_app/core/widgets/search_icon_button.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_browse_list.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_filter_chips.dart';
@@ -47,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
+      drawer: const AppDrawer(),
       appBar: AppBar(
         title: Text(l10n.home),
         actions: const [SearchIconButton(), SizedBox(width: 15)],
@@ -65,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         l10n.browseCategories,
-                        style: AppTextStyles.body3SemiBold,
+                        style: AppTextStyles.body2Regular,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -80,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
