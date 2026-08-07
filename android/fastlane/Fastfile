@@ -1,21 +1,22 @@
 default_platform(:android)
 
 platform :android do
-  desc "Build Flutter production APK and upload to Firebase App Distribution"
+  desc "Build Flutter APK and upload to Firebase App Distribution"
   lane :firebase_distribution do
+    branch = ENV["GITHUB_REF_NAME"] || "development"
+    flavor = branch == "main" ? "production" : "development"
+    firebase_app_id = branch == "main" ? ENV["FIREBASE_APP_ID"] : ENV["FIREBASE_APP_ID_DEV"]
 
-    # Build Flutter APK
     sh "flutter clean"
-    sh "flutter build apk --release --flavor production -t lib/main_production.dart --no-tree-shake-icons"
+    sh "flutter build apk --release --flavor #{flavor} -t lib/main_#{flavor}.dart --no-tree-shake-icons"
 
     firebase_app_distribution(
-      app: ENV["FIREBASE_APP_ID"],           # From Firebase Android app ID
-      testers: "s.husain_10@hotmail.com, tester2@gmail.com",      
-      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],  # From Firebase login:ci
+      app: firebase_app_id,
+      testers: "s.husain_10@hotmail.com, tester2@gmail.com",
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
       android_artifact_type: "APK",
-      apk_path: "../build/app/outputs/flutter-apk/app-production-release.apk",
-      release_notes: "First Fastlane upload to Firebase App Distribution"
+      apk_path: "../build/app/outputs/flutter-apk/app-#{flavor}-release.apk",
+      release_notes: "Automated build from #{branch} branch"
     )
-
   end
 end
