@@ -17,7 +17,7 @@ platform :android do
       firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
       android_artifact_type: "APK",
       apk_path: "../build/app/outputs/flutter-apk/app-#{flavor}-release.apk",
-      release_notes: "[#{flavor.upcase}] #{last_commit_message}"
+      release_notes: last_commit_message
     )
   end
 end
