@@ -2,6 +2,9 @@ name: Android Fastlane Firebase App Distribution Workflow
 on:
   push:
     branches: [main, development]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
 jobs:
   distribute_to_firebase:
     runs-on: ubuntu-latest
@@ -15,10 +18,20 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('android/**/*.gradle*') }}
+          restore-keys: gradle-${{ runner.os }}-
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          cache: true
 
       - name: Install Flutter dependencies
         run: flutter pub get

@@ -6,9 +6,9 @@ platform :android do
     branch = ENV["GITHUB_REF_NAME"] || "development"
     flavor = branch == "main" ? "production" : "development"
     firebase_app_id = branch == "main" ? ENV["FIREBASE_APP_ID"] : ENV["FIREBASE_APP_ID_DEV"]
-    last_commit_message = sh("git log -1 --pretty=%B").strip
+    last_commit_message = sh("git log -1 --pretty=%s").strip
 
-    sh "flutter clean"
+    # sh "flutter clean"
     sh "flutter build apk --release --flavor #{flavor} -t lib/main_#{flavor}.dart --no-tree-shake-icons"
 
     firebase_app_distribution(
