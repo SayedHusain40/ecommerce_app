@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -14,11 +15,9 @@ class CategoryCardShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final baseColor = brightness == Brightness.dark
-        ? Colors.grey[800]!
-        : Colors.grey[300]!;
-    final highlightColor = brightness == Brightness.dark
+    final brightness = context.brightness;
+    final baseColor = context.isRtl ? Colors.grey[800]! : Colors.grey[300]!;
+    final highlightColor = context.isRtl
         ? Colors.grey[600]!
         : Colors.grey[100]!;
     return Container(

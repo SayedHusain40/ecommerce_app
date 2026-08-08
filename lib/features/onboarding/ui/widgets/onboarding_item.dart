@@ -7,7 +7,6 @@ import 'package:ecommerce_app/core/storage/storage_keys.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/onboarding/data/onboarding_model.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -31,9 +30,9 @@ class OnboardingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sharedPreferences = getIt<SharedPreferencesService>();
-    final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
-    final l10n = AppLocalizations.of(context)!;
+    final brightness = context.brightness;
+    final isDark = context.isRtl;
+    final l10n = context.l10n;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),

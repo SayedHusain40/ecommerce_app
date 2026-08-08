@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
-import 'package:ecommerce_app/features/products/ui/widgets/seach_bottom_sheet_content.dart';
+import 'package:ecommerce_app/features/products/ui/widgets/search_bottom_sheet_content.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

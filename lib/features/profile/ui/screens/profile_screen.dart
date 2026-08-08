@@ -10,7 +10,6 @@ import 'package:ecommerce_app/features/profile/data/model/user_profile_model.dar
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:ecommerce_app/features/profile/ui/widgets/section_title.dart';
 import 'package:ecommerce_app/features/profile/ui/widgets/settings_tile.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,8 +33,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final brightness = context.brightness;
+    final isRtl = context.isRtl;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
@@ -105,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // ---------------- CONTENT ----------------
   Widget _buildContent(BuildContext context, Brightness brightness) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
 
     return AnimatedContainer(
       duration: const Duration(seconds: 1),
