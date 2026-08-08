@@ -15,7 +15,7 @@ class ProductImageGallery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    final brightness = context.brightness;
     final PageController pageController = PageController();
     return ClipPath(
       clipper: const CustomCurvedEdges(),

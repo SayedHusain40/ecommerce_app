@@ -19,10 +19,10 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
-    final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
-    final l10n = AppLocalizations.of(context)!;
+    final isRtl = context.isRtl;
+    final brightness = context.brightness;
+    final isDark = context.isRtl;
+    final l10n = context.l10n;
 
     return SafeArea(
       child: Drawer(
@@ -178,7 +178,7 @@ class DrawerMenuTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    final brightness = context.brightness;
 
     return Column(
       children: [

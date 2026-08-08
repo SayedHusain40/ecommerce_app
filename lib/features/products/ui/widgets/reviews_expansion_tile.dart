@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/start_rating.dart';
@@ -16,7 +17,7 @@ class ReviewsExpansionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    final brightness = context.brightness;
     return ExpansionTile(
       shape: RoundedRectangleBorder(
         side: const BorderSide(color: Colors.grey),

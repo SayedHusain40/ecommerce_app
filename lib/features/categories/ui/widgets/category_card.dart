@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    final brightness = context.brightness;
     return GestureDetector(
       onTap: onTap,
       child: Container(

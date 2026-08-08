@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/config/firebase_config.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/routing/app_router.dart';
-import 'package:ecommerce_app/firebase_options_porudction.dart';
+import 'package:ecommerce_app/firebase_options_production.dart';
 import 'package:ecommerce_app/quick_mart.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/settings_arrow_icon.dart';
@@ -38,7 +39,7 @@ class _SettingsExpansionTileState extends State<SettingsExpansionTile> {
 
   @override
   Widget build(BuildContext context) {
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final isRtl = context.isRtl;
 
     return Theme(
       data: Theme.of(context).copyWith(

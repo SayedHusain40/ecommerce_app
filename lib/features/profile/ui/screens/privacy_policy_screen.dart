@@ -1,8 +1,8 @@
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/features/profile/ui/widgets/legal_section.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
@@ -10,8 +10,8 @@ class PrivacyPolicyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final l10n = AppLocalizations.of(context)!;
+    final brightness = context.brightness;
+    final l10n = context.l10n;
 
     return Scaffold(
       appBar: AppCustomAppBar(title: l10n.privacyPolicyTitle),
@@ -78,17 +78,13 @@ class PrivacyPolicyScreen extends StatelessWidget {
           LegalSection(
             number: '6',
             title: l10n.privacySection6Title,
-            points: [
-              LegalPoint(point: l10n.privacySection6Point1),
-            ],
+            points: [LegalPoint(point: l10n.privacySection6Point1)],
           ),
 
           LegalSection(
             number: '7',
             title: l10n.privacySection7Title,
-            points: [
-              LegalPoint(point: l10n.privacySection7Point1),
-            ],
+            points: [LegalPoint(point: l10n.privacySection7Point1)],
           ),
 
           Text(

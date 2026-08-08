@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,8 @@ class ProductStyleCategoryChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
+    final brightness = context.brightness;
+    final isDark = context.isRtl;
 
     return ChoiceChip(
       padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 10),

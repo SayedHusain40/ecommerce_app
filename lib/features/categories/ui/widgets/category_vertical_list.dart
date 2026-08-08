@@ -13,7 +13,7 @@ class CategoryVerticalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    final brightness = context.brightness;
     return CategoryConsumer(
       onLoading: (context) => VerticalListView(
         itemCount: 6,

@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/constants/app_assets.dart';
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -16,7 +17,7 @@ class SettingsArrowIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final isRtl = context.isRtl;
 
     return Transform.flip(
       flipX: isRtl,

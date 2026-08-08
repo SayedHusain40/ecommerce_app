@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/constants/app_assets.dart';
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/expandable_description.dart';
@@ -17,13 +18,12 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
+    final isDark = context.isDark;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarColor: const Color(0xFFD6D8E5),
-        statusBarIconBrightness: brightness == Brightness.dark
+        statusBarIconBrightness: isDark
             ? Brightness.light
             : Brightness.dark,
       ),
@@ -130,7 +130,10 @@ class ProductDetailScreen extends StatelessWidget {
                           const Spacer(),
                           if (productModel.stock < 1)
                             Container(
-                              padding: const .symmetric(vertical: 1, horizontal: 10),
+                              padding: const .symmetric(
+                                vertical: 1,
+                                horizontal: 10,
+                              ),
                               decoration: BoxDecoration(
                                 borderRadius: .circular(12),
                                 color: AppColors.red,

@@ -3,7 +3,7 @@ import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/navigation/main_nav_screen.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
-import 'package:ecommerce_app/features/login/ui/login_screen.dart';
+import 'package:ecommerce_app/features/login/ui/screens/login_screen.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';

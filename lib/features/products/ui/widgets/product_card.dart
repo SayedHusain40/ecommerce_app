@@ -22,7 +22,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    final brightness = context.brightness;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
