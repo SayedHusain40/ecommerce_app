@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/auth/widgets/password_form_field.dart';
 import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/errors/app_failure.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
@@ -72,14 +73,8 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
                 listener: (context, state) {
                   state.whenOrNull(
                     changePasswordSuccess: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(l10n.passwordChangedSuccess)),
-                      );
                       cubit.logout();
-                      context.pushNamedAndRemoveUntil(
-                        RouteNames.appAuthState,
-                        predicate: (route) => false,
-                      );
+                      context.pushNamed(RouteNames.newPasswordSetSuccessfully);
                     },
                     changePasswordFailure: (AppFailure appFailure) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -106,89 +101,44 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
                       children: [
                         RequiredLabel(l10n.password),
                         const SizedBox(height: 8),
-                        ValueListenableBuilder(
-                          valueListenable: _isNewPasswordVisible,
-                          builder: (context, value, child) {
-                            return TextFormField(
-                              controller: cubit.newPasswordController,
-                              obscureText: !value,
-                              decoration: InputDecoration(
-                                hintText: l10n.enterYourPassword,
-                                suffixIcon: IconButton(
-                                  onPressed: () =>
-                                      _isNewPasswordVisible.value = !value,
-                                  icon: SvgPicture.asset(
-                                    value
-                                        ? AppIcons.eyeOpen(brightness)
-                                        : AppIcons.eyeOff(brightness),
-                                    width: 24,
-                                    height: 24,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              onChanged: (_) {},
-                              validator: (value) {
-                                if (value.isNullOrEmpty()) {
-                                  return l10n.passwordRequired;
-                                }
-                                final List<String> errors = [
-                                  if (!Regex.hasMinLength(value!))
-                                    l10n.passwordMinLength,
-                                  if (!Regex.hasUpperCase(value))
-                                    l10n.passwordUppercase,
-                                  if (!Regex.hasLowerCase(value))
-                                    l10n.passwordLowercase,
-                                  if (!Regex.hasNumber(value))
-                                    l10n.passwordNumber,
-                                  if (!Regex.hasSpecialCharacter(value))
-                                    l10n.passwordSpecialChar,
-                                ];
-
-                                if (errors.isNotEmpty) {
-                                  return errors.join('\n');
-                                }
-                                return null;
-                              },
-                            );
+                        PasswordFormField(
+                          controller: cubit.newPasswordController,
+                          isVisible: _isNewPasswordVisible,
+                          hintText: l10n.enterYourPassword,
+                          validator: (value) {
+                            if (value.isNullOrEmpty()) {
+                              return l10n.passwordRequired;
+                            }
+                            final errors = [
+                              if (!Regex.hasMinLength(value!))
+                                l10n.passwordMinLength,
+                              if (!Regex.hasUpperCase(value))
+                                l10n.passwordUppercase,
+                              if (!Regex.hasLowerCase(value))
+                                l10n.passwordLowercase,
+                              if (!Regex.hasNumber(value)) l10n.passwordNumber,
+                              if (!Regex.hasSpecialCharacter(value))
+                                l10n.passwordSpecialChar,
+                            ];
+                            return errors.isNotEmpty ? errors.join('\n') : null;
                           },
                         ),
                         const SizedBox(height: 16),
                         RequiredLabel(l10n.confirmPassword),
                         const SizedBox(height: 8),
-                        ValueListenableBuilder(
-                          valueListenable: _isConformPasswordVisible,
-                          builder: (context, value, child) {
-                            return TextFormField(
-                              controller: cubit.conformPasswordController,
-                              obscureText: !value,
-                              decoration: InputDecoration(
-                                hintText: l10n.enterYourPassword,
-                                suffixIcon: IconButton(
-                                  onPressed: () =>
-                                      _isConformPasswordVisible.value = !value,
-                                  icon: SvgPicture.asset(
-                                    value
-                                        ? AppIcons.eyeOpen(brightness)
-                                        : AppIcons.eyeOff(brightness),
-                                    width: 24,
-                                    height: 24,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              onChanged: (_) {},
-                              validator: (value) {
-                                if (value.isNullOrEmpty()) {
-                                  return l10n.confirmPasswordRequired;
-                                }
-                                if (cubit.newPasswordController.text !=
-                                    cubit.conformPasswordController.text) {
-                                  return l10n.passwordsNotMatch;
-                                }
-                                return null;
-                              },
-                            );
+                        PasswordFormField(
+                          controller: cubit.conformPasswordController,
+                          isVisible: _isConformPasswordVisible,
+                          hintText: l10n.enterYourPassword,
+                          validator: (value) {
+                            if (value.isNullOrEmpty()) {
+                              return l10n.confirmPasswordRequired;
+                            }
+                            if (cubit.newPasswordController.text !=
+                                cubit.conformPasswordController.text) {
+                              return l10n.passwordsNotMatch;
+                            }
+                            return null;
                           },
                         ),
                         const SizedBox(height: 24),

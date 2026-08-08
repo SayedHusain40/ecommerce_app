@@ -6,8 +6,15 @@ import 'package:ecommerce_app/features/home/data/banners_data.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class HomeBanner extends StatelessWidget {
+class HomeBanner extends StatefulWidget {
   const HomeBanner({super.key});
+
+  @override
+  State<HomeBanner> createState() => _HomeBannerState();
+}
+
+class _HomeBannerState extends State<HomeBanner> {
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +24,8 @@ class HomeBanner extends StatelessWidget {
     return CarouselSlider(
       items: bannerList.map((e) {
         return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 4),
+
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             image: DecorationImage(image: AssetImage(e), fit: BoxFit.cover),
@@ -24,14 +33,14 @@ class HomeBanner extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 12, right: 12, bottom: 10),
             child: Column(
-              crossAxisAlignment: .start,
-              mainAxisAlignment: .end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  padding: const .all(6),
+                  padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
                     color: AppColors.whiteInDark(brightness),
-                    borderRadius: .circular(8),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     l10n.bannerDiscount,
@@ -48,8 +57,8 @@ class HomeBanner extends StatelessWidget {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: .spaceBetween,
-                  crossAxisAlignment: .end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Expanded(
                       child: Text(
@@ -62,15 +71,15 @@ class HomeBanner extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: const .all(5),
-                      margin: const .only(bottom: 2),
+                      padding: const EdgeInsets.all(5),
+                      margin: const EdgeInsets.only(bottom: 2),
                       decoration: BoxDecoration(
                         color: AppColors.blackInDark(brightness),
-                        borderRadius: .circular(12),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       child: AnimatedSmoothIndicator(
-                        activeIndex: e.indexOf(e),
-                        count: 5,
+                        activeIndex: _currentIndex,
+                        count: bannerList.length,
                         effect: const WormEffect(
                           dotHeight: 6,
                           dotWidth: 6,
@@ -89,7 +98,6 @@ class HomeBanner extends StatelessWidget {
       }).toList(),
       options: CarouselOptions(
         height: 148,
-        // aspectRatio: 16 / 9,
         viewportFraction: 1.0,
         enlargeCenterPage: false,
         initialPage: 0,
@@ -99,9 +107,12 @@ class HomeBanner extends StatelessWidget {
         autoPlayInterval: const Duration(seconds: 3),
         autoPlayAnimationDuration: const Duration(milliseconds: 800),
         autoPlayCurve: Curves.fastOutSlowIn,
-        // enlargeFactor: 0.3,
-        // onPageChanged: callbackFunction,
         scrollDirection: Axis.horizontal,
+        onPageChanged: (index, reason) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
     );
   }

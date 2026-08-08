@@ -91,11 +91,13 @@ flutter:
     - assets/images/
     - assets/svgs/
     - assets/svgs/nav/
+    - assets/svgs/settings/
     - assets/images/onboardings/
     - assets/images/native_splashes/
     - assets/images/banners/
     - assets/images/flags/
     - assets/images/empty/
+    - assets/images/success/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

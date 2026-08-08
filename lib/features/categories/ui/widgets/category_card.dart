@@ -1,6 +1,8 @@
+import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CategoryCard extends StatelessWidget {
   final String name;
@@ -23,19 +25,26 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = context.brightness;
+    final isDark = context.isDark;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         width: width,
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         decoration: BoxDecoration(
+          color: isDark ? AppColors.cyan50Dark : Colors.transparent,
           borderRadius: BorderRadius.circular(borderRadius),
           border: BoxBorder.all(color: AppColors.grey50(brightness)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.category, size: iconSize, color: AppColors.cyan),
+            SvgPicture.asset(
+              AppIcons.activeCategory,
+              width: iconSize,
+              height: iconSize,
+            ),
             const SizedBox(height: 2),
             Text(
               name,

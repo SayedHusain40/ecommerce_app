@@ -55,10 +55,6 @@ class _ConfirmationEmailScreenState extends State<ConfirmationEmailScreen> {
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text(message)));
-              // context.pushNamedAndRemoveUntil(
-              //   RouteNames.loginScreen,
-              //   predicate: (route) => false,
-              // );
             },
             sendPasswordResetEmailFailure: (failure) {
               ScaffoldMessenger.of(

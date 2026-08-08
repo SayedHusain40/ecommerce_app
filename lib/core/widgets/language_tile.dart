@@ -16,14 +16,14 @@ class LanguageTile extends StatefulWidget {
   final double minTileHeight;
   final Color? leadingColorIcon;
   final TextStyle? titleStyle;
-  LanguageTile({
+  const LanguageTile({
     super.key,
     this.tilePadding = 16,
     this.childrenPadding = 16,
     this.minTileHeight = 48,
     this.leadingColorIcon,
-    TextStyle? titleStyle,
-  }) : titleStyle = titleStyle ?? AppTextStyles.body2Medium;
+    this.titleStyle,
+  });
 
   @override
   State<LanguageTile> createState() => _LanguageTileState();
@@ -60,7 +60,7 @@ class _LanguageTileState extends State<LanguageTile> {
           tilePadding: widget.tilePadding,
           childrenPaddingHorizontal: widget.childrenPadding,
           minTileHeight: widget.minTileHeight,
-          titleStyle: widget.titleStyle,
+          titleStyle: widget.titleStyle ?? AppTextStyles.body2Medium,
           children: [
             Column(
               children: [
@@ -119,38 +119,31 @@ class LanguageOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = context.brightness;
-    final isDark = context.isRtl;
 
     return Container(
       decoration: BoxDecoration(
         color: isSelected
-            ? isDark
-                  ? const Color(0xFF1B2829)
-                  : const Color(0xFFEDF7EE)
-            : isDark
-            ? const Color(0xFF1D2533)
-            : const Color(0xFFFAFAFA),
+            ? AppColors.cyan.withValues(alpha: 0.08)
+            : AppColors.cyan50(brightness),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.grey50(brightness)),
+        border: Border.all(
+          color: isSelected ? AppColors.cyan : AppColors.grey50(brightness),
+          width: isSelected ? 1 : 1,
+        ),
       ),
       child: Material(
         color: Colors.transparent,
         child: ListTile(
           onTap: onTap,
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-          minTileHeight: 50,
+          minTileHeight: 55,
           leading: Container(
             width: 50,
             height: 30,
             decoration: BoxDecoration(borderRadius: .circular(6)),
             child: Image.asset(flag, fit: BoxFit.cover),
           ),
-          title: Text(
-            language,
-            style: AppTextStyles.body1Medium.copyWith(
-              color: AppColors.whiteInDark(brightness),
-            ),
-          ),
+          title: Text(language, style: AppTextStyles.body1Medium),
 
           trailing: Container(
             width: 20,

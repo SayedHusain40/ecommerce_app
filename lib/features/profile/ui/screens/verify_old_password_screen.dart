@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/auth/widgets/password_form_field.dart';
 import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/errors/app_failure.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
@@ -10,7 +11,6 @@ import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 class VerifyOldPasswordScreen extends StatefulWidget {
   const VerifyOldPasswordScreen({super.key});
@@ -73,10 +73,6 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
                       context.pushNamed(RouteNames.changePasswordNewScreen);
                     },
                     checkPasswordFailure: (AppFailure appFailure) {
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //   SnackBar(content: Text(appFailure.message)),
-                      // );
-
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         cubit.formKey.currentState?.validate();
                       });
@@ -98,40 +94,19 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
                       children: [
                         RequiredLabel(l10n.password),
                         const SizedBox(height: 8),
-                        ValueListenableBuilder(
-                          valueListenable: _isPasswordVisible,
-                          builder: (context, value, child) {
-                            return TextFormField(
-                              controller: cubit.currentPasswordController,
-                              obscureText: !value,
-                              decoration: InputDecoration(
-                                hintText: l10n.enterYourPassword,
-                                suffixIcon: IconButton(
-                                  onPressed: () =>
-                                      _isPasswordVisible.value = !value,
-                                  icon: SvgPicture.asset(
-                                    value
-                                        ? AppIcons.eyeOpen(brightness)
-                                        : AppIcons.eyeOff(brightness),
-                                    width: 24,
-                                    height: 24,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              onChanged: (_) {
-                                cubit.resetCheckPasswordState();
-                              },
-                              validator: (value) {
-                                if (value.isNullOrEmpty()) {
-                                  return l10n.passwordRequired;
-                                }
-                                if (state is CheckPasswordFailure) {
-                                  return l10n.incorrectPassword;
-                                }
-                                return null;
-                              },
-                            );
+                        PasswordFormField(
+                          controller: cubit.currentPasswordController,
+                          isVisible: _isPasswordVisible,
+                          hintText: l10n.enterYourPassword,
+                          onChanged: (_) => cubit.resetCheckPasswordState(),
+                          validator: (value) {
+                            if (value.isNullOrEmpty()) {
+                              return l10n.passwordRequired;
+                            }
+                            if (state is CheckPasswordFailure) {
+                              return l10n.incorrectPassword;
+                            }
+                            return null;
                           },
                         ),
                         const SizedBox(height: 24),

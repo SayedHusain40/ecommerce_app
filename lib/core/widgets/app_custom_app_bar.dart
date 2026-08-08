@@ -56,9 +56,8 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? SvgPicture.asset(AppImages.logo(brightness))
           : null,
       centerTitle: centerTitle,
-      titleSpacing: showBackButton ? 0 : NavigationToolbar.kMiddleSpacing,
       actions: actions,
-      actionsPadding: const EdgeInsets.only(right: 16),
+      actionsPadding: const EdgeInsetsDirectional.only(end: 16),
       backgroundColor: backgroundColor,
       automaticallyImplyLeading: true,
       bottom: addLine
@@ -76,6 +75,7 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : null,
+      titleSpacing: showBackButton ? 0 : NavigationToolbar.kMiddleSpacing,
     );
   }
 }

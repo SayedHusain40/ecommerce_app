@@ -16,10 +16,11 @@ class CategoryCardShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = context.brightness;
-    final baseColor = context.isRtl ? Colors.grey[800]! : Colors.grey[300]!;
-    final highlightColor = context.isRtl
-        ? Colors.grey[600]!
-        : Colors.grey[100]!;
+    final isDark = context.isDark;
+
+    final baseColor = isDark ? Colors.grey[800]! : Colors.grey[300]!;
+    final highlightColor = isDark ? Colors.grey[600]! : Colors.grey[100]!;
+
     return Container(
       width: width,
       decoration: BoxDecoration(
