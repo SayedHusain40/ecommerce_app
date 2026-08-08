@@ -15,4 +15,5 @@ class RouteNames {
   static const faqsScreen = '/faqsScreen';
   static const verifyOldPasswordScreen = '/verifyOldPasswordScreen';
   static const changePasswordNewScreen = '/changePasswordNewScreen';
+  static const newPasswordSetSuccessfully= '/newPasswordSetSuccessfully';
 }

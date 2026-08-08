@@ -36,7 +36,7 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // ---- Top: fixed header row (title + cancel icon) ----
+        // ---- Top: header row (title + cancel icon) ----
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
@@ -63,8 +63,8 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
                   l10n.sortBy,
                   style: AppTextStyles.body2Medium.copyWith(
                     decoration: TextDecoration.underline,
-                    decorationColor: Colors.black,
-                    decorationThickness: 3.0,
+                    decorationColor: AppColors.whiteInDark(brightness),
+                    decorationThickness: 1.0,
                     decorationStyle: TextDecorationStyle.solid,
                   ),
                 ),
@@ -101,13 +101,13 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
                   }).toList(),
                 ),
                 const SizedBox(height: 5),
-                const Divider(color: AppColors.black),
+                Divider(color: AppColors.grey150(brightness)),
               ],
             ),
           ),
         ),
 
-        // ---- Bottom: fixed Apply button ----
+        // ---- Apply button ----
         if (selectedSort != null)
           Padding(
             padding: const EdgeInsets.all(10),

@@ -35,177 +35,223 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final brightness = context.brightness;
     final isRtl = context.isRtl;
+    final l10n = context.l10n;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: AppColors.cyan,
-        statusBarIconBrightness: Brightness.light, // Android icons
-        statusBarBrightness: Brightness.dark, // iOS status bar text/icons
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
       ),
       child: Scaffold(
         backgroundColor: AppColors.cyan,
         body: SafeArea(
           child: Column(
             children: [
-              _buildHeader(brightness, isRtl),
-              Expanded(child: _buildContent(context, brightness)),
+              // ---------------- HEADER ----------------
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 21),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                        color: AppColors.cyan50(brightness),
+                      ),
+                      child: const Icon(Icons.person),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            userProfileModel.name,
+                            style: AppTextStyles.button1.copyWith(
+                              color: AppColors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            userProfileModel.email,
+                            style: AppTextStyles.button2.copyWith(
+                              color: AppColors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        context.read<ProfileCubit>().logout();
+                      },
+                      icon: Transform.flip(
+                        flipX: isRtl,
+                        child: SvgPicture.asset(
+                          AppIcons.logout,
+                          width: 32,
+                          height: 32,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // ---------------- CONTENT ----------------
+              Expanded(
+                child: AnimatedContainer(
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.linear,
+                  width: double.infinity,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    color: AppColors.blackInDark(brightness),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
+                    ),
+                  ),
+                  child: ListView(
+                    children: [
+                      SectionTitle(l10n.personalInformation),
+                      SettingsTile(
+                        icon: SvgPicture.asset(
+                          AppIcons.shipping(brightness),
+                          width: 24,
+                          height: 24,
+                        ),
+                        title: l10n.shippingAddress,
+                        onTap: () {},
+                      ),
+                      SettingsTile(
+                        icon: SvgPicture.asset(
+                          AppIcons.payment(brightness),
+                          width: 24,
+                          height: 24,
+                        ),
+                        title: l10n.paymentMethod,
+                        onTap: () {},
+                      ),
+                      SettingsTile(
+                        icon: SvgPicture.asset(
+                          AppIcons.orderHistory(brightness),
+                          width: 24,
+                          height: 24,
+                        ),
+                        title: l10n.orderHistory,
+                        onTap: () {},
+                      ),
+                      SectionTitle(l10n.supportAndInformation),
+                      SettingsTile(
+                        icon: SvgPicture.asset(
+                          AppIcons.policy(brightness),
+                          width: 24,
+                          height: 24,
+                        ),
+                        title: l10n.privacyPolicy,
+                        onTap: () {
+                          context.pushNamed(RouteNames.privacyPolicyScreen);
+                        },
+                      ),
+                      SettingsTile(
+                        icon: SvgPicture.asset(
+                          AppIcons.term(brightness),
+                          width: 24,
+                          height: 24,
+                        ),
+                        title: l10n.termsAndConditions,
+                        onTap: () {
+                          context.pushNamed(
+                            RouteNames.termsAndConditionsScreen,
+                          );
+                        },
+                      ),
+                      SettingsTile(
+                        icon: SvgPicture.asset(
+                          AppIcons.faq(brightness),
+                          width: 24,
+                          height: 24,
+                        ),
+                        title: l10n.faqs,
+                        onTap: () {
+                          context.pushNamed(RouteNames.faqsScreen);
+                        },
+                      ),
+                      SettingsTile(
+                        icon: SvgPicture.asset(
+                          AppIcons.whatsApp,
+                          width: 24,
+                          height: 24,
+                        ),
+                        title: l10n.contactUs,
+                        onTap: () {
+                          openWhatsApp(
+                            phoneNumber: '97337355013',
+                            message: l10n.whatsappHelpMessage,
+                          );
+                        },
+                      ),
+                      SectionTitle(l10n.accountManagement),
+                      SettingsTile(
+                        icon: SvgPicture.asset(
+                          AppIcons.changePassword(brightness),
+                          width: 24,
+                          height: 24,
+                        ),
+                        title: l10n.changePassword,
+                        onTap: () {
+                          context.pushNamed(RouteNames.verifyOldPasswordScreen);
+                        },
+                      ),
+                      LanguageTile(
+                        leadingColorIcon: AppColors.grey150Light,
+                        titleStyle: AppTextStyles.body2Medium.copyWith(
+                          color: AppColors.grey150(brightness),
+                        ),
+                      ),
+                      Divider(
+                        height: 1,
+                        thickness: 1,
+                        color: AppColors.grey50(brightness),
+                      ),
+                      SettingsTile(
+                        icon: SvgPicture.asset(
+                          AppIcons.theme(brightness),
+                          width: 24,
+                          height: 24,
+                        ),
+                        title: l10n.darkTheme,
+                        trailing: BlocBuilder<ThemeCubit, ThemeMode>(
+                          builder: (context, themeMode) {
+                            return SizedBox(
+                              width: 30,
+                              child: FittedBox(
+                                child: Switch(
+                                  value: themeMode == ThemeMode.dark,
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  padding: EdgeInsets.zero,
+                                  onChanged: (value) {
+                                    context.read<ThemeCubit>().toggleTheme();
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  // ---------------- HEADER ----------------
-  Widget _buildHeader(Brightness brightness, bool isRtl) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 21),
-      child: Row(
-        children: [
-          Container(
-            height: 40,
-            width: 40,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              color: AppColors.grey50(brightness),
-            ),
-            child: const Icon(Icons.person),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  userProfileModel.name,
-                  style: AppTextStyles.button1.copyWith(color: AppColors.white),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  userProfileModel.email,
-                  style: AppTextStyles.button2.copyWith(color: AppColors.white),
-                ),
-              ],
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              context.read<ProfileCubit>().logout();
-            },
-            icon: Transform.flip(
-              flipX: isRtl,
-              child: SvgPicture.asset(AppIcons.logout, width: 32, height: 32),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ---------------- CONTENT ----------------
-  Widget _buildContent(BuildContext context, Brightness brightness) {
-    final l10n = context.l10n;
-
-    return AnimatedContainer(
-      duration: const Duration(seconds: 1),
-      curve: Curves.linear,
-      width: double.infinity,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        color: AppColors.blackInDark(brightness),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
-        ),
-      ),
-      child: ListView(
-        children: [
-          SectionTitle(l10n.personalInformation),
-          SettingsTile(
-            icon: Icons.local_shipping_outlined,
-            title: l10n.shippingAddress,
-            onTap: () {},
-          ),
-          SettingsTile(
-            icon: Icons.credit_card_outlined,
-            title: l10n.paymentMethod,
-            onTap: () {},
-          ),
-          SettingsTile(
-            icon: Icons.receipt_long_outlined,
-            title: l10n.orderHistory,
-            onTap: () {},
-          ),
-          SectionTitle(l10n.supportAndInformation),
-          SettingsTile(
-            icon: Icons.verified_user_outlined,
-            title: l10n.privacyPolicy,
-            onTap: () {
-              context.pushNamed(RouteNames.privacyPolicyScreen);
-            },
-          ),
-          SettingsTile(
-            icon: Icons.description_outlined,
-            title: l10n.termsAndConditions,
-            onTap: () {
-              context.pushNamed(RouteNames.termsAndConditionsScreen);
-            },
-          ),
-          SettingsTile(
-            icon: Icons.help_outline_rounded,
-            title: l10n.faqs,
-            onTap: () {
-              context.pushNamed(RouteNames.faqsScreen);
-            },
-          ),
-          SettingsTile(
-            icon: Icons.chat_outlined,
-            title: l10n.contactUs,
-            onTap: () {
-              openWhatsApp(
-                phoneNumber: '97337355013',
-                message: l10n.whatsappHelpMessage,
-              );
-            },
-          ),
-          SectionTitle(l10n.accountManagement),
-          SettingsTile(
-            icon: Icons.lock_outline_rounded,
-            title: l10n.changePassword,
-            onTap: () {
-              context.pushNamed(RouteNames.verifyOldPasswordScreen);
-            },
-          ),
-          LanguageTile(
-            leadingColorIcon: AppColors.grey150Light,
-            titleStyle: AppTextStyles.body2Medium.copyWith(
-              color: AppColors.grey150(brightness),
-            ),
-          ),
-          Divider(height: 1, thickness: 1, color: AppColors.grey50(brightness)),
-          SettingsTile(
-            icon: Icons.dark_mode_outlined,
-            title: l10n.darkTheme,
-            trailing: BlocBuilder<ThemeCubit, ThemeMode>(
-              builder: (context, themeMode) {
-                return SizedBox(
-                  width: 30,
-                  child: FittedBox(
-                    child: Switch(
-                      value: themeMode == ThemeMode.dark,
-                      materialTapTargetSize: MaterialTapTargetSize
-                          .shrinkWrap, // removes extra padding
-                      padding: EdgeInsets.zero,
-                      onChanged: (value) {
-                        context.read<ThemeCubit>().toggleTheme();
-                      },
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
       ),
     );
   }

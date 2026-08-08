@@ -1,3 +1,6 @@
+import 'package:ecommerce_app/core/auth/widgets/auth_switch_header.dart';
+import 'package:ecommerce_app/core/auth/widgets/google_auth_button.dart';
+import 'package:ecommerce_app/core/auth/widgets/password_form_field.dart';
 import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/helpers/regex.dart';
@@ -7,7 +10,6 @@ import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/required_lable.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/logic/login_state.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -43,31 +45,12 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 SvgPicture.asset(AppImages.logo(brightness)),
                 const SizedBox(height: 24),
-                Text(l10n.login, style: AppTextStyles.headingH2Bold),
-                const SizedBox(height: 8),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: l10n.dontHaveAccount,
-                        style: AppTextStyles.body2Regular.copyWith(
-                          color: AppColors.grey150(brightness),
-                        ),
-                      ),
-                      TextSpan(
-                        text: l10n.signup,
-                        style: AppTextStyles.body2Medium.copyWith(
-                          color: AppColors.cyan,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            context.pushReplacementNamed(
-                              RouteNames.registerScreen,
-                            );
-                          },
-                      ),
-                    ],
-                  ),
+                AuthSwitchHeader(
+                  title: l10n.login,
+                  promptText: l10n.dontHaveAccount,
+                  actionText: l10n.signup,
+                  onActionTap: () =>
+                      context.pushReplacementNamed(RouteNames.registerScreen),
                 ),
                 const SizedBox(height: 32),
                 BlocConsumer<LoginCubit, LoginState>(
@@ -127,34 +110,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(height: 16),
                             RequiredLabel(l10n.password),
                             const SizedBox(height: 8),
-                            ValueListenableBuilder(
-                              valueListenable: _isPasswordVisible,
-                              builder: (context, value, child) {
-                                return TextFormField(
-                                  controller: cubit.passwordController,
-                                  obscureText: !value,
-                                  decoration: InputDecoration(
-                                    hintText: l10n.enterYourPassword,
-                                    suffixIcon: IconButton(
-                                      onPressed: () =>
-                                          _isPasswordVisible.value = !value,
-                                      icon: SvgPicture.asset(
-                                        value
-                                            ? AppIcons.eyeOpen(brightness)
-                                            : AppIcons.eyeOff(brightness),
-                                        width: 24,
-                                        height: 24,
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                  validator: (value) {
-                                    if (value.isNullOrEmpty()) {
-                                      return l10n.passwordRequired;
-                                    }
-                                    return null;
-                                  },
-                                );
+                            PasswordFormField(
+                              controller: cubit.passwordController,
+                              isVisible: _isPasswordVisible,
+                              hintText: l10n.enterYourPassword,
+                              validator: (value) {
+                                if (value.isNullOrEmpty()) {
+                                  return l10n.passwordRequired;
+                                }
+                                return null;
                               },
                             ),
                             const SizedBox(height: 24),
@@ -186,28 +150,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   : Text(l10n.login),
                             ),
                             const SizedBox(height: 16),
-                            TextButton(
-                              onPressed: isLoading
-                                  ? null
-                                  : () async {
-                                      await cubit.continueWithGoogle();
-                                    },
-                              child: Row(
-                                mainAxisAlignment: .center,
-                                crossAxisAlignment: .center,
-                                children: [
-                                  if (isLoading)
-                                    const CircularProgressIndicator()
-                                  else ...[
-                                    Text(
-                                      l10n.loginWithGoogle,
-                                      style: AppTextStyles.button2,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    SvgPicture.asset(AppIcons.googleLight),
-                                  ],
-                                ],
-                              ),
+                            GoogleAuthButton(
+                              label: l10n.loginWithGoogle,
+                              isLoading: isLoading,
+                              onPressed: () async =>
+                                  await cubit.continueWithGoogle(),
                             ),
                           ],
                         ),

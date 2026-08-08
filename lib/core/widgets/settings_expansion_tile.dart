@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/helpers/extensions.dart';
+import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/settings_arrow_icon.dart';
@@ -40,6 +41,7 @@ class _SettingsExpansionTileState extends State<SettingsExpansionTile> {
   @override
   Widget build(BuildContext context) {
     final isRtl = context.isRtl;
+    final brightness = context.brightness;
 
     return Theme(
       data: Theme.of(context).copyWith(
@@ -77,7 +79,12 @@ class _SettingsExpansionTileState extends State<SettingsExpansionTile> {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.trailingText != null) ...[
-                Text(widget.trailingText!, style: AppTextStyles.body2Regular),
+                Text(
+                  widget.trailingText!,
+                  style: AppTextStyles.body2Regular.copyWith(
+                    color: AppColors.grey150(brightness),
+                  ),
+                ),
                 const SizedBox(width: 10),
               ],
 

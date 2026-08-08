@@ -14,6 +14,7 @@ import 'package:ecommerce_app/features/products/ui/screens/product_detail_screen
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:ecommerce_app/features/profile/ui/screens/change_password_new_screen.dart';
 import 'package:ecommerce_app/features/profile/ui/screens/faqs_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screens/password_success_screen.dart';
 import 'package:ecommerce_app/features/profile/ui/screens/privacy_policy_screen.dart';
 import 'package:ecommerce_app/features/profile/ui/screens/terms_and_conditions_screen.dart';
 import 'package:ecommerce_app/features/profile/ui/screens/verify_old_password_screen.dart';
@@ -105,6 +106,10 @@ class AppRouter {
             create: (context) => getIt<ProfileCubit>(),
             child: const ChangePasswordNewScreen(),
           ),
+        );
+      case RouteNames.newPasswordSetSuccessfully:
+        return MaterialPageRoute(
+          builder: (context) => const PasswordSuccessScreen(),
         );
       default:
         return MaterialPageRoute(
