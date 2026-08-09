@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:toastification/toastification.dart';
 
 class QuickMart extends StatelessWidget {
   final AppRouter appRouter;
@@ -22,51 +23,53 @@ class QuickMart extends StatelessWidget {
     final isFirstTime =
         sharedPreferences.getBool(key: StorageKeys.isFirstTime) ?? true;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark, // Android icons
-        statusBarBrightness: Brightness.light, // iOS
-      ),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider.value(value: getIt<ThemeCubit>()),
-          BlocProvider.value(value: getIt<LocaleCubit>()),
-        ],
-        child: BlocBuilder<ThemeCubit, ThemeMode>(
-          builder: (context, themeMode) {
-            return BlocBuilder<LocaleCubit, Locale>(
-              builder: (context, locale) {
-                return MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  onGenerateRoute: appRouter.generateRoute,
-                  theme: AppTheme.lightTheme,
-                  darkTheme: AppTheme.darkTheme,
-                  themeMode: themeMode,
-                  locale: locale,
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  initialRoute: isFirstTime
-                      ? RouteNames.onBoardingScreen
-                      : RouteNames.appAuthState,
-                  builder: (context, child) {
-                    return AnimatedTheme(
-                      data: themeMode == ThemeMode.dark
-                          ? AppTheme.darkTheme
-                          : AppTheme.lightTheme,
-                      duration: const Duration(milliseconds: 300),
-                      child: child!,
-                    );
-                  },
-                );
-              },
-            );
-          },
+    return ToastificationWrapper(
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark, // Android icons
+          statusBarBrightness: Brightness.light, // iOS
+        ),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: getIt<ThemeCubit>()),
+            BlocProvider.value(value: getIt<LocaleCubit>()),
+          ],
+          child: BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, themeMode) {
+              return BlocBuilder<LocaleCubit, Locale>(
+                builder: (context, locale) {
+                  return MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    onGenerateRoute: appRouter.generateRoute,
+                    theme: AppTheme.lightTheme,
+                    darkTheme: AppTheme.darkTheme,
+                    themeMode: themeMode,
+                    locale: locale,
+                    supportedLocales: AppLocalizations.supportedLocales,
+                    localizationsDelegates: const [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
+                    initialRoute: isFirstTime
+                        ? RouteNames.onBoardingScreen
+                        : RouteNames.appAuthState,
+                    builder: (context, child) {
+                      return AnimatedTheme(
+                        data: themeMode == ThemeMode.dark
+                            ? AppTheme.darkTheme
+                            : AppTheme.lightTheme,
+                        duration: const Duration(milliseconds: 300),
+                        child: child!,
+                      );
+                    },
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );

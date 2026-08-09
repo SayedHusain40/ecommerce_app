@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/core/helpers/countdown_timer_controller.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
@@ -86,17 +87,16 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                 state.whenOrNull(
                   sendEmailVerification: () {
                     _countdown.start();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(l10n.verificationEmailSentSuccess),
-                      ),
+
+                    AppToast.success(
+                      context,
+                      l10n.verificationEmailSentSuccess,
                     );
                   },
                   sendEmailFailure: (appFailure) {
                     setState(() => isResendEnabled = true);
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(appFailure.message)));
+
+                    AppToast.error(context, appFailure.message);
                   },
                 );
               },

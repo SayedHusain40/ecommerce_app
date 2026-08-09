@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/auth/widgets/password_form_field.dart';
-import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/errors/app_failure.dart';
+import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/helpers/regex.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
@@ -12,7 +12,6 @@ import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ChangePasswordNewScreen extends StatefulWidget {
   const ChangePasswordNewScreen({super.key});
@@ -77,9 +76,7 @@ class _ChangePasswordNewScreenState extends State<ChangePasswordNewScreen> {
                       context.pushNamed(RouteNames.newPasswordSetSuccessfully);
                     },
                     changePasswordFailure: (AppFailure appFailure) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(appFailure.message)),
-                      );
+                      AppToast.error(context, appFailure.message);
 
                       // Force the form to re-run the validator now that
                       // cubit.state reflects the failure.

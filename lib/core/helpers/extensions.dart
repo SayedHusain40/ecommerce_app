@@ -24,6 +24,9 @@ extension Navigation on BuildContext {
 
   void pop({bool rootNavigator = false}) =>
       Navigator.of(this, rootNavigator: rootNavigator).pop();
+
+  bool canPop({bool rootNavigator = false}) =>
+      Navigator.of(this, rootNavigator: rootNavigator).canPop();
 }
 
 extension AppContextX on BuildContext {

@@ -3,9 +3,8 @@ import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/widgets/custom_curved_edges.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
-import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
+import 'package:ecommerce_app/features/products/ui/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -81,34 +80,7 @@ class ProductImageGallery extends StatelessWidget {
                       fit: BoxFit.contain,
                     ),
                   ),
-                  CircleAvatar(
-                    backgroundColor: AppColors.whiteInDark(brightness),
-                    foregroundColor: AppColors.blackInDark(brightness),
-                    radius: 16,
-                    child: BlocBuilder<WishlistCubit, List<ProductModel>>(
-                      builder: (context, _) {
-                        final isFavorite = context
-                            .read<WishlistCubit>()
-                            .isFavorite(productId: productModel.id);
-
-                        return IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () {
-                            context.read<WishlistCubit>().toggleFavoriteProduct(
-                              productModel: productModel,
-                            );
-                          },
-                          icon: Icon(
-                            isFavorite
-                                ? Icons.favorite
-                                : Icons.favorite_border_outlined,
-                            size: 12,
-                            color: isFavorite ? AppColors.red : null,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  FavoriteButton(productModel: productModel, radius: 16),
                 ],
               ),
             ),

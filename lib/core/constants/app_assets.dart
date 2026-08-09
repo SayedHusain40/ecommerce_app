@@ -145,6 +145,30 @@ class AppIcons {
 
   static const String whatsApp = 'assets/svgs/settings/whats-app.svg';
 
+    static String changePassword(Brightness b) =>
+      b == Brightness.dark ? changePasswordDark : changePasswordLight;
+
+  static String faq(Brightness b) =>
+      b == Brightness.dark ? faqDark : faqLight;
+
+  static String orderHistory(Brightness b) =>
+      b == Brightness.dark ? orderHistoryDark : orderHistoryLight;
+
+  static String policy(Brightness b) =>
+      b == Brightness.dark ? policyDark : policyLight;
+
+  static String shipping(Brightness b) =>
+      b == Brightness.dark ? shippingDark : shippingLight;
+
+  static String payment(Brightness b) =>
+      b == Brightness.dark ? paymentDark : paymentLight;
+
+  static String term(Brightness b) =>
+      b == Brightness.dark ? termDark : termLight;
+
+  static String theme(Brightness b) =>
+      b == Brightness.dark ? themeDark : themeLight;
+
   // Helpers
   static String arrowLeft(Brightness b) =>
       b == Brightness.dark ? arrowLeftDark : arrowLeftLight;
@@ -188,28 +212,30 @@ class AppIcons {
   static String inactiveProfile(Brightness b) =>
       b == Brightness.dark ? inactiveProfileDark : inactiveProfileWhite;
 
-  // Settings
-  static String changePassword(Brightness b) =>
-      b == Brightness.dark ? changePasswordDark : changePasswordLight;
+    
+    // TOAST
+  static const String successDark = 'assets/svgs/toast/success-dark.svg';
+  static const String successLight = 'assets/svgs/toast/success-light.svg';
 
-  static String faq(Brightness b) =>
-      b == Brightness.dark ? faqDark : faqLight;
+  static const String errorDark = 'assets/svgs/toast/error-dark.svg';
+  static const String errorLight = 'assets/svgs/toast/error-light.svg';
 
-  static String orderHistory(Brightness b) =>
-      b == Brightness.dark ? orderHistoryDark : orderHistoryLight;
+  static const String warningDark = 'assets/svgs/toast/warning-dark.svg';
+  static const String warningLight = 'assets/svgs/toast/warning-light.svg';
 
-  static String policy(Brightness b) =>
-      b == Brightness.dark ? policyDark : policyLight;
+  static const String infoDark = 'assets/svgs/toast/info-dark.svg';
+  static const String infoLight = 'assets/svgs/toast/info-light.svg';
 
-  static String shipping(Brightness b) =>
-      b == Brightness.dark ? shippingDark : shippingLight;
+  // Helpers
+  static String toastSuccess(Brightness b) =>
+      b == Brightness.dark ? successDark : successLight;
 
-  static String payment(Brightness b) =>
-      b == Brightness.dark ? paymentDark : paymentLight;
+  static String toastError(Brightness b) =>
+      b == Brightness.dark ? errorDark : errorLight;
 
-  static String term(Brightness b) =>
-      b == Brightness.dark ? termDark : termLight;
+  static String toastWarning(Brightness b) =>
+      b == Brightness.dark ? warningDark : warningLight;
 
-  static String theme(Brightness b) =>
-      b == Brightness.dark ? themeDark : themeLight;
+  static String toastInfo(Brightness b) =>
+      b == Brightness.dark ? infoDark : infoLight;
 }

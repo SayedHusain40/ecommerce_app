@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: const AppDrawer(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const .symmetric(horizontal: 16),
         child: CustomScrollView(
           slivers: [
             // Browse categories

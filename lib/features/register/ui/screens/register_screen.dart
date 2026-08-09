@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/auth/widgets/auth_switch_header.dart';
 import 'package:ecommerce_app/core/auth/widgets/google_auth_button.dart';
 import 'package:ecommerce_app/core/auth/widgets/password_form_field.dart';
 import 'package:ecommerce_app/core/constants/app_assets.dart';
+import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/helpers/regex.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
@@ -57,9 +58,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   listener: (context, state) {
                     state.whenOrNull(
                       registerSuccess: (message) async {
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(content: Text(message)));
+                        AppToast.success(context, message);
+
                         context.pushNamedAndRemoveUntil(
                           RouteNames.appAuthState,
                           arguments: true,
@@ -67,9 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         );
                       },
                       registerFailure: (appFailure) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(appFailure.message)),
-                        );
+                        AppToast.error(context, appFailure.message);
                       },
                     );
                   },
