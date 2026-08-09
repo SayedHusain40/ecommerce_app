@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/core/helpers/countdown_timer_controller.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/helpers/regex.dart';
@@ -52,14 +53,10 @@ class _ConfirmationEmailScreenState extends State<ConfirmationEmailScreen> {
             sendPasswordResetEmailSuccess: (message) {
               setState(() => isResendEnabled = false);
               _countdown.start();
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(message)));
+              AppToast.success(context, message);
             },
             sendPasswordResetEmailFailure: (failure) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(failure.message)));
+              AppToast.error(context, failure.message);
             },
           );
         },

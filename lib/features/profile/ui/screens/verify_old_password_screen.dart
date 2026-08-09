@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/core/auth/widgets/password_form_field.dart';
-import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/errors/app_failure.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';

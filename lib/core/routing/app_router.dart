@@ -78,8 +78,11 @@ class AppRouter {
       case RouteNames.productDetailScreen:
         final productModel = settings.arguments as ProductModel;
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: getIt<WishlistCubit>(),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: getIt<WishlistCubit>()),
+              BlocProvider.value(value: getIt<NavCubit>()),
+            ],
             child: ProductDetailScreen(productModel: productModel),
           ),
         );

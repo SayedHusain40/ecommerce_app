@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card_shimmer.dart';
@@ -26,9 +27,9 @@ class ProductsGridView<T extends Cubit<ProductState>> extends StatelessWidget {
       listenWhen: (previous, current) => current is ProductsFailure,
       listener: (context, state) {
         state.whenOrNull(
-          failure: (_) => ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(l10n.failedToGetProducts))),
+          failure: (_) {
+            AppToast.error(context, l10n.failedToGetProducts);
+          },
         );
       },
       builder: (context, state) {
