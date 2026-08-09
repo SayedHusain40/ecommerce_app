@@ -7,6 +7,7 @@ import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/network/api/api_service.dart';
 import 'package:ecommerce_app/core/network/api/dio_factory.dart';
 import 'package:ecommerce_app/core/network/connection/network_info.dart';
+import 'package:ecommerce_app/core/storage/hive_service.dart';
 import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
 import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
 import 'package:ecommerce_app/features/categories/data/repos/category_repo.dart';
@@ -30,6 +31,7 @@ import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
@@ -41,6 +43,11 @@ Future<void> setUpGetIt(FirebaseConfig config) async {
   getIt.registerLazySingleton<SharedPreferencesService>(
     () => SharedPreferencesService(getIt()),
   );
+
+  // Hive
+  final wishlistBox = await Hive.openBox<String>('wishlistBox');
+  getIt.registerLazySingleton<Box<String>>(() => wishlistBox);
+  getIt.registerLazySingleton<HiveService>(() => HiveService(getIt()));
 
   // Connectivity Checker
   getIt.registerLazySingleton<DataConnectionChecker>(

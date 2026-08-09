@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/constants/app_assets.dart';
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,7 +19,7 @@ class AppToast {
     bool showAtTop = true,
     double navBarHeight = _navBarHeight,
   }) {
-    final b = Theme.of(context).brightness;
+    final b = context.brightness;
     _show(
       context,
       message: message,
@@ -39,7 +40,7 @@ class AppToast {
     bool showAtTop = true,
     double navBarHeight = _navBarHeight,
   }) {
-    final b = Theme.of(context).brightness;
+    final b = context.brightness;
     _show(
       context,
       message: message,
@@ -60,7 +61,7 @@ class AppToast {
     bool showAtTop = true,
     double navBarHeight = _navBarHeight,
   }) {
-    final b = Theme.of(context).brightness;
+    final b = context.brightness;
     _show(
       context,
       message: message,
@@ -81,7 +82,7 @@ class AppToast {
     bool showAtTop = true,
     double navBarHeight = _navBarHeight,
   }) {
-    final b = Theme.of(context).brightness;
+    final b = context.brightness;
     _show(
       context,
       message: message,
@@ -104,12 +105,13 @@ class AppToast {
     bool showAtTop = true,
     double navBarHeight = _navBarHeight,
   }) {
-    final brightness = Theme.of(context).brightness;
+    final brightness = context.brightness;
 
     toastification.showCustom(
       context: context,
       alignment: showAtTop ? Alignment.topCenter : Alignment.bottomCenter,
       autoCloseDuration: const Duration(seconds: 3),
+
       builder: (context, holder) {
         return Container(
           constraints: const BoxConstraints(minHeight: 46),
