@@ -1,7 +1,7 @@
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/features/onboarding/data/onboarding_data.dart';
 import 'package:ecommerce_app/features/onboarding/ui/widgets/onboarding_item.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -23,7 +23,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
     final pages = OnboardingData.pages(l10n);
 
     return Scaffold(

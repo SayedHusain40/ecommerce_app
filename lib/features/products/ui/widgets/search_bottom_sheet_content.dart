@@ -7,7 +7,6 @@ import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -46,8 +45,8 @@ class _SearchBottomSheetContentState extends State<SearchBottomSheetContent> {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final l10n = AppLocalizations.of(context)!;
+    final brightness = context.brightness;
+    final l10n = context.l10n;
 
     return Builder(
       builder: (innerContext) {

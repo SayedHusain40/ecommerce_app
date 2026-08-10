@@ -60,6 +60,9 @@ dependencies:
     sdk: flutter
   intl: any
   url_launcher: ^6.3.2
+  toastification: ^3.2.0
+  hive_ce: ^2.19.3
+  hive_ce_flutter: ^2.3.4
 
 dev_dependencies:
   flutter_test:
@@ -91,11 +94,14 @@ flutter:
     - assets/images/
     - assets/svgs/
     - assets/svgs/nav/
+    - assets/svgs/settings/
+    - assets/svgs/toast/
     - assets/images/onboardings/
     - assets/images/native_splashes/
     - assets/images/banners/
     - assets/images/flags/
     - assets/images/empty/
+    - assets/images/success/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

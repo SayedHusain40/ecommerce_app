@@ -1,14 +1,14 @@
 import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
-import 'package:ecommerce_app/features/profile/ui/screen/profile_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screens/profile_screen.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
-import 'package:ecommerce_app/features/wishlist/ui/screen/wish_list_screen.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
+import 'package:ecommerce_app/features/wishlist/ui/screens/wish_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -58,8 +58,8 @@ class _MainNavScreenState extends State<MainNavScreen> {
   @override
   Widget build(BuildContext context) {
     final navCubit = context.read<NavCubit>();
-    final l10n = AppLocalizations.of(context)!;
-    final brightness = Theme.of(context).brightness;
+    final l10n = context.l10n;
+    final brightness = context.brightness;
 
     return BlocBuilder<NavCubit, NavModel>(
       buildWhen: (previous, current) =>

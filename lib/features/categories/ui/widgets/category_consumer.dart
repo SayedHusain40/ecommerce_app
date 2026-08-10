@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/features/categories/data/model/category_model.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_state.dart';
@@ -24,9 +25,7 @@ class CategoryConsumer extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           getCategoryFailure: (appFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Failed to get Category')),
-            );
+            AppToast.error(context, 'Failed to get Category');
           },
         );
       },

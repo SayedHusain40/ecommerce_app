@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/constants/app_assets.dart';
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -42,8 +43,8 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
+    final brightness = context.brightness;
+    final isRtl = context.isRtl;
 
     return AppBar(
       scrolledUnderElevation: 0,
@@ -55,9 +56,8 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? SvgPicture.asset(AppImages.logo(brightness))
           : null,
       centerTitle: centerTitle,
-      titleSpacing: showBackButton ? 0 : NavigationToolbar.kMiddleSpacing,
       actions: actions,
-      actionsPadding: const EdgeInsets.only(right: 16),
+      actionsPadding: const EdgeInsetsDirectional.only(end: 16),
       backgroundColor: backgroundColor,
       automaticallyImplyLeading: true,
       bottom: addLine
@@ -75,6 +75,7 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : null,
+      titleSpacing: showBackButton ? 0 : NavigationToolbar.kMiddleSpacing,
     );
   }
 }

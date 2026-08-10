@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -6,14 +7,10 @@ class ProductCardShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    final isDark = context.isDark;
 
-    final baseColor = brightness == Brightness.dark
-        ? Colors.grey[800]!
-        : Colors.grey[300]!;
-    final highlightColor = brightness == Brightness.dark
-        ? Colors.grey[600]!
-        : Colors.grey[100]!;
+    final baseColor = isDark ? Colors.grey[800]! : Colors.grey[300]!;
+    final highlightColor = isDark ? Colors.grey[600]! : Colors.grey[100]!;
 
     return Shimmer.fromColors(
       baseColor: baseColor,

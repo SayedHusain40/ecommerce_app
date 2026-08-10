@@ -4,7 +4,6 @@ import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/expandable_list.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_checkbox/flutter_checkbox.dart';
@@ -31,13 +30,13 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final l10n = AppLocalizations.of(context)!;
+    final brightness = context.brightness;
+    final l10n = context.l10n;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // ---- Top: fixed header row (title + cancel icon) ----
+        // ---- Top: header row (title + cancel icon) ----
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
@@ -64,8 +63,8 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
                   l10n.sortBy,
                   style: AppTextStyles.body2Medium.copyWith(
                     decoration: TextDecoration.underline,
-                    decorationColor: Colors.black,
-                    decorationThickness: 3.0,
+                    decorationColor: AppColors.whiteInDark(brightness),
+                    decorationThickness: 1.0,
                     decorationStyle: TextDecorationStyle.solid,
                   ),
                 ),
@@ -102,13 +101,13 @@ class _FilterContentBottomSheetState extends State<FilterContentBottomSheet> {
                   }).toList(),
                 ),
                 const SizedBox(height: 5),
-                const Divider(color: AppColors.black),
+                Divider(color: AppColors.grey150(brightness)),
               ],
             ),
           ),
         ),
 
-        // ---- Bottom: fixed Apply button ----
+        // ---- Apply button ----
         if (selectedSort != null)
           Padding(
             padding: const EdgeInsets.all(10),

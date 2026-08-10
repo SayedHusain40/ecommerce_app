@@ -23,6 +23,10 @@ class AppImages {
   static const String usFlag = 'assets/images/flags/us.png';
   static const String saFlag = 'assets/images/flags/sa.png';
 
+  // success
+  static const String newPasswordSetSuccessfully = 'assets/images/success/new_password_set _successfully.png';
+
+
   // Helpers
   static String logo(Brightness b) =>
       b == Brightness.dark ? logoDark : logoLight;
@@ -113,6 +117,58 @@ class AppIcons {
   static const String inactiveProfileDark =
       'assets/svgs/nav/inactive-profile-dark.svg';
 
+  
+    // SETTINGS TILE ICONS
+  static const String changePasswordDark = 'assets/svgs/settings/change-password-dark.svg';
+  static const String changePasswordLight = 'assets/svgs/settings/change-password-light.svg'; // double dash in filename, fix if possible
+
+  static const String faqDark = 'assets/svgs/settings/faq-dark.svg';
+  static const String faqLight = 'assets/svgs/settings/faq-light.svg';
+
+  static const String orderHistoryDark = 'assets/svgs/settings/order-history-dark.svg';
+  static const String orderHistoryLight = 'assets/svgs/settings/order-history-light.svg';
+
+  static const String paymentDark = 'assets/svgs/settings/payment-dark.svg'; 
+  static const String paymentLight = 'assets/svgs/settings/payment-light.svg';
+
+  static const String policyDark = 'assets/svgs/settings/policy-dark.svg';
+  static const String policyLight = 'assets/svgs/settings/policy-light.svg';
+
+  static const String shippingDark = 'assets/svgs/settings/shipping-dark.svg';
+  static const String shippingLight = 'assets/svgs/settings/shipping-light.svg';
+
+  static const String termDark = 'assets/svgs/settings/term-dark.svg';
+  static const String termLight = 'assets/svgs/settings/term-light.svg';
+
+  static const String themeDark = 'assets/svgs/settings/theme-dark.svg';
+  static const String themeLight = 'assets/svgs/settings/theme-light.svg';
+
+  static const String whatsApp = 'assets/svgs/settings/whats-app.svg';
+
+    static String changePassword(Brightness b) =>
+      b == Brightness.dark ? changePasswordDark : changePasswordLight;
+
+  static String faq(Brightness b) =>
+      b == Brightness.dark ? faqDark : faqLight;
+
+  static String orderHistory(Brightness b) =>
+      b == Brightness.dark ? orderHistoryDark : orderHistoryLight;
+
+  static String policy(Brightness b) =>
+      b == Brightness.dark ? policyDark : policyLight;
+
+  static String shipping(Brightness b) =>
+      b == Brightness.dark ? shippingDark : shippingLight;
+
+  static String payment(Brightness b) =>
+      b == Brightness.dark ? paymentDark : paymentLight;
+
+  static String term(Brightness b) =>
+      b == Brightness.dark ? termDark : termLight;
+
+  static String theme(Brightness b) =>
+      b == Brightness.dark ? themeDark : themeLight;
+
   // Helpers
   static String arrowLeft(Brightness b) =>
       b == Brightness.dark ? arrowLeftDark : arrowLeftLight;
@@ -155,4 +211,31 @@ class AppIcons {
 
   static String inactiveProfile(Brightness b) =>
       b == Brightness.dark ? inactiveProfileDark : inactiveProfileWhite;
+
+    
+    // TOAST
+  static const String successDark = 'assets/svgs/toast/success-dark.svg';
+  static const String successLight = 'assets/svgs/toast/success-light.svg';
+
+  static const String errorDark = 'assets/svgs/toast/error-dark.svg';
+  static const String errorLight = 'assets/svgs/toast/error-light.svg';
+
+  static const String warningDark = 'assets/svgs/toast/warning-dark.svg';
+  static const String warningLight = 'assets/svgs/toast/warning-light.svg';
+
+  static const String infoDark = 'assets/svgs/toast/info-dark.svg';
+  static const String infoLight = 'assets/svgs/toast/info-light.svg';
+
+  // Helpers
+  static String toastSuccess(Brightness b) =>
+      b == Brightness.dark ? successDark : successLight;
+
+  static String toastError(Brightness b) =>
+      b == Brightness.dark ? errorDark : errorLight;
+
+  static String toastWarning(Brightness b) =>
+      b == Brightness.dark ? warningDark : warningLight;
+
+  static String toastInfo(Brightness b) =>
+      b == Brightness.dark ? infoDark : infoLight;
 }

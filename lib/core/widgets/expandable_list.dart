@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/l10n/app_localizations.dart';
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableList extends StatefulWidget {
@@ -23,7 +23,7 @@ class _ExpandableListState extends State<ExpandableList> {
     final visibleItems = _expanded
         ? widget.items
         : widget.items.take(widget.collapsedCount).toList();
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
 
     return Column(
       children: [

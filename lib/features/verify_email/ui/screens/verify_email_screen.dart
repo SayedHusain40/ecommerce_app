@@ -1,9 +1,10 @@
+import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/core/helpers/countdown_timer_controller.dart';
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_state.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_state.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,7 +55,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
 
     return Scaffold(
       appBar: AppCustomAppBar(
@@ -86,17 +87,16 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                 state.whenOrNull(
                   sendEmailVerification: () {
                     _countdown.start();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(l10n.verificationEmailSentSuccess),
-                      ),
+
+                    AppToast.success(
+                      context,
+                      l10n.verificationEmailSentSuccess,
                     );
                   },
                   sendEmailFailure: (appFailure) {
                     setState(() => isResendEnabled = true);
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(appFailure.message)));
+
+                    AppToast.error(context, appFailure.message);
                   },
                 );
               },

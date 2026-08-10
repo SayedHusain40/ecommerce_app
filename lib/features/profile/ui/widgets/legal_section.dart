@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ class LegalPoint {
   final String point;
   const LegalPoint({required this.point});
 }
-
 
 class LegalSection extends StatelessWidget {
   final String number;
@@ -22,7 +22,7 @@ class LegalSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    final brightness = context.brightness;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),

@@ -7,16 +7,17 @@ import 'package:ecommerce_app/features/categories/ui/screens/category_screen.dar
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/ui/screens/confirmation_email_screen.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
-import 'package:ecommerce_app/features/login/ui/login_screen.dart';
+import 'package:ecommerce_app/features/login/ui/screens/login_screen.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
-import 'package:ecommerce_app/features/products/ui/widgets/product_detail_screen.dart';
+import 'package:ecommerce_app/features/products/ui/screens/product_detail_screen.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
-import 'package:ecommerce_app/features/profile/ui/screen/change_password_new_screen.dart';
-import 'package:ecommerce_app/features/profile/ui/screen/faqs_screen.dart';
-import 'package:ecommerce_app/features/profile/ui/screen/privacy_policy_screen.dart';
-import 'package:ecommerce_app/features/profile/ui/screen/terms_and_conditions_screen.dart';
-import 'package:ecommerce_app/features/profile/ui/screen/verify_old_password_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screens/change_password_new_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screens/faqs_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screens/password_success_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screens/privacy_policy_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screens/terms_and_conditions_screen.dart';
+import 'package:ecommerce_app/features/profile/ui/screens/verify_old_password_screen.dart';
 import 'package:ecommerce_app/features/register/logic/register_cubit.dart';
 import 'package:ecommerce_app/features/register/ui/screens/register_screen.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
@@ -77,8 +78,11 @@ class AppRouter {
       case RouteNames.productDetailScreen:
         final productModel = settings.arguments as ProductModel;
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: getIt<WishlistCubit>(),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: getIt<WishlistCubit>()),
+              BlocProvider.value(value: getIt<NavCubit>()),
+            ],
             child: ProductDetailScreen(productModel: productModel),
           ),
         );
@@ -105,6 +109,10 @@ class AppRouter {
             create: (context) => getIt<ProfileCubit>(),
             child: const ChangePasswordNewScreen(),
           ),
+        );
+      case RouteNames.newPasswordSetSuccessfully:
+        return MaterialPageRoute(
+          builder: (context) => const PasswordSuccessScreen(),
         );
       default:
         return MaterialPageRoute(

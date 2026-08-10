@@ -1,8 +1,9 @@
+import 'package:ecommerce_app/core/helpers/app_toast.dart';
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card_shimmer.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_grid.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_state.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,15 +21,15 @@ class ProductsGridView<T extends Cubit<ProductState>> extends StatelessWidget {
     Widget sliverSafe(Widget child) =>
         isSilver ? SliverToBoxAdapter(child: child) : child;
 
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
 
     return BlocConsumer<T, ProductState>(
       listenWhen: (previous, current) => current is ProductsFailure,
       listener: (context, state) {
         state.whenOrNull(
-          failure: (_) => ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(l10n.failedToGetProducts))),
+          failure: (_) {
+            AppToast.error(context, l10n.failedToGetProducts);
+          },
         );
       },
       builder: (context, state) {

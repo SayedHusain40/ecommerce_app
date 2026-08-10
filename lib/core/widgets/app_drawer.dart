@@ -3,10 +3,9 @@ import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/helpers/whatsapp_helper.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
-import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
+import 'package:ecommerce_app/core/widgets/drawer_menu_tile.dart';
 import 'package:ecommerce_app/core/widgets/language_tile.dart';
-import 'package:ecommerce_app/core/widgets/settings_arrow_icon.dart';
 import 'package:ecommerce_app/core/widgets/settings_expansion_tile.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_vertical_list.dart';
 import 'package:ecommerce_app/l10n/app_localizations.dart';
@@ -19,10 +18,10 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
-    final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
-    final l10n = AppLocalizations.of(context)!;
+    final isRtl = context.isRtl;
+    final brightness = context.brightness;
+    final isDark = context.isRtl;
+    final l10n = context.l10n;
 
     return SafeArea(
       child: Drawer(
@@ -72,7 +71,9 @@ class AppDrawer extends StatelessWidget {
                     minTileHeight: 64,
                     title: l10n.categories,
                     leadingColor: AppColors.grey150(brightness),
-                    leading: const Icon(Icons.grid_view_outlined),
+                    leading: SvgPicture.asset(
+                      AppIcons.inactiveCategory(brightness),
+                    ),
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -92,7 +93,9 @@ class AppDrawer extends StatelessWidget {
                     ),
                   ),
                   DrawerMenuTile(
-                    icon: Icons.shopping_cart_outlined,
+                    icon: SvgPicture.asset(
+                      AppIcons.inactiveShoppingCart(brightness),
+                    ),
                     title: l10n.cart,
                     onTap: () {
                       context.pop();
@@ -100,7 +103,11 @@ class AppDrawer extends StatelessWidget {
                     },
                   ),
                   DrawerMenuTile(
-                    icon: Icons.settings_outlined,
+                    icon: Icon(
+                      Icons.settings_outlined,
+                      size: 24,
+                      color: AppColors.grey150(brightness),
+                    ),
                     title: l10n.settings,
                     onTap: () {
                       context.pop();
@@ -108,12 +115,16 @@ class AppDrawer extends StatelessWidget {
                     },
                   ),
                   DrawerMenuTile(
-                    icon: Icons.inventory_2_outlined,
+                    icon: SvgPicture.asset(AppIcons.orderHistory(brightness)),
                     title: l10n.orders,
                     onTap: () {},
                   ),
                   DrawerMenuTile(
-                    icon: Icons.chat_outlined,
+                    icon: SvgPicture.asset(
+                      AppIcons.whatsApp,
+                      width: 24,
+                      height: 24,
+                    ),
                     title: l10n.contactUs,
                     onTap: () {
                       openWhatsApp(
@@ -138,7 +149,11 @@ class AppDrawer extends StatelessWidget {
                     ),
                   ),
                   DrawerMenuTile(
-                    icon: Icons.dark_mode_outlined,
+                    icon: SvgPicture.asset(
+                      AppIcons.theme(brightness),
+                      width: 24,
+                      height: 24,
+                    ),
                     title: l10n.darkTheme,
                     trailing: SizedBox(
                       width: 45,
@@ -158,43 +173,6 @@ class AppDrawer extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class DrawerMenuTile extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final VoidCallback? onTap;
-  final Widget? trailing;
-
-  const DrawerMenuTile({
-    super.key,
-    required this.icon,
-    required this.title,
-    this.onTap,
-    this.trailing,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-
-    return Column(
-      children: [
-        ListTile(
-          onTap: onTap,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-          minTileHeight: 64,
-          leading: Icon(icon, size: 22, color: AppColors.grey150(brightness)),
-          title: Text(title, style: AppTextStyles.body2Medium),
-          trailing: trailing ?? const SettingsArrowIcon(width: 15, height: 15),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Divider(height: 1, color: AppColors.grey50(brightness)),
-        ),
-      ],
     );
   }
 }

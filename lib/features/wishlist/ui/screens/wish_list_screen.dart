@@ -1,13 +1,12 @@
 import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
-import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_grid.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
+import 'package:ecommerce_app/features/wishlist/ui/widgets/empty_wish_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,7 +27,7 @@ class _WishListScreenState extends State<WishListScreen> {
   }
 
   void onDeleteProduct(int productID) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -65,7 +64,7 @@ class _WishListScreenState extends State<WishListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
 
     return Scaffold(
       appBar: AppCustomAppBar(
@@ -88,49 +87,16 @@ class _WishListScreenState extends State<WishListScreen> {
         child: BlocBuilder<WishlistCubit, List<ProductModel>>(
           builder: (context, wishList) {
             return wishList.isEmpty
-                ? const _EmptyWishlist()
+                ? const EmptyWishList()
                 : ProductGrid(
                     itemCount: wishList.length,
                     itemBuilder: (context, index) {
                       final productModel = wishList[index];
-                      return ProductCard(
-                        productModel: productModel,
-                        onDeleteProduct: () => onDeleteProduct(productModel.id),
-                      );
+                      return ProductCard(productModel: productModel);
                     },
                   );
           },
         ),
-      ),
-    );
-  }
-}
-
-class _EmptyWishlist extends StatelessWidget {
-  const _EmptyWishlist();
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(AppImages.emptyWishlist, width: 240, height: 240),
-          const SizedBox(height: 16),
-          Text(l10n.wishlistEmptyTitle, style: AppTextStyles.headingH2Bold),
-          const SizedBox(height: 16),
-          Text(l10n.wishlistEmptySubtitle, style: AppTextStyles.body2Regular),
-          const SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: () {
-              context.read<NavCubit>().changeNav(selectedNav: 1);
-            },
-            child: Text(l10n.exploreCategories),
-          ),
-        ],
       ),
     );
   }

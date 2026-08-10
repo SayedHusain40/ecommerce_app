@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/core/helpers/countdown_timer_controller.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/helpers/regex.dart';
@@ -7,7 +8,6 @@ import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/required_lable.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_state.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,8 +42,8 @@ class _ConfirmationEmailScreenState extends State<ConfirmationEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final l10n = AppLocalizations.of(context)!;
+    final brightness = context.brightness;
+    final l10n = context.l10n;
 
     return Scaffold(
       appBar: AppCustomAppBar(title: l10n.forgotPasswordTitle),
@@ -53,18 +53,10 @@ class _ConfirmationEmailScreenState extends State<ConfirmationEmailScreen> {
             sendPasswordResetEmailSuccess: (message) {
               setState(() => isResendEnabled = false);
               _countdown.start();
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(message)));
-              // context.pushNamedAndRemoveUntil(
-              //   RouteNames.loginScreen,
-              //   predicate: (route) => false,
-              // );
+              AppToast.success(context, message);
             },
             sendPasswordResetEmailFailure: (failure) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(failure.message)));
+              AppToast.error(context, failure.message);
             },
           );
         },

@@ -4,25 +4,25 @@ import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_cubit.dart';
-import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
+import 'package:ecommerce_app/features/products/ui/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel productModel;
   final bool saveSearch;
-  final VoidCallback? onDeleteProduct;
+  // final VoidCallback? onDeleteProduct;
 
   const ProductCard({
     super.key,
     required this.productModel,
     this.saveSearch = false,
-    this.onDeleteProduct,
+    // this.onDeleteProduct,
   });
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    final brightness = context.brightness;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -66,33 +66,7 @@ class ProductCard extends StatelessWidget {
                   backgroundColor: AppColors.whiteInDark(brightness),
                   foregroundColor: AppColors.blackInDark(brightness),
                   radius: 12,
-                  child: BlocBuilder<WishlistCubit, List<ProductModel>>(
-                    builder: (context, _) {
-                      final isFavorite = context
-                          .read<WishlistCubit>()
-                          .isFavorite(productId: productModel.id);
-
-                      return IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed:
-                            onDeleteProduct ??
-                            () {
-                              context
-                                  .read<WishlistCubit>()
-                                  .toggleFavoriteProduct(
-                                    productModel: productModel,
-                                  );
-                            },
-                        icon: Icon(
-                          isFavorite
-                              ? Icons.favorite
-                              : Icons.favorite_border_outlined,
-                          size: 12,
-                          color: isFavorite ? AppColors.red : null,
-                        ),
-                      );
-                    },
-                  ),
+                  child: FavoriteButton(productModel: productModel, radius: 12),
                 ),
               ),
               if (productModel.stock < 1)

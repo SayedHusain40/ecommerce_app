@@ -1,10 +1,11 @@
+import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/settings_arrow_icon.dart';
 import 'package:flutter/material.dart';
 
 class SettingsTile extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final String title;
   final VoidCallback? onTap;
   final Widget? trailing;
@@ -19,7 +20,7 @@ class SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
+    final brightness = context.brightness;
 
     return Column(
       children: [
@@ -32,7 +33,7 @@ class SettingsTile extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(icon, weight: 24, color: AppColors.grey150Light),
+                  SizedBox(width: 24, height: 24, child: icon),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(

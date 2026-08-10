@@ -10,11 +10,10 @@ import 'package:ecommerce_app/features/categories/ui/widgets/category_browse_lis
 import 'package:ecommerce_app/features/categories/ui/widgets/category_filter_chips.dart';
 import 'package:ecommerce_app/features/home/ui/widgets/custom_title.dart';
 import 'package:ecommerce_app/features/home/ui/widgets/home_banner.dart';
-import 'package:ecommerce_app/features/home/ui/widgets/see_all_button.dart';
+import 'package:ecommerce_app/features/home/ui/widgets/see_all_section.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
-import 'package:ecommerce_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,13 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
     navCubit = context.read<NavCubit>();
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = context.l10n;
 
     return Scaffold(
       appBar: const AppCustomAppBar(
@@ -57,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: const AppDrawer(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const .symmetric(horizontal: 16),
         child: CustomScrollView(
           slivers: [
             // Browse categories
@@ -122,13 +120,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10),
-                  SeeAllButton(
-                    onTap: () {
-                      navCubit.selectCategory(
-                        categoryIndex: 0,
-                        categoryName: null,
-                      );
-                    },
+                  SeeAllSection(
+                    onTap: () => navCubit.selectCategory(
+                      categoryIndex: 0,
+                      categoryName: null,
+                    ),
                   ),
                   const SizedBox(height: 24),
                   CustomTitle(label: l10n.categories),
@@ -151,13 +147,11 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  SeeAllButton(
-                    onTap: () {
-                      navCubit.selectCategory(
-                        categoryIndex: _categoryIndex,
-                        categoryName: _categoryName,
-                      );
-                    },
+                  SeeAllSection(
+                    onTap: () => navCubit.selectCategory(
+                      categoryIndex: _categoryIndex,
+                      categoryName: _categoryName,
+                    ),
                   ),
                   const SizedBox(height: 24),
                 ],
