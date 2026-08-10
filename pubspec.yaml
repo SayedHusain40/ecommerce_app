@@ -61,6 +61,8 @@ dependencies:
   intl: any
   url_launcher: ^6.3.2
   toastification: ^3.2.0
+  hive_ce: ^2.19.3
+  hive_ce_flutter: ^2.3.4
 
 dev_dependencies:
   flutter_test:
