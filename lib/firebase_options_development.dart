@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
+/// import 'firebase_options_development.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -17,16 +17,16 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -49,21 +49,21 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBDz7ypiws73PjAelWA9fROuvz2XGZnQDE',
+    appId: '1:296067030491:web:2a6921f682a4fb2b431bfe',
+    messagingSenderId: '296067030491',
+    projectId: 'e-commerce-flutter-project-dev',
+    authDomain: 'e-commerce-flutter-project-dev.firebaseapp.com',
+    storageBucket: 'e-commerce-flutter-project-dev.firebasestorage.app',
+    measurementId: 'G-LPCZBQ507X',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB7iiAQV-kdc8yLHCn4M7_u_zop-Onl0j4',
-    appId: '1:613394897708:android:3972b2582f998fdcebaa89',
-    messagingSenderId: '613394897708',
-    projectId: 'ecommerce-flutter-app-de-91a95',
-    storageBucket: 'ecommerce-flutter-app-de-91a95.firebasestorage.app',
+    apiKey: 'AIzaSyDpDtcQNDH2sgsjT-89CHrVpA55Wj4klNU',
+    appId: '1:296067030491:android:123fecda1aa1d5d8431bfe',
+    messagingSenderId: '296067030491',
+    projectId: 'e-commerce-flutter-project-dev',
+    storageBucket: 'e-commerce-flutter-project-dev.firebasestorage.app',
   );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAMbwq468fCLa6Ir5FEu2qNwY5QeVaTGJc',
-    appId: '1:613394897708:ios:b9c823872946b2deebaa89',
-    messagingSenderId: '613394897708',
-    projectId: 'ecommerce-flutter-app-de-91a95',
-    storageBucket: 'ecommerce-flutter-app-de-91a95.firebasestorage.app',
-    iosBundleId: 'com.example.ecommerceApp',
-  );
-
 }
