@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "605455232993",
-    "project_id": "ecommerce-flutter-app-32c78",
-    "storage_bucket": "ecommerce-flutter-app-32c78.firebasestorage.app"
+    "project_number": "473958023495",
+    "project_id": "e-commerce-flutter-proje-f9f4a",
+    "storage_bucket": "e-commerce-flutter-proje-f9f4a.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:605455232993:android:573a74f7aeb196dc38aca0",
+        "mobilesdk_app_id": "1:473958023495:android:8ab3f9f1bcce8bfa2d4c62",
         "android_client_info": {
           "package_name": "com.example.ecommerce_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "605455232993-8thhibvb5ukarfq5ahnnkj2gbf4pgmsq.apps.googleusercontent.com",
+          "client_id": "473958023495-iai3c030nueag2bv80dmg0jftprd358d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.ecommerce_app",
@@ -22,28 +22,21 @@
           }
         },
         {
-          "client_id": "605455232993-gsla6p0nps9tj0frr7eso9ejrcnr33kn.apps.googleusercontent.com",
+          "client_id": "473958023495-iif9c856isvrlitbapia9oaj7u838us6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDnzMDPSdcjpNFk9BHdmGpHufGhpmYSnnE"
+          "current_key": "AIzaSyCzDMaXZuncla5Y4HuwbAMsr-q5wI2Xg88"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "605455232993-gsla6p0nps9tj0frr7eso9ejrcnr33kn.apps.googleusercontent.com",
+              "client_id": "473958023495-iif9c856isvrlitbapia9oaj7u838us6.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "605455232993-lfi7gtjfmfsj89p1d5ljqr7ndndnrh7h.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.ecommerceApp"
-              }
             }
           ]
         }

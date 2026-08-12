@@ -1,49 +1,42 @@
 {
   "project_info": {
-    "project_number": "613394897708",
-    "project_id": "ecommerce-flutter-app-de-91a95",
-    "storage_bucket": "ecommerce-flutter-app-de-91a95.firebasestorage.app"
+    "project_number": "296067030491",
+    "project_id": "e-commerce-flutter-project-dev",
+    "storage_bucket": "e-commerce-flutter-project-dev.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:613394897708:android:262210eb39b4a72cebaa89",
+        "mobilesdk_app_id": "1:296067030491:android:123fecda1aa1d5d8431bfe",
         "android_client_info": {
           "package_name": "com.example.ecommerce_app.dev"
         }
       },
       "oauth_client": [
         {
-          "client_id": "613394897708-rspql2m3ttildafjdpbb4noh564gibc1.apps.googleusercontent.com",
+          "client_id": "296067030491-3kvvkrg2jbi48kp8mne93kglvgau1qi5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.ecommerce_app.dev",
-            "certificate_hash": "0f2d41753ddefad76505227badbfb34a68674b0b"
+            "certificate_hash": "b607a8f1acad172005dd5e83ed0bea5f6dc113b1"
           }
         },
         {
-          "client_id": "613394897708-qib5j3c8h1279vfp4sk8ip6s9gd2qg7e.apps.googleusercontent.com",
+          "client_id": "296067030491-0ncotgdgqlf1ll95qnpfu8qau8i7uu0m.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB7iiAQV-kdc8yLHCn4M7_u_zop-Onl0j4"
+          "current_key": "AIzaSyDpDtcQNDH2sgsjT-89CHrVpA55Wj4klNU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "613394897708-qib5j3c8h1279vfp4sk8ip6s9gd2qg7e.apps.googleusercontent.com",
+              "client_id": "296067030491-0ncotgdgqlf1ll95qnpfu8qau8i7uu0m.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "613394897708-h8k34mi8agr4s86f0ndd134d7o3iadhf.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.ecommerceApp"
-              }
             }
           ]
         }
