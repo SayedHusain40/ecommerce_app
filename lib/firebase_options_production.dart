@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
+/// import 'firebase_options_production.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -17,16 +17,16 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -49,20 +49,21 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDnzMDPSdcjpNFk9BHdmGpHufGhpmYSnnE',
-    appId: '1:605455232993:android:573a74f7aeb196dc38aca0',
-    messagingSenderId: '605455232993',
-    projectId: 'ecommerce-flutter-app-32c78',
-    storageBucket: 'ecommerce-flutter-app-32c78.firebasestorage.app',
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBnR6NbseWnZM3DbVgF0pEPsI8cbKzm6p0',
+    appId: '1:473958023495:web:dc6901f9725fb1fb2d4c62',
+    messagingSenderId: '473958023495',
+    projectId: 'e-commerce-flutter-proje-f9f4a',
+    authDomain: 'e-commerce-flutter-proje-f9f4a.firebaseapp.com',
+    storageBucket: 'e-commerce-flutter-proje-f9f4a.firebasestorage.app',
+    measurementId: 'G-6EBE2QK2W9',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCNUJ967Kh2pU27w90u3iQrcqNuHmYTSvQ',
-    appId: '1:605455232993:ios:409fe4481874176838aca0',
-    messagingSenderId: '605455232993',
-    projectId: 'ecommerce-flutter-app-32c78',
-    storageBucket: 'ecommerce-flutter-app-32c78.firebasestorage.app',
-    iosBundleId: 'com.example.ecommerceApp',
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyCzDMaXZuncla5Y4HuwbAMsr-q5wI2Xg88',
+    appId: '1:473958023495:android:8ab3f9f1bcce8bfa2d4c62',
+    messagingSenderId: '473958023495',
+    projectId: 'e-commerce-flutter-proje-f9f4a',
+    storageBucket: 'e-commerce-flutter-proje-f9f4a.firebasestorage.app',
   );
 }
