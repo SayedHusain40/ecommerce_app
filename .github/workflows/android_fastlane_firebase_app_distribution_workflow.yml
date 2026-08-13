@@ -27,10 +27,10 @@ jobs:
           key: gradle-${{ runner.os }}-${{ hashFiles('android/**/*.gradle*') }}
           restore-keys: gradle-${{ runner.os }}-
 
-      - name: Setup Flutter
+      - name: Setup Flutter 
         uses: subosito/flutter-action@v2
         with:
-          channel: stable
+          channel: stable ## '3.44.4' ## .fvmrc
           cache: true
 
       - name: Install Flutter dependencies
