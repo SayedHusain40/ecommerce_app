@@ -30,7 +30,8 @@ jobs:
       - name: Setup Flutter 
         uses: subosito/flutter-action@v2
         with:
-          channel: .fvmrc
+          # channel: stable
+          flutter-version-file: .fvmrc
           cache: true
 
       - name: Install Flutter dependencies
