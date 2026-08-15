@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
+import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/core/widgets/search_icon_button.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_filter_chips.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
@@ -65,7 +66,8 @@ class _ProductScreenState extends State<ProductScreen> {
     final brightness = context.brightness;
     final l10n = context.l10n;
 
-    return Scaffold(
+    return AppScaffold(
+      verticalPadding: 12,
       appBar: AppCustomAppBar(
         title: l10n.products,
         showBackButton: false,
@@ -78,21 +80,18 @@ class _ProductScreenState extends State<ProductScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const .symmetric(vertical: 12, horizontal: 16),
-        child: Column(
-          crossAxisAlignment: .start,
-          children: [
-            CategoryFilterChips(
-              selectedIndex: widget.selectedCategoryIndex,
-              isHomeStyleChip: false,
-            ),
-            const SizedBox(height: 5),
-            Text(l10n.products, style: AppTextStyles.headingH3Regular),
-            const SizedBox(height: 10),
-            const Expanded(child: ProductsGridView<CategoryProductsCubit>()),
-          ],
-        ),
+      body: Column(
+        crossAxisAlignment: .start,
+        children: [
+          CategoryFilterChips(
+            selectedIndex: widget.selectedCategoryIndex,
+            isHomeStyleChip: false,
+          ),
+          const SizedBox(height: 5),
+          Text(l10n.products, style: AppTextStyles.headingH3Regular),
+          const SizedBox(height: 10),
+          const Expanded(child: ProductsGridView<CategoryProductsCubit>()),
+        ],
       ),
     );
   }

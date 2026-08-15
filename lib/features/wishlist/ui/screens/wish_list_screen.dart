@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
+import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_grid.dart';
@@ -66,7 +67,8 @@ class _WishListScreenState extends State<WishListScreen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return Scaffold(
+    return AppScaffold(
+      applyPadding: false,
       appBar: AppCustomAppBar(
         title: l10n.wishlist,
         centerTitle: true,
@@ -82,21 +84,24 @@ class _WishListScreenState extends State<WishListScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: BlocBuilder<WishlistCubit, List<ProductModel>>(
-          builder: (context, wishList) {
-            return wishList.isEmpty
-                ? const EmptyWishList()
-                : ProductGrid(
+      body: BlocBuilder<WishlistCubit, List<ProductModel>>(
+        builder: (context, wishList) {
+          return wishList.isEmpty
+              ? const EmptyWishList()
+              : Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  child: ProductGrid(
                     itemCount: wishList.length,
                     itemBuilder: (context, index) {
                       final productModel = wishList[index];
                       return ProductCard(productModel: productModel);
                     },
-                  );
-          },
-        ),
+                  ),
+                );
+        },
       ),
     );
   }
