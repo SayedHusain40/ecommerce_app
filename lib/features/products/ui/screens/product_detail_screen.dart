@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
+import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/core/widgets/expandable_description.dart';
 import 'package:ecommerce_app/core/widgets/start_rating.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
@@ -23,11 +24,10 @@ class ProductDetailScreen extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarColor: const Color(0xFFD6D8E5),
-        statusBarIconBrightness: isDark
-            ? Brightness.light
-            : Brightness.dark,
+        statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
       ),
-      child: Scaffold(
+      child: AppScaffold(
+        applyPadding: false,
         bottomNavigationBar: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
@@ -63,113 +63,111 @@ class ProductDetailScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // Product Image Gallery
-                ProductImageGallery(productModel: productModel),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              // Product Image Gallery
+              ProductImageGallery(productModel: productModel),
 
-                // Body content
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Product: Title & Price
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              productModel.title,
+              // Body content
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Product: Title & Price
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            productModel.title,
+                            style: AppTextStyles.headingH3Bold,
+                          ),
+                        ),
+                        const SizedBox(width: 13),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              "\$ ${productModel.discountPercentage}",
                               style: AppTextStyles.headingH3Bold,
                             ),
-                          ),
-                          const SizedBox(width: 13),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "\$ ${productModel.discountPercentage}",
-                                style: AppTextStyles.headingH3Bold,
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                "\$ ${productModel.price}",
-                                style: AppTextStyles.body2Regular.copyWith(
-                                  color: AppColors.grey150Light,
-                                  decoration: TextDecoration.lineThrough,
-                                  decorationColor: AppColors.grey150Light,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-
-                      // Product: Product Rating Row
-                      Row(
-                        children: [
-                          StarRating(rating: productModel.rating),
-                          const SizedBox(width: 2),
-                          Text(
-                            productModel.rating.toStringAsFixed(1),
-                            style: AppTextStyles.body4SemiBold,
-                          ),
-                          const SizedBox(width: 2),
-                          // reviews
-                          Text(
-                            '(${productModel.reviews.length} reviews)',
-                            style: AppTextStyles.body4SemiBold,
-                          ),
-                          const Spacer(),
-                          if (productModel.stock < 1)
-                            Container(
-                              padding: const .symmetric(
-                                vertical: 1,
-                                horizontal: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: .circular(12),
-                                color: AppColors.red,
-                              ),
-                              child: const Text(
-                                'Sold Out',
-                                style: TextStyle(color: AppColors.black),
+                            const SizedBox(width: 10),
+                            Text(
+                              "\$ ${productModel.price}",
+                              style: AppTextStyles.body2Regular.copyWith(
+                                color: AppColors.grey150Light,
+                                decoration: TextDecoration.lineThrough,
+                                decorationColor: AppColors.grey150Light,
                               ),
                             ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
 
-                      const SizedBox(height: 12),
+                    // Product: Product Rating Row
+                    Row(
+                      children: [
+                        StarRating(rating: productModel.rating),
+                        const SizedBox(width: 2),
+                        Text(
+                          productModel.rating.toStringAsFixed(1),
+                          style: AppTextStyles.body4SemiBold,
+                        ),
+                        const SizedBox(width: 2),
+                        // reviews
+                        Text(
+                          '(${productModel.reviews.length} reviews)',
+                          style: AppTextStyles.body4SemiBold,
+                        ),
+                        const Spacer(),
+                        if (productModel.stock < 1)
+                          Container(
+                            padding: const .symmetric(
+                              vertical: 1,
+                              horizontal: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: .circular(12),
+                              color: AppColors.red,
+                            ),
+                            child: const Text(
+                              'Sold Out',
+                              style: TextStyle(color: AppColors.black),
+                            ),
+                          ),
+                      ],
+                    ),
 
-                      // Product: description
-                      ExpandableDescription(text: productModel.description),
+                    const SizedBox(height: 12),
 
-                      const SizedBox(height: 12),
+                    // Product: description
+                    ExpandableDescription(text: productModel.description),
 
-                      // QuantitySelector
-                      Text('Quantity', style: AppTextStyles.body3SemiBold),
-                      const SizedBox(height: 12),
-                      const QuantitySelector(),
+                    const SizedBox(height: 12),
 
-                      const SizedBox(height: 12),
+                    // QuantitySelector
+                    Text('Quantity', style: AppTextStyles.body3SemiBold),
+                    const SizedBox(height: 12),
+                    const QuantitySelector(),
 
-                      // Reviews Expansion Tile
-                      ReviewsExpansionTile(
-                        rating: productModel.rating,
-                        reviews: productModel.reviews,
-                      ),
-                    ],
-                  ),
+                    const SizedBox(height: 12),
+
+                    // Reviews Expansion Tile
+                    ReviewsExpansionTile(
+                      rating: productModel.rating,
+                      reviews: productModel.reviews,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

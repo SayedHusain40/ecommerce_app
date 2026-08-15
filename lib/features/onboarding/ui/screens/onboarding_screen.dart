@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
+import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/features/onboarding/data/onboarding_data.dart';
 import 'package:ecommerce_app/features/onboarding/ui/widgets/onboarding_item.dart';
 import 'package:flutter/material.dart';
@@ -26,51 +27,52 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final l10n = context.l10n;
     final pages = OnboardingData.pages(l10n);
 
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            // ---------------- PAGES ----------------
-            Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: pages.length,
-
-                itemBuilder: (context, index) {
-                  return OnboardingItem(
+    return AppScaffold(
+      applyPadding: false,
+      body: Column(
+        children: [
+          // ---------------- PAGES ----------------
+          Expanded(
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: pages.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const .symmetric(horizontal: 16),
+                  child: OnboardingItem(
                     page: pages[index],
                     index: index,
                     pagesLength: pages.length,
                     pageController: _pageController,
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
-
-            // ---------------- INDICATOR ----------------
-            Padding(
-              padding: const EdgeInsets.only(bottom: 24),
-              child: SmoothPageIndicator(
-                controller: _pageController,
-                count: pages.length,
-                effect: const SlideEffect(
-                  spacing: 4.0,
-                  dotWidth: 6.0,
-                  dotHeight: 6.0,
-                  dotColor: AppColors.grey100,
-                  activeDotColor: AppColors.green,
-                ),
-                onDotClicked: (index) {
-                  _pageController.animateToPage(
-                    index,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.linear,
-                  );
-                },
+          ),
+      
+          // ---------------- INDICATOR ----------------
+          Padding(
+            padding: const EdgeInsets.only(bottom: 24),
+            child: SmoothPageIndicator(
+              controller: _pageController,
+              count: pages.length,
+              effect: const SlideEffect(
+                spacing: 4.0,
+                dotWidth: 6.0,
+                dotHeight: 6.0,
+                dotColor: AppColors.grey100,
+                activeDotColor: AppColors.green,
               ),
+              onDotClicked: (index) {
+                _pageController.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.linear,
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

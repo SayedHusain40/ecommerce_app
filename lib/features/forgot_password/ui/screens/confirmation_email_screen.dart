@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/helpers/regex.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
+import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/core/widgets/required_lable.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_state.dart';
@@ -45,8 +46,9 @@ class _ConfirmationEmailScreenState extends State<ConfirmationEmailScreen> {
     final brightness = context.brightness;
     final l10n = context.l10n;
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppCustomAppBar(title: l10n.forgotPasswordTitle),
+      verticalPadding: 12,
       body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
         listener: (context, state) {
           state.whenOrNull(
@@ -64,10 +66,9 @@ class _ConfirmationEmailScreenState extends State<ConfirmationEmailScreen> {
           final cubit = context.read<ForgotPasswordCubit>();
           final isLoading = state is SendPasswordResetEmailLoading;
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: Form(
-              key: cubit.emailFormKey,
+          return Form(
+            key: cubit.emailFormKey,
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

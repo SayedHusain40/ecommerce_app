@@ -34,162 +34,159 @@ class OnboardingItem extends StatelessWidget {
     final isDark = context.isRtl;
     final l10n = context.l10n;
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            // ---------------- IMAGE CONTAINER ----------------
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
-              height: 408,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: AppColors.cyan50(brightness),
-                borderRadius: BorderRadius.circular(32),
-              ),
-              child: Column(
-                children: [
-                  // ---------------- TOP ROW ----------------
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _isFirstPage
-                          ? SvgPicture.asset(AppImages.logo(brightness))
-                          : IconButton(
-                              onPressed: () {
-                                pageController.previousPage(
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.linear,
-                                );
-                              },
-                              icon: SvgPicture.asset(
-                                AppIcons.arrowLeft(brightness),
-                              ),
-                            ),
-                      if (!_isLastPage)
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            minimumSize: const Size(0, 0),
-                            backgroundColor: Colors.transparent,
-
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide.none,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          // ---------------- IMAGE CONTAINER ----------------
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
+            height: 408,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: AppColors.cyan50(brightness),
+              borderRadius: BorderRadius.circular(32),
+            ),
+            child: Column(
+              children: [
+                // ---------------- TOP ROW ----------------
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _isFirstPage
+                        ? SvgPicture.asset(AppImages.logo(brightness))
+                        : IconButton(
+                            onPressed: () {
+                              pageController.previousPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.linear,
+                              );
+                            },
+                            icon: SvgPicture.asset(
+                              AppIcons.arrowLeft(brightness),
                             ),
                           ),
-                          onPressed: () async {
-                            await sharedPreferences.saveData(
-                              key: 'isFirstTime',
-                              value: false,
-                            );
-                            if (!context.mounted) return;
-                            context.pushNamedAndRemoveUntil(
-                              RouteNames.registerScreen,
-                              predicate: (route) => false,
-                            );
-                          },
-                          child: Text(
-                            l10n.skipForNow,
-                            style: AppTextStyles.body2Medium.copyWith(
-                              color: AppColors.cyan,
-                            ),
+                    if (!_isLastPage)
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          minimumSize: const Size(0, 0),
+                          backgroundColor: Colors.transparent,
+
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide.none,
                           ),
                         ),
-                    ],
+                        onPressed: () async {
+                          await sharedPreferences.saveData(
+                            key: 'isFirstTime',
+                            value: false,
+                          );
+                          if (!context.mounted) return;
+                          context.pushNamedAndRemoveUntil(
+                            RouteNames.registerScreen,
+                            predicate: (route) => false,
+                          );
+                        },
+                        child: Text(
+                          l10n.skipForNow,
+                          style: AppTextStyles.body2Medium.copyWith(
+                            color: AppColors.cyan,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                // ---------------- IMAGE ----------------
+                Expanded(
+                  child: Center(
+                    child: Image.asset(page.image, width: 240, height: 240),
                   ),
-                  // ---------------- IMAGE ----------------
-                  Expanded(
-                    child: Center(
-                      child: Image.asset(page.image, width: 240, height: 240),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // ---------------- TITLE ----------------
+          Text(
+            page.title,
+            style: AppTextStyles.headingH2Bold,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+
+          // ---------------- DESCRIPTION ----------------
+          Text(
+            page.description,
+            style: AppTextStyles.body2Regular,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+
+          // ---------------- BUTTONS ----------------
+          _isLastPage
+              ? Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: isDark
+                              ? AppColors.cyan
+                              : AppColors.black,
+                        ),
+                        onPressed: () async {
+                          await sharedPreferences.saveData(
+                            key: StorageKeys.isFirstTime,
+                            value: false,
+                          );
+                          if (!context.mounted) return;
+
+                          context.pushNamedAndRemoveUntil(
+                            RouteNames.loginScreen,
+                            predicate: (route) => false,
+                          );
+                        },
+                        child: Text(l10n.login),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            // ---------------- TITLE ----------------
-            Text(
-              page.title,
-              style: AppTextStyles.headingH2Bold,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-
-            // ---------------- DESCRIPTION ----------------
-            Text(
-              page.description,
-              style: AppTextStyles.body2Regular,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-
-            // ---------------- BUTTONS ----------------
-            _isLastPage
-                ? Row(
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: isDark
-                                ? AppColors.cyan
-                                : AppColors.black,
-                          ),
-                          onPressed: () async {
-                            await sharedPreferences.saveData(
-                              key: StorageKeys.isFirstTime,
-                              value: false,
-                            );
-                            if (!context.mounted) return;
-
-                            context.pushNamedAndRemoveUntil(
-                              RouteNames.loginScreen,
-                              predicate: (route) => false,
-                            );
-                          },
-                          child: Text(l10n.login),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          await sharedPreferences.saveData(
+                            key: 'isFirstTime',
+                            value: false,
+                          );
+                          if (!context.mounted) return;
+                          context.pushNamedAndRemoveUntil(
+                            RouteNames.registerScreen,
+                            predicate: (route) => false,
+                          );
+                        },
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(l10n.getStarted),
+                            const SizedBox(width: 8),
+                            SvgPicture.asset(AppIcons.arrowRightLight),
+                          ],
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await sharedPreferences.saveData(
-                              key: 'isFirstTime',
-                              value: false,
-                            );
-                            if (!context.mounted) return;
-                            context.pushNamedAndRemoveUntil(
-                              RouteNames.registerScreen,
-                              predicate: (route) => false,
-                            );
-                          },
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(l10n.getStarted),
-                              const SizedBox(width: 8),
-                              SvgPicture.asset(AppIcons.arrowRightLight),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                : ElevatedButton(
-                    onPressed: () {
-                      pageController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.linear,
-                      );
-                    },
-                    child: Text(l10n.next),
-                  ),
-            const SizedBox(height: 24),
-          ],
-        ),
+                    ),
+                  ],
+                )
+              : ElevatedButton(
+                  onPressed: () {
+                    pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.linear,
+                    );
+                  },
+                  child: Text(l10n.next),
+                ),
+          const SizedBox(height: 24),
+        ],
       ),
     );
   }

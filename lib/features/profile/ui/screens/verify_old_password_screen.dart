@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
+import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/core/widgets/required_lable.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_state.dart';
@@ -34,7 +35,8 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
     final cubit = context.read<ProfileCubit>();
     final l10n = context.l10n;
 
-    return Scaffold(
+    return AppScaffold(
+      verticalPadding: 12,
       appBar: AppCustomAppBar(
         title: l10n.changePassword,
         actions: [
@@ -46,85 +48,82 @@ class _VerifyOldPasswordScreenState extends State<VerifyOldPasswordScreen> {
           const SizedBox(width: 16),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(l10n.oldPassword, style: AppTextStyles.headingH2Bold),
-              const SizedBox(height: 8),
-              Text(
-                l10n.oldPasswordSubtitle,
-                style: AppTextStyles.body2Regular.copyWith(
-                  color: AppColors.grey150(brightness),
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l10n.oldPassword, style: AppTextStyles.headingH2Bold),
+            const SizedBox(height: 8),
+            Text(
+              l10n.oldPasswordSubtitle,
+              style: AppTextStyles.body2Regular.copyWith(
+                color: AppColors.grey150(brightness),
               ),
-              const SizedBox(height: 16),
-              BlocConsumer<ProfileCubit, ProfileState>(
-                listenWhen: (previous, current) =>
-                    current is CheckPasswordSuccess ||
-                    current is CheckPasswordLoading ||
-                    current is CheckPasswordFailure,
-                listener: (context, state) {
-                  state.whenOrNull(
-                    checkPasswordSuccess: () {
-                      context.pushNamed(RouteNames.changePasswordNewScreen);
-                    },
-                    checkPasswordFailure: (AppFailure appFailure) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        cubit.formKey.currentState?.validate();
-                      });
-                    },
-                  );
-                },
-                buildWhen: (previous, current) =>
-                    current is Initial ||
-                    current is CheckPasswordLoading ||
-                    current is CheckPasswordSuccess ||
-                    current is CheckPasswordFailure,
-                builder: (context, state) {
-                  final isLoading = state is CheckPasswordLoading;
+            ),
+            const SizedBox(height: 16),
+            BlocConsumer<ProfileCubit, ProfileState>(
+              listenWhen: (previous, current) =>
+                  current is CheckPasswordSuccess ||
+                  current is CheckPasswordLoading ||
+                  current is CheckPasswordFailure,
+              listener: (context, state) {
+                state.whenOrNull(
+                  checkPasswordSuccess: () {
+                    context.pushNamed(RouteNames.changePasswordNewScreen);
+                  },
+                  checkPasswordFailure: (AppFailure appFailure) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      cubit.formKey.currentState?.validate();
+                    });
+                  },
+                );
+              },
+              buildWhen: (previous, current) =>
+                  current is Initial ||
+                  current is CheckPasswordLoading ||
+                  current is CheckPasswordSuccess ||
+                  current is CheckPasswordFailure,
+              builder: (context, state) {
+                final isLoading = state is CheckPasswordLoading;
 
-                  return Form(
-                    key: cubit.formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RequiredLabel(l10n.password),
-                        const SizedBox(height: 8),
-                        PasswordFormField(
-                          controller: cubit.currentPasswordController,
-                          isVisible: _isPasswordVisible,
-                          hintText: l10n.enterYourPassword,
-                          onChanged: (_) => cubit.resetCheckPasswordState(),
-                          validator: (value) {
-                            if (value.isNullOrEmpty()) {
-                              return l10n.passwordRequired;
-                            }
-                            if (state is CheckPasswordFailure) {
-                              return l10n.incorrectPassword;
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 24),
-                        ElevatedButton(
-                          onPressed: isLoading
-                              ? null
-                              : cubit.checkCurrentPassword,
-                          child: isLoading
-                              ? const CircularProgressIndicator()
-                              : Text(l10n.continueButton),
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
+                return Form(
+                  key: cubit.formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RequiredLabel(l10n.password),
+                      const SizedBox(height: 8),
+                      PasswordFormField(
+                        controller: cubit.currentPasswordController,
+                        isVisible: _isPasswordVisible,
+                        hintText: l10n.enterYourPassword,
+                        onChanged: (_) => cubit.resetCheckPasswordState(),
+                        validator: (value) {
+                          if (value.isNullOrEmpty()) {
+                            return l10n.passwordRequired;
+                          }
+                          if (state is CheckPasswordFailure) {
+                            return l10n.incorrectPassword;
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 24),
+                      ElevatedButton(
+                        onPressed: isLoading
+                            ? null
+                            : cubit.checkCurrentPassword,
+                        child: isLoading
+                            ? const CircularProgressIndicator()
+                            : Text(l10n.continueButton),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/app_drawer.dart';
+import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/core/widgets/search_icon_button.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_browse_list.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_filter_chips.dart';
@@ -46,7 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return Scaffold(
+    return AppScaffold(
+      verticalPadding: 12,
       appBar: const AppCustomAppBar(
         logo: true,
         centerTitle: true,
@@ -54,111 +56,107 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [SearchIconButton()],
       ),
       drawer: const AppDrawer(),
-      body: Padding(
-        padding: const .symmetric(horizontal: 16),
-        child: CustomScrollView(
-          slivers: [
-            // Browse categories
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: .spaceBetween,
-                    children: [
-                      Text(
-                        l10n.browseCategories,
-                        style: AppTextStyles.body2Regular,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          context.pushNamed(RouteNames.categoryScreen);
-                        },
-                        child: Text(
-                          l10n.seeAll,
-                          style: AppTextStyles.body3SemiBold.copyWith(
-                            color: AppColors.cyan,
-                          ),
+      body: CustomScrollView(
+        slivers: [
+          // Browse categories
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: .spaceBetween,
+                  children: [
+                    Text(
+                      l10n.browseCategories,
+                      style: AppTextStyles.body2Regular,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        context.pushNamed(RouteNames.categoryScreen);
+                      },
+                      child: Text(
+                        l10n.seeAll,
+                        style: AppTextStyles.body3SemiBold.copyWith(
+                          color: AppColors.cyan,
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                ],
-              ),
-            ),
-            const CategoryBrowseList(isSliver: true),
-
-            // Banner
-            const SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  SizedBox(height: 20),
-                  HomeBanner(),
-                  SizedBox(height: 20),
-                ],
-              ),
-            ),
-
-            // Latest Products title
-            SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: .start,
-                children: [
-                  CustomTitle(label: l10n.latestProducts),
-                  const SizedBox(height: 12),
-                ],
-              ),
-            ),
-
-            // Latest products grid
-            const ProductsGridView<LatestProductsCubit>(isSilver: true),
-
-            // See All + Categories title
-            SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 10),
-                  SeeAllSection(
-                    onTap: () => navCubit.selectCategory(
-                      categoryIndex: 0,
-                      categoryName: null,
                     ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+              ],
+            ),
+          ),
+          const CategoryBrowseList(isSliver: true),
+
+          // Banner
+          const SliverToBoxAdapter(
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                HomeBanner(),
+                SizedBox(height: 20),
+              ],
+            ),
+          ),
+
+          // Latest Products title
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: .start,
+              children: [
+                CustomTitle(label: l10n.latestProducts),
+                const SizedBox(height: 12),
+              ],
+            ),
+          ),
+
+          // Latest products grid
+          const ProductsGridView<LatestProductsCubit>(isSilver: true),
+
+          // See All + Categories title
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                SeeAllSection(
+                  onTap: () => navCubit.selectCategory(
+                    categoryIndex: 0,
+                    categoryName: null,
                   ),
-                  const SizedBox(height: 24),
-                  CustomTitle(label: l10n.categories),
-                  const SizedBox(height: 12),
-                ],
-              ),
+                ),
+                const SizedBox(height: 24),
+                CustomTitle(label: l10n.categories),
+                const SizedBox(height: 12),
+              ],
             ),
+          ),
 
-            // Category filter chips
-            CategoryFilterChips(
-              isSliver: true,
-              productsLimit: 4,
-              onSelectedCategory: onSelectedCategory,
-            ),
+          // Category filter chips
+          CategoryFilterChips(
+            isSliver: true,
+            productsLimit: 4,
+            onSelectedCategory: onSelectedCategory,
+          ),
 
-            // Filtered products grid
-            const ProductsGridView<CategoryProductsCubit>(isSilver: true),
+          // Filtered products grid
+          const ProductsGridView<CategoryProductsCubit>(isSilver: true),
 
-            // See All (bottom)
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  SeeAllSection(
-                    onTap: () => navCubit.selectCategory(
-                      categoryIndex: _categoryIndex,
-                      categoryName: _categoryName,
-                    ),
+          // See All (bottom)
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                SeeAllSection(
+                  onTap: () => navCubit.selectCategory(
+                    categoryIndex: _categoryIndex,
+                    categoryName: _categoryName,
                   ),
-                  const SizedBox(height: 24),
-                ],
-              ),
+                ),
+                const SizedBox(height: 24),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
