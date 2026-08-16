@@ -10,6 +10,7 @@ import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/logic/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/verify_email/ui/screens/verify_email_screen.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
+import 'package:ecommerce_app/responsive/responsive_extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,12 +65,16 @@ class _AppAuthStateState extends State<AppAuthState> {
               create: (_) => getIt<CategoryCubit>()..getCategories(),
             ),
             BlocProvider(
-              create: (_) =>
-                  getIt<LatestProductsCubit>()..getProducts(limit: 4),
+              create: (_) => getIt<LatestProductsCubit>()
+                ..getProducts(
+                  limit: context.responsive(mobile: 4, tablet: 8, desktop: 10),
+                ),
             ),
             BlocProvider(
-              create: (_) =>
-                  getIt<CategoryProductsCubit>()..getProducts(limit: 4),
+              create: (_) => getIt<CategoryProductsCubit>()
+                ..getProducts(
+                  limit: context.responsive(mobile: 4, tablet: 8, desktop: 10),
+                ),
             ),
 
             // this cubit for favorite products

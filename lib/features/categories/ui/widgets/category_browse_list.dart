@@ -6,6 +6,7 @@ import 'package:ecommerce_app/features/categories/ui/widgets/category_card_shimm
 import 'package:ecommerce_app/features/categories/ui/widgets/category_consumer.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/category_grid.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/horizontal_list_view.dart';
+import 'package:ecommerce_app/responsive/responsive_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,8 +39,11 @@ class CategoryBrowseList extends StatelessWidget {
         Widget cardFor(CategoryModel category, int index) => CategoryCard(
           name: category.name!,
           borderRadius: isGrid ? 16 : 12,
-          iconSize: isGrid ? 23 : 20,
-          width: isGrid ? null : 76,
+          iconWidth: isGrid ? 23 : 20,
+          width: isGrid
+              ? null
+              : context.responsive(mobile: 76, tablet: 96, desktop: 110),
+
           textStyle: isGrid
               ? AppTextStyles.body3SemiBold
               : AppTextStyles.body4SemiBold,

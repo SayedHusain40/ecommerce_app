@@ -126,17 +126,21 @@ class AppTextStyles {
   );
 
   // ---------------- BODY 3 (12px · Auto · spacing 0.5%) ----------------
+  // "Auto" = check real px in Figma (click line-height field), then height = px / fontSize.
+  // Check per weight — SemiBold and Regular can differ even at same size.
 
   static final body3SemiBold = _base.copyWith(
     fontWeight: AppFontWeights.semiBold,
     fontSize: AppSizes.fontSizeMicro,
     letterSpacing: 0.06,
+    height: 15.1 / AppSizes.fontSizeMicro, // Figma Auto = 15.1px
   );
 
   static final body3Regular = _base.copyWith(
     fontWeight: AppFontWeights.regular,
     fontSize: AppSizes.fontSizeMicro,
     letterSpacing: 0.06,
+    height: 15.1 / AppSizes.fontSizeMicro, // Figma Auto = 15.1px
   );
 
   // ---------------- BODY 4 (10px · Auto · spacing 1.5%) ----------------
@@ -145,11 +149,13 @@ class AppTextStyles {
     fontWeight: AppFontWeights.semiBold,
     fontSize: AppSizes.fontSizeNano,
     letterSpacing: 0.15,
+    height: 12.6 / AppSizes.fontSizeNano, // Figma Auto = 12.6px
   );
 
   static final body4Regular = _base.copyWith(
     fontWeight: AppFontWeights.regular,
     fontSize: AppSizes.fontSizeNano,
     letterSpacing: 0.15,
+    height: 12.6 / AppSizes.fontSizeNano, // Figma Auto = 12.6px
   );
 }

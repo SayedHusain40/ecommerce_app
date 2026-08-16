@@ -36,7 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final l10n = context.l10n;
 
     return AppScaffold(
-      body: SingleChildScrollView(
+      body: SingleChildScrollView(  
         child: Column(
           crossAxisAlignment: .start,
           children: [
