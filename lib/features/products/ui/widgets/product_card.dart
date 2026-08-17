@@ -11,13 +11,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ProductCard extends StatelessWidget {
   final ProductModel productModel;
   final bool saveSearch;
-  // final VoidCallback? onDeleteProduct;
 
   const ProductCard({
     super.key,
     required this.productModel,
     this.saveSearch = false,
-    // this.onDeleteProduct,
   });
 
   @override
@@ -26,66 +24,72 @@ class ProductCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GestureDetector(
-          onTap: () {
-            if (saveSearch) {
-              context.read<ProductCubit>().saveSearchQuery(
-                productModel: productModel,
-              );
-              context.pushReplacementNamed(
-                RouteNames.productDetailScreen,
-                arguments: productModel,
-              );
-            } else {
-              context.pushNamed(
-                RouteNames.productDetailScreen,
-                arguments: productModel,
-              );
-            }
-          },
-          child: Stack(
-            children: [
-              Container(
-                height: 138,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 8,
-                ),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(productModel.thumbnail),
+        Flexible(
+          child: GestureDetector(
+            onTap: () {
+              if (saveSearch) {
+                context.read<ProductCubit>().saveSearchQuery(
+                  productModel: productModel,
+                );
+                context.pushReplacementNamed(
+                  RouteNames.productDetailScreen,
+                  arguments: productModel,
+                );
+              } else {
+                context.pushNamed(
+                  RouteNames.productDetailScreen,
+                  arguments: productModel,
+                );
+              }
+            },
+            child: Stack(
+              children: [
+                Container(
+                  constraints: const BoxConstraints(maxHeight: 138),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 8,
                   ),
-                  borderRadius: BorderRadius.circular(24),
-                  color: const Color(0xFFF5F6F8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    color: const Color(0xFFF5F6F8),
+                    image: DecorationImage(
+                      image: NetworkImage(productModel.thumbnail),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
-              ),
-              Positioned(
-                right: 6,
-                top: 6,
-                child: CircleAvatar(
-                  backgroundColor: AppColors.whiteInDark(brightness),
-                  foregroundColor: AppColors.blackInDark(brightness),
-                  radius: 12,
-                  child: FavoriteButton(productModel: productModel, radius: 12),
-                ),
-              ),
-              if (productModel.stock < 1)
                 Positioned(
-                  bottom: 6,
-                  left: 6,
-                  child: Container(
-                    padding: const .symmetric(vertical: 1, horizontal: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: .circular(12),
-                      color: AppColors.red,
-                    ),
-                    child: const Text(
-                      'Sold Out',
-                      style: TextStyle(color: AppColors.black),
+                  right: 6,
+                  top: 6,
+                  child: CircleAvatar(
+                    backgroundColor: AppColors.whiteInDark(brightness),
+                    foregroundColor: AppColors.blackInDark(brightness),
+                    radius: 12,
+                    child: FavoriteButton(
+                      productModel: productModel,
+                      radius: 12,
                     ),
                   ),
                 ),
-            ],
+                if (productModel.stock < 1)
+                  Positioned(
+                    bottom: 6,
+                    left: 6,
+                    child: Container(
+                      padding: const .symmetric(vertical: 1, horizontal: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: .circular(12),
+                        color: AppColors.red,
+                      ),
+                      child: const Text(
+                        'Sold Out',
+                        style: TextStyle(color: AppColors.black),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
         Text(

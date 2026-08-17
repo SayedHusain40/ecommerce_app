@@ -41,13 +41,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: AppColors.cyan,
-        statusBarIconBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark,
       ),
       child: AppScaffold(
-        backgroundColor: AppColors.cyan,
+        // backgroundColor: AppColors.cyan,
+        // applyPadding: false,
+        // appBar: const AppCustomAppBar(
+        //   showBackButton: false,
+        //   addLine: false,
+        //   backgroundColor: Colors.transparent,
+        //   elevation: 0,
+        // ),
+        // extendBodyBehindAppBar: true,
         applyPadding: false,
-        body: SafeArea(
+        body: Container(
+          width: double.infinity,
+          color: AppColors.cyan,
           child: Column(
             children: [
               // ---------------- HEADER ----------------

@@ -8,7 +8,8 @@ class CategoryCard extends StatelessWidget {
   final String name;
   final double? width;
   final double borderRadius;
-  final double iconSize;
+  final double iconWidth;
+  final double? iconHight;
   final TextStyle textStyle;
   final Function()? onTap;
 
@@ -17,7 +18,8 @@ class CategoryCard extends StatelessWidget {
     required this.name,
     this.width,
     required this.borderRadius,
-    required this.iconSize,
+    required this.iconWidth,
+    this.iconHight,
     required this.textStyle,
     required this.onTap,
   });
@@ -38,12 +40,13 @@ class CategoryCard extends StatelessWidget {
           border: BoxBorder.all(color: AppColors.grey50(brightness)),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
+          crossAxisAlignment: .center,
           children: [
-            SvgPicture.asset(
-              AppIcons.activeCategory,
-              width: iconSize,
-              height: iconSize,
+            SizedBox(
+              width: iconWidth,
+              height: iconHight,
+              child: SvgPicture.asset(AppIcons.activeCategory),
             ),
             const SizedBox(height: 2),
             Text(

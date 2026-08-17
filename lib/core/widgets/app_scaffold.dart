@@ -1,6 +1,9 @@
+import 'package:ecommerce_app/responsive/layout_dimensions.dart';
+import 'package:ecommerce_app/responsive/responsive_extension.dart';
 import 'package:flutter/material.dart';
 
 class AppScaffold extends StatelessWidget {
+  final bool extendBodyBehindAppBar;
   final Widget body;
   final PreferredSizeWidget? appBar;
   final Widget? bottomNavigationBar;
@@ -10,10 +13,12 @@ class AppScaffold extends StatelessWidget {
   final bool applyPadding;
   final bool? applySafeArea; // null = auto-decide based on appBar
   final double verticalPadding; // optional, defaults to 0
-  final Color? backgroundColor; // optional, defaults to theme's scaffold background
+  final Color?
+  backgroundColor; // optional, defaults to theme's scaffold background
 
   const AppScaffold({
     super.key,
+    this.extendBodyBehindAppBar = false,
     required this.body,
     this.appBar,
     this.bottomNavigationBar,
@@ -47,13 +52,24 @@ class AppScaffold extends StatelessWidget {
     }
 
     return Scaffold(
+      extendBodyBehindAppBar: extendBodyBehindAppBar,
       backgroundColor: backgroundColor,
       appBar: appBar,
       drawer: drawer,
       endDrawer: endDrawer,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatingActionButton,
-      body: content,
+      body: context.isDesktop
+          ? Align(
+              alignment: Alignment.topCenter,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxWidth: LayoutDimensions.desktop,
+                ),
+                child: content,
+              ),
+            )
+          : content,
     );
   }
 }

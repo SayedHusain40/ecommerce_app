@@ -15,6 +15,7 @@ import 'package:ecommerce_app/features/home/ui/widgets/see_all_section.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/products_grid_view.dart';
+import 'package:ecommerce_app/responsive/responsive_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -135,9 +136,15 @@ class _HomeScreenState extends State<HomeScreen> {
           // Category filter chips
           CategoryFilterChips(
             isSliver: true,
-            productsLimit: 4,
+            productsLimit: context.responsive(
+              mobile: 4,
+              tablet: 8,
+              desktop: 10,
+            ),
             onSelectedCategory: onSelectedCategory,
           ),
+
+          const SliverToBoxAdapter(child: SizedBox(height: 12)),
 
           // Filtered products grid
           const ProductsGridView<CategoryProductsCubit>(isSilver: true),
