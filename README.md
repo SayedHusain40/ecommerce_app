@@ -79,3 +79,13 @@ UI based on the **QuickMart – Ecommerce App UI Kit (Modern Online Shopping Exp
   <img src="assets/images/screenshots/products-dark.png" width="180" />
   <img src="assets/images/screenshots/product-details-dark.png" width="180" />
 </p>
+
+## 📱💻 Responsive Design (Tablet & Web)
+<p align="center">
+  <img src="assets/images/screenshots/home-tablet.png" width="500" />
+  <img src="assets/images/screenshots/profile-tablet.png" width="500" />
+</p>
+<p align="center">
+  <img src="assets/images/screenshots/home-website.png" width="500" />
+  <img src="assets/images/screenshots/profile-website.png" width="500" />
+</p>
