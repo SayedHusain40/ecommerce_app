@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
+import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/core/widgets/language_tile.dart';
 import 'package:ecommerce_app/features/profile/data/model/user_profile_model.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
@@ -40,12 +41,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: AppColors.cyan,
-        statusBarIconBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark,
       ),
-      child: Scaffold(
-        backgroundColor: AppColors.cyan,
-        body: SafeArea(
+      child: AppScaffold(
+        // backgroundColor: AppColors.cyan,
+        // applyPadding: false,
+        // appBar: const AppCustomAppBar(
+        //   showBackButton: false,
+        //   addLine: false,
+        //   backgroundColor: Colors.transparent,
+        //   elevation: 0,
+        // ),
+        // extendBodyBehindAppBar: true,
+        applyPadding: false,
+        body: Container(
+          width: double.infinity,
+          color: AppColors.cyan,
           child: Column(
             children: [
               // ---------------- HEADER ----------------

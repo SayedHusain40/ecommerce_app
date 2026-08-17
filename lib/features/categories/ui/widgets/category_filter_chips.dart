@@ -4,6 +4,7 @@ import 'package:ecommerce_app/features/categories/ui/widgets/home_style_category
 import 'package:ecommerce_app/features/categories/ui/widgets/horizontal_list_view.dart';
 import 'package:ecommerce_app/features/categories/ui/widgets/product_style_category_chip.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
+import 'package:ecommerce_app/responsive/responsive_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -60,6 +61,7 @@ class _CategoryFilterChipsState extends State<CategoryFilterChips> {
     return CategoryConsumer(
       isSliver: widget.isSliver,
       onLoading: (context) => HorizontalListView(
+        itemCount: context.responsive(mobile: 6, tablet: 8, desktop: 10),
         isSliver: widget.isSliver,
         itemBuilder: (_, _) =>
             const CategoryCardShimmer(width: 76, borderRadius: 8),

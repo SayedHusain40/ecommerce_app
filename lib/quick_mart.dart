@@ -57,12 +57,19 @@ class QuickMart extends StatelessWidget {
                         ? RouteNames.onBoardingScreen
                         : RouteNames.appAuthState,
                     builder: (context, child) {
-                      return AnimatedTheme(
-                        data: themeMode == ThemeMode.dark
-                            ? AppTheme.darkTheme
-                            : AppTheme.lightTheme,
-                        duration: const Duration(milliseconds: 300),
-                        child: child!,
+                      return MediaQuery(
+                        data: MediaQuery.of(context).copyWith(
+                          textScaler: MediaQuery.textScalerOf(
+                            context,
+                          ).clamp(maxScaleFactor: 1.3),
+                        ),
+                        child: AnimatedTheme(
+                          data: themeMode == ThemeMode.dark
+                              ? AppTheme.darkTheme
+                              : AppTheme.lightTheme,
+                          duration: const Duration(milliseconds: 300),
+                          child: child!,
+                        ),
                       );
                     },
                   );
