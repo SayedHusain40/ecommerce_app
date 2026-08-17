@@ -9,6 +9,8 @@ import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
 import 'package:ecommerce_app/features/profile/ui/screens/profile_screen.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
 import 'package:ecommerce_app/features/wishlist/ui/screens/wish_list_screen.dart';
+import 'package:ecommerce_app/l10n/app_localizations.dart';
+import 'package:ecommerce_app/responsive/responsive_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -55,6 +57,79 @@ class _MainNavScreenState extends State<MainNavScreen> {
     ];
   }
 
+  // Shared destination data — built once, mapped into either
+  // NavigationDestination (mobile bottom bar) or NavigationRailDestination
+  // (tablet/desktop side rail) depending on screen size.
+  List<_NavItem> _navItems(AppLocalizations l10n, Brightness brightness) {
+    return [
+      _NavItem(
+        icon: SvgPicture.asset(
+          AppIcons.inactiveHome(brightness),
+          width: 24,
+          height: 24,
+        ),
+        selectedIcon: SvgPicture.asset(
+          AppIcons.activeHome,
+          width: 24,
+          height: 24,
+        ),
+        label: l10n.home,
+      ),
+      _NavItem(
+        icon: SvgPicture.asset(
+          AppIcons.inactiveCategory(brightness),
+          width: 24,
+          height: 24,
+        ),
+        selectedIcon: SvgPicture.asset(
+          AppIcons.activeCategory,
+          width: 24,
+          height: 24,
+        ),
+        label: l10n.products,
+      ),
+      _NavItem(
+        icon: AppBadge(
+          SvgPicture.asset(
+            AppIcons.inactiveHeart(brightness),
+            width: 24,
+            height: 24,
+          ),
+        ),
+        selectedIcon: AppBadge(
+          SvgPicture.asset(AppIcons.activeHeart, width: 24, height: 24),
+        ),
+        label: l10n.wishlist,
+      ),
+      _NavItem(
+        icon: SvgPicture.asset(
+          AppIcons.inactiveShoppingCart(brightness),
+          width: 24,
+          height: 24,
+        ),
+        selectedIcon: SvgPicture.asset(
+          AppIcons.activeShoppingCart,
+          width: 24,
+          height: 24,
+        ),
+        label: l10n.cart,
+      ),
+      _NavItem(
+        icon: SvgPicture.asset(
+          AppIcons.inactiveProfile(brightness),
+          width: 24,
+          height: 24,
+        ),
+        selectedIcon: SvgPicture.asset(
+          AppIcons.activeProfile,
+          width: 24,
+          height: 24,
+        ),
+        label: l10n.profile,
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final navCubit = context.read<NavCubit>();
@@ -65,85 +140,76 @@ class _MainNavScreenState extends State<MainNavScreen> {
       buildWhen: (previous, current) =>
           previous.screenIndex != current.screenIndex,
       builder: (context, navModel) {
+        final items = _navItems(l10n, brightness);
+        final content = IndexedStack(
+          index: navModel.screenIndex,
+          children: _tabs,
+        );
+
+        // MOBILE: bottom NavigationBar
+        if (context.isMobile) {
+          return Scaffold(
+            body: content,
+            bottomNavigationBar: NavigationBar(
+              selectedIndex: navModel.screenIndex,
+              onDestinationSelected: (index) {
+                navCubit.changeNav(selectedNav: index);
+              },
+              destinations: items
+                  .map(
+                    (item) => NavigationDestination(
+                      icon: item.icon,
+                      selectedIcon: item.selectedIcon,
+                      label: item.label,
+                    ),
+                  )
+                  .toList(),
+            ),
+          );
+        }
+
+        // TABLET / DESKTOP: side NavigationRail
         return Scaffold(
-          body: IndexedStack(index: navModel.screenIndex, children: _tabs),
-          bottomNavigationBar: NavigationBar(
-            selectedIndex: navModel.screenIndex,
-            onDestinationSelected: (index) {
-              navCubit.changeNav(selectedNav: index);
-            },
-            destinations: [
-              NavigationDestination(
-                icon: SvgPicture.asset(
-                  AppIcons.inactiveHome(brightness),
-                  width: 24,
-                  height: 24,
-                ),
-                selectedIcon: SvgPicture.asset(
-                  AppIcons.activeHome,
-                  width: 24,
-                  height: 24,
-                ),
-                label: l10n.home,
+          body: Row(
+            children: [
+              NavigationRail(
+                selectedIndex: navModel.screenIndex,
+                onDestinationSelected: (index) {
+                  navCubit.changeNav(selectedNav: index);
+                },
+                labelType: NavigationRailLabelType.all,
+                mainAxisAlignment: .center,
+                
+                destinations: items
+                    .map(
+                      (item) => NavigationRailDestination(
+                        icon: item.icon,
+                        selectedIcon: item.selectedIcon,
+                        label: Text(item.label),
+                      ),
+                    )
+                    .toList(),
               ),
-              NavigationDestination(
-                icon: SvgPicture.asset(
-                  AppIcons.inactiveCategory(brightness),
-                  width: 24,
-                  height: 24,
-                ),
-                selectedIcon: SvgPicture.asset(
-                  AppIcons.activeCategory,
-                  width: 24,
-                  height: 24,
-                ),
-                label: l10n.products,
-              ),
-              NavigationDestination(
-                icon: AppBadge(
-                  SvgPicture.asset(
-                    AppIcons.inactiveHeart(brightness),
-                    width: 24,
-                    height: 24,
-                  ),
-                ),
-                selectedIcon: AppBadge(
-                  SvgPicture.asset(AppIcons.activeHeart, width: 24, height: 24),
-                ),
-                label: l10n.wishlist,
-              ),
-              NavigationDestination(
-                icon: SvgPicture.asset(
-                  AppIcons.inactiveShoppingCart(brightness),
-                  width: 24,
-                  height: 24,
-                ),
-                selectedIcon: SvgPicture.asset(
-                  AppIcons.activeShoppingCart,
-                  width: 24,
-                  height: 24,
-                ),
-                label: l10n.cart,
-              ),
-              NavigationDestination(
-                icon: SvgPicture.asset(
-                  AppIcons.inactiveProfile(brightness),
-                  width: 24,
-                  height: 24,
-                ),
-                selectedIcon: SvgPicture.asset(
-                  AppIcons.activeProfile,
-                  width: 24,
-                  height: 24,
-                ),
-                label: l10n.profile,
-              ),
+              // const VerticalDivider(width: 1), 
+              Expanded(child: content),
             ],
           ),
         );
       },
     );
   }
+}
+
+class _NavItem {
+  final Widget icon;
+  final Widget selectedIcon;
+  final String label;
+
+  _NavItem({
+    required this.icon,
+    required this.selectedIcon,
+    required this.label,
+  });
 }
 
 class AppBadge extends StatelessWidget {

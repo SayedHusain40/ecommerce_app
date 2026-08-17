@@ -22,7 +22,6 @@ class _HomeBannerState extends State<HomeBanner> {
   Widget build(BuildContext context) {
     final brightness = context.brightness;
     final l10n = context.l10n;
-    final textScale = MediaQuery.textScalerOf(context).scale(1.0);
 
     return CarouselSlider(
       items: bannerList.map((e) {
