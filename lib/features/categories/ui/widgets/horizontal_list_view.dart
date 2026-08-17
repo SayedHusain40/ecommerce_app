@@ -8,7 +8,7 @@ class HorizontalListView extends StatelessWidget {
 
   const HorizontalListView({
     super.key,
-    this.itemCount = 6,
+    required this.itemCount,
     required this.itemBuilder,
     this.isSliver = false,
     this.space = 3,

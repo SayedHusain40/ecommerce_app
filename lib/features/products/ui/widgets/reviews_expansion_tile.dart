@@ -34,10 +34,13 @@ class ReviewsExpansionTile extends StatelessWidget {
 
       title: Row(
         children: [
-          Text(rating.toString(), style: AppTextStyles.body1Medium),
-          const SizedBox(width: 2),
-          // reviews
-          Text('(${reviews.length} reviews)', style: AppTextStyles.body1Medium),
+          Expanded(
+            child: Text(
+              '$rating (${reviews.length} reviews)',
+              style: AppTextStyles.body1Medium,
+              // overflow: .ellipsis,
+            ),
+          ),
           const SizedBox(width: 2),
           StarRating(rating: rating, emptyColor: Colors.blueGrey),
         ],

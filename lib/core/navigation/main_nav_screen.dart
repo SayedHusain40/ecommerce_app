@@ -179,7 +179,7 @@ class _MainNavScreenState extends State<MainNavScreen> {
                 },
                 labelType: NavigationRailLabelType.all,
                 mainAxisAlignment: .center,
-                
+
                 destinations: items
                     .map(
                       (item) => NavigationRailDestination(
@@ -190,7 +190,7 @@ class _MainNavScreenState extends State<MainNavScreen> {
                     )
                     .toList(),
               ),
-              // const VerticalDivider(width: 1), 
+              // const VerticalDivider(width: 1),
               Expanded(child: content),
             ],
           ),

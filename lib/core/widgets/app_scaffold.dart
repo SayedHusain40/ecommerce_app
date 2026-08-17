@@ -3,6 +3,7 @@ import 'package:ecommerce_app/responsive/responsive_extension.dart';
 import 'package:flutter/material.dart';
 
 class AppScaffold extends StatelessWidget {
+  final bool extendBodyBehindAppBar;
   final Widget body;
   final PreferredSizeWidget? appBar;
   final Widget? bottomNavigationBar;
@@ -17,6 +18,7 @@ class AppScaffold extends StatelessWidget {
 
   const AppScaffold({
     super.key,
+    this.extendBodyBehindAppBar = false,
     required this.body,
     this.appBar,
     this.bottomNavigationBar,
@@ -50,6 +52,7 @@ class AppScaffold extends StatelessWidget {
     }
 
     return Scaffold(
+      extendBodyBehindAppBar: extendBodyBehindAppBar,
       backgroundColor: backgroundColor,
       appBar: appBar,
       drawer: drawer,
@@ -70,5 +73,3 @@ class AppScaffold extends StatelessWidget {
     );
   }
 }
-
-

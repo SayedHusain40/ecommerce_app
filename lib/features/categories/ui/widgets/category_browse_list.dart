@@ -31,6 +31,7 @@ class CategoryBrowseList extends StatelessWidget {
                   const CategoryCardShimmer(borderRadius: 16),
             )
           : HorizontalListView(
+              itemCount: context.responsive(mobile: 6, tablet: 8, desktop: 10),
               isSliver: isSliver,
               itemBuilder: (_, _) =>
                   const CategoryCardShimmer(width: 76, borderRadius: 8),

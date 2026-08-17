@@ -11,6 +11,7 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     this.title,
     this.backgroundColor,
+    this.elevation,
     this.onBackPressed,
     this.actions,
     this.centerTitle = false,
@@ -25,6 +26,7 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final String? title;
   final Color? backgroundColor;
+  final double? elevation;
   final VoidCallback? onBackPressed;
   final List<Widget>? actions;
   final bool centerTitle;
@@ -47,6 +49,7 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final isRtl = context.isRtl;
 
     return AppBar(
+      elevation: elevation,
       scrolledUnderElevation: 0,
       flexibleSpace: flexibleSpace,
       systemOverlayStyle: systemOverlayStyle,

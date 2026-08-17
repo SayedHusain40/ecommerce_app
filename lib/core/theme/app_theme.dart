@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/theme/custom_themes/app_color_scheme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_elevated_button_theme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_input_decoration_theme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_navigation_bar_theme.dart';
+import 'package:ecommerce_app/core/theme/custom_themes/app_navigation_rail_theme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/app_text_button_theme.dart';
 import 'package:ecommerce_app/core/theme/custom_themes/bar_theme.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,8 @@ class AppTheme {
 
     bottomSheetTheme: AppBottomSheetTheme.light,
     // checkboxTheme: AppCheckboxTheme.light,
-    navigationBarTheme: AppNavigationBarTheme.light, // add this
+    navigationBarTheme: AppNavigationBarTheme.light,
+    navigationRailTheme: AppNavigationRailTheme.light,
   );
 
   // ---------------- DARK THEME ----------------
@@ -45,7 +47,8 @@ class AppTheme {
 
     bottomSheetTheme: AppBottomSheetTheme.dark,
     // checkboxTheme: AppCheckboxTheme.dark,
-    navigationBarTheme: AppNavigationBarTheme.dark, // add this
+    navigationBarTheme: AppNavigationBarTheme.dark,
+    navigationRailTheme: AppNavigationRailTheme.dark,
   );
 }
 
