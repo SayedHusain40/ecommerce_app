@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
+import 'package:ecommerce_app/responsive/responsive_extension.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class _ExpandableDescriptionState extends State<ExpandableDescription> {
     // if expanded → show full text
     // if not expanded and text is long → cut at _maxChars and add "..."
     // if not expanded and text is short → show full text as is
-    final String displayText = _isExpanded || !isLong
+    final String displayText = _isExpanded || !isLong || !context.isMobile
         ? fullText
         : '${fullText.substring(0, _maxChars)}... ';
 
@@ -35,7 +36,7 @@ class _ExpandableDescriptionState extends State<ExpandableDescription> {
         style: AppTextStyles.body2Regular.copyWith(
           color: AppColors.grey150Light,
         ),
-        children: isLong
+        children: isLong && context.isMobile
             ? [
                 TextSpan(
                   text: _isExpanded ? ' Show Less' : 'Read More',

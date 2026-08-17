@@ -52,7 +52,7 @@ class ProductDetailScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('Add To Cart'),
+                        Expanded(child: const Text('Add To Cart')),
                         const SizedBox(width: 8),
                         SvgPicture.asset(AppIcons.shoppingCart),
                       ],
