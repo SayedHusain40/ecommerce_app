@@ -25,6 +25,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> logout() async {
     emit(const ProfileState.logoutLoading());
+    
     final result = await authRepo.logout();
     result.when(
       success: (_) {

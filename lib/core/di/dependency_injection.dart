@@ -32,7 +32,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
@@ -46,9 +45,7 @@ Future<void> setUpGetIt(FirebaseConfig config) async {
   );
 
   // Hive
-  final wishlistBox = await Hive.openBox<String>('wishlistBox');
-  getIt.registerLazySingleton<Box<String>>(() => wishlistBox);
-  getIt.registerLazySingleton<HiveService>(() => HiveService(getIt()));
+  getIt.registerLazySingleton<HiveService>(() => HiveService());
 
   // Connectivity Checker
   getIt.registerLazySingleton<DataConnectionChecker>(
@@ -85,7 +82,9 @@ Future<void> setUpGetIt(FirebaseConfig config) async {
   );
   getIt.registerLazySingleton<ProductRepo>(() => ProductRepo(getIt(), getIt()));
   getIt.registerLazySingleton<CategoryRepo>(() => CategoryRepo(getIt()));
-  getIt.registerLazySingleton<WishlistRepo>(() => WishlistRepo(getIt()));
+  getIt.registerLazySingleton<WishlistRepo>(
+    () => WishlistRepo(getIt(), getIt()),
+  );
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
 
   // Cubits

@@ -45,15 +45,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         statusBarBrightness: Brightness.dark,
       ),
       child: AppScaffold(
-        // backgroundColor: AppColors.cyan,
-        // applyPadding: false,
-        // appBar: const AppCustomAppBar(
-        //   showBackButton: false,
-        //   addLine: false,
-        //   backgroundColor: Colors.transparent,
-        //   elevation: 0,
-        // ),
-        // extendBodyBehindAppBar: true,
         applyPadding: false,
         body: Container(
           width: double.infinity,
