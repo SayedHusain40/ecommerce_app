@@ -18,6 +18,8 @@
   "seeAll": "SEE ALL",
   "seeAllLabel": "See All",
   "andWord": "and",
+  "viewCart": "View Cart",
+  "buyNow": "Buy Now",
 
   "email": "Email",
   "enterYourEmail": "Enter your email",
@@ -111,8 +113,14 @@
 
   "wishlistEmptyTitle": "Your wishlist is empty",
   "wishlistEmptySubtitle": "Tap heart button to start saving your favorite items.",
+  "cartEmptyTitle": "Your cart is empty",
+  "cartEmptySubtitle": "Looks like you have not added anything in your cart. Go ahead and explore top categories.",
+  "productAddedToWishlist": "The product has been added to your wishlist",
+  "productAddedToCart": "The product has been added to your cart",
+
   "exploreCategories": "Explore Categories",
   "deleteProductFromWishlistConfirm": "Delete product from wishlist",
+  "deleteProductFromCartConfirm": "Delete product from cart",
   "deleteAProduct": "Delete a product",
 
   "personalInformation": "Personal Information",

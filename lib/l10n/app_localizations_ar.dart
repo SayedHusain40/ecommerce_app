@@ -60,6 +60,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get andWord => 'و';
 
   @override
+  String get viewCart => 'عرض السلة';
+
+  @override
+  String get buyNow => 'اشتري الآن';
+
+  @override
   String get email => 'البريد الإلكتروني';
 
   @override
@@ -299,10 +305,26 @@ class AppLocalizationsAr extends AppLocalizations {
       'اضغط على زر القلب لبدء حفظ العناصر المفضلة لديك.';
 
   @override
+  String get cartEmptyTitle => 'سلة التسوق فارغة';
+
+  @override
+  String get cartEmptySubtitle =>
+      'يبدو أنك لم تضف أي شيء إلى سلة التسوق بعد. تصفح الأقسام الأكثر رواجاً وابدأ التسوق.';
+
+  @override
+  String get productAddedToWishlist => 'تمت إضافة المنتج إلى قائمة الرغبات';
+
+  @override
+  String get productAddedToCart => 'تمت إضافة المنتج إلى سلة التسوق';
+
+  @override
   String get exploreCategories => 'استكشف الفئات';
 
   @override
   String get deleteProductFromWishlistConfirm => 'حذف المنتج من المفضلة';
+
+  @override
+  String get deleteProductFromCartConfirm => 'حذف المنتج من السلة';
 
   @override
   String get deleteAProduct => 'حذف المنتج';

@@ -64,6 +64,7 @@ dependencies:
   hive_ce: ^2.19.3
   hive_ce_flutter: ^2.3.4
 
+  bloc: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

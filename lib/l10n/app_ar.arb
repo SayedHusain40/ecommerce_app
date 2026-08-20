@@ -18,6 +18,8 @@
   "seeAll": "عرض الكل",
   "seeAllLabel": "عرض الكل",
   "andWord": "و",
+  "viewCart": "عرض السلة",
+  "buyNow": "اشتري الآن",
 
   "email": "البريد الإلكتروني",
   "enterYourEmail": "أدخل بريدك الإلكتروني",
@@ -104,8 +106,14 @@
 
   "wishlistEmptyTitle": "قائمة المفضلة فارغة",
   "wishlistEmptySubtitle": "اضغط على زر القلب لبدء حفظ العناصر المفضلة لديك.",
+  "cartEmptyTitle": "سلة التسوق فارغة",
+  "cartEmptySubtitle": "يبدو أنك لم تضف أي شيء إلى سلة التسوق بعد. تصفح الأقسام الأكثر رواجاً وابدأ التسوق.",
+  "productAddedToWishlist": "تمت إضافة المنتج إلى قائمة الرغبات",
+  "productAddedToCart": "تمت إضافة المنتج إلى سلة التسوق",
+
   "exploreCategories": "استكشف الفئات",
   "deleteProductFromWishlistConfirm": "حذف المنتج من المفضلة",
+  "deleteProductFromCartConfirm": "حذف المنتج من السلة",
   "deleteAProduct": "حذف المنتج",
 
   "personalInformation": "المعلومات الشخصية",

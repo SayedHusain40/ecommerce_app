@@ -25,6 +25,7 @@ class HiveService {
     required String jsonValue,
   }) => _box(boxName).put(key, jsonValue);
 
+  // Returns nul of not exit
   String? getItem({required String boxName, required String key}) =>
       _box(boxName).get(key);
 
@@ -34,8 +35,14 @@ class HiveService {
   Future<void> removeItem({required String boxName, required String key}) =>
       _box(boxName).delete(key);
 
+  // Removes only the given keys, leaving the rest of the box intact
+  Future<void> deleteAll({
+    required String boxName,
+    required Iterable<String> keys,
+  }) => _box(boxName).deleteAll(keys);
+
   bool containsKey({required String boxName, required String key}) =>
       _box(boxName).containsKey(key);
-      
+
   Future<void> clear(String boxName) => _box(boxName).clear();
 }
