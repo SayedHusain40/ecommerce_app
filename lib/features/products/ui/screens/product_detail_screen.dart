@@ -1,25 +1,42 @@
 import 'package:ecommerce_app/core/constants/app_assets.dart';
+import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
+import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/core/widgets/expandable_description.dart';
 import 'package:ecommerce_app/core/widgets/start_rating.dart';
+import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
+import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_image_gallery.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/quantity_selector.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/reviews_expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
   final ProductModel productModel;
   const ProductDetailScreen({super.key, required this.productModel});
 
   @override
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  int currentQuantity = 1;
+
+  void setQuantity(int newQuantity) {
+    currentQuantity = newQuantity;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final isDark = context.isDark;
+    final l10n = context.l10n;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -41,13 +58,53 @@ class ProductDetailScreen extends StatelessWidget {
                           : AppColors.black,
                     ),
                     onPressed: () async {},
-                    child: const Text('Buy Now'),
+                    child: Text(l10n.buyNow),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      final isAdded = await context
+                          .read<CartCubit>()
+                          .addOrUpdate(
+                            cartItemModel: CartItemModel(
+                              product: widget.productModel,
+                              quantity: currentQuantity,
+                            ),
+                          );
+
+                      if (!mounted) return;
+
+                      if (!isAdded) {
+                        AppToast.info(context, l10n.maxQuantityInCart);
+                        return;
+                      }
+
+                      AppToast.success(
+                        context,
+                        l10n.productAddedToCart,
+                        trailing: (close) {
+                          return GestureDetector(
+                            onTap: () {
+                              if (context.canPop()) {
+                                context.pop();
+                              }
+                              context.read<NavCubit>().changeNav(
+                                selectedNav: 3,
+                              );
+                              close();
+                            },
+                            child: Text(
+                              l10n.viewCart,
+                              style: AppTextStyles.body3SemiBold.copyWith(
+                                color: AppColors.cyan,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +126,7 @@ class ProductDetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // Product Image Gallery
-              ProductImageGallery(productModel: productModel),
+              ProductImageGallery(productModel: widget.productModel),
 
               // Body content
               Padding(
@@ -84,7 +141,7 @@ class ProductDetailScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            productModel.title,
+                            widget.productModel.title,
                             style: AppTextStyles.headingH3Bold,
                           ),
                         ),
@@ -93,12 +150,12 @@ class ProductDetailScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              "\$ ${productModel.discountPercentage}",
+                              "\$ ${widget.productModel.discountPriceString}",
                               style: AppTextStyles.headingH3Bold,
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              "\$ ${productModel.price}",
+                              "\$ ${widget.productModel.price}",
                               style: AppTextStyles.body2Regular.copyWith(
                                 color: AppColors.grey150Light,
                                 decoration: TextDecoration.lineThrough,
@@ -114,20 +171,20 @@ class ProductDetailScreen extends StatelessWidget {
                     // Product: Product Rating Row
                     Row(
                       children: [
-                        StarRating(rating: productModel.rating),
+                        StarRating(rating: widget.productModel.rating),
                         const SizedBox(width: 2),
                         Text(
-                          productModel.rating.toStringAsFixed(1),
+                          widget.productModel.rating.toStringAsFixed(1),
                           style: AppTextStyles.body4SemiBold,
                         ),
                         const SizedBox(width: 2),
                         // reviews
                         Text(
-                          '(${productModel.reviews.length} reviews)',
+                          '(${widget.productModel.reviews.length} reviews)',
                           style: AppTextStyles.body4SemiBold,
                         ),
                         const Spacer(),
-                        if (productModel.stock < 1)
+                        if (widget.productModel.stock < 1)
                           Container(
                             padding: const .symmetric(
                               vertical: 1,
@@ -148,21 +205,30 @@ class ProductDetailScreen extends StatelessWidget {
                     const SizedBox(height: 12),
 
                     // Product: description
-                    ExpandableDescription(text: productModel.description),
+                    ExpandableDescription(
+                      text: widget.productModel.description,
+                    ),
 
                     const SizedBox(height: 12),
 
                     // QuantitySelector
                     Text('Quantity', style: AppTextStyles.body3SemiBold),
                     const SizedBox(height: 12),
-                    const QuantitySelector(),
+
+                    QuantitySelector(
+                      quantity: currentQuantity,
+                      productId: widget.productModel.id,
+                      minimumOrderQuantity:
+                          widget.productModel.minimumOrderQuantity,
+                      onChangeQuantity: setQuantity,
+                    ),
 
                     const SizedBox(height: 12),
 
                     // Reviews Expansion Tile
                     ReviewsExpansionTile(
-                      rating: productModel.rating,
-                      reviews: productModel.reviews,
+                      rating: widget.productModel.rating,
+                      reviews: widget.productModel.reviews,
                     ),
                   ],
                 ),

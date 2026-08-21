@@ -130,18 +130,24 @@ class AppToast {
           child: Row(
             crossAxisAlignment: .center,
             children: [
+              // icon on left
               Container(
                 padding: const EdgeInsets.all(2),
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: SvgPicture.asset(iconAsset, width: 20, height: 20),
+                child: SvgPicture.asset(iconAsset, width: 24, height: 24),
               ),
+
               const SizedBox(width: 8),
+
+              // title
               Expanded(
                 child: Text(message, style: AppTextStyles.body3SemiBold),
               ),
+
+              // on right
               if (trailing != null) ...[
                 const SizedBox(width: 8),
                 trailing(() => toastification.dismiss(holder)),

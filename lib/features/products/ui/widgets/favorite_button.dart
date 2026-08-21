@@ -60,6 +60,7 @@ class FavoriteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = context.brightness;
+    final l10n = context.l10n;
 
     return CircleAvatar(
       backgroundColor: AppColors.whiteInDark(brightness),
@@ -79,7 +80,7 @@ class FavoriteButton extends StatelessWidget {
               } else {
                 AppToast.success(
                   context,
-                  'Product added to favorite!',
+                  l10n.productAddedToWishlist,
                   trailing: (close) => GestureDetector(
                     onTap: () {
                       if (context.canPop()) {

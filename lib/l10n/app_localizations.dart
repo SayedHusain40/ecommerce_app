@@ -200,6 +200,18 @@ abstract class AppLocalizations {
   /// **'and'**
   String get andWord;
 
+  /// No description provided for @viewCart.
+  ///
+  /// In en, this message translates to:
+  /// **'View Cart'**
+  String get viewCart;
+
+  /// No description provided for @buyNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy Now'**
+  String get buyNow;
+
   /// No description provided for @email.
   ///
   /// In en, this message translates to:
@@ -662,6 +674,30 @@ abstract class AppLocalizations {
   /// **'Tap heart button to start saving your favorite items.'**
   String get wishlistEmptySubtitle;
 
+  /// No description provided for @cartEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your cart is empty'**
+  String get cartEmptyTitle;
+
+  /// No description provided for @cartEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Looks like you have not added anything in your cart. Go ahead and explore top categories.'**
+  String get cartEmptySubtitle;
+
+  /// No description provided for @productAddedToWishlist.
+  ///
+  /// In en, this message translates to:
+  /// **'The product has been added to your wishlist'**
+  String get productAddedToWishlist;
+
+  /// No description provided for @productAddedToCart.
+  ///
+  /// In en, this message translates to:
+  /// **'The product has been added to your cart'**
+  String get productAddedToCart;
+
   /// No description provided for @exploreCategories.
   ///
   /// In en, this message translates to:
@@ -674,11 +710,23 @@ abstract class AppLocalizations {
   /// **'Delete product from wishlist'**
   String get deleteProductFromWishlistConfirm;
 
+  /// No description provided for @deleteProductFromCartConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete product from cart'**
+  String get deleteProductFromCartConfirm;
+
   /// No description provided for @deleteAProduct.
   ///
   /// In en, this message translates to:
   /// **'Delete a product'**
   String get deleteAProduct;
+
+  /// No description provided for @maxQuantityInCart.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve already got the max quantity of this item in your cart'**
+  String get maxQuantityInCart;
 
   /// No description provided for @personalInformation.
   ///
@@ -1255,6 +1303,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hello, I need help...'**
   String get whatsappHelpMessage;
+
+  /// No description provided for @myCart.
+  ///
+  /// In en, this message translates to:
+  /// **'My Cart'**
+  String get myCart;
+
+  /// No description provided for @orderInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Info'**
+  String get orderInfo;
+
+  /// No description provided for @subtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get subtotal;
+
+  /// No description provided for @shippingCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Shipping Cost'**
+  String get shippingCost;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @checkoutWithCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkout ({count})'**
+  String checkoutWithCount(Object count);
 }
 
 class _AppLocalizationsDelegate

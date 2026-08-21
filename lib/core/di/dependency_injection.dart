@@ -10,6 +10,8 @@ import 'package:ecommerce_app/core/network/connection/network_info.dart';
 import 'package:ecommerce_app/core/storage/hive_service.dart';
 import 'package:ecommerce_app/core/storage/shared_preferences_service.dart';
 import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
+import 'package:ecommerce_app/features/cart/data/repos/cart_repo.dart';
+import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/categories/data/repos/category_repo.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/data/repos/forgot_password_repo.dart';
@@ -86,6 +88,7 @@ Future<void> setUpGetIt(FirebaseConfig config) async {
     () => WishlistRepo(getIt(), getIt()),
   );
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
+  getIt.registerLazySingleton<CartRepo>(() => CartRepo(getIt(), getIt()));
 
   // Cubits
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt(), getIt()));
@@ -107,6 +110,7 @@ Future<void> setUpGetIt(FirebaseConfig config) async {
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt(), getIt()));
   // for lazy cubits
   getIt.registerLazySingleton<WishlistCubit>(() => WishlistCubit(getIt()));
+  getIt.registerLazySingleton<CartCubit>(() => CartCubit(getIt()));
   getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit(getIt()));
   getIt.registerLazySingleton<LocaleCubit>(() => LocaleCubit(getIt()));
   getIt.registerLazySingleton<NavCubit>(() => NavCubit());

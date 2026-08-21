@@ -60,6 +60,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get andWord => 'and';
 
   @override
+  String get viewCart => 'View Cart';
+
+  @override
+  String get buyNow => 'Buy Now';
+
+  @override
   String get email => 'Email';
 
   @override
@@ -299,13 +305,34 @@ class AppLocalizationsEn extends AppLocalizations {
       'Tap heart button to start saving your favorite items.';
 
   @override
+  String get cartEmptyTitle => 'Your cart is empty';
+
+  @override
+  String get cartEmptySubtitle =>
+      'Looks like you have not added anything in your cart. Go ahead and explore top categories.';
+
+  @override
+  String get productAddedToWishlist =>
+      'The product has been added to your wishlist';
+
+  @override
+  String get productAddedToCart => 'The product has been added to your cart';
+
+  @override
   String get exploreCategories => 'Explore Categories';
 
   @override
   String get deleteProductFromWishlistConfirm => 'Delete product from wishlist';
 
   @override
+  String get deleteProductFromCartConfirm => 'Delete product from cart';
+
+  @override
   String get deleteAProduct => 'Delete a product';
+
+  @override
+  String get maxQuantityInCart =>
+      'You\'ve already got the max quantity of this item in your cart';
 
   @override
   String get personalInformation => 'Personal Information';
@@ -649,4 +676,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get whatsappHelpMessage => 'Hello, I need help...';
+
+  @override
+  String get myCart => 'My Cart';
+
+  @override
+  String get orderInfo => 'Order Info';
+
+  @override
+  String get subtotal => 'Subtotal';
+
+  @override
+  String get shippingCost => 'Shipping Cost';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String checkoutWithCount(Object count) {
+    return 'Checkout ($count)';
+  }
 }

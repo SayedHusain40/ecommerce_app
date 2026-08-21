@@ -99,7 +99,7 @@ class ProductCard extends StatelessWidget {
           maxLines: 1,
         ),
         Text(
-          '\$${productModel.discountPercentage}',
+          '\$${productModel.discountPriceString}',
           style: AppTextStyles.body3SemiBold,
         ),
         Text(
