@@ -14,7 +14,7 @@ class CartCubit extends Cubit<List<CartItemModel>> {
     emit(list);
   }
 
-  Future<void> addOrUpdate({required CartItemModel cartItemModel}) async {
+  Future<bool> addOrUpdate({required CartItemModel cartItemModel}) async {
     final productId = cartItemModel.product.id;
 
     final currentList = state;
@@ -25,11 +25,16 @@ class CartCubit extends Cubit<List<CartItemModel>> {
     if (index == -1) {
       await cartRepo.updateOrAddToCart(cartItemModel: cartItemModel);
       emit([...state, cartItemModel]);
-      return;
+      return true;
     }
 
     // Update it if exit
     final existing = currentList[index];
+
+    if (existing.quantity >= existing.product.minimumOrderQuantity) {
+      return false;
+    }
+
     final updatedItem = CartItemModel(
       product: existing.product,
       quantity: existing.quantity + cartItemModel.quantity,
@@ -40,6 +45,7 @@ class CartCubit extends Cubit<List<CartItemModel>> {
     await cartRepo.updateOrAddToCart(cartItemModel: updatedItem);
 
     emit([...currentList]);
+    return true;
   }
 
   Future<void> addOrMinus({required int productId, required bool isAdd}) async {

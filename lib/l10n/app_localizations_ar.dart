@@ -330,6 +330,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deleteAProduct => 'حذف المنتج';
 
   @override
+  String get maxQuantityInCart =>
+      'لديك بالفعل الحد الأقصى من هذا العنصر في سلتك';
+
+  @override
   String get personalInformation => 'المعلومات الشخصية';
 
   @override
@@ -668,4 +672,24 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get whatsappHelpMessage => 'مرحبًا، أحتاج إلى مساعدة...';
+
+  @override
+  String get myCart => 'سلتي';
+
+  @override
+  String get orderInfo => 'معلومات الطلب';
+
+  @override
+  String get subtotal => 'الإجمالي الفرعي';
+
+  @override
+  String get shippingCost => 'تكلفة الشحن';
+
+  @override
+  String get total => 'الإجمالي';
+
+  @override
+  String checkoutWithCount(Object count) {
+    return 'الدفع ($count)';
+  }
 }

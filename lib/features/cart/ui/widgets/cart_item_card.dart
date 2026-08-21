@@ -56,8 +56,12 @@ class CartItemCard extends StatelessWidget {
                   ),
                   Positioned(
                     top: 6,
-                    left: 6,
-                    child: FavoriteButton(productModel: cartModel.product),
+                    left: context.isRtl ? null : 6,
+                    right: context.isRtl ? 6 : null,
+                    child: FavoriteButton(
+                      radius: 15,
+                      productModel: cartModel.product,
+                    ),
                   ),
                 ],
               ),

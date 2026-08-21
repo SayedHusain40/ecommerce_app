@@ -115,6 +115,8 @@
   "deleteProductFromWishlistConfirm": "حذف المنتج من المفضلة",
   "deleteProductFromCartConfirm": "حذف المنتج من السلة",
   "deleteAProduct": "حذف المنتج",
+  "maxQuantityInCart": "لديك بالفعل الحد الأقصى من هذا العنصر في سلتك",
+
 
   "personalInformation": "المعلومات الشخصية",
   "supportAndInformation": "الدعم والمعلومات",
@@ -217,5 +219,13 @@
   "settings": "الإعدادات",
   "orders": "الطلبات",
   "contactUs": "تواصل معنا",
-  "whatsappHelpMessage": "مرحبًا، أحتاج إلى مساعدة..."
+  "whatsappHelpMessage": "مرحبًا، أحتاج إلى مساعدة...",
+
+  "myCart": "سلتي",
+  "orderInfo": "معلومات الطلب",
+  "subtotal": "الإجمالي الفرعي",
+  "shippingCost": "تكلفة الشحن",
+  "total": "الإجمالي",
+  "checkoutWithCount": "الدفع ({count})"
+
 }

@@ -331,6 +331,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteAProduct => 'Delete a product';
 
   @override
+  String get maxQuantityInCart =>
+      'You\'ve already got the max quantity of this item in your cart';
+
+  @override
   String get personalInformation => 'Personal Information';
 
   @override
@@ -672,4 +676,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get whatsappHelpMessage => 'Hello, I need help...';
+
+  @override
+  String get myCart => 'My Cart';
+
+  @override
+  String get orderInfo => 'Order Info';
+
+  @override
+  String get subtotal => 'Subtotal';
+
+  @override
+  String get shippingCost => 'Shipping Cost';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String checkoutWithCount(Object count) {
+    return 'Checkout ($count)';
+  }
 }

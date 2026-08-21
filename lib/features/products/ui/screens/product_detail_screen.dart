@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
@@ -66,12 +65,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      context.read<CartCubit>().addOrUpdate(
-                        cartItemModel: CartItemModel(
-                          product: widget.productModel,
-                          quantity: currentQuantity,
-                        ),
-                      );
+                      final isAdded = await context
+                          .read<CartCubit>()
+                          .addOrUpdate(
+                            cartItemModel: CartItemModel(
+                              product: widget.productModel,
+                              quantity: currentQuantity,
+                            ),
+                          );
+
+                      if (!mounted) return;
+
+                      if (!isAdded) {
+                        AppToast.info(context, l10n.maxQuantityInCart);
+                        return;
+                      }
 
                       AppToast.success(
                         context,

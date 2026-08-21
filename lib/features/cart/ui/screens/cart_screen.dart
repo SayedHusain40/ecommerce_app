@@ -59,7 +59,7 @@ class _CartScreenState extends State<CartScreen> {
           appBar: cartList.isEmpty
               ? null
               : AppCustomAppBar(
-                  title: 'My Cart',
+                  title: l10n.myCart,
                   centerTitle: true,
                   onBackPressed: () {
                     context.read<NavCubit>().changeNav(selectedNav: 0);
@@ -77,6 +77,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     const SizedBox(width: 5),
                     AppBadge<CartCubit>(
+                      sumQuantity: true,
                       SvgPicture.asset(
                         AppIcons.inactiveShoppingCart(brightness),
                         width: 24,
@@ -94,7 +95,7 @@ class _CartScreenState extends State<CartScreen> {
                       mainAxisSize: .min,
                       crossAxisAlignment: .start,
                       children: [
-                        Text('Order Info', style: AppTextStyles.body1Medium),
+                        Text(l10n.orderInfo, style: AppTextStyles.body1Medium),
                         const SizedBox(height: 12),
                         SizedBox(
                           height: 32,
@@ -103,7 +104,7 @@ class _CartScreenState extends State<CartScreen> {
                             crossAxisAlignment: .center,
                             children: [
                               Text(
-                                'Subtotal',
+                                l10n.subtotal,
                                 style: AppTextStyles.body3Regular.copyWith(
                                   color: AppColors.grey150(brightness),
                                 ),
@@ -122,10 +123,9 @@ class _CartScreenState extends State<CartScreen> {
                           child: Row(
                             mainAxisAlignment: .spaceBetween,
                             crossAxisAlignment: .center,
-
                             children: [
                               Text(
-                                'Shipping Cost',
+                                l10n.shippingCost,
                                 style: AppTextStyles.body3Regular.copyWith(
                                   color: AppColors.grey150(brightness),
                                 ),
@@ -145,7 +145,10 @@ class _CartScreenState extends State<CartScreen> {
                             mainAxisAlignment: .spaceBetween,
                             crossAxisAlignment: .center,
                             children: [
-                              Text('Total', style: AppTextStyles.body1Medium),
+                              Text(
+                                l10n.total,
+                                style: AppTextStyles.body1Medium,
+                              ),
                               Text(
                                 '\$${total.toStringAsFixed(2)}',
                                 style: AppTextStyles.body1Medium,
@@ -156,7 +159,7 @@ class _CartScreenState extends State<CartScreen> {
                         const SizedBox(height: 16),
                         ElevatedButton(
                           onPressed: () {},
-                          child: Text('Checkout ($totalQuantity)'),
+                          child: Text(l10n.checkoutWithCount(totalQuantity)),
                         ),
                       ],
                     ),

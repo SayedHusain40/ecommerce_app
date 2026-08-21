@@ -122,6 +122,7 @@
   "deleteProductFromWishlistConfirm": "Delete product from wishlist",
   "deleteProductFromCartConfirm": "Delete product from cart",
   "deleteAProduct": "Delete a product",
+  "maxQuantityInCart": "You've already got the max quantity of this item in your cart",
 
   "personalInformation": "Personal Information",
   "supportAndInformation": "Support & Information",
@@ -224,5 +225,13 @@
   "settings": "Settings",
   "orders": "Orders",
   "contactUs": "Contact Us",
-  "whatsappHelpMessage": "Hello, I need help..."
+  "whatsappHelpMessage": "Hello, I need help...",
+
+  "myCart": "My Cart",
+  "orderInfo": "Order Info",
+  "subtotal": "Subtotal",
+  "shippingCost": "Shipping Cost",
+  "total": "Total",
+  "checkoutWithCount": "Checkout ({count})"
+
 }
