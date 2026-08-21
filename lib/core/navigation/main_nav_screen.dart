@@ -2,8 +2,10 @@ import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
+import 'package:ecommerce_app/core/widgets/app_badge.dart';
+import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
+import 'package:ecommerce_app/features/cart/ui/screens/cart_screen.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
-import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
 import 'package:ecommerce_app/features/profile/ui/screens/profile_screen.dart';
@@ -52,7 +54,7 @@ class _MainNavScreenState extends State<MainNavScreen> {
       ),
 
       const WishListScreen(),
-      const _PlaceholderScreen(title: 'My Cart'),
+      const CartScreen(),
       const ProfileScreen(),
     ];
   }
@@ -89,28 +91,30 @@ class _MainNavScreenState extends State<MainNavScreen> {
         label: l10n.products,
       ),
       _NavItem(
-        icon: AppBadge(
+        icon: AppBadge<WishlistCubit>(
           SvgPicture.asset(
             AppIcons.inactiveHeart(brightness),
             width: 24,
             height: 24,
           ),
         ),
-        selectedIcon: AppBadge(
+        selectedIcon: AppBadge<WishlistCubit>(
           SvgPicture.asset(AppIcons.activeHeart, width: 24, height: 24),
         ),
         label: l10n.wishlist,
       ),
       _NavItem(
-        icon: SvgPicture.asset(
-          AppIcons.inactiveShoppingCart(brightness),
-          width: 24,
-          height: 24,
+        icon: AppBadge<CartCubit>(
+          sumQuantity: true,
+          SvgPicture.asset(
+            AppIcons.inactiveShoppingCart(brightness),
+            width: 24,
+            height: 24,
+          ),
         ),
-        selectedIcon: SvgPicture.asset(
-          AppIcons.activeShoppingCart,
-          width: 24,
-          height: 24,
+        selectedIcon: AppBadge<CartCubit>(
+          sumQuantity: true,
+          SvgPicture.asset(AppIcons.activeShoppingCart, width: 24, height: 24),
         ),
         label: l10n.cart,
       ),
@@ -212,37 +216,4 @@ class _NavItem {
   });
 }
 
-class AppBadge extends StatelessWidget {
-  final Widget child;
-  const AppBadge(this.child, {super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<WishlistCubit, List<ProductModel>>(
-      builder: (context, state) {
-        final int counts = state.length;
-        return Badge(
-          label: Text(counts.toString()),
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          isLabelVisible: counts > 0,
-          child: child,
-        );
-      },
-    );
-  }
-}
-
-class _PlaceholderScreen extends StatelessWidget {
-  final String title;
-
-  const _PlaceholderScreen({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(child: Text('$title screen coming soon')),
-    );
-  }
-}

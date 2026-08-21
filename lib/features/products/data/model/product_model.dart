@@ -123,6 +123,9 @@ class ProductModel {
       _$ProductModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
+
+  double get discountedPrice => price - (price * discountPercentage / 100);
+  String get discountPriceString => discountedPrice.toStringAsFixed(2);
 }
 
 @JsonSerializable()

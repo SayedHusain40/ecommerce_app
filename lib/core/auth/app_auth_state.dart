@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/navigation/main_nav_screen.dart';
+import 'package:ecommerce_app/core/storage/hive_service.dart';
+import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/screens/login_screen.dart';
@@ -26,7 +28,23 @@ class AppAuthState extends StatefulWidget {
 
 class _AppAuthStateState extends State<AppAuthState> {
   late final Stream<User?> _authStream = FirebaseAuth.instance
-      .authStateChanges();
+      .authStateChanges()
+      .asyncMap((user) async {
+        if (user == null) {
+          await getIt<HiveService>().closeBox('wishlist_${_lastUid ?? ""}');
+          await getIt<HiveService>().closeBox('cart_${_lastUid ?? ""}');
+          _lastUid = null;
+        } else if (user.uid != _lastUid) {
+          await getIt<HiveService>().openBox('wishlist_${user.uid}');
+          await getIt<HiveService>().openBox('cart_${user.uid}');
+          _lastUid = user.uid;
+          getIt<WishlistCubit>().loadWishlist();
+          getIt<CartCubit>().loadCart();
+        }
+        return user;
+      });
+
+  String? _lastUid;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +76,7 @@ class _AppAuthStateState extends State<AppAuthState> {
         }
 
         // Logged in and verified
+
         return MultiBlocProvider(
           providers: [
             // these 3 cubits for home screen
@@ -79,6 +98,8 @@ class _AppAuthStateState extends State<AppAuthState> {
 
             // this cubit for favorite products
             BlocProvider.value(value: getIt<WishlistCubit>()),
+
+            BlocProvider.value(value: getIt<CartCubit>()),
 
             BlocProvider(create: (context) => getIt<ProfileCubit>()),
 

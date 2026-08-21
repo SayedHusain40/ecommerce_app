@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/auth/app_auth_state.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
+import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/categories/ui/screens/category_screen.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
@@ -81,6 +82,7 @@ class AppRouter {
           builder: (context) => MultiBlocProvider(
             providers: [
               BlocProvider.value(value: getIt<WishlistCubit>()),
+              BlocProvider.value(value: getIt<CartCubit>()),
               BlocProvider.value(value: getIt<NavCubit>()),
             ],
             child: ProductDetailScreen(productModel: productModel),

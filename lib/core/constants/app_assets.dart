@@ -17,7 +17,8 @@ class AppImages {
   static const String banner1 = 'assets/images/banners/banner1.png';
 
   // empty
-  static const String emptyWishlist = 'assets/images/empty/empty-wishlist.png';
+  static const String emptyWishlist = 'assets/images/empty/empty_wishlist.png';
+  static const String emptyCart = 'assets/images/empty/empty_cart.png';
 
   // flags
   static const String usFlag = 'assets/images/flags/us.png';
