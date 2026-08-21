@@ -3,13 +3,13 @@ import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
-import 'package:ecommerce_app/core/widgets/app_confirm_bottom_sheet.dart';
+import 'package:ecommerce_app/core/widgets/app_badge.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/core/widgets/empty_widget.dart';
 import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
-import 'package:ecommerce_app/features/products/ui/widgets/quantity_selector.dart';
+import 'package:ecommerce_app/features/cart/ui/widgets/cart_item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,14 +35,6 @@ class _CartScreenState extends State<CartScreen> {
     currentQuantity = newQuantity;
   }
 
-  void onDeleteCartProduct(int productID) {
-    showAppConfirmBottomSheet(
-      context: context,
-      message: context.l10n.deleteProductFromCartConfirm,
-      onConfirm: () => cartCubit.deleteProduct(productId: productID),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final brightness = context.brightness;
@@ -50,6 +42,18 @@ class _CartScreenState extends State<CartScreen> {
 
     return BlocBuilder<CartCubit, List<CartItemModel>>(
       builder: (context, cartList) {
+        final total = cartList.fold(
+          0.0,
+          (previousValue, element) =>
+              previousValue +
+              (element.quantity * element.product.discountedPrice),
+        );
+
+        final totalQuantity = cartList.fold(
+          0,
+          (previousValue, element) => previousValue + element.quantity,
+        );
+
         return AppScaffold(
           verticalPadding: 12,
           appBar: cartList.isEmpty
@@ -71,7 +75,92 @@ class _CartScreenState extends State<CartScreen> {
                         height: 24,
                       ),
                     ),
+                    const SizedBox(width: 5),
+                    AppBadge<CartCubit>(
+                      SvgPicture.asset(
+                        AppIcons.inactiveShoppingCart(brightness),
+                        width: 24,
+                        height: 24,
+                      ),
+                    ),
                   ],
+                ),
+          bottomNavigationBar: cartList.isEmpty
+              ? null
+              : SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisSize: .min,
+                      crossAxisAlignment: .start,
+                      children: [
+                        Text('Order Info', style: AppTextStyles.body1Medium),
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          height: 32,
+                          child: Row(
+                            mainAxisAlignment: .spaceBetween,
+                            crossAxisAlignment: .center,
+                            children: [
+                              Text(
+                                'Subtotal',
+                                style: AppTextStyles.body3Regular.copyWith(
+                                  color: AppColors.grey150(brightness),
+                                ),
+                              ),
+                              Text(
+                                '\$${total.toStringAsFixed(2)}',
+                                style: AppTextStyles.body3Regular.copyWith(
+                                  color: AppColors.grey150(brightness),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 32,
+                          child: Row(
+                            mainAxisAlignment: .spaceBetween,
+                            crossAxisAlignment: .center,
+
+                            children: [
+                              Text(
+                                'Shipping Cost',
+                                style: AppTextStyles.body3Regular.copyWith(
+                                  color: AppColors.grey150(brightness),
+                                ),
+                              ),
+                              Text(
+                                '\$0.00',
+                                style: AppTextStyles.body3Regular.copyWith(
+                                  color: AppColors.grey150(brightness),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                          child: Row(
+                            mainAxisAlignment: .spaceBetween,
+                            crossAxisAlignment: .center,
+                            children: [
+                              Text('Total', style: AppTextStyles.body1Medium),
+                              Text(
+                                '\$${total.toStringAsFixed(2)}',
+                                style: AppTextStyles.body1Medium,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Text('Checkout ($totalQuantity)'),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
           body: cartList.isEmpty
               ? EmptyWidget(
@@ -83,89 +172,7 @@ class _CartScreenState extends State<CartScreen> {
                   itemCount: cartList.length,
                   itemBuilder: (context, index) {
                     final cartModel = cartList[index];
-                    return Column(
-                      children: [
-                        SizedBox(
-                          width: double.infinity,
-                          height: 120,
-                          child: Row(
-                            crossAxisAlignment: .start,
-                            children: [
-                              // image
-                              Container(
-                                width: 120,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFF5F6F8),
-                                  borderRadius: .circular(12),
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      cartModel.product.thumbnail,
-                                    ),
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              // content
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: .start,
-                                  children: [
-                                    Text(
-                                      cartModel.product.title,
-                                      style: AppTextStyles.body2Medium,
-                                      overflow: .ellipsis,
-                                      maxLines: 2,
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      '\$${cartModel.product.price}',
-                                      style: AppTextStyles.body3SemiBold,
-                                    ),
-                                    const SizedBox(height: 2),
-                                    Text(
-                                      '\$${cartModel.product.discountPercentage}',
-                                      style: AppTextStyles.body4Regular
-                                          .copyWith(
-                                            color: AppColors.grey150(
-                                              brightness,
-                                            ),
-                                          ),
-                                    ),
-                                    const Spacer(),
-                                    Row(
-                                      mainAxisAlignment: .spaceBetween,
-                                      children: [
-                                        QuantitySelector(
-                                          quantity: cartModel.quantity,
-                                          productId: cartModel.product.id,
-                                          minimumOrderQuantity: cartModel
-                                              .product
-                                              .minimumOrderQuantity,
-                                          isComeFromCartScreen: true,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () => onDeleteCartProduct(
-                                            cartModel.product.id,
-                                          ),
-                                          child: SvgPicture.asset(
-                                            AppIcons.trash,
-                                            width: 24,
-                                            height: 24,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    );
+                    return CartItemCard(cartModel: cartModel);
                   },
                 ),
         );

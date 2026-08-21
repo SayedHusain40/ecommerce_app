@@ -2,10 +2,10 @@ import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
+import 'package:ecommerce_app/core/widgets/app_badge.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/cart/ui/screens/cart_screen.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
-import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
 import 'package:ecommerce_app/features/profile/ui/screens/profile_screen.dart';
@@ -216,28 +216,4 @@ class _NavItem {
   });
 }
 
-class AppBadge<T extends Cubit<List>> extends StatelessWidget {
-  final Widget child;
-  final bool sumQuantity;
 
-  const AppBadge(this.child, {super.key, this.sumQuantity = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<T, List>(
-      builder: (context, state) {
-        final int counts = sumQuantity
-            ? state.fold<int>(0, (sum, item) => sum + (item.quantity as int))
-            : state.length;
-
-        return Badge(
-          label: Text(counts.toString()),
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          isLabelVisible: counts > 0,
-          child: child,
-        );
-      },
-    );
-  }
-}

@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/app_toast.dart';
@@ -143,7 +142,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              "\$ ${widget.productModel.discountPercentage}",
+                              "\$ ${widget.productModel.discountPriceString}",
                               style: AppTextStyles.headingH3Bold,
                             ),
                             const SizedBox(width: 10),

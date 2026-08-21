@@ -42,13 +42,10 @@ class _QuantitySelectorState extends State<QuantitySelector> {
 
   void onAdd() {
     setState(() {
-
       if (currentQuantity < widget.minimumOrderQuantity) {
         currentQuantity++;
         changeQuantity(isAdd: true);
       }
-
-
     });
   }
 
@@ -59,20 +56,17 @@ class _QuantitySelectorState extends State<QuantitySelector> {
         changeQuantity(isAdd: false);
       }
     });
-
   }
 
   void changeQuantity({required bool isAdd}) {
-    if (widget.onChangeQuantity != null) { // this for product details screen
+    if (widget.onChangeQuantity != null) {
+      // this for product details screen
       widget.onChangeQuantity!(currentQuantity);
     }
 
-    // this will run only for cartScreen 
+    // this will run only for cartScreen
     if (widget.isComeFromCartScreen) {
-      cartCubit.addOrMinus(
-        productId: widget.productId,
-        isAdd: isAdd,
-      );
+      cartCubit.addOrMinus(productId: widget.productId, isAdd: isAdd);
     }
   }
 
@@ -105,7 +99,7 @@ class _QuantitySelectorState extends State<QuantitySelector> {
             child: Center(
               child: Text(
                 currentQuantity.toString(),
-                style: AppTextStyles.body1Medium.copyWith(height: 0.0),
+                style: AppTextStyles.body1Medium.copyWith(height: 1),
               ),
             ),
           ),
