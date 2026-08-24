@@ -16,4 +16,11 @@ class RouteNames {
   static const verifyOldPasswordScreen = '/verifyOldPasswordScreen';
   static const changePasswordNewScreen = '/changePasswordNewScreen';
   static const newPasswordSetSuccessfully= '/newPasswordSetSuccessfully';
+
+  static const checkoutShippingScreen = '/checkoutShippingScreen';
+  static const checkoutPaymentScreen = '/checkoutPaymentScreen';
+  static const checkoutReviewScreen = '/checkoutReviewScreen';
+  static const orderSuccessScreen = '/orderSuccessScreen';
+  static const checkoutReviewItemsScreen = '/checkoutReviewItemsScreen';
+
 }

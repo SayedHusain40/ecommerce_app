@@ -124,7 +124,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SectionTitle(l10n.personalInformation),
                       SettingsTile(
                         icon: SvgPicture.asset(
-                          AppIcons.shipping(brightness),
+                          AppIcons.shipping(
+                            brightness,
+                            isCurrent: false,
+                            isDone: false,
+                          ),
                           width: 24,
                           height: 24,
                         ),
@@ -133,7 +137,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       SettingsTile(
                         icon: SvgPicture.asset(
-                          AppIcons.payment(brightness),
+                          AppIcons.payment(
+                            brightness,
+                            isCurrent: false,
+                            isDone: false,
+                          ),
                           width: 24,
                           height: 24,
                         ),

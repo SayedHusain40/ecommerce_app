@@ -2,9 +2,16 @@ import 'package:ecommerce_app/core/auth/app_auth_state.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
+import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/categories/ui/screens/category_screen.dart';
+import 'package:ecommerce_app/features/checkout/logic/cubit/checkout_cubit.dart';
+import 'package:ecommerce_app/features/checkout/ui/screens/checkout_payment_screen.dart';
+import 'package:ecommerce_app/features/checkout/ui/screens/checkout_review_Items_screen.dart';
+import 'package:ecommerce_app/features/checkout/ui/screens/checkout_review_screen.dart';
+import 'package:ecommerce_app/features/checkout/ui/screens/checkout_shipping_screen.dart';
+import 'package:ecommerce_app/features/checkout/ui/screens/order_success_screen.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/ui/screens/confirmation_email_screen.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
@@ -115,6 +122,47 @@ class AppRouter {
       case RouteNames.newPasswordSetSuccessfully:
         return MaterialPageRoute(
           builder: (context) => const PasswordSuccessScreen(),
+        );
+      case RouteNames.checkoutShippingScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: getIt<CheckoutCubit>(),
+            child: const CheckoutShippingScreen(),
+          ),
+        );
+      case RouteNames.checkoutPaymentScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: getIt<CheckoutCubit>(),
+            child: const CheckoutPaymentScreen(),
+          ),
+        );
+      case RouteNames.checkoutReviewScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: getIt<CheckoutCubit>(),
+            child: const CheckoutReviewScreen(),
+          ),
+        );
+      case RouteNames.orderSuccessScreen:
+        return MaterialPageRoute(
+          builder: (context) => MultiBlocListener(
+            listeners: [
+              BlocProvider.value(value: getIt<CartCubit>()),
+              BlocProvider.value(value: getIt<NavCubit>()),
+            ],
+            child: const OrderSuccessScreen(),
+          ),
+        );
+      case RouteNames.checkoutReviewItemsScreen:
+        final List<CartItemModel> list =
+            settings.arguments as List<CartItemModel>;
+
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<WishlistCubit>(),
+            child: CheckoutReviewItemsScreen(list: list),
+          ),
         );
       default:
         return MaterialPageRoute(
