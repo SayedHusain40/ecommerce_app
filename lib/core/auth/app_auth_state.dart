@@ -33,10 +33,12 @@ class _AppAuthStateState extends State<AppAuthState> {
         if (user == null) {
           await getIt<HiveService>().closeBox('wishlist_${_lastUid ?? ""}');
           await getIt<HiveService>().closeBox('cart_${_lastUid ?? ""}');
+          await getIt<HiveService>().closeBox('order_${_lastUid ?? ""}');
           _lastUid = null;
         } else if (user.uid != _lastUid) {
           await getIt<HiveService>().openBox('wishlist_${user.uid}');
           await getIt<HiveService>().openBox('cart_${user.uid}');
+          await getIt<HiveService>().openBox('order_${user.uid}');
           _lastUid = user.uid;
           getIt<WishlistCubit>().loadWishlist();
           getIt<CartCubit>().loadCart();

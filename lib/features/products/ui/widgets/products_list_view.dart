@@ -9,7 +9,6 @@ import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_state.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/favorite_button.dart';
-import 'package:ecommerce_app/features/products/ui/widgets/product_card.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -130,7 +129,7 @@ class ProductsListView extends StatelessWidget {
                                     const SizedBox(height: 2),
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                           horizontal: 10,
                                           vertical: 10,
                                         ),
@@ -183,7 +182,7 @@ class ProductsListView extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text('Add To Cart'),
+                                          const Text('Add To Cart'),
                                           const SizedBox(width: 8),
                                           SvgPicture.asset(
                                             AppIcons.shoppingCart,

@@ -13,6 +13,7 @@ class QuantitySelector extends StatefulWidget {
   final int minimumOrderQuantity;
   final void Function(int)? onChangeQuantity;
   final bool isComeFromCartScreen;
+  final bool isDisabled;
 
   const QuantitySelector({
     super.key,
@@ -21,6 +22,7 @@ class QuantitySelector extends StatefulWidget {
     this.onChangeQuantity,
     required this.minimumOrderQuantity,
     this.isComeFromCartScreen = false,
+    this.isDisabled = false,
   });
 
   @override
@@ -91,15 +93,24 @@ class _QuantitySelectorState extends State<QuantitySelector> {
             child: IconButton(
               padding: EdgeInsets.zero,
               alignment: Alignment.center,
-              onPressed: onMinus,
-              icon: SvgPicture.asset(AppIcons.minus(brightness)),
+              onPressed: widget.isDisabled ? null : onMinus,
+              icon: SvgPicture.asset(
+                AppIcons.minus(brightness),
+
+                colorFilter: widget.isDisabled
+                    ? const ColorFilter.mode(AppColors.grey100, BlendMode.srcIn)
+                    : null,
+              ),
             ),
           ),
           Expanded(
             child: Center(
               child: Text(
                 currentQuantity.toString(),
-                style: AppTextStyles.body1Medium.copyWith(height: 1),
+                style: AppTextStyles.body1Medium.copyWith(
+                  height: 1,
+                  color: widget.isDisabled ? AppColors.grey100 : null,
+                ),
               ),
             ),
           ),
@@ -108,12 +119,18 @@ class _QuantitySelectorState extends State<QuantitySelector> {
             height: 24,
             child: InkWell(
               borderRadius: BorderRadius.circular(4),
-              onTap: onAdd,
+              onTap: widget.isDisabled ? null : onAdd,
               child: Ink(
                 child: SvgPicture.asset(
                   AppIcons.add(brightness),
                   width: 24,
                   height: 24,
+                  colorFilter: widget.isDisabled
+                      ? const ColorFilter.mode(
+                          AppColors.grey100,
+                          BlendMode.srcIn,
+                        )
+                      : null,
                 ),
               ),
             ),

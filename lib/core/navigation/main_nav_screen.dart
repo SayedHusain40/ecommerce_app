@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/widgets/app_badge.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/cart/ui/screens/cart_screen.dart';
+import 'package:ecommerce_app/features/checkout/logic/cubit/checkout_cubit.dart';
 import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/screens/product_screen.dart';
@@ -54,14 +55,15 @@ class _MainNavScreenState extends State<MainNavScreen> {
       ),
 
       const WishListScreen(),
-      const CartScreen(),
+      BlocProvider.value(
+        value: getIt<CheckoutCubit>(),
+        child: const CartScreen(),
+      ),
       const ProfileScreen(),
     ];
   }
 
-  // Shared destination data — built once, mapped into either
-  // NavigationDestination (mobile bottom bar) or NavigationRailDestination
-  // (tablet/desktop side rail) depending on screen size.
+
   List<_NavItem> _navItems(AppLocalizations l10n, Brightness brightness) {
     return [
       _NavItem(
@@ -215,5 +217,3 @@ class _NavItem {
     required this.label,
   });
 }
-
-
