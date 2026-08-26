@@ -1,7 +1,8 @@
 import 'dart:convert';
 
+import 'package:ecommerce_app/core/storage/hive_box_names.dart';
 import 'package:ecommerce_app/core/storage/hive_service.dart';
-import 'package:ecommerce_app/features/products/data/model/product_model.dart';
+import 'package:ecommerce_app/features/wishlist/data/models/wishlist_item_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class WishlistRepo {
@@ -11,37 +12,44 @@ class WishlistRepo {
 
   String get _boxName {
     final uid = firebaseAuth.currentUser!.uid;
-    return 'wishlist_$uid';
+    return HiveBoxNames.wishlist(uid);
   }
 
-  Future<bool> toggleFavoriteProduct({
-    required ProductModel productModel,
+  Map<int, WishlistItemModel> getCachedWishList() {
+    final all = hiveService.getAll<int>(_boxName);
+
+    final items =
+        all.values
+            .map(
+              (jsonString) =>
+                  WishlistItemModel.fromJson(json.decode(jsonString)),
+            )
+            .toList()
+          ..sort((a, b) => b.addedAt.compareTo(a.addedAt)); // newest first
+
+    return {for (final item in items) item.product.id: item};
+  } 
+
+  Future<void> toggleFavoriteProduct({
+    required WishlistItemModel wishlistItemModel,
+    required bool isFavorite,
   }) async {
-    final key = productModel.id.toString();
-    final bool wasAdded;
-
-    if (hiveService.containsKey(boxName: _boxName, key: key)) {
-      await hiveService.removeItem(boxName: _boxName, key: key);
-      wasAdded = false;
+    final int productId = wishlistItemModel.product.id;
+    if (isFavorite) {
+      // remove
+      await removeFromWishlist(productId: productId);
     } else {
-      final jsonString = json.encode(productModel.toJson());
-      await hiveService.saveItem(boxName: _boxName, key: key, jsonValue: jsonString);
-      wasAdded = true;
+      // add
+      await hiveService.saveItem(
+        boxName: _boxName,
+        key: productId,
+        jsonValue: json.encode(wishlistItemModel.toJson()),
+      );
     }
-
-    return wasAdded;
-  }
-
-  List<ProductModel> getCachedWishList() {
-    final all = hiveService.getAll(_boxName);
-
-    return all.values
-        .map((jsonString) => ProductModel.fromJson(json.decode(jsonString)))
-        .toList();
   }
 
   Future<void> removeFromWishlist({required int productId}) async {
-    await hiveService.removeItem(boxName: _boxName, key: productId.toString());
+    return await hiveService.removeItem(boxName: _boxName, key: productId);
   }
 
   Future<void> clearAllFavorite() async => await hiveService.clear(_boxName);

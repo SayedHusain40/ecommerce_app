@@ -5,7 +5,6 @@ import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
-import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,7 +65,6 @@ class OrderSuccessScreen extends StatelessWidget {
             // ---------------- BUTTON ----------------
             ElevatedButton(
               onPressed: () {
-                context.read<CartCubit>().clearCart();
                 context.read<NavCubit>().changeNav(selectedNav: 0);
                 context.pushNamedAndRemoveUntil(
                   RouteNames.appAuthState,

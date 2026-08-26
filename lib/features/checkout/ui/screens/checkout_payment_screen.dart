@@ -47,128 +47,142 @@ class CheckoutPaymentScreen extends StatelessWidget {
         body: Form(
           key: checkoutCubit.formKeyPayment,
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: AutofillGroup(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
 
-              children: [
-                const CheckoutProcessStepper(currentStep: CheckoutStep.payment),
-
-                const SizedBox(height: 24),
-                const RequiredLabel('Card Holder Name'),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: checkoutCubit.cardHolderNameController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter card holder name',
+                children: [
+                  const CheckoutProcessStepper(
+                    currentStep: CheckoutStep.payment,
                   ),
-                  validator: (value) {
-                    if (value.isNullOrEmpty()) {
-                      return 'Card holder name is required';
-                    }
-                    return null;
-                  },
-                ),
 
-                const SizedBox(height: 12),
-
-                const RequiredLabel('Card Number'),
-                const SizedBox(height: 8),
-                TextFormField(
-                  inputFormatters: [CardNumberFormatter()],
-                  decoration: const InputDecoration(
-                    hintText: '4111 1111 1111 1111',
+                  const SizedBox(height: 24),
+                  const RequiredLabel('Card Holder Name'),
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    controller: checkoutCubit.cardHolderNameController,
+                    autofillHints: const [AutofillHints.creditCardName],
+                    decoration: const InputDecoration(
+                      hintText: 'Enter card holder name',
+                    ),
+                    validator: (value) {
+                      if (value.isNullOrEmpty()) {
+                        return 'Card holder name is required';
+                      }
+                      return null;
+                    },
                   ),
-                  validator: (value) {
-                    if (value.isNullOrEmpty()) {
-                      return 'Card number is required';
-                    }
-                    if (value!.length < 13 || value.length > 19) {
-                      return 'Enter a valid card number';
-                    }
-                    return null;
-                  },
-                ),
 
-                const SizedBox(height: 12),
+                  const SizedBox(height: 12),
 
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const RequiredLabel('Expiration'),
-                          const SizedBox(height: 8),
-                          TextFormField(
-                            controller: checkoutCubit.expirationController,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [ExpirationDateFormatter()],
-                            decoration: const InputDecoration(
-                              hintText: 'MM/YYYY',
+                  const RequiredLabel('Card Number'),
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    controller: checkoutCubit.cardNumberController,
+                    autofillHints: const [AutofillHints.creditCardNumber],
+                    inputFormatters: [CardNumberFormatter()],
+                    decoration: const InputDecoration(
+                      hintText: '4111 1111 1111 1111',
+                    ),
+                    validator: (value) {
+                      if (value.isNullOrEmpty()) {
+                        return 'Card number is required';
+                      }
+                      if (value!.length < 13 || value.length > 19) {
+                        return 'Enter a valid card number';
+                      }
+                      return null;
+                    },
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const RequiredLabel('Expiration'),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              controller: checkoutCubit.expirationController,
+                              keyboardType: TextInputType.number,
+                              autofillHints: const [
+                                AutofillHints.creditCardExpirationDate,
+                              ],
+                              inputFormatters: [ExpirationDateFormatter()],
+                              decoration: const InputDecoration(
+                                hintText: 'MM/YYYY',
+                              ),
+                              validator: (value) {
+                                if (value.isNullOrEmpty()) {
+                                  return 'Expiration date is required';
+                                }
+                                final parts = value!.split(' / ');
+                                if (parts.length != 2) {
+                                  return 'Enter a valid expiration date';
+                                }
+                                final month = int.tryParse(parts[0]);
+                                final year = int.tryParse(parts[1]);
+                                if (month == null || month < 1 || month > 12) {
+                                  return 'Enter a valid month';
+                                }
+                                if (year == null || parts[1].length != 4) {
+                                  return 'Enter a valid year';
+                                }
+
+                                final now = DateTime.now();
+                                final isExpired =
+                                    year < now.year ||
+                                    (year == now.year && month < now.month);
+                                if (isExpired) {
+                                  return 'Card has expired';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value.isNullOrEmpty()) {
-                                return 'Expiration date is required';
-                              }
-                              final parts = value!.split(' / ');
-                              if (parts.length != 2) {
-                                return 'Enter a valid expiration date';
-                              }
-                              final month = int.tryParse(parts[0]);
-                              final year = int.tryParse(parts[1]);
-                              if (month == null || month < 1 || month > 12) {
-                                return 'Enter a valid month';
-                              }
-                              if (year == null || parts[1].length != 4) {
-                                return 'Enter a valid year';
-                              }
-
-                              final now = DateTime.now();
-                              final isExpired =
-                                  year < now.year ||
-                                  (year == now.year && month < now.month);
-                              if (isExpired) {
-                                return 'Card has expired';
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const RequiredLabel('CVV'),
-                          const SizedBox(height: 8),
-                          TextFormField(
-                            controller: checkoutCubit.cvvController,
-                            keyboardType: TextInputType.number,
-
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(4),
-                            ],
-                            decoration: const InputDecoration(hintText: '123'),
-                            validator: (value) {
-                              if (value.isNullOrEmpty()) {
-                                return 'CVV is required';
-                              }
-                              if (value!.length < 3 || value.length > 4) {
-                                return 'Enter a valid CVV';
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const RequiredLabel('CVV'),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              controller: checkoutCubit.cvvController,
+                              keyboardType: TextInputType.number,
+                              autofillHints: const [
+                                AutofillHints.creditCardSecurityCode,
+                              ],
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(4),
+                              ],
+                              decoration: const InputDecoration(
+                                hintText: '123',
+                              ),
+                              validator: (value) {
+                                if (value.isNullOrEmpty()) {
+                                  return 'CVV is required';
+                                }
+                                if (value!.length < 3 || value.length > 4) {
+                                  return 'Enter a valid CVV';
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-              ],
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                ],
+              ),
             ),
           ),
         ),
@@ -188,14 +202,6 @@ class CardNumberFormatter extends TextInputFormatter {
     final digits = newValue.text.replaceAll(RegExp(r'\D'), '');
 
     String formattedText = digits;
-
-    // cut
-    // formattedText = digits.length > 19
-    //     ? formattedText.substring(0, 19 + 4) // 4 is spaces
-    //     : formattedText;
-
-    // 1234 5678 9000 0000
-    // 0123 456789
 
     if (digits.length >= 5) {
       formattedText =

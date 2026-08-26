@@ -4,6 +4,7 @@ import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
+import 'package:ecommerce_app/features/wishlist/data/models/wishlist_item_model.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,17 +13,18 @@ class FavoriteButton extends StatelessWidget {
   final ProductModel productModel;
   final double radius;
   final double iconSize;
+  final bool isNeedConformDelete;
 
   const FavoriteButton({
     super.key,
     required this.productModel,
     this.radius = 16,
     this.iconSize = 12,
+    this.isNeedConformDelete = false,
   });
 
-  void _confirmRemove(BuildContext context) {
+  void _confirmRemove(BuildContext context, WishlistCubit wishlistCubit) {
     final l10n = context.l10n;
-    final wishlistCubit = context.read<WishlistCubit>();
 
     showModalBottomSheet(
       context: context,
@@ -59,6 +61,8 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final wishlistCubit = context.read<WishlistCubit>();
+
     final brightness = context.brightness;
     final l10n = context.l10n;
 
@@ -66,17 +70,28 @@ class FavoriteButton extends StatelessWidget {
       backgroundColor: AppColors.whiteInDark(brightness),
       foregroundColor: AppColors.blackInDark(brightness),
       radius: radius,
-      child: BlocBuilder<WishlistCubit, List<ProductModel>>(
-        builder: (context, _) {
-          final isFavorite = context.read<WishlistCubit>().isFavorite(
-            productId: productModel.id,
+      // child: BlocBuilder<WishlistCubit, Map<int, WishlistItemModel>>(
+      //   builder: (context, wishListMap) {
+      //     debugPrint('BlocBuilder REBUILT for productId: ${productModel.id}');
+      //     final isFavorite = context.read<WishlistCubit>().isFavorite(
+      //       productId: productModel.id,
+      //     );
+      child: BlocSelector<WishlistCubit, Map<int, WishlistItemModel>, bool>(
+        selector: (wishListMap) => wishListMap.containsKey(productModel.id),
+        builder: (context, isFavorite) {
+          debugPrint(
+            'FavoriteButton REBUILT for productId: ${productModel.id}',
           );
 
           return IconButton(
             padding: EdgeInsets.zero,
             onPressed: () {
               if (isFavorite) {
-                _confirmRemove(context);
+                if (isNeedConformDelete) {
+                  _confirmRemove(context, wishlistCubit);
+                } else {
+                  wishlistCubit.removeFromWishlist(productId: productModel.id);
+                }
               } else {
                 AppToast.success(
                   context,

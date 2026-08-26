@@ -1,21 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cart_item_model.dart';
+part of 'wishlist_item_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CartItemModel _$CartItemModelFromJson(Map<String, dynamic> json) =>
-    CartItemModel(
+WishlistItemModel _$WishlistItemModelFromJson(Map<String, dynamic> json) =>
+    WishlistItemModel(
       product: ProductModel.fromJson(json['product'] as Map<String, dynamic>),
-      quantity: (json['quantity'] as num).toInt(),
       addedAt: DateTime.parse(json['addedAt'] as String),
     );
 
-Map<String, dynamic> _$CartItemModelToJson(CartItemModel instance) =>
+Map<String, dynamic> _$WishlistItemModelToJson(WishlistItemModel instance) =>
     <String, dynamic>{
       'product': instance.product,
-      'quantity': instance.quantity,
       'addedAt': instance.addedAt.toIso8601String(),
     };

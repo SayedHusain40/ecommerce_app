@@ -19,7 +19,7 @@ class CheckoutReviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final checkoutCubit = context.read<CheckoutCubit>();
     final orderList = checkoutCubit.ordersList;
-    final orderListLength = orderList.length;
+    final totalQuantity = checkoutCubit.totalQuantity;
     final brightness = context.brightness;
     final l10n = context.l10n;
 
@@ -79,7 +79,7 @@ class CheckoutReviewScreen extends StatelessWidget {
                   crossAxisAlignment: .center,
                   children: [
                     Text(
-                      'Items ($orderListLength)',
+                      'Items ($totalQuantity)',
                       style: AppTextStyles.body2Medium,
                     ),
                     SvgPicture.asset(
