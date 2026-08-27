@@ -1,29 +1,21 @@
-import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
-import 'package:ecommerce_app/core/widgets/app_confirm_bottom_sheet.dart';
 import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
-import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/favorite_button.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/quantity_selector.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 class CartItemCard extends StatelessWidget {
   final CartItemModel cartModel;
-
-  const CartItemCard({super.key, required this.cartModel});
-
-  void onDeleteCartProduct(BuildContext context, int productID) {
-    showAppConfirmBottomSheet(
-      context: context,
-      message: context.l10n.deleteProductFromCartConfirm,
-      onConfirm: () =>
-          context.read<CartCubit>().deleteProduct(productId: productID),
-    );
-  }
+  final Widget? trailing;
+  final bool isDisabled;
+  const CartItemCard({
+    super.key,
+    required this.cartModel,
+    this.trailing,
+    this.isDisabled = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +46,17 @@ class CartItemCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Positioned(
-                    top: 6,
-                    left: context.isRtl ? null : 6,
-                    right: context.isRtl ? 6 : null,
-                    child: FavoriteButton(
-                      radius: 15,
-                      productModel: cartModel.product,
+
+                  if (!isDisabled)
+                    Positioned(
+                      top: 6,
+                      left: context.isRtl ? null : 6,
+                      right: context.isRtl ? 6 : null,
+                      child: FavoriteButton(
+                        radius: 15,
+                        productModel: cartModel.product,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -99,24 +93,12 @@ class CartItemCard extends StatelessWidget {
                     minimumOrderQuantity:
                         cartModel.product.minimumOrderQuantity,
                     isComeFromCartScreen: true,
+                    isDisabled: isDisabled,
                   ),
                 ],
               ),
             ),
-            Column(
-              children: [
-                const Spacer(),
-                GestureDetector(
-                  onTap: () =>
-                      onDeleteCartProduct(context, cartModel.product.id),
-                  child: SvgPicture.asset(
-                    AppIcons.trash,
-                    width: 24,
-                    height: 24,
-                  ),
-                ),
-              ],
-            ),
+            ?trailing,
           ],
         ),
       ),

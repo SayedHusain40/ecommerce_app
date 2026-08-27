@@ -1,15 +1,18 @@
 import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
+import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_badge.dart';
+import 'package:ecommerce_app/core/widgets/app_confirm_bottom_sheet.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/core/widgets/empty_widget.dart';
 import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/cart/ui/widgets/cart_item_card.dart';
+import 'package:ecommerce_app/features/checkout/logic/cubit/checkout_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,6 +36,15 @@ class _CartScreenState extends State<CartScreen> {
 
   void setQuantity(int newQuantity) {
     currentQuantity = newQuantity;
+  }
+
+  void onDeleteCartProduct(BuildContext context, int productID) {
+    showAppConfirmBottomSheet(
+      context: context,
+      message: context.l10n.deleteProductFromCartConfirm,
+      onConfirm: () =>
+          context.read<CartCubit>().deleteProduct(productId: productID),
+    );
   }
 
   @override
@@ -158,7 +170,16 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                         const SizedBox(height: 16),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.read<CheckoutCubit>().totalOrder =
+                                double.tryParse(total.toStringAsFixed(2));
+                            context.read<CheckoutCubit>().ordersList = cartList;
+
+                            context.pushNamed(
+                              RouteNames.checkoutShippingScreen,
+                            );
+                          },
+
                           child: Text(l10n.checkoutWithCount(totalQuantity)),
                         ),
                       ],
@@ -175,7 +196,25 @@ class _CartScreenState extends State<CartScreen> {
                   itemCount: cartList.length,
                   itemBuilder: (context, index) {
                     final cartModel = cartList[index];
-                    return CartItemCard(cartModel: cartModel);
+                    final productID = cartModel.product.id;
+                    return CartItemCard(
+                      cartModel: cartModel,
+
+                      trailing: Column(
+                        children: [
+                          const Spacer(),
+                          GestureDetector(
+                            onTap: () =>
+                                onDeleteCartProduct(context, productID),
+                            child: SvgPicture.asset(
+                              AppIcons.trash,
+                              width: 24,
+                              height: 24,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                 ),
         );

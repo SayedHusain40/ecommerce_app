@@ -25,8 +25,10 @@ class AppImages {
   static const String saFlag = 'assets/images/flags/sa.png';
 
   // success
-  static const String newPasswordSetSuccessfully = 'assets/images/success/new_password_set _successfully.png';
-
+  static const String newPasswordSetSuccessfully =
+      'assets/images/success/new_password_set _successfully.png';
+  static const String orderSuccess =
+      'assets/images/success/order_success.png';
 
   // Helpers
   static String logo(Brightness b) =>
@@ -43,6 +45,7 @@ class AppIcons {
 
   // ARROW RIGHT
   static const String arrowRightLight = 'assets/svgs/arrow-right_light.svg';
+  static const String arrowRight = 'assets/svgs/arrow_right.svg';
 
   // EYE
   static const String eyeLight = 'assets/svgs/eye_light.svg';
@@ -92,7 +95,7 @@ class AppIcons {
       'assets/svgs/nav/active-shopping-cart.svg';
   static const String activeProfile = 'assets/svgs/nav/active-profile.svg';
 
-  // NAVIGATION 
+  // NAVIGATION
   static const String inactiveHomeWhite =
       'assets/svgs/nav/inactive-home-white.svg';
   static const String inactiveHomeDark =
@@ -118,25 +121,22 @@ class AppIcons {
   static const String inactiveProfileDark =
       'assets/svgs/nav/inactive-profile-dark.svg';
 
-  
-    // SETTINGS TILE ICONS
-  static const String changePasswordDark = 'assets/svgs/settings/change-password-dark.svg';
-  static const String changePasswordLight = 'assets/svgs/settings/change-password-light.svg'; // double dash in filename, fix if possible
+  // SETTINGS TILE ICONS
+  static const String changePasswordDark =
+      'assets/svgs/settings/change-password-dark.svg';
+  static const String changePasswordLight =
+      'assets/svgs/settings/change-password-light.svg'; // double dash in filename, fix if possible
 
   static const String faqDark = 'assets/svgs/settings/faq-dark.svg';
   static const String faqLight = 'assets/svgs/settings/faq-light.svg';
 
-  static const String orderHistoryDark = 'assets/svgs/settings/order-history-dark.svg';
-  static const String orderHistoryLight = 'assets/svgs/settings/order-history-light.svg';
-
-  static const String paymentDark = 'assets/svgs/settings/payment-dark.svg'; 
-  static const String paymentLight = 'assets/svgs/settings/payment-light.svg';
+  static const String orderHistoryDark =
+      'assets/svgs/settings/order-history-dark.svg';
+  static const String orderHistoryLight =
+      'assets/svgs/settings/order-history-light.svg';
 
   static const String policyDark = 'assets/svgs/settings/policy-dark.svg';
   static const String policyLight = 'assets/svgs/settings/policy-light.svg';
-
-  static const String shippingDark = 'assets/svgs/settings/shipping-dark.svg';
-  static const String shippingLight = 'assets/svgs/settings/shipping-light.svg';
 
   static const String termDark = 'assets/svgs/settings/term-dark.svg';
   static const String termLight = 'assets/svgs/settings/term-light.svg';
@@ -146,23 +146,16 @@ class AppIcons {
 
   static const String whatsApp = 'assets/svgs/settings/whats-app.svg';
 
-    static String changePassword(Brightness b) =>
+  static String changePassword(Brightness b) =>
       b == Brightness.dark ? changePasswordDark : changePasswordLight;
 
-  static String faq(Brightness b) =>
-      b == Brightness.dark ? faqDark : faqLight;
+  static String faq(Brightness b) => b == Brightness.dark ? faqDark : faqLight;
 
   static String orderHistory(Brightness b) =>
       b == Brightness.dark ? orderHistoryDark : orderHistoryLight;
 
   static String policy(Brightness b) =>
       b == Brightness.dark ? policyDark : policyLight;
-
-  static String shipping(Brightness b) =>
-      b == Brightness.dark ? shippingDark : shippingLight;
-
-  static String payment(Brightness b) =>
-      b == Brightness.dark ? paymentDark : paymentLight;
 
   static String term(Brightness b) =>
       b == Brightness.dark ? termDark : termLight;
@@ -213,8 +206,7 @@ class AppIcons {
   static String inactiveProfile(Brightness b) =>
       b == Brightness.dark ? inactiveProfileDark : inactiveProfileWhite;
 
-    
-    // TOAST
+  // TOAST
   static const String successDark = 'assets/svgs/toast/success-dark.svg';
   static const String successLight = 'assets/svgs/toast/success-light.svg';
 
@@ -239,4 +231,74 @@ class AppIcons {
 
   static String toastInfo(Brightness b) =>
       b == Brightness.dark ? infoDark : infoLight;
+
+  // ==== Checkout ==========
+
+  // Shipping
+  static const String inactiveShippingDark =
+      'assets/svgs/checkout/inactive_shipping_dark.svg';
+  static const String inactiveShippingLight =
+      'assets/svgs/checkout/inactive_shipping_light.svg';
+  static const String currentShippingDark =
+      'assets/svgs/checkout/current_shipping_dark.svg';
+  static const String currentShippingLight =
+      'assets/svgs/checkout/current_shipping_light.svg';
+  static const String doneShipping = 'assets/svgs/checkout/done_shipping.svg';
+
+  // Payment
+  static const String inactivePaymentDark =
+      'assets/svgs/checkout/inactive_payment_dark.svg';
+  static const String inactivePaymentLight =
+      'assets/svgs/checkout/inactive_payment_light.svg';
+  static const String currentPaymentDark =
+      'assets/svgs/checkout/current_payment_dark.svg';
+  static const String currentPaymentLight =
+      'assets/svgs/checkout/current_payment_light.svg';
+  static const String donePayment = 'assets/svgs/checkout/done_payment.svg';
+
+  // Review
+  static const String inactiveReviewDark =
+      'assets/svgs/checkout/inactive_review_dark.svg';
+  static const String inactiveReviewLight =
+      'assets/svgs/checkout/inactive_review_light.svg';
+  static const String currentReviewDark =
+      'assets/svgs/checkout/current_payment_dark.svg';
+  static const String currentReviewLight =
+      'assets/svgs/checkout/current_payment_light.svg';
+
+  // Helpers
+  static String shipping(
+    Brightness b, {
+    required bool isCurrent,
+    required bool isDone,
+  }) {
+    if (isDone) return doneShipping;
+    if (isCurrent) {
+      return b == Brightness.dark ? currentShippingDark : currentShippingLight;
+    }
+    return b == Brightness.dark ? inactiveShippingDark : inactiveShippingLight;
+  }
+
+  static String payment(
+    Brightness b, {
+    required bool isCurrent,
+    required bool isDone,
+  }) {
+    if (isDone) return donePayment;
+    if (isCurrent) {
+      return b == Brightness.dark ? currentPaymentDark : currentPaymentLight;
+    }
+    return b == Brightness.dark ? inactivePaymentDark : inactivePaymentLight;
+  }
+
+  static String review(
+    Brightness b, {
+    required bool isCurrent,
+    required bool isDone,
+  }) {
+    if (isCurrent) {
+      return b == Brightness.dark ? currentReviewDark : currentReviewLight;
+    }
+    return b == Brightness.dark ? inactiveReviewDark : inactiveReviewLight;
+  }
 }

@@ -14,6 +14,8 @@ import 'package:ecommerce_app/features/cart/data/repos/cart_repo.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/categories/data/repos/category_repo.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
+import 'package:ecommerce_app/features/checkout/data/repos/checkout_repo.dart';
+import 'package:ecommerce_app/features/checkout/logic/cubit/checkout_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/data/repos/forgot_password_repo.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:ecommerce_app/features/products/data/repos/product_repo.dart';
@@ -89,6 +91,7 @@ Future<void> setUpGetIt(FirebaseConfig config) async {
   );
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
   getIt.registerLazySingleton<CartRepo>(() => CartRepo(getIt(), getIt()));
+  getIt.registerLazySingleton<CheckoutRepo>(() => CheckoutRepo(getIt(), getIt()));
 
   // Cubits
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt(), getIt()));
@@ -114,4 +117,5 @@ Future<void> setUpGetIt(FirebaseConfig config) async {
   getIt.registerLazySingleton<ThemeCubit>(() => ThemeCubit(getIt()));
   getIt.registerLazySingleton<LocaleCubit>(() => LocaleCubit(getIt()));
   getIt.registerLazySingleton<NavCubit>(() => NavCubit());
+  getIt.registerLazySingleton<CheckoutCubit>(() => CheckoutCubit(getIt()));
 }

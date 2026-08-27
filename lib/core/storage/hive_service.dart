@@ -29,6 +29,9 @@ class HiveService {
   String? getItem({required String boxName, required String key}) =>
       _box(boxName).get(key);
 
+  Future<int> addItem({required String boxName, required String jsonValue}) =>
+      _box(boxName).add(jsonValue);
+
   Map<String, String> getAll(String boxName) =>
       _box(boxName).toMap().cast<String, String>();
 
