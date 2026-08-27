@@ -155,7 +155,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 24,
                         ),
                         title: l10n.orderHistory,
-                        onTap: () {},
+                        onTap: () {
+                          context.pushNamed(RouteNames.orderHistoryScreen);
+                        },
                       ),
                       SectionTitle(l10n.supportAndInformation),
                       SettingsTile(

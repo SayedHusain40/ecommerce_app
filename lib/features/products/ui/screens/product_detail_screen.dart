@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
+import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
@@ -9,6 +10,7 @@ import 'package:ecommerce_app/core/widgets/expandable_description.dart';
 import 'package:ecommerce_app/core/widgets/start_rating.dart';
 import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
+import 'package:ecommerce_app/features/checkout/logic/cubit/checkout_cubit.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_image_gallery.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/quantity_selector.dart';
@@ -35,8 +37,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final checkoutCubit = context.read<CheckoutCubit>();
+    final cartCubit = context.read<CartCubit>();
+    final navCubit = context.read<NavCubit>();
+
     final isDark = context.isDark;
     final l10n = context.l10n;
+    final bool isAvailable = widget.productModel.stock > 0;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -57,7 +64,30 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ? AppColors.cyan
                           : AppColors.black,
                     ),
-                    onPressed: () async {},
+                    onPressed: () async {
+                      if (!isAvailable) {
+                        AppToast.info(context, 'This product out of stock');
+                        return;
+                      }
+                      final total =
+                          currentQuantity * widget.productModel.discountedPrice;
+
+                      checkoutCubit.totalOrder = double.tryParse(
+                        total.toStringAsFixed(2),
+                      );
+
+                      // this just for butNow "buy Fast"
+                      checkoutCubit.ordersList = [
+                        CartItemModel(
+                          product: widget.productModel,
+                          quantity: currentQuantity,
+                          addedAt: DateTime.now(),
+                        ),
+                      ];
+                      checkoutCubit.isOrderFromCart = false;
+
+                      context.pushNamed(RouteNames.checkoutShippingScreen);
+                    },
                     child: Text(l10n.buyNow),
                   ),
                 ),
@@ -65,21 +95,25 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      final isAdded = await context
-                          .read<CartCubit>()
-                          .addOrUpdate(
-                            cartItemModel: CartItemModel(
-                              product: widget.productModel,
-                              quantity: currentQuantity,
-                            ),
-                          );
-
-                      if (!mounted) return;
-
-                      if (!isAdded) {
+                      final int productStoreQty =
+                          cartCubit
+                              .getCartItem(productId: widget.productModel.id)
+                              ?.quantity ??
+                          0;
+                      final int totalQuantity =
+                          productStoreQty + currentQuantity;
+                      if (totalQuantity >
+                          widget.productModel.minimumOrderQuantity) {
                         AppToast.info(context, l10n.maxQuantityInCart);
                         return;
                       }
+
+                      await cartCubit.addOrUpdate(
+                        productModel: widget.productModel,
+                        quantityToAdd: currentQuantity,
+                      );
+
+                      if (!mounted) return;
 
                       AppToast.success(
                         context,
@@ -90,9 +124,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               if (context.canPop()) {
                                 context.pop();
                               }
-                              context.read<NavCubit>().changeNav(
-                                selectedNav: 3,
-                              );
+                              navCubit.changeNav(selectedNav: 3);
                               close();
                             },
                             child: Text(

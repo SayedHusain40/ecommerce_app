@@ -3,16 +3,20 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'cart_item_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class CartItemModel {
   final ProductModel product;
   final int quantity;
-  CartItemModel({required this.product, required this.quantity});
+  final DateTime addedAt;
+  CartItemModel({
+    required this.product,
+    required this.quantity,
+    required this.addedAt,
+  });
 
   factory CartItemModel.fromJson(Map<String, dynamic> json) {
     return _$CartItemModelFromJson(json);
   }
 
   Map<String, dynamic> toJson() => _$CartItemModelToJson(this);
-
 }

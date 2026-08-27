@@ -5,9 +5,9 @@ import 'package:ecommerce_app/core/widgets/app_confirm_bottom_sheet.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
 import 'package:ecommerce_app/core/widgets/empty_widget.dart';
-import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_card.dart';
 import 'package:ecommerce_app/features/products/ui/widgets/product_grid.dart';
+import 'package:ecommerce_app/features/wishlist/data/models/wishlist_item_model.dart';
 import 'package:ecommerce_app/features/wishlist/logic/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,8 +40,10 @@ class _WishListScreenState extends State<WishListScreen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return BlocBuilder<WishlistCubit, List<ProductModel>>(
-      builder: (context, wishList) {
+    return BlocBuilder<WishlistCubit, Map<int, WishlistItemModel>>(
+      builder: (context, wishListMap) {
+        final wishList = wishListMap.values.toList();
+
         return AppScaffold(
           verticalPadding: 12,
           appBar: wishList.isEmpty
@@ -74,8 +76,8 @@ class _WishListScreenState extends State<WishListScreen> {
               : ProductGrid(
                   itemCount: wishList.length,
                   itemBuilder: (context, index) {
-                    final productModel = wishList[index];
-                    return ProductCard(productModel: productModel);
+                    final productModel = wishList[index].product;
+                    return ProductCard(productModel: productModel, isNeedConformDelete: true,);
                   },
                 ),
         );

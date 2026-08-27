@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AppBadge<T extends Cubit<List>> extends StatelessWidget {
+class AppBadge<T extends Cubit<dynamic>> extends StatelessWidget {
   final Widget child;
   final bool sumQuantity;
 
@@ -9,11 +9,18 @@ class AppBadge<T extends Cubit<List>> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<T, List>(
+    return BlocBuilder<T, dynamic>(
       builder: (context, state) {
+        List list;
+        if (state is Map) {
+          list = state.values.toList();
+        } else {
+          list = state;
+        }
+
         final int counts = sumQuantity
-            ? state.fold<int>(0, (sum, item) => sum + (item.quantity as int))
-            : state.length;
+            ? list.fold<int>(0, (sum, item) => sum + (item.quantity as int))
+            : list.length;
 
         return Badge(
           label: Text(counts.toString()),

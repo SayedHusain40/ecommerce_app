@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/helpers/whatsapp_helper.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
+import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/logic/theme_cubit.dart';
 import 'package:ecommerce_app/core/widgets/drawer_menu_tile.dart';
@@ -117,7 +118,9 @@ class AppDrawer extends StatelessWidget {
                   DrawerMenuTile(
                     icon: SvgPicture.asset(AppIcons.orderHistory(brightness)),
                     title: l10n.orders,
-                    onTap: () {},
+                    onTap: () {
+                      context.pushNamed(RouteNames.orderHistoryScreen);
+                    },
                   ),
                   DrawerMenuTile(
                     icon: SvgPicture.asset(

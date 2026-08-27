@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/constants/app_assets.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
+import 'package:ecommerce_app/core/widgets/app_confirm_bottom_sheet.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,29 +47,47 @@ class _QuantitySelectorState extends State<QuantitySelector> {
     setState(() {
       if (currentQuantity < widget.minimumOrderQuantity) {
         currentQuantity++;
-        changeQuantity(isAdd: true);
+        changeQuantity(isIncrease: true);
       }
     });
   }
 
   void onMinus() {
     setState(() {
-      if (currentQuantity > 1) {
-        currentQuantity--;
-        changeQuantity(isAdd: false);
+      if (currentQuantity >= 0) {
+        currentQuantity -= 1;
+        changeQuantity(isIncrease: false);
+      }
+
+      // this for cartScreen when qty = 1 and try decrease it so we show user message for delete
+      if (currentQuantity == 0 && widget.isComeFromCartScreen) {
+        showAppConfirmBottomSheet(
+          context: context,
+          message: context.l10n.deleteProductFromCartConfirm,
+          onConfirm: () => cartCubit.deleteProduct(productId: widget.productId),
+        );
+      }
+      if (currentQuantity == 0) {
+        currentQuantity += 1;
       }
     });
   }
 
-  void changeQuantity({required bool isAdd}) {
+  void changeQuantity({required bool isIncrease}) {
+    if (currentQuantity < 1) return;
+
     if (widget.onChangeQuantity != null) {
       // this for product details screen
       widget.onChangeQuantity!(currentQuantity);
+      return;
     }
 
     // this will run only for cartScreen
     if (widget.isComeFromCartScreen) {
-      cartCubit.addOrMinus(productId: widget.productId, isAdd: isAdd);
+      cartCubit.increaseOrDecrees(
+        productId: widget.productId,
+        isIncrease: isIncrease,
+      );
     }
   }
 

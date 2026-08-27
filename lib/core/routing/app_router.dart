@@ -17,6 +17,8 @@ import 'package:ecommerce_app/features/forgot_password/ui/screens/confirmation_e
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/screens/login_screen.dart';
 import 'package:ecommerce_app/features/onboarding/ui/screens/onboarding_screen.dart';
+import 'package:ecommerce_app/features/order_history/logic/cubit/order_history_cubit.dart';
+import 'package:ecommerce_app/features/order_history/ui/screens/order_history_screen.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/products/ui/screens/product_detail_screen.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
@@ -91,6 +93,7 @@ class AppRouter {
               BlocProvider.value(value: getIt<WishlistCubit>()),
               BlocProvider.value(value: getIt<CartCubit>()),
               BlocProvider.value(value: getIt<NavCubit>()),
+              BlocProvider.value(value: getIt<CheckoutCubit>()),
             ],
             child: ProductDetailScreen(productModel: productModel),
           ),
@@ -139,8 +142,11 @@ class AppRouter {
         );
       case RouteNames.checkoutReviewScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: getIt<CheckoutCubit>(),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: getIt<CheckoutCubit>()),
+              BlocProvider.value(value: getIt<OrderHistoryCubit>()),
+            ],
             child: const CheckoutReviewScreen(),
           ),
         );
@@ -148,7 +154,6 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => MultiBlocListener(
             listeners: [
-              BlocProvider.value(value: getIt<CartCubit>()),
               BlocProvider.value(value: getIt<NavCubit>()),
             ],
             child: const OrderSuccessScreen(),
@@ -162,6 +167,13 @@ class AppRouter {
           builder: (context) => BlocProvider(
             create: (context) => getIt<WishlistCubit>(),
             child: CheckoutReviewItemsScreen(list: list),
+          ),
+        );
+      case RouteNames.orderHistoryScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: getIt<OrderHistoryCubit>(),
+            child: const OrderHistoryScreen(),
           ),
         );
       default:

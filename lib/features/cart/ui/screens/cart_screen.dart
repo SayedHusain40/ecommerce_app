@@ -49,21 +49,23 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final checkoutCubit = context.read<CheckoutCubit>();
     final brightness = context.brightness;
     final l10n = context.l10n;
 
-    return BlocBuilder<CartCubit, List<CartItemModel>>(
-      builder: (context, cartList) {
+    return BlocBuilder<CartCubit, Map<int, CartItemModel>>(
+      builder: (context, state) {
+        final cartList = state.values.toList();
+
         final total = cartList.fold(
           0.0,
-          (previousValue, element) =>
-              previousValue +
-              (element.quantity * element.product.discountedPrice),
+          (previousValue, e) =>
+              previousValue + (e.quantity * e.product.discountedPrice),
         );
 
         final totalQuantity = cartList.fold(
           0,
-          (previousValue, element) => previousValue + element.quantity,
+          (previousValue, e) => previousValue + e.quantity,
         );
 
         return AppScaffold(
@@ -171,10 +173,11 @@ class _CartScreenState extends State<CartScreen> {
                         const SizedBox(height: 16),
                         ElevatedButton(
                           onPressed: () {
-                            context.read<CheckoutCubit>().totalOrder =
-                                double.tryParse(total.toStringAsFixed(2));
-                            context.read<CheckoutCubit>().ordersList = cartList;
-
+                            checkoutCubit.totalOrder = double.tryParse(
+                              total.toStringAsFixed(2),
+                            );
+                            checkoutCubit.ordersList = cartList;
+                            checkoutCubit.isOrderFromCart = true;
                             context.pushNamed(
                               RouteNames.checkoutShippingScreen,
                             );
@@ -199,7 +202,6 @@ class _CartScreenState extends State<CartScreen> {
                     final productID = cartModel.product.id;
                     return CartItemCard(
                       cartModel: cartModel,
-
                       trailing: Column(
                         children: [
                           const Spacer(),

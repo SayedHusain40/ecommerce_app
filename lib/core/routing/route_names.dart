@@ -22,5 +22,6 @@ class RouteNames {
   static const checkoutReviewScreen = '/checkoutReviewScreen';
   static const orderSuccessScreen = '/orderSuccessScreen';
   static const checkoutReviewItemsScreen = '/checkoutReviewItemsScreen';
+  static const orderHistoryScreen = '/orderHistoryScreen';
 
 }

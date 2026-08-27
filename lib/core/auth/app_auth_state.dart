@@ -1,11 +1,13 @@
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/navigation/main_nav_screen.dart';
+import 'package:ecommerce_app/core/storage/hive_box_names.dart';
 import 'package:ecommerce_app/core/storage/hive_service.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/ui/screens/login_screen.dart';
+import 'package:ecommerce_app/features/order_history/logic/cubit/order_history_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/latest_products_cubit.dart';
 import 'package:ecommerce_app/features/profile/logic/profile_cubit.dart';
@@ -16,6 +18,7 @@ import 'package:ecommerce_app/responsive/responsive_extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class AppAuthState extends StatefulWidget {
   final bool sendEmailOnInit;
@@ -31,17 +34,26 @@ class _AppAuthStateState extends State<AppAuthState> {
       .authStateChanges()
       .asyncMap((user) async {
         if (user == null) {
-          await getIt<HiveService>().closeBox('wishlist_${_lastUid ?? ""}');
-          await getIt<HiveService>().closeBox('cart_${_lastUid ?? ""}');
-          await getIt<HiveService>().closeBox('order_${_lastUid ?? ""}');
+          // user signed out, or app started with no session
+          if (_lastUid != null) {
+            // only close boxes if a user was previously logged in
+            await getIt<HiveService>().closeBox(
+              HiveBoxNames.wishlist(_lastUid!),
+            );
+            await getIt<HiveService>().closeBox(HiveBoxNames.cart(_lastUid!));
+            await getIt<HiveService>().closeBox(HiveBoxNames.order(_lastUid!));
+          }
           _lastUid = null;
         } else if (user.uid != _lastUid) {
-          await getIt<HiveService>().openBox('wishlist_${user.uid}');
-          await getIt<HiveService>().openBox('cart_${user.uid}');
-          await getIt<HiveService>().openBox('order_${user.uid}');
+          // new login, or switched user
+          await getIt<HiveService>().openBox(HiveBoxNames.wishlist(user.uid));
+          await getIt<HiveService>().openBox(HiveBoxNames.cart(user.uid));
+          await getIt<HiveService>().openBox(HiveBoxNames.order(user.uid));
           _lastUid = user.uid;
+          // re-sync cubit state from the newly opened box
           getIt<WishlistCubit>().loadWishlist();
           getIt<CartCubit>().loadCart();
+          getIt<OrderHistoryCubit>().loadOrder();
         }
         return user;
       });
@@ -54,10 +66,10 @@ class _AppAuthStateState extends State<AppAuthState> {
       stream: _authStream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
+          return const SizedBox.shrink(); 
         }
+
+        FlutterNativeSplash.remove();
 
         final user = snapshot.data;
 
