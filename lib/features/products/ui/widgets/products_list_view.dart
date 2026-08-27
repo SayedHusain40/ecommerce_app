@@ -4,7 +4,6 @@ import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
-import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/category_products_cubit.dart';
 import 'package:ecommerce_app/features/products/logic/cubit/product_state.dart';
@@ -139,15 +138,13 @@ class ProductsListView extends StatelessWidget {
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
                                             5,
-                                          ), // or any value you want
+                                          ), 
                                         ),
                                       ),
                                       onPressed: () async {
                                         context.read<CartCubit>().addOrUpdate(
-                                          cartItemModel: CartItemModel(
-                                            product: productModel,
-                                            quantity: 1,
-                                          ),
+                                          productModel: productModel,
+                                          quantityToAdd: 1,
                                         );
 
                                         AppToast.success(

@@ -11,11 +11,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ProductCard extends StatelessWidget {
   final ProductModel productModel;
   final bool saveSearch;
+  final bool isNeedConformDelete;
 
   const ProductCard({
     super.key,
     required this.productModel,
     this.saveSearch = false,
+    this.isNeedConformDelete = false,
   });
 
   @override
@@ -69,6 +71,7 @@ class ProductCard extends StatelessWidget {
                     child: FavoriteButton(
                       productModel: productModel,
                       radius: 12,
+                      isNeedConformDelete: isNeedConformDelete,
                     ),
                   ),
                 ),

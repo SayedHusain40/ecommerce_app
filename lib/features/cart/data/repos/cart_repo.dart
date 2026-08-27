@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ecommerce_app/core/storage/hive_box_names.dart';
 import 'package:ecommerce_app/core/storage/hive_service.dart';
 import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,21 +16,24 @@ class CartRepo {
 
   String get _boxName {
     final uid = firebaseAuth.currentUser!.uid;
-    return 'cart_$uid';
+    return HiveBoxNames.cart(uid);
   }
 
-  List<CartItemModel> getCachedCartList() {
-    final resultAsMap = hiveService.getAll(_boxName);
+  Map<int, CartItemModel> getCachedCartList() {
+    final resultAsMap = hiveService.getAll<int>(_boxName);
 
-    return resultAsMap.values.map((e) {
-      return CartItemModel.fromJson(json.decode(e));
-    }).toList();
+    final items =
+        resultAsMap.values
+            .toList()
+            .map((e) => CartItemModel.fromJson(json.decode(e)))
+            .toList()
+          ..sort((a, b) => b.addedAt.compareTo(a.addedAt));
+
+    return {for (final item in items) item.product.id: item};
   }
 
-  // here i don't do all works because cubit does and return final quantity
-  // so just store it/ override it
   Future<void> updateOrAddToCart({required CartItemModel cartItemModel}) async {
-    final String productId = cartItemModel.product.id.toString();
+    final int productId = cartItemModel.product.id;
 
     final jsonString = json.encode(cartItemModel.toJson());
     return await hiveService.saveItem(
@@ -40,7 +44,7 @@ class CartRepo {
   }
 
   Future<void> deleteProduct({required int productId}) {
-    return hiveService.removeItem(boxName: _boxName, key: productId.toString());
+    return hiveService.removeItem(boxName: _boxName, key: productId);
   }
 
   Future<void> clearCart() async {
