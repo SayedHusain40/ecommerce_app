@@ -9,7 +9,7 @@ import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
-import 'package:ecommerce_app/core/widgets/required_lable.dart';
+import 'package:ecommerce_app/core/widgets/required_label.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
 import 'package:ecommerce_app/features/login/logic/login_state.dart';
 import 'package:flutter/material.dart';

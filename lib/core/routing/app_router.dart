@@ -2,13 +2,16 @@ import 'package:ecommerce_app/core/auth/app_auth_state.dart';
 import 'package:ecommerce_app/core/di/dependency_injection.dart';
 import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
+import 'package:ecommerce_app/features/address/logic/address_cubit.dart';
+import 'package:ecommerce_app/features/address/ui/screens/add_new_address_screen.dart';
+import 'package:ecommerce_app/features/address/ui/screens/shipping_address_screen.dart';
 import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/categories/ui/screens/category_screen.dart';
 import 'package:ecommerce_app/features/checkout/logic/cubit/checkout_cubit.dart';
 import 'package:ecommerce_app/features/checkout/ui/screens/checkout_payment_screen.dart';
-import 'package:ecommerce_app/features/checkout/ui/screens/checkout_review_Items_screen.dart';
+import 'package:ecommerce_app/features/checkout/ui/screens/checkout_review_items_screen.dart';
 import 'package:ecommerce_app/features/checkout/ui/screens/checkout_review_screen.dart';
 import 'package:ecommerce_app/features/checkout/ui/screens/checkout_shipping_screen.dart';
 import 'package:ecommerce_app/features/checkout/ui/screens/order_success_screen.dart';
@@ -128,8 +131,11 @@ class AppRouter {
         );
       case RouteNames.checkoutShippingScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: getIt<CheckoutCubit>(),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: getIt<CheckoutCubit>()),
+              BlocProvider.value(value: getIt<AddressCubit>()),
+            ],
             child: const CheckoutShippingScreen(),
           ),
         );
@@ -153,16 +159,13 @@ class AppRouter {
       case RouteNames.orderSuccessScreen:
         return MaterialPageRoute(
           builder: (context) => MultiBlocListener(
-            listeners: [
-              BlocProvider.value(value: getIt<NavCubit>()),
-            ],
+            listeners: [BlocProvider.value(value: getIt<NavCubit>())],
             child: const OrderSuccessScreen(),
           ),
         );
       case RouteNames.checkoutReviewItemsScreen:
         final List<CartItemModel> list =
             settings.arguments as List<CartItemModel>;
-
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => getIt<WishlistCubit>(),
@@ -174,6 +177,27 @@ class AppRouter {
           builder: (context) => BlocProvider.value(
             value: getIt<OrderHistoryCubit>(),
             child: const OrderHistoryScreen(),
+          ),
+        );
+      case RouteNames.addressScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: getIt<AddressCubit>(),
+            child: const ShippingAddressScreen(),
+          ),
+        );
+      case RouteNames.addressFormScreen:
+        final args = settings.arguments as Map<String, dynamic>?;
+        final bool arg = (args?['isFirstAddress'] as bool?) ?? false;
+        final int? addressKey = args?['addressKey'] as int?;
+
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: getIt<AddressCubit>(),
+            child: AddNewAddressScreen(
+              isFirstAddress: arg,
+              addressKey: addressKey,
+            ),
           ),
         );
       default:

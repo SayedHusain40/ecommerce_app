@@ -14,7 +14,6 @@ class OrderSuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = context.brightness;
-    final l10n = context.l10n;
 
     return AppScaffold(
       body: SingleChildScrollView(

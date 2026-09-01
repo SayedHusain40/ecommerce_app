@@ -1,11 +1,14 @@
+import 'package:ecommerce_app/core/helpers/app_toast.dart';
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
-import 'package:ecommerce_app/core/widgets/required_lable.dart';
+import 'package:ecommerce_app/features/address/data/models/address_model.dart';
+import 'package:ecommerce_app/features/address/logic/address_cubit.dart';
+import 'package:ecommerce_app/features/address/ui/widgets/address_form.dart';
+import 'package:ecommerce_app/features/address/ui/widgets/address_list_view.dart';
 import 'package:ecommerce_app/features/checkout/logic/cubit/checkout_cubit.dart';
 import 'package:ecommerce_app/features/checkout/logic/cubit/checkout_state.dart';
-import 'package:ecommerce_app/features/checkout/ui/widgets/checkout_process_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,10 +20,34 @@ class CheckoutShippingScreen extends StatefulWidget {
 }
 
 class _CheckoutShippingScreenState extends State<CheckoutShippingScreen> {
+  final addressKeyForm = GlobalKey<FormState>();
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController streetAddressController = TextEditingController();
+  final TextEditingController postalCodeController = TextEditingController();
+
+  late final checkoutCubit = context.read<CheckoutCubit>();
+  late final addressCubit = context.read<AddressCubit>();
+
+  bool isAddressDefault = false;
+
+  AddressModel? addressModel;
+
+  late int addressToShow;
+
+  bool isAddressListEmpty = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    addressToShow =
+        0; // as Default, but user can change it when select another one
+
+    isAddressListEmpty = addressCubit.state.isEmpty;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final checkoutCubit = context.read<CheckoutCubit>();
-
     return BlocListener<CheckoutCubit, CheckoutState>(
       listener: (context, state) {
         state.whenOrNull(
@@ -35,91 +62,58 @@ class _CheckoutShippingScreenState extends State<CheckoutShippingScreen> {
           padding: const .symmetric(vertical: 27, horizontal: 16),
           child: ElevatedButton(
             onPressed: () {
-              checkoutCubit.onSaveShippingInfo();
+              if (isAddressListEmpty) {
+                if (!addressKeyForm.currentState!.validate()) return;
+
+                checkoutCubit.onSaveShippingInfo(
+                  newAddressModel: AddressModel(
+                    fullName: fullNameController.text.trim(),
+                    streetAddress: streetAddressController.text.trim(),
+                    postalCode: postalCodeController.text.trim(),
+                    addedAt: DateTime.now(),
+                  ),
+                  saveAddress: true,
+                );
+              } else {
+                final selectedAddress = addressCubit.getAddress(
+                  addressLey: addressToShow,
+                );
+                if (selectedAddress == null) {
+                  AppToast.info(context, 'Please Select a an address');
+                  return;
+                }
+
+                checkoutCubit.onSaveShippingInfo(
+                  newAddressModel: selectedAddress,
+                );
+              }
             },
             child: const Text('Save'),
           ),
         ),
         appBar: const AppCustomAppBar(title: 'Checkout'),
-        body: Form(
-          key: checkoutCubit.formKeyShipping,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: .start,
-              children: [
-                const CheckoutProcessStepper(
-                  currentStep: CheckoutStep.shipping,
-                ),
-                const SizedBox(height: 24),
+        body: BlocBuilder<AddressCubit, Map<int, AddressModel>>(
+          builder: (context, addressMap) {
+            final addressList = addressMap.values.toList();
 
-                const RequiredLabel('Full Name'),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: checkoutCubit.fullNameController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter full name',
-                  ),
-                  validator: (value) {
-                    if (value.isNullOrEmpty()) {
-                      return 'Full name is required';
-                    }
-                    if (value!.trim().length < 3) {
-                      return 'Full name must be at least 3 characters';
-                    }
-                    if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value.trim())) {
-                      return 'Full name can only contain letters';
-                    }
+            if (addressList.isEmpty) {
+              return AddressForm(
+                fullNameController: fullNameController,
+                streetAddressController: streetAddressController,
+                postalCodeController: postalCodeController,
+                addressKeyForm: addressKeyForm,
+              );
+            }
 
-                    return null;
-                  },
-                ),
-
-                const SizedBox(height: 12),
-
-                const RequiredLabel('Street Address'),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: checkoutCubit.streetAddressController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter street address',
-                  ),
-
-                  validator: (value) {
-                    if (value.isNullOrEmpty()) {
-                      return 'Street address is required';
-                    }
-                    if (value!.trim().length < 5) {
-                      return 'Please enter a more detailed address';
-                    }
-
-                    return null;
-                  },
-                ),
-
-                const SizedBox(height: 12),
-
-                const RequiredLabel(
-                  'Postal Code (optional)',
-                  isRequired: false,
-                ),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: checkoutCubit.postalCodeController,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter postal code',
-                  ),
-                  validator: (value) {
-                    if (value.isNullOrEmpty()) return null; // optional field
-                    if (!RegExp(r'^\d{4,6}$').hasMatch(value!.trim())) {
-                      return 'Enter a valid postal code';
-                    }
-                    return null;
-                  },
-                ),
-              ],
-            ),
-          ),
+            return AddressListView(
+              selectedAddressKey: addressToShow,
+              onSelect: (value) {
+                setState(() {
+                  addressToShow = value;
+                });
+              },
+            );
+          },
         ),
       ),
     );

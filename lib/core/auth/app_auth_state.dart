@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/navigation/logic/nav_cubit.dart';
 import 'package:ecommerce_app/core/navigation/main_nav_screen.dart';
 import 'package:ecommerce_app/core/storage/hive_box_names.dart';
 import 'package:ecommerce_app/core/storage/hive_service.dart';
+import 'package:ecommerce_app/features/address/logic/address_cubit.dart';
 import 'package:ecommerce_app/features/cart/logic/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/categories/logic/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/login/logic/login_cubit.dart';
@@ -42,6 +43,7 @@ class _AppAuthStateState extends State<AppAuthState> {
             );
             await getIt<HiveService>().closeBox(HiveBoxNames.cart(_lastUid!));
             await getIt<HiveService>().closeBox(HiveBoxNames.order(_lastUid!));
+            await getIt<HiveService>().closeBox(HiveBoxNames.address(_lastUid!));
           }
           _lastUid = null;
         } else if (user.uid != _lastUid) {
@@ -49,11 +51,13 @@ class _AppAuthStateState extends State<AppAuthState> {
           await getIt<HiveService>().openBox(HiveBoxNames.wishlist(user.uid));
           await getIt<HiveService>().openBox(HiveBoxNames.cart(user.uid));
           await getIt<HiveService>().openBox(HiveBoxNames.order(user.uid));
+          await getIt<HiveService>().openBox(HiveBoxNames.address(user.uid));
           _lastUid = user.uid;
           // re-sync cubit state from the newly opened box
           getIt<WishlistCubit>().loadWishlist();
           getIt<CartCubit>().loadCart();
           getIt<OrderHistoryCubit>().loadOrder();
+          getIt<AddressCubit>().loadAddresses();
         }
         return user;
       });
