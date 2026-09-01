@@ -17,6 +17,7 @@ class OrderHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final brightness = context.brightness;
     return AppScaffold(
+      verticalPadding: 12,
       appBar: const AppCustomAppBar(title: 'Order History'),
       body: BlocBuilder<OrderHistoryCubit, List<OrderModel>>(
         builder: (context, orderList) {
