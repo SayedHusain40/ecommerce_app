@@ -1,14 +1,17 @@
 import 'package:ecommerce_app/core/helpers/extensions.dart';
 import 'package:ecommerce_app/core/routing/route_names.dart';
+import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
+import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
-import 'package:ecommerce_app/core/widgets/required_lable.dart';
+import 'package:ecommerce_app/core/widgets/required_label.dart';
 import 'package:ecommerce_app/features/checkout/logic/cubit/checkout_cubit.dart';
 import 'package:ecommerce_app/features/checkout/logic/cubit/checkout_state.dart';
 import 'package:ecommerce_app/features/checkout/ui/widgets/checkout_process_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:super_tooltip/super_tooltip.dart';
 
 class CheckoutPaymentScreen extends StatelessWidget {
   const CheckoutPaymentScreen({super.key});
@@ -119,26 +122,38 @@ class CheckoutPaymentScreen extends StatelessWidget {
                                 if (value.isNullOrEmpty()) {
                                   return 'Expiration date is required';
                                 }
+
                                 final parts = value!.split(' / ');
                                 if (parts.length != 2) {
                                   return 'Enter a valid expiration date';
                                 }
-                                final month = int.tryParse(parts[0]);
-                                final year = int.tryParse(parts[1]);
+
+                                final monthStr = parts[0];
+                                final yearStr = parts[1];
+
+                                final month = int.tryParse(monthStr);
+                                final year = int.tryParse(yearStr);
+
                                 if (month == null || month < 1 || month > 12) {
                                   return 'Enter a valid month';
                                 }
-                                if (year == null || parts[1].length != 4) {
+                                if (year == null ||
+                                    (yearStr.length != 2 &&
+                                        yearStr.length != 4)) {
                                   return 'Enter a valid year';
                                 }
 
                                 final now = DateTime.now();
+                                final isShortYear = yearStr.length == 2;
+                                final currentYear = isShortYear
+                                    ? now.year % 100
+                                    : now.year;
+
                                 final isExpired =
-                                    year < now.year ||
-                                    (year == now.year && month < now.month);
-                                if (isExpired) {
-                                  return 'Card has expired';
-                                }
+                                    year < currentYear ||
+                                    (year == currentYear && month < now.month);
+                                if (isExpired) return 'Card has expired';
+
                                 return null;
                               },
                             ),
@@ -152,29 +167,7 @@ class CheckoutPaymentScreen extends StatelessWidget {
                           children: [
                             const RequiredLabel('CVV'),
                             const SizedBox(height: 8),
-                            TextFormField(
-                              controller: checkoutCubit.cvvController,
-                              keyboardType: TextInputType.number,
-                              autofillHints: const [
-                                AutofillHints.creditCardSecurityCode,
-                              ],
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
-                                LengthLimitingTextInputFormatter(4),
-                              ],
-                              decoration: const InputDecoration(
-                                hintText: '123',
-                              ),
-                              validator: (value) {
-                                if (value.isNullOrEmpty()) {
-                                  return 'CVV is required';
-                                }
-                                if (value!.length < 3 || value.length > 4) {
-                                  return 'Enter a valid CVV';
-                                }
-                                return null;
-                              },
-                            ),
+                            CvvField(controller: checkoutCubit.cvvController),
                           ],
                         ),
                       ),
@@ -336,6 +329,84 @@ class ExpirationDateFormatter extends TextInputFormatter {
     return TextEditingValue(
       text: formatted,
       selection: TextSelection.collapsed(offset: offset),
+    );
+  }
+}
+
+class CvvField extends StatefulWidget {
+  final TextEditingController controller;
+
+  const CvvField({super.key, required this.controller});
+
+  @override
+  State<CvvField> createState() => _CvvFieldState();
+}
+
+class _CvvFieldState extends State<CvvField> {
+  final _tooltipController = SuperTooltipController();
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = context.brightness;
+
+    return TextFormField(
+      controller: widget.controller,
+      keyboardType: TextInputType.number,
+      autofillHints: const [AutofillHints.creditCardSecurityCode],
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(4),
+      ],
+      decoration: InputDecoration(
+        hintText: '123',
+        suffixIcon: GestureDetector(
+          onTap: () {
+            if (_tooltipController.isVisible) {
+              _tooltipController.hideTooltip();
+            } else {
+              _tooltipController.showTooltip();
+            }
+          },
+          child: SuperTooltip(
+            controller: _tooltipController,
+            constraints: const BoxConstraints(maxWidth: 150),
+            arrowConfig: const ArrowConfiguration(
+              length: 5,
+              baseWidth: 10,
+              tipDistance: 12,
+            ),
+            barrierConfig: const BarrierConfiguration(
+              color: Colors.transparent,
+            ),
+            positionConfig: const PositionConfiguration(
+              preferredDirection: TooltipDirection.up,
+            ),
+            style: TooltipStyle(
+              backgroundColor: AppColors.whiteInDark(brightness),
+              hasShadow: false,
+              borderRadius: 12,
+            ),
+            content: Text(
+              '3-digit security code usually found on the back of your card. '
+              'American Express cards have a 4-digit code located on the front.',
+              style: AppTextStyles.body4Regular.copyWith(
+                color: AppColors.blackInDark(brightness),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            child: const Icon(Icons.help_outline, size: 18),
+          ),
+        ),
+      ),
+      validator: (value) {
+        if (value.isNullOrEmpty()) {
+          return 'CVV is required';
+        }
+        if (value!.length < 3 || value.length > 4) {
+          return 'Enter a valid CVV';
+        }
+        return null;
+      },
     );
   }
 }

@@ -1,7 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/cart/data/repos/cart_repo.dart';
 import 'package:ecommerce_app/features/products/data/model/product_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartCubit extends Cubit<Map<int, CartItemModel>> {
   final CartRepo cartRepo;

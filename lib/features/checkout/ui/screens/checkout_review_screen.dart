@@ -18,6 +18,7 @@ class CheckoutReviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final checkoutCubit = context.read<CheckoutCubit>();
+    final addersModel = checkoutCubit.addressModel!;
     final orderList = checkoutCubit.ordersList;
     final totalQuantity = checkoutCubit.totalQuantity;
     final brightness = context.brightness;
@@ -104,19 +105,19 @@ class CheckoutReviewScreen extends StatelessWidget {
 
                   _InfoRow(
                     label: 'Full Name',
-                    value: checkoutCubit.fullNameController.text,
+                    value: addersModel.fullName,
                     labelStyle: regularStyle,
                     valueStyle: regularStyle,
                   ),
                   _InfoRow(
                     label: 'Street Address',
-                    value: checkoutCubit.streetAddressController.text,
+                    value: addersModel.streetAddress,
                     labelStyle: regularStyle,
                     valueStyle: regularStyle,
                   ),
                   _InfoRow(
                     label: 'Postal Code',
-                    value: checkoutCubit.postalCodeController?.text ?? '-',
+                    value: addersModel.postalCode ?? '-',
                     labelStyle: regularStyle,
                     valueStyle: regularStyle,
                   ),

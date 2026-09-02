@@ -133,21 +133,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 24,
                         ),
                         title: l10n.shippingAddress,
-                        onTap: () {},
+                        onTap: () {
+                          context.pushNamed(RouteNames.addressScreen);
+                        },
                       ),
-                      SettingsTile(
-                        icon: SvgPicture.asset(
-                          AppIcons.payment(
-                            brightness,
-                            isCurrent: false,
-                            isDone: false,
-                          ),
-                          width: 24,
-                          height: 24,
-                        ),
-                        title: l10n.paymentMethod,
-                        onTap: () {},
-                      ),
+                      // SettingsTile(
+                      //   icon: SvgPicture.asset(
+                      //     AppIcons.payment(
+                      //       brightness,
+                      //       isCurrent: false,
+                      //       isDone: false,
+                      //     ),
+                      //     width: 24,
+                      //     height: 24,
+                      //   ),
+                      //   title: l10n.paymentMethod,
+                      //   onTap: () {},
+                      // ),
                       SettingsTile(
                         icon: SvgPicture.asset(
                           AppIcons.orderHistory(brightness),

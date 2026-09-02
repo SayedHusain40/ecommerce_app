@@ -87,6 +87,8 @@ class AppIcons {
 
   static const String arrowRightSmall = 'assets/svgs/arrow-right-small.svg';
 
+  static const String location = 'assets/svgs/location.svg';
+
   // NAVIGATION - ACTIVE (same icon for both themes)
   static const String activeHome = 'assets/svgs/nav/active-home.svg';
   static const String activeCategory = 'assets/svgs/nav/active-category.svg';

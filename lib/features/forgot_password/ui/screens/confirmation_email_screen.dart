@@ -6,7 +6,7 @@ import 'package:ecommerce_app/core/theme/constants/app_colors.dart';
 import 'package:ecommerce_app/core/theme/constants/app_text_styles.dart';
 import 'package:ecommerce_app/core/widgets/app_custom_app_bar.dart';
 import 'package:ecommerce_app/core/widgets/app_scaffold.dart';
-import 'package:ecommerce_app/core/widgets/required_lable.dart';
+import 'package:ecommerce_app/core/widgets/required_label.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_cubit.dart';
 import 'package:ecommerce_app/features/forgot_password/logic/forgot_password_state.dart';
 import 'package:flutter/material.dart';

@@ -6,4 +6,5 @@ class StorageKeys {
   static const wishList = 'wishList';
   static const isDarkMode = 'isDarkMode';
   static const languageCode = 'languageCode';
+  static const addressDefaultKey = 'addressDefaultKey';
 }
