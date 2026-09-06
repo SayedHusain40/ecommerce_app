@@ -10,6 +10,7 @@ platform :android do
     # last_commit_message = sh("git log -1 --pretty=%s").strip  # Gets merge commit title (e.g. "Merge pull request #57...") - not very useful
     last_commit_message = sh("git log -1 --pretty=%B").strip.split("\n").last.strip  # Gets the actual PR title (e.g. "Implement address management feature") - more useful for testers
 
+    
     # sh "flutter clean"  # Uncomment if you run into weird/stale build issues
     sh "flutter build apk --release --flavor #{flavor} -t lib/main_#{flavor}.dart"
     # --no-tree-shake-icons: keeps all icons -> bigger app size
