@@ -1,20 +1,28 @@
 default_platform(:android)
 
 platform :android do
-  desc "Build Flutter APK and upload to Firebase App Distribution"
+  desc "Build Flutter APK and upload to Firebase App Distribution (testers)"
+
   lane :firebase_distribution do
     branch = ENV["GITHUB_REF_NAME"] || "development"
     flavor = branch == "main" ? "production" : "development"
     firebase_app_id = branch == "main" ? ENV["FIREBASE_APP_ID"] : ENV["FIREBASE_APP_ID_DEV"]
-    last_commit_message = sh("git log -1 --pretty=%s").strip
+    # last_commit_message = sh("git log -1 --pretty=%s").strip  # Gets merge commit title (e.g. "Merge pull request #57...") - not very useful
+    last_commit_message = sh("git log -1 --pretty=%B").strip.split("\n").last.strip  # Gets the actual PR title (e.g. "Implement address management feature") - more useful for testers
 
-    # sh "flutter clean"
-    sh "flutter build apk --release --flavor #{flavor} -t lib/main_#{flavor}.dart --no-tree-shake-icons"
+    # sh "flutter clean"  # Uncomment if you run into weird/stale build issues
+    sh "flutter build apk --release --flavor #{flavor} -t lib/main_#{flavor}.dart"
+    # --no-tree-shake-icons: keeps all icons -> bigger app size
+    # Remove this flag to reduce app size IF you only use hardcoded icons (e.g. Icons.home)
+    # NOTE: Add --no-tree-shake-icons flag only if you use ICON FONTS dynamically
+    # (e.g. Icon(someVariable) instead of Icon(Icons.home)).
+    # A ternary like `isFavorite ? Icons.favorite : Icons.favorite_border_outlined` is still hardcoded/safe - no flag needed.
+   
 
     firebase_app_distribution(
       app: firebase_app_id,
       testers: "s.husain_10@hotmail.com, tester2@gmail.com",
-      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],  # Auth token to allow upload
       android_artifact_type: "APK",
       apk_path: "../build/app/outputs/flutter-apk/app-#{flavor}-release.apk",
       release_notes: last_commit_message
