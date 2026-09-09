@@ -31,36 +31,33 @@ class AppAuthState extends StatefulWidget {
 }
 
 class _AppAuthStateState extends State<AppAuthState> {
-  late final Stream<User?> _authStream = FirebaseAuth.instance
-      .authStateChanges()
-      .asyncMap((user) async {
-        if (user == null) {
-          // user signed out, or app started with no session
-          if (_lastUid != null) {
-            // only close boxes if a user was previously logged in
-            await getIt<HiveService>().closeBox(
-              HiveBoxNames.wishlist(_lastUid!),
-            );
-            await getIt<HiveService>().closeBox(HiveBoxNames.cart(_lastUid!));
-            await getIt<HiveService>().closeBox(HiveBoxNames.order(_lastUid!));
-            await getIt<HiveService>().closeBox(HiveBoxNames.address(_lastUid!));
-          }
-          _lastUid = null;
-        } else if (user.uid != _lastUid) {
-          // new login, or switched user
-          await getIt<HiveService>().openBox(HiveBoxNames.wishlist(user.uid));
-          await getIt<HiveService>().openBox(HiveBoxNames.cart(user.uid));
-          await getIt<HiveService>().openBox(HiveBoxNames.order(user.uid));
-          await getIt<HiveService>().openBox(HiveBoxNames.address(user.uid));
-          _lastUid = user.uid;
-          // re-sync cubit state from the newly opened box
-          getIt<WishlistCubit>().loadWishlist();
-          getIt<CartCubit>().loadCart();
-          getIt<OrderHistoryCubit>().loadOrder();
-          getIt<AddressCubit>().loadAddresses();
-        }
-        return user;
-      });
+  late final Stream<User?>
+  _authStream = FirebaseAuth.instance.authStateChanges().asyncMap((user) async {
+    if (user == null) {
+      // user signed out, or app started with no session
+      if (_lastUid != null) {
+        // only close boxes if a user was previously logged in
+        await getIt<HiveService>().closeBox(HiveBoxNames.wishlist(_lastUid!));
+        await getIt<HiveService>().closeBox(HiveBoxNames.cart(_lastUid!));
+        await getIt<HiveService>().closeBox(HiveBoxNames.order(_lastUid!));
+        await getIt<HiveService>().closeBox(HiveBoxNames.address(_lastUid!));
+      }
+      _lastUid = null;
+    } else if (user.uid != _lastUid) {
+      // new login, or switched user
+      await getIt<HiveService>().openBox(HiveBoxNames.wishlist(user.uid));
+      await getIt<HiveService>().openBox(HiveBoxNames.cart(user.uid));
+      await getIt<HiveService>().openBox(HiveBoxNames.order(user.uid));
+      await getIt<HiveService>().openBox(HiveBoxNames.address(user.uid));
+      _lastUid = user.uid;
+      // re-sync cubit state from the newly opened box
+      getIt<WishlistCubit>().loadWishlist();
+      getIt<CartCubit>().loadCart();
+      getIt<OrderHistoryCubit>().loadOrder();
+      getIt<AddressCubit>().loadAddresses();
+    }
+    return user;
+  });
 
   String? _lastUid;
 
@@ -70,7 +67,7 @@ class _AppAuthStateState extends State<AppAuthState> {
       stream: _authStream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SizedBox.shrink(); 
+          return const Center(child: CircularProgressIndicator());
         }
 
         FlutterNativeSplash.remove();
