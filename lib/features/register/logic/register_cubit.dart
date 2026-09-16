@@ -34,8 +34,8 @@ class RegisterCubit extends Cubit<RegisterState> {
 
     final userRequestModel = UserRequestModel(
       name: nameController.text,
-      email: emailController.text,
-      password: passwordController.text,
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
     );
     final result = await registerRepo.createUserWithEmailAndPassword(
       userRequestModel,

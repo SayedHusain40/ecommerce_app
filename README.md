@@ -60,7 +60,8 @@ UI based on the **QuickMart – Ecommerce App UI Kit (Modern Online Shopping Exp
   <img src="assets/images/screenshots/home1.png" width="180" />
   <img src="assets/images/screenshots/home2.png" width="180" />
   <img src="assets/images/screenshots/side-bar.png" width="180" />
-  <img src="assets/images/screenshots/products.png" width="180" />
+  <img src="assets/images/screenshots/products_style1.png" width="180" />
+  <img src="assets/images/screenshots/products_style2.png" width="180" />
   <img src="assets/images/screenshots/search.png" width="180" />
   <img src="assets/images/screenshots/product-details.png" width="180" />
 </p>

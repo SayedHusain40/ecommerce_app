@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:296067030491:android:123fecda1aa1d5d8431bfe",
+        "mobilesdk_app_id": "1:296067030491:android:176d1e01cf1d0e84431bfe",
         "android_client_info": {
-          "package_name": "com.example.ecommerce_app.dev"
+          "package_name": "com.sayedhusain.quickmart.dev"
         }
       },
       "oauth_client": [
         {
-          "client_id": "296067030491-734l9rvr9etanr3k7ldl93h2uqa9klhk.apps.googleusercontent.com",
+          "client_id": "296067030491-noltgnforjmqrs95qjpnufq4pbbn7g1p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.ecommerce_app.dev",
+            "package_name": "com.sayedhusain.quickmart.dev",
             "certificate_hash": "800cb01e57f87b14032b2d489212ff98f29ad204"
           }
         },
@@ -28,7 +28,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDpDtcQNDH2sgsjT-89CHrVpA55Wj4klNU"
+          "current_key": "AIzaSyCm0InaeaKvt3QU5yU9Xb2XVlk7JNqoxC0"
         }
       ],
       "services": {

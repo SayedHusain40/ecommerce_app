@@ -30,8 +30,8 @@ class LoginCubit extends Cubit<LoginState> {
     emit(const LoginState.loginLoading());
 
     final userRequestModel = UserRequestModel(
-      email: emailController.text,
-      password: passwordController.text,
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
     );
     final result = await loginRepo.signInWithEmailAndPassword(userRequestModel);
 

@@ -1,4 +1,4 @@
-package com.example.ecommerce_app
+package com.sayedhusain.quickmart
 
 import io.flutter.embedding.android.FlutterActivity
 

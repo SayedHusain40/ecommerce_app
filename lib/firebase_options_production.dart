@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options_production.dart';
+/// import 'firebase_options.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -60,8 +60,8 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCzDMaXZuncla5Y4HuwbAMsr-q5wI2Xg88',
-    appId: '1:473958023495:android:8ab3f9f1bcce8bfa2d4c62',
+    apiKey: 'AIzaSyA7WO8xM_78CwSr9sPZCpzct-DpuhNUxZ4',
+    appId: '1:473958023495:android:29706cb71d36e9752d4c62',
     messagingSenderId: '473958023495',
     projectId: 'e-commerce-flutter-proje-f9f4a',
     storageBucket: 'e-commerce-flutter-proje-f9f4a.firebasestorage.app',

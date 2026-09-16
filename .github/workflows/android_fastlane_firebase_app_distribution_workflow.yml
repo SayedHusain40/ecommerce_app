@@ -1,3 +1,4 @@
+# This will run when push code to github, this will trigger fastlane(build app + distribute)
 name: Android Fastlane Firebase App Distribution Workflow
 on:
   push:

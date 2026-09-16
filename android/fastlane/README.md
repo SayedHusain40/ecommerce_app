@@ -21,7 +21,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane android firebase_distribution
 ```
 
-Build Flutter production APK and upload to Firebase App Distribution
+Build Flutter APK and upload to Firebase App Distribution (testers)
 
 ----
 
