@@ -3,7 +3,7 @@ class Regex {
 
   // Email validation
   static bool isEmailValid(String email) {
-    return RegExp(r'^[\w-\.]+@[a-zA-Z]+\.[a-zA-Z]+$').hasMatch(email.trim());
+    return RegExp(r'^[\w\-.+]+@[a-zA-Z]+\.[a-zA-Z]+$').hasMatch(email.trim());
   }
 
   // Strong password validation (8+ chars, uppercase, lowercase, number, special char)

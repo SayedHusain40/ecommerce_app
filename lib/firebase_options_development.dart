@@ -60,8 +60,8 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDpDtcQNDH2sgsjT-89CHrVpA55Wj4klNU',
-    appId: '1:296067030491:android:123fecda1aa1d5d8431bfe',
+    apiKey: 'AIzaSyCm0InaeaKvt3QU5yU9Xb2XVlk7JNqoxC0',
+    appId: '1:296067030491:android:176d1e01cf1d0e84431bfe',
     messagingSenderId: '296067030491',
     projectId: 'e-commerce-flutter-project-dev',
     storageBucket: 'e-commerce-flutter-project-dev.firebasestorage.app',
