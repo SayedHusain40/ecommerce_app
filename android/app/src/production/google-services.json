@@ -22,6 +22,22 @@
           }
         },
         {
+          "client_id": "473958023495-d5rrk3ovfi474ovm83p9vr3c9ktq73n6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sayedhusain.quickmart",
+            "certificate_hash": "2e5f56a26f11be5c3ba57ef2d49e4692dcdd56f2"
+          }
+        },
+        {
+          "client_id": "473958023495-gblflup77l4svdtleto340m2k10i63co.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sayedhusain.quickmart",
+            "certificate_hash": "b607a8f1acad172005dd5e83ed0bea5f6dc113b1"
+          }
+        },
+        {
           "client_id": "473958023495-iif9c856isvrlitbapia9oaj7u838us6.apps.googleusercontent.com",
           "client_type": 3
         }
