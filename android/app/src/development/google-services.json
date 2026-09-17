@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "296067030491-2dmm8pdvq6cgt22aripcer07g0g6hgb3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sayedhusain.quickmart.dev",
+            "certificate_hash": "b607a8f1acad172005dd5e83ed0bea5f6dc113b1"
+          }
+        },
+        {
           "client_id": "296067030491-noltgnforjmqrs95qjpnufq4pbbn7g1p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
